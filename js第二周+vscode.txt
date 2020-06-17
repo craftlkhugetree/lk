@@ -1,0 +1,124 @@
+ browser-sync start --server --files "css/*.css, *.html"
+
+
+我们常常会比较习惯于在元素的属性中以data-xxxx保存一些简单的数据，因此保存索引也可以这么干
+var a=document.getElementsByTagName("li");
+for(var i in a) {
+    a[i].setAttribute('data-index', i);
+}
+
+如下的HTML结构：
+
+JavaScript
+
+Java
+
+Python
+
+Ruby
+
+Swift
+
+Scheme
+
+Haskell
+
+<!-- HTML结构 -->
+<div id="test-div">
+<div class="c-red">
+    <p id="test-p">JavaScript</p>
+    <p>Java</p>
+  </div>
+  <div class="c-red c-green">
+    <p>Python</p>
+    <p>Ruby</p>
+    <p>Swift</p>
+  </div>
+  <div class="c-green">
+    <p>Scheme</p>
+    <p>Haskell</p>
+  </div>
+</div>
+
+请选择出指定条件的节点：
+
+'use strict';
+// 选择<p>JavaScript</p>:
+var js = document.getElementById('test-p');
+var js = document.querySelector('#test-p');
+
+// 选择<p>Python</p>,<p>Ruby</p>,<p>Swift</p>:
+var arr = document.getElementsByClassName('c-red')[1].children;
+var arr = document.getElementsByClassName('c-red')[1].getElementsByTagName('p');
+var arr = document.querySelectorAll('div.c-red.c-green > p');
+var arr = document.querySelectorAll('.c-red.c-green > p');
+var arr = document.querySelectorAll('div[class="c-red c-green"] > p');
+
+
+// 选择<p>Haskell</p>:
+var haskell = document.getElementsByClassName('c-green')[1].lastElementChild;
+var haskell = document.querySelectorAll('div[class="c-green"] > p')[1];
+var haskell = document.querySelectorAll('.c-green > p')[4];
+
+// 测试:
+if (!js || js.innerText !== 'JavaScript') {
+    alert('选择JavaScript失败!');
+} else if (!arr || arr.length !== 3 || !arr[0] || !arr[1] || !arr[2] || arr[0].innerText !== 'Python' || arr[1].innerText !== 'Ruby' || arr[2].innerText !== 'Swift') {
+    console.log('选择Python,Ruby,Swift失败!');
+} else if (!haskell || haskell.innerText !== 'Haskell') {
+    console.log('选择Haskell失败!');
+} else {
+    console.log('测试通过!');
+}
+
+
+有如下的HTML结构：
+
+JavaScript
+
+Java
+
+<!-- HTML结构 -->
+<div id="test-div">
+  <p id="test-js">javascript</p>
+  <p>Java</p>
+</div>
+
+请尝试获取指定节点并修改：
+'use strict';
+// 获取<p>javascript</p>节点:
+var js = document.getElementById('test-js');
+
+
+// 修改文本为JavaScript:
+// TODO:
+js.innerHTML = 'JavaScript';
+
+// 修改CSS为: color: #ff0000, font-weight: bold
+// TODO:
+js.style.color='#ff0000';
+js.style.fontWeight='bold';
+// 测试:
+if (js && js.parentNode && js.parentNode.id === 'test-div' && js.id === 'test-js') {
+    if (js.innerText === 'JavaScript') {
+        if (js.style && js.style.fontWeight === 'bold' && (js.style.color === 'red' || js.style.color === '#ff0000' || js.style.color === '#f00' || js.style.color === 'rgb(255, 0, 0)')) {
+            console.log('测试通过!');
+        } else {
+            console.log('CSS样式测试失败!');
+        }
+    } else {
+        console.log('文本测试失败!');
+    }
+} else {
+    console.log('节点测试失败!');
+}
+
+
+
+vscode：
+VsCode中，使用VIM插件后，ctrl+c不能用，可以通过 File -> Preference -> Settings中   vim.useCtrlKeys 选项设置为 false即可。
+div*3   link*3 自动三行
+alt+点击行  可以多行同时输入
+ctrl+/ 注释
+ctrl+k+f  格式化选定文档
+ctrl+shift+[  折叠部分区域

@@ -1,0 +1,321 @@
+.nav{
+    height: 30px;
+    background: #e3e4e5;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.nav-box {
+    margin: 0px auto;   /*伸缩也居中*/
+    width: 1190px;
+    text-align: right;  /*靠右*/
+}
+
+
+.nav-box ul li {
+    display: inline-block;  /*横着排*/
+    padding:0px 10px;
+    font-size: 12px;
+    height :30px;
+    line-height:30px;   /*行高也是30，就能居中*/ 
+    position:relative;
+}
+
+.nav-box ul li a{
+    color: #999999;
+    text-decoration: none;  /*消除下划线*/
+}
+
+
+.nav-box ul li:not(:last-child) :after {      /*小竖线且最后一个没有*/
+    content:"";
+    width:1px;
+    height:14px;
+    background: #cccccc;
+    position: absolute;
+    top:8px;
+    right:0px;
+    display:block;
+}
+
+.nav-box ul li a:hover{         /*变色*/
+    color: red;
+}
+
+.header-box {
+    height:140px;
+    background: white;
+}
+ 
+.header {
+    width:1190x;
+    display: flex;
+    margin: 0px auto;
+    padding: 10px 0px;
+}
+
+.header .logo-box {
+    width: 190px;
+    height: 120px;
+}
+
+.header .search-box {
+    width: 790px;
+    padding: 0px 10px;
+}
+ 
+.header .search-bar {
+    padding: 15px 0px 0px 50px;
+    display: flex;
+}
+
+.search-bar input{
+    border: 1px solid #e1251b;
+    width: 500px;
+    height: 30px;
+    padding: 2px 10px;
+    outline: none;  /*焦点时，消除浏览器默认边框颜色*/
+}
+
+.search-bar .search-btn {
+    width: 50px;
+    height: 34px;
+    border: 1px solid #e1251b;
+    background: #e1251b;
+    cursor: pointer;    /*鼠标变成手*/
+    line-height: 34px;  /*一般与块高相同，lineheight-fontsiz确定字体与块距离*/
+    text-align: center; /*放大镜居中*/
+}
+
+.search-bar .iconfont-search {
+    color:#ffffff;
+    font-size: 22px;
+    font-weight: bold;
+}
+.search-bar .cart-btn {
+    margin: 0px 0px 0px 20px;
+    width: 100px;
+    height: 34px;
+    border: 1px solid #e1251b;
+    line-height: 34px;
+    text-align: center;
+    color: #e1251b;
+    font-size: 12px;
+    cursor: pointer;    /*鼠标变成手*/
+}
+
+.header .recommend {
+    font-size: 12px;
+    padding: 5px 0px 20px 50px;
+}
+
+.header .recommend a{
+    color:#999999;
+}
+
+.search-box ul li {
+    display: inline-block;
+    padding: 0px 10px;
+}
+.search-box ul li a{
+    color:#333333;
+    text-decoration: none;
+}
+
+
+.content .wrapper {
+    margin: 0px auto;
+    width: 1190px;
+    padding: 10px;
+    display: flex;
+}
+
+.menu-box {
+    width: 190px;
+    background: #ffffff;
+    position: relative;
+    padding: 10px 0px;
+    margin-right: 10px;
+}
+
+.menu-box ul li{
+    height:25px;
+    line-height: 25px;
+    padding: 0px 12px;
+    overflow: hidden;   /*文字再长也不会冒出去，会暂时消失*/
+}
+
+.menu-box ul li:hover {
+    background : #d9d9d9;   /*鼠标划过返回灰色*/
+}
+/* .menu-box ul li:hover .sub-menu {
+    display: block; /*li hover时 sub-menu才会显示，这就是在这里用li的另一个原因*/
+/* }  */
+
+.menu-box ul li .active {
+    display: block; /*改用js的active类来控制隐藏显示*/
+} 
+.menu-box ul li a{
+    color: #333333;
+    text-decoration: none;
+}
+
+.menu-box ul li a:hover{
+    color: #e1251b;
+}
+
+.menu-box .sub-menu {
+    position: absolute;
+    top: 0px;
+    left:190px;
+    background: #ffffff;
+    z-index: 10; /*z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。*/
+    width: 900px;
+    padding: 20px;
+    font-size: 12px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    display: none;  /*隐藏显示，与li 的hover配合，后改为与active类配合*/
+}
+
+.sub-menu .left-box {
+    float: left;
+    max-width: 700px;
+}
+
+.sub-menu .right-box {
+    float: right;
+    width: 160px;
+}
+
+.sub-menu .menu-title {
+    margin: 0px 0px 10px 0px;
+}
+
+.sub-menu .menu-title .item {
+    display: inline-block;
+    background: #333333;
+    padding: 0px 8px;
+    margin: 0px 10px 0px 0px;
+    color: #ffffff;
+}
+.sub-menu .menu-title .item:hover {
+    color: #e1251b;
+}
+
+.sub-menu dl {
+    display: flex;  /*dt dd在同一行，所以如果要新的一行就要再来一个dl*/
+}
+.sub-menu dt {
+    font-weight: bold;
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;    /*保护dt不被挤扁了，0表示不压缩，那么就去压缩dd*/ 
+}
+.sub-menu dd a {
+    padding: 4px 8px 4px 8px;
+    white-space: nowrap;    /*规定一个整体中的文本不进行换行： */
+}
+
+.sub-menu .right-box {
+    float: right;
+    width: 168px;
+}
+
+.sub-menu .pic-box {
+    margin: 0px 0px 10px 0px;
+}
+
+.sub-menu .pic-box:last-child {
+    margin: 0px;    /*伪类*/
+}
+
+
+.slider-box {
+    margin-right: 10px;
+}
+
+.slider-box .slider {
+    width: 590px;
+    height: 470px;
+    position: relative;
+    overflow: hidden;/*相框，给一个元素中设置overflow:hidden，那么该元素的内容若超出了给定的宽度和高度属性，那么超出的部分将会被隐藏，不占位。*/
+}
+
+.slider-box .slider ul {
+    position: absolute;
+    top:0px;
+    left: 0px; /*若为-590为了轮播，从第二个图，即使用copyPic()函数前的第一个图开始*/
+    width: 500%; /*5倍父容器，因为5个图是横排轮播*/
+    height: 100%;
+}
+
+.slider-box .slider ul li {
+    float: left;
+}
+
+.slider-box .left-box {
+    background: rgba(0,0,0,0.2);    /*带透明的左箭头*/
+    position: absolute;
+    top: 45%;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;    /*水平居中*/
+    align-items: center;        /*竖直居中*/
+    cursor: pointer;
+}
+.slider-box .right-box {
+    background: rgba(0,0,0,0.2);    /*带透明的右箭头*/
+    position: absolute;
+    top: 45%;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;    /*水平居中*/
+    align-items: center;        /*竖直居中*/
+    cursor: pointer;
+}
+
+.slider-box .left-box , .slider-box .right-box span {   /*同时设置*/
+    font-size: 24px;
+}
+
+.slider-box .index-box {
+    position: absolute;
+    bottom: 3%;
+    left: 10%;
+}
+
+.slider-box .index-box > ol {   /*只对直属ol起作用*/
+    height: 14px;
+    display: flex;
+    justify-content: space-evenly; /*平分空间*/
+    align-items: center;
+    background: rgba(0,0,0,0.6);
+}
+
+.slider-box .index-box > ol > li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    list-style: none;
+    cursor: pointer;
+}
+.slider-box .index-box > ol > li.active{ /*小圆点变色*/
+   background: #e1251b; 
+}
+
+.ad-box {
+    margin-right: 10px;
+    width: 190px;
+}
+
+.ad-box .pic-box:not(:last-child) {
+    margin-bottom: 10px;
+    height: 150px;
+}

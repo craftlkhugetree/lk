@@ -1,0 +1,15 @@
+
+body {
+    font-size: 14px;
+    background: #f4f4f4;
+}
+
+
+.clearfix:after {
+    /*清除浮动*/
+    content: "";
+    clear: both;
+    display: block;
+    height: 0px;
+/*给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。*/
+}

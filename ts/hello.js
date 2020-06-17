@@ -1,0 +1,76 @@
+// export class Hello {
+// }
+// var content = "aaa"+"bbbb"+"ccc"
+// var str1 = `aaa
+// bbb
+// ccc`    /*1多行字符串*/
+// console.log(`hello ${myname}`)
+// console.log(`hello ${getname()}`)   /*撇号的用法，2字符串模板*/
+/*3自动拆分字符串*/
+// function test (template,name,age){
+//     console.log(template)
+//     console.log(name)
+//     console.log(age)
+// }
+// var myname = "lk"
+// var getAge = function () {
+//     return 18
+// }
+// test `hello my name is ${myname}, I'm ${getAge()}` /*字符串模板调用test方法*/
+// var myname:string ='lk' /*4参数带类型*/
+// myname =13
+// var alias  = 'xixi' /*5类型自动推定*/
+// alias = 13
+// var bb:any = "xixi"
+// function test() : void {
+// }
+// var myname:string = "lk"
+// function test3(a:string,b?:string,c:string="jo"){   /*6可选和默认参数*/
+//     console.log(a)
+//     console.log(b)
+//     console.log(c)
+// }
+// test3("xxx")
+// function func1(...args) {   /*7rest and spread*/
+//     args.forEach(function (arg){
+//         console.log(arg)
+//     })
+// }
+// func1(1,2,3)
+// func1(6,7,8,9,10)
+// /*8 generator 函数*/
+// function* doSomething(){
+//     console.log("start")
+//     yield;
+//     console.log("finish")
+// }
+// var func1 = doSomething()
+// func1.next();
+// func1.next();
+/*9 析构表达式*/
+function getStock() {
+    return {
+        code: "IBM",
+        price: {
+            price1: 200,
+            price2: 400
+        }
+    };
+}
+var stock = getStock();
+var code = stock.code; /*ES5*/
+var _a = getStock(), codex = _a.code, price1 = _a.price.price1; /*ES6,code名字必须一致，codex是别名*/
+var aa = [1, 2, 3, 4];
+var num1 = aa2[0], num2 = aa2[1]; /*数组析构*/
+var num1 = aa3[0], num4 = aa3[3];
+var num1 = aa4[0], num2 = aa4[1], others = aa4.slice(2);
+/*10 箭头表达式,消除了js this关键字的问题*/
+var myArray = [1, 3, 5, 6, 8];
+console.log(myArray.filter(function (value) { return value % 2 == 0; }));
+/*11 for...of */
+var myA = [1, 2, 3, 4];
+myA.desc = "four nums";
+for (var n in myA) {
+    console.log(n); /*for...in是输出键值对的键名字0 1 2 3 desc*/
+}
+/*for ...of 才是输出值1，2，3，4，four nums */

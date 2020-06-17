@@ -1,0 +1,19 @@
+/* 消除因为不同浏览器的默认margin不同，而带来的问题。 */
+html,body,ul,ol,li{
+    margin:0px;
+    padding:0px;
+    /*后来添加的ol使得小圆点占满格子，而不是第一个圆点距离格子左侧很远*/
+}
+
+li {
+    list-style: none;   /*消除文字前方小圆点*/
+}
+
+dl,dt,dd {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+
