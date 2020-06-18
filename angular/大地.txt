@@ -16,7 +16,8 @@ gnvm use 14.4.0
 
 ng new projectName
 npm i  安装依赖太慢，进入目录后用 cnpm install即可，依赖列表在package.json
-或者 ng new projectName --skip-install
+应该用
+ng new projectName --skip-install
 
 
 ng serve --open 编译并启动服务器
@@ -114,4 +115,11 @@ Rxjs的工具函数map filter
 12~~项目02
 news组件
 数据交互 get jsonp post
+端口域名不同会跨域，jsonp可以解决跨域问题，而post必须在服务器端允许跨域。
+地址栏测试该api是否支持jsonp，可以在地址最后加上?callback=xxx看看效果，或者是cb。
+cnpm install axios --save
+import axios from 'axios';
+
+13~~项目03
+
 
