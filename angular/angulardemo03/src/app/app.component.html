@@ -1,0 +1,19 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<h2>我是根app组件</h2>
+<header class="header">
+  <a [routerLink]="[ '/home'  ]">HomePage</a>
+  <a [routerLink]="[ '/news'  ]">News</a>
+  <a [routerLink]="[ '/product'  ]">Products</a>
+
+  <a [routerLink]="[ '/home' ]" routerLinkActive="active">HomePage1</a>
+</header>
+
+<router-outlet></router-outlet>

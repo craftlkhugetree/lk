@@ -121,5 +121,13 @@ cnpm install axios --save
 import axios from 'axios';
 
 13~~项目03
+*ng-router-link
+单页面SPA运行速度快
+路由的选中状态：*ng routerLinkActive
+
+14~~
+路由跳转传值 *ng-router-link  [queryParams]=
+跳转之后的接收， ActivedRoute，queryParams
+动态路由：配置动态路由，path增加对象的属性名，接收是params
 
 
