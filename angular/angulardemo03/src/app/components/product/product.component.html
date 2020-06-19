@@ -1,4 +1,26 @@
 <p>product works!</p>
 
+<hr/>
+<a [routerLink]="[ '/productcontent', '123' ]">货物内容</a>
+<button (click)="gotoNewsContent()">js跳转路由到商品</button>
+<br>
+<button (click)="goHome()">js跳转路由到首页</button>
 
-<button (click)="go">js跳转路由</button>
+<hr/>
+<button (click)="goNews()">get传值跳转路由</button>
+
+
+<hr/>
+<div class="content">
+    <div class="left">
+        <a [routerLink]="[ '/product/pcate' ]">fenlei</a>
+        <br>
+        <a [routerLink]="[ '/product/plist' ]">liebiao</a>
+    </div>
+
+    <div class="right">
+        <router-outlet></router-outlet>
+        
+
+    </div>
+</div>

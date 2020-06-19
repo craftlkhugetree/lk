@@ -1,1 +1,17 @@
 <p>home works!</p>
+
+<hr>
+<div class="content">
+    <div class="left">
+        <a href="#">嵌套欢迎</a>
+        <a [routerLink]="[ '/home/welcome' ]">欢迎首页嵌套</a>
+        <br>
+        <a [routerLink]="[ '/home/setting' ]">系统设置</a>
+
+    </div>
+
+    <div class="right">
+       <router-outlet></router-outlet>  <!--引入子路由网页-->
+        
+    </div>
+</div>

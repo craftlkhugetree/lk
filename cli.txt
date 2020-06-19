@@ -1,0 +1,5 @@
+alt+b   alt+d或者ctrl+k		光标回退一单词再删之
+ctrl+a	ctrl+e	光标
+ctrl+u  ctrl+k	删除
+ctrl+y	粘贴缓存
+ctrl+r	

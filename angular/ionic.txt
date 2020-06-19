@@ -1,0 +1,9 @@
+1~~
+cnpm i -g cordova ionic
+ionic start myApp tabs/blank/sidemenu
+cd myApp
+cnpm i 	安装依赖
+ionic serve  如果编译有问题，那就重新cnpm i再起服务。
+vscode安装snippet
+
+2~~ionic目录结构分析，核心文件，执行流程

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   ngOnInit(): void {
   }
 
+  gotoNewsContent(){
+    //js路由跳转 普通和动态
+    this.router.navigate(['/productcontent','123555']) 
+  }
+
+  goHome(){
+    this.router.navigate(['/home'])
+  }
+
+  goNews(){
+    //跳转并进行get传值
+    let queryParams:NavigationExtras={
+      queryParams:{'aid':123}
+    }
+    this.router.navigate(['/news'],queryParams)
+  }
 }

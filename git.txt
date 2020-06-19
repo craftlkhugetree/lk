@@ -1,0 +1,20 @@
+git branch                  # 先看一下自己在哪个分支
+git checkout -b zhangsan    # 创建一个名为zhangsan的分支
+git add 功能A.txt            # 将写好的功能A代码add
+git commit -m"功能A第一版"    # 将写好的功能A第一版代码commit
+git add 功能A.txt            # 将写好的功能A代码add
+git commit -m"功能A第二版"    # 将写好的功能A第二版代码commit
+
+
+
+
+git checkout master                                        # 回到master分支
+git merge --no-ff -m"merge 功能A with --no-ff" zhangsan     # 在master上执行merge操作
+git push origin master                                     # 推送到远程
+
+git merge 带上 --no-ff 参数会保存分支的历史信息。如果不加，merge后就看不到分支信息了。
+接下来，李四与master进行merge操作，发现可以进行merge，但是没法进行push，原因在1.2节已经说过，就是因为远程的代码有张三push的代码，而李四的本地还没有那些代码，需要先执行一下pull操作
+
+我们可以使用下面的命令，来查看一下历史commit版本
+ git log --graph --pretty=oneline --abbrev-commit
+然后我们就可以使用git reset --hard commit版本号 进行时光穿梭了
