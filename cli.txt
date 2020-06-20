@@ -3,3 +3,5 @@ ctrl+a	ctrl+e	¹â±ê
 ctrl+u  ctrl+k	É¾³ı
 ctrl+y	Õ³Ìù»º´æ
 ctrl+r	
+
+doskey /history

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>button</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+    Click me
+  </ion-button>
+
+  <ion-button color='dark' expand="full" fill="solid" shape="round">
+    color属性修改button
+  </ion-button>
+
+  <ion-button fill="clear" >
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+  <ion-button  >
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+
+
+  <ion-button size="large">
+    daxiao
+  </ion-button>
+
+  <ion-button  mode="ios" color="primary">
+    IOS mode
+  </ion-button>
+
+  <ion-button  mode="md" color="primary">
+    android mode
+  </ion-button>

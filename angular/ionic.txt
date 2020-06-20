@@ -4,6 +4,50 @@ ionic start myApp tabs/blank/sidemenu
 cd myApp
 cnpm i 	安装依赖
 ionic serve  如果编译有问题，那就重新cnpm i再起服务。
+ionic g page news
 vscode安装snippet
 
 2~~ionic目录结构分析，核心文件，执行流程
+ng g page button
+      <ion-back-button></ion-back-button>
+  <ion-button expand="block" fill="clear" shape="round"  [routerLink]="[ '/button' ]">
+
+{
+    
+	path: 'button',
+    loadChildren: () => import ('./button/button.module').then( m => m.ButtonPageModule)
+  
+}
+
+3~~页面跳转，自定义公共模板，数据渲染
+页面跳转和angular一样[routerLink]="[ '/button' ]"
+新建页面模块news ： ionic g page news
+ionic的页面由模块组成，多个模块无法共用一个组件，就需要把组件封装成模块，让模块引入。就好像ng g module modules/slide 只是生成一个模块文件，想要组件的话还要
+ng g c modules/slide
+然后在slide.module.ts里暴露SlideComponent，那么tab1引入slide模块后就可以调用该组件了。
+
+4~~UI组件，页面布局
+内置颜色
+ionic cordova platform add ios
+cordova platform rm ios
+cordova platform add ios --nofetch
+固定头部底部是ion-header ion-footer 内部的ion-toolbar。
+ion-buttons设置end,start左右位置，内部有ion-icon-only,ion-back-button defaultHref="/tabs/tab1" text="返回"  等。
+
+5~~分组列表
+ion-list,ion-item
+ion-item-divider联系人分组
+ion-avatar头像
+ion-thumbnail
+滑动列表，ion-item-sliding
+
+6~~UI Components
+ion-item-input
+ion-toggle 开关按钮
+ion-radio-group
+ion-item-checkbox
+ion-select   multiple="true" placeholder="Select Pizza"  ngmodel
+ion-textarea
+
+7~~
+轮播图组件

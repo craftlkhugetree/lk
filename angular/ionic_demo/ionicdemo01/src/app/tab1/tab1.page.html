@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-title>
       Tab 1
     </ion-title>
@@ -14,11 +14,13 @@
   </ion-header>
 
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <ion-button color="primary" expand="block" fill="clear" shape="round"  [routerLink]="[ '/news' ]">
+      跳转到news
+  </ion-button>
 
-  <ion-tab-button (click)="openCamera()">
-    <ion-icon name="camera"></ion-icon>
-    <ion-label>Photo</ion-label>
-  </ion-tab-button>
+  <ion-button color="warning" expand="block" fill="clear" shape="box"  [routerLink]="[ '/button' ]">
+    跳转到button
+  </ion-button>
 
   <ion-list>
       <ion-item>
@@ -40,4 +42,5 @@
         <ion-label>Awesome Label</ion-label>
       </ion-item>
   </ion-list>
+  <app-slide></app-slide>
 </ion-content>
