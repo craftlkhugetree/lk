@@ -1,9 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1" text="back"></ion-back-button>
+    </ion-buttons>
     <ion-title>searchbar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-searchbar placeholder="Filter Pizza" animated="true"></ion-searchbar> 
+  <ion-searchbar placeholder="请输入搜索内容" ></ion-searchbar>
+  <ion-searchbar placeholder="请输入搜索内容" type="number"></ion-searchbar>
 </ion-content>

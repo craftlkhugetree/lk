@@ -1,6 +1,6 @@
 1~~
 cnpm i -g cordova ionic
-ionic start myApp tabs/blank/sidemenu
+ionic start myApp tabs/blank/sidemenu  --skip-deps  还是用cnpm i 装依赖快
 cd myApp
 cnpm i 	安装依赖
 ionic serve  如果编译有问题，那就重新cnpm i再起服务。
@@ -49,5 +49,69 @@ ion-item-checkbox
 ion-select   multiple="true" placeholder="Select Pizza"  ngmodel
 ion-textarea
 
-7~~
-轮播图组件
+7~~8~~
+轮播图组件，搜索框，tab切换
+ion-slides  options   swiper配置
+
+<ion-slides #slide1 (ionSlideTouchEnd)="slideDidChange()" [options]="slideOpts">
+  @ViewChild('slide1') slide1
+    this.slide1.startAutoplay(
+
+ion-searchbar  animated动态
+(ionChange)="fun()"   去掉抖动,可以在chrome里看这个事件的属性，并打印其数据。
+
+ion-segment
+ <div [ngSwitch]="tab">
+    
+<div *ngSwitchCase="'tab1'">	//注意ngswitch里的选项，要"'xxx'"
+
+9~~日期组件
+ion-datetime  picker-format
+双向数据绑定 当前日期。
+import sd from 'silly-datetime'
+this.nowday= sd.format(new Date(),'YYYY-MM-DD HH:mm')
+
+pickerOptions
+汉化日期窗口，[pickerOptions]="customPickerOptions" 
+public customPickerOptions = {
+    buttons: [{
+      text:'确认',
+      handler: ()=> console.log("点击保存")
+    },{
+      text:'取消',
+      handler:()=> console.log("点击放弃")
+    }]
+  }
+
+<!-- //当文本框内容发生改变时触发，为了防止抖动（抖动的意思就是说只要改变就立即触发），可以在一个时间段内进行触发，此时用到了 debounce="500"属性 -->
+  <!-- <ion-searchbar animated placeholder="请选择日期"  debounce="500" (ionChange)="changeDate()"></ion-searchbar> -->
+  <!-- display-format="YYYY-MM--DD"是显示的格式 -->
+  <!-- picker-format="YYYY MM " 是日期控件的格式 -->
+  <!-- [pickerOptions]="customPickerOptions" ：用来汉化时间控件-->
+  <ion-list>
+    <ion-item>
+      <ion-label>请选择日期</ion-label>
+      <ion-datetime display-format="YYYY-MM" [pickerOptions]="customPickerOptions" picker-format="YYYY MM " [(ngModel)]="nowMonth"
+        (ionChange)="datetimeChange($event)"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+10~~侧边栏，底部tabs
+ion-menu
+ion-menu-toggle	点击后侧边栏消失，就像开关按钮
+ion-menu-button
+import { MenuController } from '@ionic/angular';
+constructor(private menu:MenuController) {
+    
+   }必须在这里注入，才能调用app html里的menuId
+ openSlideMenu(){
+    this.menu.open('first')
+侧边栏必须加contentId：
+<ion-router-outlet id="menu-content"></ion-router-outlet>否则无法拖拽事件。
+
+tabs和路由
+ [routerDirection]="'root'"  动的是侧边栏，不加这一句的话，动的是页面。
+
+11~~增加自定义主题颜色 theme文件夹
+修改标签ion-button的颜色反色，修改自定义标签的color，background等等选项。。
+i-color

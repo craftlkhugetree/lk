@@ -1,9 +1,39 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1" text="back"></ion-back-button>
+    </ion-buttons>
     <ion-title>slides</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
+  <ion-slides #slide1 (ionSlideTouchEnd)="slideDidChange()" [options]="slideOpts">
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/1.PNG" alt="1">
+    </ion-slide>
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/2.PNG" alt="2">
+    </ion-slide>
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/3.PNG" alt="3">
+    </ion-slide>
+  </ion-slides>
+
+  <ion-slides #slide2 mode="ios" pager="ios" scrollbar="ios" [options]="slideOpts">
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/1.PNG" alt="1">
+    </ion-slide>
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/2.PNG" alt="2">
+    </ion-slide>
+    <ion-slide>
+      <h1>Awesome Slide Content</h1><img src="/assets/3.PNG" alt="3">
+    </ion-slide>
+  </ion-slides>
+
+  <ion-button (click)="slideNext()" expand="block" fill="clear" shape="round">
+    点击跳转下一页
+  </ion-button>
 </ion-content>

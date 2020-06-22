@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1" text="back"></ion-back-button>
+    </ion-buttons> 
     <ion-title>segment</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="tab1">
+      <ion-label>Pizza</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="tab2">
+      <ion-label>Pasta</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="tab3">
+      <ion-label>Pi32zza</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'tab1'">
+      fdsfaf1
+    </div>
+    <div *ngSwitchCase="'tab2'">
+      fdss2
+    </div>
+    <div *ngSwitchCase="'tab3'">
+      fdss33
+    </div>
+    <div *ngSwitchDefault>
+      dfd333
+    </div>
+  </div>
+  {{tab}}
+  
 </ion-content>

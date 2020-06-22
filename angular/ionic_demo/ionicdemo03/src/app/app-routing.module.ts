@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'segment',
     loadChildren: () => import('./segment/segment.module').then( m => m.SegmentPageModule)
+  },
+  {
+    path: 'datetime',
+    loadChildren: () => import('./datetime/datetime.module').then( m => m.DatetimePageModule)
   }
 ];
 @NgModule({

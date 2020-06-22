@@ -12,4 +12,5 @@ export class SegmentPage implements OnInit {
   ngOnInit() {
   }
 
+  public tab = 'tab1'
 }
