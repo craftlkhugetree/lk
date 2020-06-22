@@ -1,4 +1,4 @@
-vscode 	为了使用ctrl键在用户设置输入   "vim.useSystemClipboard": true,
+vscode 	为了使用ctrl键要在用户设置输入   "vim.useSystemClipboard": true,
 ciw 	剪切光标位置所在的单词，并输入。
 cw 	剪切光标位置所在的单词剩余部分，并输入。
 dw	只剪切，还在normal模式
