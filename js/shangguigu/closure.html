@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>closure</title>
+</head>
+<body>
+    <script type="text/javascript" src='bibao.js'></script>
+    <script>
+        var f =fn1()
+        f()
+        var mm = myModule()
+        mm.doSomething()
+        mm.doOtherthing()
+        var ff= bigfn()
+        ff()
+        ff = null   //让内部函数成为垃圾对象，回收闭包，防止内存泄露
+
+        var obj={}
+        for(var i=0;i<10000;i++){
+            //obj[i] = new Array(10000000)
+        }
+    </script>
+    
+</body>
+</html>
