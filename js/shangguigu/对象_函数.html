@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象</title>
+</head>
+<body>
+    1.属性：属性名(字符串)和属性值（任意）
+    <hr/>
+    2.方法：一种特别的属性（属性值是函数）
+    <hr/>
+    3.如何访问对象内部数据？  obj.属性名 有时不能用； obj['属性名'] 通用
+    （1）属性名包含特殊字符：- 空格
+    （2）变量名不确定
+    <hr/>
+    4.如何调用函数
+    （1）test() 直接调用
+    （2）obj.test() 通过对象调用
+    （3）new test() 通过new调用
+    （4）test.call/apply(obj)   临时让任意一个函数，比如test，成为obj的方法
+    <hr/>
+    5.什么是回调函数
+    （1）你定义的
+    （2）你没调用
+    （3）但它最终执行了(在某个时刻或条件下)
+    <hr/>
+    6.常见回调函数
+    （1）dom事件回调函数
+    （2）定时器回调函数
+    （3）Ajax请求回调函数
+    （4）生命周期回调函数
+    <button id="btn">测试回调函数</button>
+
+    <script>
+        var p = {}
+        //给p增加一个属性 content-type:text/json
+        //p.content-type = 'text/json'  报错
+        p['content-type']='text/json'
+
+        var propName = 'myAge'
+        var value = 18
+        p.propName = value  //到底属性名是哪个？
+        p[propName] = value
+        console.log(p,p.propName,p[propName])
+
+        document.getElementById('btn').onclick = function(){
+            alert(this.innerHTML)   //this就是这个'btn'
+        }
+
+        setTimeout(function(){  //window
+            alert('Time is up!'+this)    //this是Window对象 Window 注意大写
+        },2000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IIFE</title>
+</head>
+<body>
+    Immediately-Invoked Function Expression
+    <hr/>
+    IIFE的作用：隐藏实现，不会污染全局的命名空间，匿名函数自调用（编写js模块）
+
+
+    <script>
+        //一行开头是括号或方括号时，加上分号。
+        //把多个js文件合并压缩时，为了合并没问题，可在行首加分号；压缩会去掉注释，会把变量名函数名进行处理。
+        ;(function(){
+            console.log('匿名函数自调用')
+            var a=3
+            console.log(a+3,"防止污染全局变量")
+        })()
+
+        var x=3
+        ;(function(){   //如果没有这个分号就错误理解为 var x=3(function(){})
+        })()
+
+        var y=4
+        ;[13].forEach(function(){  //若无分号就错理解为 var y=4[13].forEach(function(){})
+        })
+
+        ;(function(){
+            var a=1
+            function test(){
+                console.log(a++)
+            }
+            window.$ = function(){  //向外暴露一个全局函数
+                return {
+                    test : test
+                }
+            }
+        })()
+/*一个 JavaScript 标识符必须以字母、下划线（_）或者美元符号（$）开头；后续的字符也可以是数字（0-9）。因为 JavaScript 语言是区分大小写的，
+所以字母可以是从“A”到“Z”的大写字母和从“a”到“z”的小写字母。*/
+        $().test()  //1 $()返回的是一个对象，该对象有个方法叫test
+    </script>
+    
+</body>
+</html>
