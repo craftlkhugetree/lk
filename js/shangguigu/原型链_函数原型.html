@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链</title>
+</head>
+<body>
+    1.每个函数都有个prototype属性，即显式原型（属性），它默认指向一个空Object实例对象（原型对象），
+    空对象没有我们的属性。
+    <hr/>
+    2.原型对象中有一个属性constructor，它指向函数本身。
+    <hr/>
+    3.函数的所有实例对象都自动拥有原型中的属性（方法），利用prototype给原型对象添加属性（方法）。
+    <hr/>
+    4.每个实例对象都有一个__proto__，称为隐式原型（属性）。
+    <hr/>
+    5.函数的prototype属性：在定义函数时自动添加，默认值为空Object对象；<br>
+    对象的__proto__属性：创建对象时自动添加，默认值为构造函数的prototype；<br>
+    程序员能直接操作显式原型，但不能直接操作隐式原型（ES6之前）
+    <img src="funyuanxing.jpg"/>
+    6.**********prototype给原型对象添加方法f后，函数对象实例内是没有f的，所以找到__proto__，再找到原型对象。
+    这就是通过实例调用原型的方法。
+    <hr/>
+    7.原型链：访问一个对象属性时，先在自身属性中找，找到返回；<br>
+    如果没有，再沿着__proto__这条链向上查找，找到返回；如果最终没找到，返回undefined
+    <br>
+    别名：隐式原型链<br>
+    作用：查找对象的属性（方法）<br>
+    构造函数的实例对象自动拥有构造函数原型对象的属性，利用的就是原型链。
+    <img src="yuanxinglian.jpg" /><hr/>
+    8. function Foo(){}  相当于   var Foo= new Function()
+    <br>
+    而Function = new Function()是唯一的情况，自身的隐式和显示相同。<br>
+    所有实例的__proto__都是一样的，因为都是new Function()产生的，是Function的prototype
+    <hr/>
+    9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足）。
+    <hr/>
+    10.所有函数都是Function函数的实例，包括Function也是它自身的实例。
+ 
+
+
+
+    <script>
+        console.log(Object.prototype)
+        console.log(Object.prototype.__proto__) //null
+
+        console.log(Date.prototype)
+        //2.原型对象中有一个属性constructor，它指向函数本身。
+        console.log(Date.prototype.constructor === Date)    //true
+
+
+        function Fun(){ //内部语句:this.prototype = {}
+
+        }
+        Fun.prototype.test = function(){
+            console.log('test()')
+        }
+        var fun =new Fun()  //内部语句:this.__proto__ = Fn.prototype
+        fun.test()
+
+
+        //5.对象的隐式原型的值为其构造函数的显式原型的值,保存的都是地址值，指向原型对象
+        console.log(Fun.prototype===fun.__proto__)  //true
+
+        //7.原型链
+        function My(){
+            this.test1 = function(){
+                console.log('test1()')
+            }
+        }
+        My.prototype.test2 = function(){
+            console.log('test2()')
+        }
+
+        var my = new My()
+        my.test1()
+        my.test2()
+        console.log(my.toString())
+        //my.test3()  //TypeError: my.test3 is not a function
+        console.log(my.test3)   //undefined
+    //8.
+        console.log(Function.__proto__ === Function.prototype)  //true
+    //9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足）。
+        console.log(My.prototype instanceof Object) //true
+        console.log(Object.prototype instanceof Object) //false
+        console.log(Function.prototype instanceof Object)   //true
+
+
+    </script>
+    
+</body>
+</html>

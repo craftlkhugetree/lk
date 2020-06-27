@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instanceof</title>
+</head>
+<body>
+
+    1.如果 A instanceof B；函数B的显示原型在实例对象A的（隐式）原型链上，那么返回true。
+    <hr>
+    2.Function是 new自己 产生的。<br>
+    9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足）。
+    <hr/>
+    10.所有函数都是Function函数的实例，包括Function也是它自身的实例。
+
+    <script>
+
+        function Foo(){ }
+        var f1 = new Foo()
+        console.log(f1 instanceof Foo)      //true
+        console.log(f1 instanceof Object)   //true
+
+        console.log(Object instanceof Function) //true
+        console.log(Object instanceof Object)   //true
+        console.log(Function instanceof Function)   //true
+        console.log(Function instanceof Object )    //true
+
+        function Foo(){}
+        console.log(Object instanceof Foo)  //false
+
+        //面试题1
+        var A = function(){}
+        A.prototype.n = 1
+        var b = new A()
+        A.prototype = { //A.prototype断掉原型对象，指向这个新的
+            n:2,
+            m:3,
+        }
+        var c = new A()
+        console.log(b.n,b.m,c.n,c.m)    //1,undefined,2,3   b.m顺着原型链指到A.prototype断掉的那个，它没有m属性
+        
+
+        //面试题2
+        var F = function(){}
+        Object.prototype.a = function(){
+            console.log('a()')
+        }
+        Function.prototype.b = function(){
+            console.log("b()")
+        }
+        var f = new F()
+        f.a()   //a()   此处f是实例__proto__，F()原型对象prototype是Object实例对象，能看到Object原型对象的方法
+        // f.b()   //TypeError: f.b is not a function
+        F.a()   //a()   此处F是实例__proto__，其原型对象为Function prototype,作为一个实例__proto__为Object prototype
+        F.b()   //b()
+        console.log(f,Object.prototype)
+        console.log(Function.prototype) //函数 () { [native code] }
+
+
+    </script>
+    
+</body>
+</html>

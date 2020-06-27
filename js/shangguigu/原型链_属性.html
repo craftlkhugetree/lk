@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链属性</title>
+</head>
+<body>
+    1.读取对象属性值时才去看原型链。<hr>
+    2.设置对象属性值时，不会查找原型链。如果对象中没有此属性，直接添加此属性并设置值。
+    <hr>
+    3.方法一般定义在原型中，属性一般通过构造函数定义在对象本身。
+    
+    <script>
+        function Fn(){
+
+        }
+        Fn.prototype.a = 'xxx'
+        var fn1 = new Fn()
+        console.log(fn1.a,fn1)
+
+        var fn2 = new Fn()
+        fn2.a = 'yyy'
+        console.log(fn1.a,fn2.a)  //xxx yyy 读取对象属性值时才去看原型链
+        console.log(fn2)
+
+        function Person(name,age){
+            this.name=name
+            this.age=age
+        }
+        Person.prototype.setName = function(name){
+            this.name=name
+        }
+        var p1 = new Person('Tom',12)
+        p1.setName('Bob')
+        var p2 = new Person('Jack',3)
+        p2.setName('CC')
+        console.log(p1,p2)
+        console.log(p2.__proto__ instanceof Object)     //true
+        console.log(Person.prototype===p2.__proto__)    //true
+        console.log(Person.prototype)
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量提升与函数提升</title>
+</head>
+<body>
+    1.通过var 定义（声明）的变量（函数），在定义语句前就可以访问到，值为undefined
+    <hr>
+    2.通过function声明的函数，在之前就可以调用，值为函数定义（对象）
+
+
+    <script>
+        var a = 3
+        function test1(){
+            console.log(a)
+            var a = 4
+        }
+        test1() //undefined 实际上是var a;变量提升，再 a=4留在原地
+
+        console.log(b)  //undefined
+        var b = 3
+
+        fn2()   //fn2   函数提升
+        //fn3()   //TypeError: fn3 is not a function，变量提升
+
+        function fn2(){ //通过function声明的函数，在之前就可以直接调用
+            console.log("fn2()")
+        }
+        var fn3=function(){
+            console.log("fn3()")
+        }
+
+    </script>
+    
+</body>
+</html>
