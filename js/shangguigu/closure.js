@@ -1,5 +1,5 @@
 
-// 1.闭包是包含被引用变量（函数）的对象。
+// 1.闭包是包含被引用变量（函数）的对象。这个理解比“闭包是嵌套的内部函数”要好。
 // 产生条件：函数嵌套；内部函数引用了外部函数的数据（变量或函数）；调用外部函数时执行了内部函数定义才会产生新的闭包（不需要调用内函）。
 
 // 2.常见的闭包
@@ -44,7 +44,7 @@ function myModule(){
     function doOtherthing(){
         console.log(msg+'other')
     }
-    return {    //利用对象这种容器，向外暴露方法
+    return {    //利用对象这种容器，向外暴露方法，调用时要先 var m = myModule()
         doSomething: doSomething,
         doOtherthing: doOtherthing,
     }
@@ -58,15 +58,16 @@ function myModule(){
     function doOtherthing(){
         console.log(msg)
     }
-    window.myModule2 = {    //添加为window的属性，来匿名函数自调用
+    window.myModule2 = {    //添加为window的属性，向外暴露，来匿名函数自调用,调用时直接myModule2.doSometing()
         doSomething: doSomething,
         doOtherthing: doOtherthing,
     }
 })()    //代码压缩的前提是指明参数名，比如function(window),window会被压缩为w
 
-// (function(window){
+// (function(w){
 //     ...;
-// })(window)
+//     w.myModule2
+// })(w)
 
 // 6.闭包的缺点及解决办法
 // （1）缺点：函数执行完后，函数内部的局部变量没有释放，占用内存时间长；容易造成内存泄露。
@@ -87,3 +88,43 @@ function bigfn(){
 // 没及时清理计时器或回调函数 var intervalId=setInterva() 后没有 clearInterval(intervalId)
 
 // 对象的方法是嵌套函数，且返回值为函数的，那就就要var that=this  用that来保存对象的this再调用对象属性，直接this指向的是全局window
+
+
+//测试1
+var name = "The Window";
+var object = {
+    name : 'my object',
+    getNameFunc: function(){
+        return function(){
+            return this.name    //无闭包
+        }   
+    }
+}
+alert(object.getNameFunc()())   //The Window    第一个括号结束后得到一个函数，再执行this就是window了。
+
+//测试2
+var name2 = "The Window2";
+var object2 = {
+    name2 : 'my object2',
+    getNameFunc: function(){
+        var that = this;        //存了this，指向object2
+        return function(){
+            return that.name2   //有闭包
+        }
+    }
+}
+alert(object2.getNameFunc()())  //my object2
+
+
+//测试3
+function fun(n,o){
+    console.log(o)
+    return {
+        fun:function(m){
+            return fun(m,n);
+        }
+    }
+}
+var a = fun(0); a.fun(1);   a.fun(2);   a.fun(3);   //undefined 0 0 0
+var b = fun(0).fun(1).fun(2).fun(3);    //undefined 0 1 2
+var c = fun(0).fun(1);  c.fun(2);   c.fun(3);   //undefined 0 1 1 3

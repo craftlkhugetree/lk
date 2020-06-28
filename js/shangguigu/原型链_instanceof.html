@@ -7,12 +7,13 @@
 </head>
 <body>
 
-    1.如果 A instanceof B；函数B的显示原型在实例对象A的（隐式）原型链上，那么返回true。
+    1.如果 A instanceof B；函数B的显式原型在实例对象A的（隐式）原型链上，那么返回true。
     <hr>
     2.Function是 new自己 产生的。<br>
-    9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足）。
+    9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足，指向null）。
     <hr/>
-    10.所有函数都是Function函数的实例，包括Function也是它自身的实例。
+    10.所有函数都是Function函数的实例，包括Function也是它自身的实例。<hr>
+    11.函数的隐式和显示一般是不同的，唯一例外是Function。
 
     <script>
 

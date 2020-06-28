@@ -5,8 +5,41 @@
     <title>closure</title>
 </head>
 <body>
-    <script type="text/javascript" src='bibao.js'></script>
+    <button>测试1</button>
+    <button>测试2</button>
+    <button>测试3</button>
+    <script type="text/javascript" src='closure.js'></script>
     <script>
+        var btns = document.getElementsByTagName('button')
+        //遍历加监听
+
+        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+            var btn = btns[i]
+            btn.onclick = function(){
+                alert('num'+(i+1)+'个') //不触发，i全为3了
+            }
+        }
+
+        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+            var btn = btns[i]
+            btn.index = i    //没有这一句，i全部为3
+            btn.onclick = function(){
+                alert('num'+(this.index+1)+'个')
+            }
+        }
+
+        //匿名函数自调用，利用闭包
+        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+            ;(function(i){  //局部i
+                var btn = btns[i]
+                btn.onclick = function(){
+                    alert(i+1)
+                }
+            })(i)   //这是一个全局i
+        } 
+
+
+
         var f =fn1()
         f()
         var mm = myModule()

@@ -34,9 +34,11 @@
     而Function = new Function()是唯一的情况，自身的隐式和显示相同。<br>
     所有实例的__proto__都是一样的，因为都是new Function()产生的，是Function的prototype
     <hr/>
-    9.函数的显式原型，它默认指向一个空Object实例对象（但Object不满足）。
+    9.函数的显式原型，它默认指向一个空Object实例对象（但Object指向null）。
     <hr/>
     10.所有函数都是Function函数的实例，包括Function也是它自身的实例。
+    <hr>
+    11.执行函数定义时创建了函数对象，但是还没有执行函数（加括号才执行）。
  
 
 
@@ -56,7 +58,7 @@
         Fun.prototype.test = function(){
             console.log('test()')
         }
-        var fun =new Fun()  //内部语句:this.__proto__ = Fn.prototype
+        var fun =new Fun()  //内部语句:this.__proto__ = Fun.prototype
         fun.test()
 
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域</title>
+</head>
+<body>
+    1.作用域是一个代码段所在的区域，是静态的（相对于上下文对象），在编写代码时就确定了。
+    <hr>
+    2.分类：全局、局部、没有块作用域（比如if语句）<br>
+    3.作用：隔离变量，不同作用域的同名变量不冲突。
+    <hr>
+    4.全局执行上下文是在全局作用域确定后，js代码马上执行之前创建；<br>
+    函数执行上下文是在调用函数时，函数体代码执行之前创建。<br>
+    上下文环境（对象）是动态的，自动释放，从属于所在的作用域。
+    <script>
+        if(false){  //没有块作用域
+            var c = 3
+        }
+        console.log(c)  //undefined
+        //console.log(cc) //ReferenceError: cc is not defined 
+
+        var a=10,b=20;
+        function fn(x){
+            var a=100,c=300;
+            console.log('fn()',a,b,c,x)
+            function bar(x){
+                var a=1000,d=400;
+                console.log('bar()',a,b,c,d,x)
+            }
+            bar(100)    
+            bar(200)
+        }
+        fn(10)
+        /*  fn() 100 20 300 10
+            bar() 1000 20 300 400 100
+            bar() 1000 20 300 400 200   */
+
+        //测试1
+        var x = 10
+        function fnn(){
+            console.log(x)
+        }
+        function show(f){
+            var x = 20
+            f()
+        }
+        show(fnn)   //10    作用域在代码写完就确定了
+
+        //测试2
+        var fnm = function(){
+            console.log(fnm)     //ƒ (){console.log(fnm)}
+        }
+        fnm()  
+        var obj = {
+            fn2: function(){
+                //console.log(fn2)    //没有this，所以ReferenceError: fn2 is not defined
+            }
+        }
+        obj.fn2()
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链继承</title>
+</head>
+<body>
+    
+    <script>
+        //父类型
+        function Super(){
+            this.supProp = 'Super property'
+        }
+        Super.prototype.showSuperProp = function(){
+            console.log(this.supProp)
+        }
+        //子类型
+        function Sub(){
+            this.subProp = 'Sub property'
+        }
+        Sub.prototype.showSubProp = function(){
+            console.log(this.subProp)
+        }
+        var sub = new Sub()
+        //sub.showSuperProp()   //TypeError: sub.showSuperProp is not a function
+        sub.toString()  //这是Object的方法
+    </script>
+</body>
+</html>

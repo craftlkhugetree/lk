@@ -24,6 +24,10 @@
     （3）在函数执行上下文创建后，压栈；<br>
     （4）在当前函数执行完后，将栈顶的对象移除，出栈；<br>
     （5）当所有代码执行完后，栈中只剩window
+    <hr>
+    5.栈后进先出，队列先进先出。
+    <hr>
+    6.用var定义的全局变量才会被收集，用于上下文。
 
     <script>
         console.log(a1,window.a1)   //undefined undefined
@@ -55,6 +59,26 @@
             console.log(a+c+y)
         }
         bar(10) //30    栈底一定是window
+
+        //测试1
+        function z(){}
+        var z;
+        console.log(typeof z)   //'function'    谁先提升呢？变量提升
+
+        //测试2
+        if (!(axx in window)){  //全局代码，因为if不是函数，所以var axx;提升
+            var axx = 1;   //若注销这句，那么ReferenceError: axx is not defined
+        }
+        console.log(axx,window)  //undefined
+
+        //测试3
+        var y = 1
+        function y(y){
+            console.log(y)
+        }
+        //y(2)    //TypeError: y is not a function
+        //提升之后实际变为 var y; function y(y){}; y=1;y(2)
+        
     </script>
     
 </body>
