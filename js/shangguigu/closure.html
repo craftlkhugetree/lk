@@ -28,14 +28,14 @@
             }
         }
 
-        //匿名函数自调用，利用闭包
+        //匿名函数自调用，利用闭包。外部函数被调用多次，产生了多个闭包。
         for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
-            ;(function(i){  //局部i
-                var btn = btns[i]
-                btn.onclick = function(){
-                    alert(i+1)
+            ;(function(j){  //局部j
+                var btn = btns[j]
+                btn.onclick = function(){   //按钮在页面关闭前不会释放，所以闭包不会释放
+                    alert(j+1)
                 }
-            })(i)   //这是一个全局i
+            })(i)   //这是一个全局i，括号表示调用。
         } 
 
 
@@ -51,7 +51,7 @@
 
         var obj={}
         for(var i=0;i<10000;i++){
-            //obj[i] = new Array(10000000)
+            //obj[i] = new Array(10000000)  //内存溢出 Paused before potential out-of memory crash.
         }
     </script>
     

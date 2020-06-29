@@ -6,25 +6,76 @@
     <title>原型链继承</title>
 </head>
 <body>
-    
+    1.原型链继承，得到方法。<hr>
+    2.借用构造函数继承（假的）,没有继承，只是简化了代码。<br>
+    （1）定义父类型构造函数；（2）定义子类型构造函数；（3）在子类型构造中调用父类型构造
+    <br>在子类型构造函数中通用call()调用父类型构造函数<hr>
+    3.原型链+借用构造函数  组合继承<br>
+    （1）利用原型链实现对父类型对象的方法继承<br>
+    （2）利用call()借用父类型构造函数初始化相同属性<hr>
+    4.new一个对象背后做了什么：<br>
+    （1）创建一个空对象；<br>
+    （2）给对象设置__proto__，值为构造函数对象的prototype;<br>
+    （3）执行构造函数体（给对象添加属性/方法）
     <script>
         //父类型
-        function Super(){
-            this.supProp = 'Super property'
+        function Supper(){
+            this.supProp = 'Supper property' //写死了，不是把属性作为参数传给Supper了
         }
-        Super.prototype.showSuperProp = function(){
+        Supper.prototype.showSupperProp = function(){
             console.log(this.supProp)
         }
         //子类型
         function Sub(){
             this.subProp = 'Sub property'
         }
+        Sub.prototype = new Supper()   //1.子类型的原型要成为父类型的实例对象
+
+//让子类型的原型的constructor指向子类型，若没有这一句就指向Object实例对象了
+        Sub.prototype.constructor = Sub
         Sub.prototype.showSubProp = function(){
             console.log(this.subProp)
         }
+        //var sub = new Sub()
+        //sub.showSupperProp()   //TypeError: sub.showSupperProp is not a function
+        //sub.toString()  //这是Object原型的方法,必然可以
+
+       
+        
         var sub = new Sub()
-        //sub.showSuperProp()   //TypeError: sub.showSuperProp is not a function
-        sub.toString()  //这是Object的方法
+        //sub.__proto__ = new Supper()     //或者实例的隐式指向父类型的实例对象
+        sub.showSupperProp()
+        console.log(sub.constructor)    //ƒ Supper(){this.supProp = 'Supper property'}
+        console.log(sub)
+
+        //2.借用构造函数继承（假的）
+        function Person(name,age){
+            this.name = name
+            this.age = age
+        }
+        function Student(name,age,price){
+            //相当于 this.Person(name,age),但是没有Person方法啊，只能用call()来获得属性。
+            Person.call(this,name,age) 
+            this.price = price
+        }
+        var s = new Student('lk',20,13000)  //this 是s
+        console.log(s.name,s.age,s.price)
+
+        //3.原型链+借用构造函数  组合继承
+        Person.prototype.setName = function(name){
+            this.name=name
+        }
+
+        Student.prototype = new Person()    //真正的继承，为了看到父类型的方法
+        Student.prototype.constructor = Student //修正
+        Student.prototype.setPrice = function(price){
+            this.price = price
+        }
+
+        var ss = new Student('tom',33,5000)
+        ss.setName('bob')
+        ss.setPrice(9000)
+        console.log(ss)
     </script>
 </body>
 </html>

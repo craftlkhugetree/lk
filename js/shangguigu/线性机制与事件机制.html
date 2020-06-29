@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线程_进程_轮询</title>
+</head>
+<body>
+    1.线程是进程内的一个独立执行单元，是程序执行的一个完整流程，是cpu的最小调度单元。<hr>
+    2.应用程序必须运行在某进程的某个线程上，一个进程至少有一个主线程（进程启动后自动创建）<hr>
+    3.一个进程中的数据可供其中的多个线程共享，但多个进程间的数据不能直接共享。<hr>
+    4.线程池：保存多个线程对象的容器，实现线程对象的反复利用。<hr>
+    5.多线程优点：提高cpu利用率；缺点：创建多线程开销、线程间切换开销、死锁与状态同步问题。<hr>
+    6.单线程优点：顺序编程简单易懂；缺点：效率低。<hr>
+    7.JS是单线程的。但使用H5中的Web Workers可以多线程运行。<br>
+    假设1000个人要注册用户，注册时要先检查用户名，这个事情如果交给服务器干，就太浪费了，完全可以让浏览器检查用户名，<br>
+    所以在浏览器端诞生了js脚本（可有可无）。<hr>
+    8.浏览器都是多线程的，其中firefox和老IE是单进程，chrome和新IE是多进程。<hr>
+    9.内核，Chrome，Safari：webkit；firefox：Gecko；IE：Trident（钱）；360：Trident+webkit
+    <hr>
+    10.浏览器模块：
+    （1）主线程：js引擎模块（js代码）负责js程序的编译运行；<br>
+    html,css文档解析模块；DOM/CSS模块负责dom/css在内存中的相关处理，标签变成对象；布局和渲染模块，根据内存中的对象；<br>
+    （2）分线程：定时器模块；事件响应模块；网络请求模块负责ajax请求。。。
+    <hr>
+    11.定时器并不保证真正定时执行，一般会延迟一点，也有可能延迟很久。定时器回调函数在主线程执行。事件循环模型。
+
+    <button id="btn" font-size="30">click</button>
+    <script>
+        document.getElementById('btn').onclick = function(){
+
+        var start = Date.now()
+        console.log('Begin to lanch')
+        setTimeout(function(){
+            console.log('action',Date.now()-start)
+        },200)
+        console.log('Done')
+
+        //做一个长时间工作
+        for(var i=0;i<1000000000;i++){
+
+        }
+
+    }
+
+
+
+
+    </script>
+    
+</body>
+</html>

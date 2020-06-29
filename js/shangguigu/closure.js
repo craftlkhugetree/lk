@@ -1,5 +1,5 @@
-
 // 1.闭包是包含被引用变量（函数）的对象。这个理解比“闭包是嵌套的内部函数”要好。
+// 注意：闭包存在于嵌套的内部函数中。
 // 产生条件：函数嵌套；内部函数引用了外部函数的数据（变量或函数）；调用外部函数时执行了内部函数定义才会产生新的闭包（不需要调用内函）。
 
 // 2.常见的闭包
@@ -24,7 +24,7 @@ function showDelay(msg,time){   //只有msg产生了闭包
         alert(msg)
     },time)
 }
-showDelay('hello',2000)
+showDelay('常见闭包setTimeout:2s',2000)
 
 // 3.闭包的作用
 // （1）函数的内部变量在函数执行完成后，仍然存活在内存中（延长了局部变量的生命周期）
@@ -35,7 +35,7 @@ showDelay('hello',2000)
 // （2）死亡：在嵌套的内部函数成为垃圾对象时
 
 // 5.closure的应用
-// （1）自定义模块
+// （1）自定义模块,就是一个具有特定功能的js文件。封装在函数内，数据私有，向外暴露方法。
 function myModule(){
     var msg='hello'
     function doSomething(){
@@ -50,7 +50,7 @@ function myModule(){
     }
 }
 
-(function(){    //myModule2.js
+;(function(){    //myModule2.js
     var msg='hello'
     function doSomething(){
         console.log(msg)
@@ -87,7 +87,7 @@ function bigfn(){
 // 常见的泄露：意外的全局变量 局部变量不用var声明，直接赋值；闭包；
 // 没及时清理计时器或回调函数 var intervalId=setInterva() 后没有 clearInterval(intervalId)
 
-// 对象的方法是嵌套函数，且返回值为函数的，那就就要var that=this  用that来保存对象的this再调用对象属性，直接this指向的是全局window
+// 对象的方法是嵌套函数，且返回值为函数的，那就要var that=this  用that来保存对象的this再调用对象属性，直接this指向的是全局window
 
 
 //测试1
@@ -100,7 +100,7 @@ var object = {
         }   
     }
 }
-alert(object.getNameFunc()())   //The Window    第一个括号结束后得到一个函数，再执行this就是window了。
+alert('测试1：'+object.getNameFunc()())   //The Window    第一个括号结束后得到一个函数，再执行this就是window了。
 
 //测试2
 var name2 = "The Window2";
@@ -113,7 +113,7 @@ var object2 = {
         }
     }
 }
-alert(object2.getNameFunc()())  //my object2
+alert('测试2：'+object2.getNameFunc()())  //my object2
 
 
 //测试3
@@ -125,6 +125,16 @@ function fun(n,o){
         }
     }
 }
-var a = fun(0); a.fun(1);   a.fun(2);   a.fun(3);   //undefined 0 0 0
+console.log('测试3，第二个参数一直没值所以undefined')
+var a = fun(0);     //a是个对象了,产生闭包
+a.fun(1);   //调用fun(1,0)   新闭包产生并很快消失，因为没有var xx = a.fun(1)来保存
+a.fun(2);   
+a.fun(3);   
+//undefined 0 0 0
+
 var b = fun(0).fun(1).fun(2).fun(3);    //undefined 0 1 2
-var c = fun(0).fun(1);  c.fun(2);   c.fun(3);   //undefined 0 1 1 3
+
+var c = fun(0).fun(1);  
+c.fun(2);   
+c.fun(3);   //undefined 0 1 1
+console.log('测试3结束')

@@ -15,6 +15,10 @@
     函数执行上下文是在调用函数时，函数体代码执行之前创建。<br>
     上下文环境（对象）是动态的，自动释放，从属于所在的作用域。
     <script>
+        console.log(zzz)    //VM171:1 Uncaught ReferenceError: zzz is not defined
+        console.log(window.zzz) //undefined
+
+
         if(false){  //没有块作用域
             var c = 3
         }
