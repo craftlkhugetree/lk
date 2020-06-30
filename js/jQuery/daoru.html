@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="jquery-1.12.4.js"></script>
+    <!-- <script src='../jquery-1.12.4.min.js'></script> -->
+    
+    <script>
+        //window.onload = function(ev){}
+        $(document).ready(function(){   //DOM is ready!!! 等待DOM已加载，入口函数的第一种方式
+            alert('hhhello')
+        })
+        //console.log(liveServer.settings.root)
+
+        $(function(){   //js原生的load事件更全，而jQ的DOM已加载是一部分核心已加载，入口函数的第二种方式。
+            console.log(this)   //#document
+        })
+    </script>
+    
+</head>
+<body>
+    <div id="a">
+        id=a<p>p tag</p>
+        <p>p tag</p>
+        <p><span></span><span>2rd span</span></p>
+        <p>p tag</p>
+    </div>
+    <div id='b'>
+        id=b
+    </div>
+    <div class="c">
+        class=c
+    </div>
+
+    <script src="daoru.js"></script>
+</body>
+</html>

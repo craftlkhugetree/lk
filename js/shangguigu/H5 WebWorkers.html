@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Workers</title>
+</head>
+<body>
+    1.WebWorkers是H5提供的js多线程解决方案，这样我们就能将大计算量的代码交由webworkers运行而不冻结用户界面。<hr>
+    2.子线程完全受主线程控制，且不得操作DOM，所以这个新标准没有改变js单线程的本质。<hr>
+    3.使用方法：创建在分线程中执行的js文件；在主线程中的js发消息并设置回调。<hr>
+    4.缺点：慢（不阻塞主线程不代表快）；不能跨域加载js；worker内代码不能访问DOM（更新UI）；不是每个浏览器都支持。
+    <input type="text" placeholder="Fibonacci" value="" id="number">
+    <button id='btn'>计算</button>
+    <script>
+        //1 1 2 3 5 8
+        function fibonacci(n){  //递归的效率低，n稍微大一些浏览器就卡住，无法操作。
+            return n<=2 ? 1 : fibonacci(n-1)+fibonacci(n-2)
+        }
+        console.log(fibonacci(6))
+        var input = document.getElementById('number')
+
+        
+
+        document.getElementById('btn').onclick = function(){
+            var number = input.value        //将number传递给分线程
+            // var result = fibonacci(number)  //这条语句交给分线程处理
+
+
+            //创建一个Worker对象
+            var worker = new Worker('worker.js')
+            //向分线程发消息
+            worker.postMessage(number)
+            console.log('这是主线程向分线程发送的数据'+number)
+            //绑定接收消息的监听
+            worker.onmessage = function(event){ //回调代码
+                console.log('这是主线程接收分线程返回的数据'+event.data)
+                alert(event.data)
+            }
+            // alert(result)
+        }
+
+    </script>
+</body>
+</html>
