@@ -1,0 +1,7 @@
+1.cnpm install -g typescript
+tsc -v
+
+2.vscode自动编译
+tsc --init
+修改tsconfig.json,设置js文件夹 "outDir"
+设置vscode监视任务，之后修改项目中的ts，自动生成js

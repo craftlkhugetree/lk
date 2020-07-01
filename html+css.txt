@@ -1,3 +1,4 @@
+慕课网
 1. <!DOCTYPE html>:文档类型声明，表示该文件为 HTML5文件。<!DOCTYPE> 声明必须是 HTML 文档的第一行，位于 <html> 标签之前。
 2.<head></head>标签对：标签包含有关HTML文档的信息，可以包含一些辅助性标签。如<title></title>，<link /><meta />，<style></style>，<script></script>等，但是浏览器除了会在标题栏显示<title>元素的内容外，不会向用户显示head元素内的其他任何内容。
 3.<body></body>标签对：它是HTML文档的主体部分，在此标签中可以包含<p><h1><br>等众多标签，<body>标签出现在</head>标签之后，且必须在闭标签</html>之前闭合。

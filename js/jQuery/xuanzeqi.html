@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择器</title>
+    <script src="jquery-1.12.4.js"></script>
+</head>
+<body>
+
+    <ul>
+        <li>123</li>
+        <li>44</li>
+        <li>33</li>
+        <li>33</li>
+        <li>1</li>
+    </ul>
+
+    <ol>
+        <li>43</li>
+        <li>33</li>
+        <li>33</li>
+        <li>33</li>
+        <li>33</li>
+    </ol>
+
+    1.  $("ul li:first").css("color","red");   last,odd,even,eq(2)
+    2.  $(".son").parent(); 返回最近一级的父级元素
+    3.  $(".nav").children("p").css("color","red")
+    4.  $("").find("p").css()
+    5.  $(".nav>li").mouseover(function(){  //下拉列表，鼠标进入
+        $(this).children("ul").show()
+        })
+        
+        $("").mouseout(function(){
+            $(this).children("ul").hide()   //鼠标离开
+        })
+    <script>
+        $(function(){
+            $("ul li:first").css("color","red");
+        })
+    </script>
+
+
+    
+    
+</body>
+</html>
