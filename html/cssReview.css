@@ -1,0 +1,24 @@
+/* 10.用纯CSS创建一个三角形的原理是什么？
+方法一：隐藏上，左，右三条边，颜色设定为（transparent） */
+    * {margin: 0; padding: 0;}
+    .content {
+        width: 0;
+        height: 0;
+        margin: 0 auto;
+        border-width: 20px;
+        border-style: solid;
+        border-color: transparent transparent pink transparent;  /* 对应上右下左，此处为 下 粉色*/
+    }
+
+/* 复制代码方法二： 采用的是均分原理
+实现步骤： 1.首先保证元素是块级元素；2.设置元素的边框；3.不需要显示的边框使用透明色。 */
+    /* * {margin: 0; padding: 0;}
+    .content {
+        width:0;
+        height:0;
+        margin:0 auto;
+        border:50px solid transparent;
+        border-top: 50px solid pink;
+    } */
+
+

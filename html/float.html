@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>浮动模型</title>
+    <title>flow,float,layer--浮动模型</title>
     <style type="text/css">
     div {
         border: 2px red solid;
@@ -17,13 +17,129 @@
     #div2 {
         float:right;
     }
+    TABLE {
+        border: 1px black solid;
+    }
+
+    /* .box {
+        border: 1px solid #00ee00;
+        width: 100%;
+        height: 300px;
+        float: none;
+        position:relative;
+        
+
+    }
+
+    .box1 {
+        width: 200px;
+        height: 200px;
+        border: 1px solid red;
+        float: none;
+        position:absolute;
+        
+
+        top:50%;
+        left:50%;
+        margin:-100px 0 0 -100px;
+        
+    } */
+    .box {
+        border: 1px solid #00ee00;
+        height: 300px;
+        width: 100%;
+        position: relative;
+
+    }
+
+    .box1 {
+        border: 1px solid red;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+ 
     </style>
 </head>
 
 <body>
-    <div id="div1">栏目1</div>
+    <div id="div1" style="color:blue">栏目1</div>
     <div id="div2">栏目2</div>
     <div id="div3">栏目3</div>
+    <aside>I'm aside bar.</aside>
+    <section>I'm section.</section>
+    <header>header</header>
+    <TABLE> 
+        <THEAD> 
+          <TR> 
+            <TD> 
+              This text is in the THEAD. 
+            </TD> 
+          </TR> 
+        </THEAD> 
+        <TBODY> 
+          <TR> 
+            <TD> 
+              This text is in the TBODY. 
+            </TD> 
+          </TR> 
+        </TBODY> 
+        <TFOOT> 
+          <TR> 
+            <TD> 
+              This text is in the table footer. 
+            </TD> 
+          </TR> 
+        </TFOOT> 
+      </TABLE> 
+    <form method="post" action="save.php">
+        <label for="username">用户名:<input type="text" name="username" /></label>
+    
+        <label for="pass">密码:</label>
+        <input type="password" name="pass" />
+    </form>
+    <label for="SSN">Social Security Number:</label>
+    <input type="text" name="SocSecNum" id="SSN" />
+    <form action="">
+        <label for="email">input your email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+    </form>
+
+    img src="图片地址" alt="下载失败时的替换文本" title = "提示文本"<br>
+    a  href="目标网址"  title="鼠标滑过显示的文本">链接显示的文本.a标签有的target属性，代表打开网页的方式。可选值为”_self和_blank”，默认值为_self
+    ，代表在当前页面打开链接，_blank代表在新窗口打开链接<br>
+
+    <em>em xie ti</em>
+    <strong>strong jia cu</strong>
+    <q>q shi mao hao</q>
+    <cite>cite shi xie ti</cite>
+    <code>code shi xiao xie</code>
+    <var>var shi xie ti</var>
+    <i>i shi xie ti</i>
+    <address>address shi block</address>
+    <p style="display: none;">p hide show none</p>
+
+    <ul style="width: 100px;height: 100px;border: 5px solid red;border-radius: 50px;">
+        <li>1</li>
+        <li>3</li>
+        <li>2</li>
+    </ul>
+
+    <!-- <div class="box">
+        <div class="box1"></div>
+    </div> -->
+
+    <div class="box">
+        <div class="box1">
+            慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课
+
+网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕
+
+课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网慕课网
+        </div>
+    </div>
+
 </body>
 
 </html>

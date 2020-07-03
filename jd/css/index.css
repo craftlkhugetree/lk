@@ -4,10 +4,10 @@
     border-bottom: 1px solid #ddd;
 }
 
-
+/* margin的auto属性的作用是用来分配剩余空间，所以对于有剩余空间的元素才有效哦（块及元素）。比如图片设置margin: 0 auto是无效的，因为图片是内联元素，不是占一整行，没有剩余空间。 */
 .nav-box {
     margin: 0px auto;   /*伸缩也居中*/
-    width: 1190px;
+    width: 1190px;      /*不设置width就会填满.nav*/
     text-align: right;  /*靠右*/
 }
 
@@ -104,7 +104,7 @@
     cursor: pointer;    /*鼠标变成手*/
 }
 
-.header .recommend {
+.header .recommend {    /*跟后面的li区分开*/
     font-size: 12px;
     padding: 5px 0px 20px 50px;
 }

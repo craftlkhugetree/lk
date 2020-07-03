@@ -4,21 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <script>
-        'use strict';
-  /*  var menu = document.getElementById('drink-menu');
-var drinks = document.getElementsByTagName('dt');
-var i, s;
-
-s = '提供的饮料有:';
-for (i=0; i<drinks.length; i++) {
-    s = s + drinks[i].innerHTML + ',';
-} */
-        s = location.protocol;
-        console.log(s);
-        confirm(s);
- 
-    </script>
+    
 </head>
 
 <body>
@@ -49,6 +35,23 @@ form("a")
 </div>
  <label><input type="radio" name="weekday" id="monday" value="1"> Monday</label>
  <label><input type="radio" name="weekday" id="tuesday" value="2"> Tuesday</label>
+ <script>
+  'use strict';
+    var menu = document.getElementById('drink-menu');
+    var drinks = document.getElementsByTagName('dt');
+    var i, s;
 
+    s = '提供的饮料有:';
+    for (i = 0; i < drinks.length; i++) {
+      s = s + drinks[i].innerHTML + ',';
+    }
+    
+    console.log(s);
+    console.log(menu,drinks)
+    confirm(s); //confirm window
+    var ss = location.protocol; //http:
+    console.log(ss);
+
+</script>
 </body>
 </html>
