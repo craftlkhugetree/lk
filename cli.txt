@@ -4,4 +4,12 @@ ctrl+u  ctrl+k	删除
 ctrl+y	粘贴缓存
 ctrl+r	
 
+
+Alt + .：使用上一条命令的最后一个参数
+
+
+
+
+
+dos:
 doskey /history

@@ -1,0 +1,8 @@
+1.npm uninstall -g @angular/cli
+用yarn安装项目的全部依赖出现报错，则yarn config set ignore-engines true
+
+2.User Interface
+ng-zorro-antd的版本也是跟随angular的版本实时更新的，这个UI框架是阿里事业部的团队做的，可是说这个框架就是专门为angular而做的。
+
+3.
+

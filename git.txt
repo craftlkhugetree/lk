@@ -1,3 +1,13 @@
+git init
+git diff readme.txt 
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+ git remote add origin git@gitlab.lean.com:zwzq/zw-project.git
+直接git pull origin master会找不到，要先git fetch origin在不指定分支时通常默认为master；再git log -p FETCH_HEAD查看刚取回的更新信息；再git pull
+
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+
 git branch                  # 先看一下自己在哪个分支
 git checkout -b zhangsan    # 创建一个名为zhangsan的分支
 git add 功能A.txt            # 将写好的功能A代码add
@@ -18,3 +28,57 @@ git merge 带上 --no-ff 参数会保存分支的历史信息。如果不加，merge后就看不到分支信
 我们可以使用下面的命令，来查看一下历史commit版本
  git log --graph --pretty=oneline --abbrev-commit
 然后我们就可以使用git reset --hard commit版本号 进行时光穿梭了
+
+
+
+生成并添加第一个ssh key
+cd ~/.ssh
+ssh  ssh-keygen -t ras -C "youremail@yourcompany.com"
+
+这时可以一路回车，不输入任何字符，将自动生成id_rsa和id_rsa.pub文件。
+生成并添加第二个ssh key
+$ ssh-keygen -t rsa -C "youremail@gmail.com"
+
+注意，这时不能一路回车，否则邮箱将覆盖上一次生成的ssh key，给这个文件起一个名字， 比如叫 id_rsa_github, 所以相应的也会生成一个 id_rsa_github.pub 文件。
+
+添加私钥｛
+若执行ssh-add /path/to/xxx.pem是出现这个错误:Could not open a connection to your authentication agent，则先执行如下命令即可：ssh-agent bash
+｝
+$ ssh-add ~/.ssh/id_rsa
+$ ssh-add ~/.ssh/id_rsa_github
+
+在 ~/.ssh 目录下新建一个config文件
+# gitlab
+Host gitlab.lean.com		{gitlab具体地址要写清楚}
+    HostName gitlab.lean.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa
+# github
+Host github.com
+    HostName github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa_github
+
+给github/gitlab上添加ssh key
+
+测试
+$ ssh -T git@github.com
+
+
+
+ssh-add -D 删除所有管理的密钥
+
+ssh-add -d 删除指定的
+
+ssh-add -l 查看现在增加进去的指纹信息
+
+ssh-add -L 查看现在增加进去的私钥
+
+ 
+
+如果重启之后，会发现需要重新load一下ssh-agent
+
+ssh-add -K 将指纹加到钥匙串里面去
+
+ssh-add -A 可以把钥匙串里面的私钥密码，load进ssh-agent
+    
