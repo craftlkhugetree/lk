@@ -1,7 +1,7 @@
 // export class Hello {
 
 // }
-
+//慕课网
 
 // var content = "aaa"+"bbbb"+"ccc"
 // var str1 = `aaa
@@ -102,8 +102,53 @@ for (var n in myA){
 
 
 /*12 泛型generic 限制参数的内容*/
+function add12<T>(arg1:T,arg2:T):T {
+    return arg1 + arg2
+}
+//add12<number>(3,'9')    //没有泛型<number>来限制，就变成'39'了
 
 /*13 接口implentments*/
+// <T>(arg1:T,arg2:T) =>T  这是一种类型
+let add13   :   <T>(arg1:T,arg2:T) => T  
+let addd13  :   {<T>(arg1:T,arg2:T) :T }
+//泛型接口 
+interface GenAdder {<T>(arg1:T,arg2:T) :T }
+let ad13:GenAdder
+ad13<number>(1,2)
+
+interface GenStringAdd<T> {(arg1:T,arg2:T):T}
+let str13 : GenStringAdd<string>;
+str13('1',"3")
+
+//泛型类
+class Pp<T> {
+    addp:(arg1:T,arg2:T) => T;
+}
+function addp(arg1,arg2){
+    return arg1+arg2
+}
+const adp = new Pp<number>()
+adp.addp = addp
+
+//泛型约束
+interface ILength{
+    length:number
+}
+function getLength<T extends ILength>(arg : T): T{
+    console.log(arg.length)
+    return arg
+}
+//getLength<boolean>(false)   //boolean是没有length属性的
+getLength<string>('xiaowang')
+
+function getProperty<T,K extends keyof T>(obj:T,key:K){
+    return obj[key]
+}
+//keyof关键词
+const people = {name:'lk',age:33}
+let keys: keyof typeof people
+getProperty(people,'name')
+
 
 /*14 模块export import*/
 
@@ -112,3 +157,6 @@ for (var n in myA){
 
 
 /*16 类型定义文件 index.d.ts*/
+/**类型定义文件用来帮助开发者在ts中使用已有的js工具包，如JQuery。 
+ * npm install typings -g
+*/

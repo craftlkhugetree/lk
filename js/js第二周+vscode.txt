@@ -2,7 +2,7 @@
 ctrl+h批量替换 vscode中内容
 插件：angular，ionic，swiper-snippets，Chinese (Simplified)，Markdown，Vim，Live Server
 
-
+命令行code . 新窗口vscode打开当前文件夹
 
 我们常常会比较习惯于在元素的属性中以data-xxxx保存一些简单的数据，因此保存索引也可以这么干
 var a=document.getElementsByTagName("li");

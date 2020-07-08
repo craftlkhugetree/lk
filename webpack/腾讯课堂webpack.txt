@@ -1,0 +1,65 @@
+https://www.bilibili.com/video/BV1a741197Hn?from=search&seid=7407890368706486454
+
+1.webpack是一个js的静态模块打包器。
+
+
+2.多个js文件分开请求加载，加载顺序，依赖关系都需要提前准备，且多个文件分别加载肯定不如加载一个，所以要打包。
+3.希望前端代码具有类型校验能力，所以有了ts；觉得原生css不好用，所以有了less，sass；针对一个项目需要的打包功能，所以有了webpack，且具有翻译能力，loader将es6的新特性翻译为低版本浏览器能看懂的语言，webpack还能热插拔。
+4.toast.js 跳出toast提示；http文件夹发送各种网络请求，xhr.js发送低版本,fetch.js发送高版本，other.js是其他，index.js是综合。
+5.用<script src="./moduleA.js"></script>这种是全局作用域，顶级暴露mouduleA.js中的内容。若再用同样的方法引入moduleB.js,同名变量覆盖。
+（1）给同名变量，用不同命名空间，也就是对象，对象.属性名，或者在对象中定义一个自我介绍的方法；
+（2）每一个改变都是解决具体的问题，立即执行函数模块化的优点：作用域封装，重用，解除耦合。
+6.异步模块定义AMD，较早；commonJS最早是服务端，后来nodejs采用了其部分规范用于浏览器；ES6模块很像commonJS，但用的是import和export，终于使js有了语法级别的原生模块化。
+
+7.gulp和grunt是自动化构建工具，打包只是自动化工作流中的一小部分。webpack模块是核心。
+
+8.webpack打包机制
+（1）webpack与立即执行函数的关系
+（2）webpack打包的核心逻辑
+
+9.每个检索的依赖都成为入口函数的入参
+
+10.webpack打包过程
+（1）从入口文件开始，分析整个应用的依赖树
+（2）将每个依赖模块包装起来，放到一个数组中等待调用
+（3）实现模块加载的方法，并把它放到模块执行的环境中，确保模块间可以互相调用
+（4）把执行入口文件的逻辑放在一个函数表达式中，并执行这个函数	
+
+11. npm init 初始化包，生成package.json
+npm run "scripts"对象的属性名
+npm config set registry https://registry.npm.taobao.org
+npm install ... --save	不仅下载下来，而且写入"dependencies",这样以后只需要带走package.json，那么在新的地方npm就会从中自动下载依赖。
+npm 5以下的版本需要手动加上--save
+npm install ... --save-dev	"devDependencies"开发环境，本地开发才用到的放这里，比如构建工具，质量检测工具，eslint。
+
+npm install --only=dev 就找"devDependencies"  --only=prod就找"dependencies"
+
+12.语义化版本
+（1）^version:中版本和小版本，^1.0.1=1.x.x
+（2）~version:小版本，~1.0.1=1.0.x
+（3）version:特定版本。
+npm install 会自动重装更新的小版本,也可以用特定版本来锁定。
+
+13."scripts"是npm提供的脚本命令，比如钩子preinstall、postinstall、prepublish或者postpublish
+
+14.单纯的 rm -rf node_modules && npm install 完全是碰运气，不一定能解决问题。
+npm install 的过程：
+（1）寻找包版本信息文件package.json，依照它来进行安装
+（2）查找json依赖，并检查项目中其他的版本信息文件
+（3）如果发现了新包，就更新版本信息文件
+
+15.总是提示 $ npm install --save-dev webpack
+那就要 cnpm install webpack-cli -D
+"devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+
+16.一切皆模块与loaders，甚至图片文件、css文件也能被import。
+loader独立于webpack而存在
+npm install css-loader --save-dev
+npm install style-loader --save-dev
+
+17.压缩功能，就需要plugin
+npm install uglifyjs-webpack-plugin --save-dev

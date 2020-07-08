@@ -4,5 +4,18 @@
 2.User Interface
 ng-zorro-antd的版本也是跟随angular的版本实时更新的，这个UI框架是阿里事业部的团队做的，可是说这个框架就是专门为angular而做的。
 
-3.
+3. Ctrl+Shift+~
+node_modules/@antv/l7-scene/es/index.d.ts
+readonly map: unknown;      //get map(): unknown;
+
+408728
+test43995
+123456
+
+4. 
+ls -alh dist/
+du -h dist/
+ng build --aot	预编译技术，ng框架尽可能压缩，将需要浏览器解释的部分直接编译成浏览器可以执行的内容，使项目体积变小。
+ng bulid -prod	生成模式，关闭debug开关和调式功能等内容。 CDN加速通过文件hash来判断是否更新。
+
 

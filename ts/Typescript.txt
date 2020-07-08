@@ -5,3 +5,6 @@ tsc -v
 tsc --init
 修改tsconfig.json,设置js文件夹 "outDir"
 设置vscode监视任务，之后修改项目中的ts，自动生成js
+
+3.慕课网笔记在hello.ts
+b站笔记在heima.ts

@@ -1,0 +1,3 @@
+var b = {
+    name : 'susan'
+}

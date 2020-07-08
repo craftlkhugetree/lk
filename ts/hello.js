@@ -69,12 +69,16 @@ var myArray = [1, 3, 5, 6, 8];
 console.log(myArray.filter(function (value) { return value % 2 == 0; }));
 /*11 for...of */
 var myA = [1, 2, 3, 4];
-myA.desc = "four nums"; /*ts里的数组没有“描述”属性，但是js有可以混合*/
+//myA.desc = "four nums"  /*ts里的数组没有“描述”属性，但是js有可以混合*/
 for (var n in myA) {
     console.log(n); /*for...in是输出键值对的键名字0 1 2 3 desc*/
 }
 /*for ...of 才是输出值1，2，3，4，four nums */
 /*12 泛型generic 限制参数的内容*/
+function add12(arg1, arg2) {
+    return arg1 + arg2;
+}
+add12(3, '9');
 /*13 接口implentments*/
 /*14 模块export import*/
 /*15 注解 @ 向框架说明*/
