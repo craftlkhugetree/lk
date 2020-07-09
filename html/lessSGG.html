@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        #wrap > .sjx{
+            width: 10px;
+            height: 10px;
+            border-width: 40px;
+            /* border-color: blue yellow green red; */
+            border-color: transparent transparent transparent red;
+            /* border-style: dashed solid dashed dashed;  解决ie6问题 */
+            border-style: solid;
+            /* overflow: hidden; 可解决ie6一半的问题，haslayout */
+            overflow: hidden;   
+        }
+        .yiban{
+            width: 10px;
+            height: 10px;
+            border: grey solid 1px;
+        }
+    </style>
+    <link rel="stylesheet/less" href="lessSGG.less">
+</head>
+<body>
+    <div id="wrap">
+        <div class="sjx"></div>
+    </div>
+
+    <div class="yiban">
+        apple
+    </div>
+    
+    <div id="sjxx">
+    </div>
+    
+</body>
+</html>

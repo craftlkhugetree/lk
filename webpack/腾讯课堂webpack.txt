@@ -57,9 +57,37 @@ npm install 的过程：
   }
 
 16.一切皆模块与loaders，甚至图片文件、css文件也能被import。
-loader独立于webpack而存在
+loader独立于webpack而存在，loader是文件维度的概念。
 npm install css-loader --save-dev
 npm install style-loader --save-dev
 
 17.压缩功能，就需要plugin
 npm install uglifyjs-webpack-plugin --save-dev
+
+18.npm install -g @babel/core @babel/cli
+翻译ES6的新特性，变成低版本浏览器能够读懂的ES5。
+npm install -g @babel/preset-env	这个包的翻译规则就是高版本->低版本
+babel index.js --presets=@babel/preset-env	也可以在package.json里设置，
+"babel": {
+    "presets": ["@babel/preset-env"]
+  }
+或者在文件.babelrc（babel优先找这个文件）里写这个规则
+"preset": ["@babel/preset-env"]
+
+19.babel针对文件，所以还是需要loader来施展。npm install babel-loader
+
+webpack.config.js配置
+
+
+
+//热更新同时需要在入口文件index.jsx添加
+if(module.hot){
+    module.hot.accept(error => {
+        if(error){
+            console.log('HMR is BUG!')
+        }
+    })
+}
+	
+20.执行webpack --mode development打包			
+压缩可视化npm install webpack-bundle-analyzer

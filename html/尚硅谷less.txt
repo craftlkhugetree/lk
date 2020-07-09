@@ -1,0 +1,45 @@
+https://www.bilibili.com/video/BV1YW411T7vd?p=3
+
+1.Less 是一门CSS预处理语言，它扩展了CSS语言，增加了变量、Mixin、函数等特性，使CSS更易维护和扩展。bootstrap是一套简洁、直观、强悍的前端开发框架，它可以让web开发更迅速、简单。
+kaola编译。
+
+2.基本嵌套规则：&的使用
+
+3.混合规则，以点开头的是混合
+（1）普通混合
+（2）不带输出的混合
+（3）带参数的混合
+（4）带参数且有默认值
+（5）带多个参数
+（6）命名参数
+（7）匹配模式
+.tri(@_){
+    //公共部分
+}
+
+.tri(L,@w,@c){
+    //L
+}
+
+.tri(R,@w,@c){
+    //R
+｝
+（8）arguments变量（js里是实参列表，具有length属性的伪数组）
+.border(@1,@2,@3){
+    border:@arguments;
+}
+#wrap .sjxxx{
+    .border(1px,solid,black)
+}
+
+4.用@声明变量
+@pink:pink;
+@{url}
+#@{selector}
+
+
+https://v.hoopchina.com.cn/hupuapp/bbs/583/32414583/thread_34_32414583_20200706090657_4655.mp4?auth_key=1594300251-0-0-12311afe4622015d428eabdcfd4b066c
+
+https://v.hoopchina.com.cn/hupuapp/bbs/413/181413/thread_34_181413_20200706100114_13021.mp4?auth_key=1594303315-0-0-f53bc1faf81af3441cfb141cd69ca3bf
+
+https://v.hoopchina.com.cn/hupuapp/bbs/249176440068915/thread_249176440068915_20200706104241_40680.mp4?auth_key=1594294857-0-0-ffcb5b3bc8ffd64db7b9bd795b764fc6

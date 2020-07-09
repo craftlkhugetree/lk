@@ -1,0 +1,32 @@
+.triangle(@w,@c){
+    width: 0;
+    height: 0;
+    border-width: @w;
+    border-style: solid;
+    border-color: transparent @c transparent transparent;
+    overflow: hidden;
+}
+
+.sjxx{
+    .triangle(40px, red)
+}
+
+
+.border(@1,@2,@3){
+    border:@arguments;
+}
+#wrap .sjxxx{
+    .border(1px,solid,black)
+}
+
+.tri(@_){
+    //公共部分
+}
+
+.tri(L,@w,@c){
+    //L
+}
+
+.tri(R,@w,@c){
+    //R
+}
