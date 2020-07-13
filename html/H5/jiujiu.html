@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="3; url=http://example.com"> -->
+    <title>Document</title>
+    <style>
+        #par {
+            background-color: aqua;
+        }
+    </style>
+    <script type="text/javascript">
+        document.write("<p>九九乘法表第二种办法</p>");  //不能写在函数里边
+        function test() {
+            var par = document.getElementById("par");
+            for (var i = 1; i < 10; i++) {
+                var row = par.insertRow(i - 1);
+                for (var j = 1; j <= i; j++) {
+                    var cell = row.insertCell(j - 1);
+                    cell.innerHTML = i + '*' + j + '=' + i * j+ "&nbsp&nbsp";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    &copy;
+    <hgroup>
+        <h1>回乡偶书二首</h1>
+        <h2>其一</h2>
+    </hgroup>
+    <blockquote>引用</blockquote>
+    <button onclick="jiujiu()">jiujiu</button>
+
+    <ul id="ppp"  style="list-style: none">
+        <li>aa</li>
+        <li>bb</li>
+        <li>cc</li>
+        <li>dd</li>
+        <li>ee</li>
+        <li>ff</li>
+        <li>gg</li>
+        <li>hh</li>
+        <li>ii</li>
+    </ul>
+    <table id="par" align="center">
+        <caption><input value="Click" type="button" onclick="test()" /></caption>
+    </table>
+    <script type="text/javascript">
+        // document.write("<p>九九乘法表</p>");
+        // // 输出html表格标签
+        // document.write("<table>");
+        // // 第一层循环，第一个因数，1~9
+        // for (var i = 1; i <= 9; i++) {
+        //     document.write("<tr>");
+        //     // 第二层循环，第二个因数，1~i
+        //     for (var j = 1; j <= i; j++) {
+        //         // j*i = j * i
+        //         document.write("<td>" + j + "*" + i + "=" + i * j + "&nbsp;&nbsp;&nbsp;</td>");
+        //     }
+        //     document.write("</tr>");
+        // }
+        // document.write("</table>");
+
+        // function test() {
+        //     document.write("<p>九九乘法表第二种办法</p>");
+        //     var par1 = document.getElementById("par");
+        //     alert(par1)
+        //     for (var i = 1; i < 10; i++) {
+        //         var row = par1.insertRow(i - 1)
+        //         for (var j = 1; j <= i; j++) {
+        //             var cell = row.insertCell(j - 1)
+        //             cell.innerHTML = i + '*' + j + '=' + i * j + '&nbsp&nbsp&nbsp&nbsp'
+        //         }
+        //     }
+        // }
+    </script>
+    <script src="./jiujiu.js" ></script>
+    <!-- defer=true;defer 属性规定是否对脚本执行进行延迟，直到页面加载为止。 -->
+</body>
+</html>

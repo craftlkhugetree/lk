@@ -3,6 +3,19 @@ dl:definition list
 dt:definition title
 dd:definition description
 
+// function test() {
+        //     document.write("<p>九九乘法表第二种办法</p>");	//就这句话，写在函数内部，致使get不到id=par，par1=null，par1没有insertRow()出错，这就是加载顺序的问题
+        //     var par1 = document.getElementById("par");
+        //     alert(par1)
+        //     for (var i = 1; i < 10; i++) {
+        //         var row = par1.insertRow(i - 1)
+        //         for (var j = 1; j <= i; j++) {
+        //             var cell = row.insertCell(j - 1)
+        //             cell.innerHTML = i + '*' + j + '=' + i * j + '&nbsp&nbsp&nbsp&nbsp'
+        //         }
+        //     }
+        // }
+
 1. <!DOCTYPE html>:文档类型声明，表示该文件为 HTML5文件。<!DOCTYPE> 声明必须是 HTML 文档的第一行，位于 <html> 标签之前。
 2.<head></head>标签对：标签包含有关HTML文档的信息，可以包含一些辅助性标签。如<title></title>，<link /><meta />，<style></style>，<script></script>等，但是浏览器除了会在标题栏显示<title>元素的内容外，不会向用户显示head元素内的其他任何内容。
 3.<body></body>标签对：它是HTML文档的主体部分，在此标签中可以包含<p><h1><br>等众多标签，<body>标签出现在</head>标签之后，且必须在闭标签</html>之前闭合。
