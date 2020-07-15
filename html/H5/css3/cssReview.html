@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>css exam</title>
     <link rel="stylesheet" href="cssReview.css">
+    <style>
+        div.red::before{
+            content: 'abc';
+        }
+        div.red::after{
+            content:'xyz';
+            color:blue
+        }
+        p#weilei::first-letter {
+            font-size: 50px;
+        }
+        p#weilei::first-line{
+            background-color: red;
+        }
+        p#weilei::selection{
+            background-color: greenyellow;
+        }
+    </style>
 </head>
 <body>
     <div class="content"></div>
@@ -12,8 +30,16 @@
     <p class="red">jiaoji=p</p>
 
     <div class="red200 a b c">zuifuhe</div>
-
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
     
+    <p id="weilei">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto saepe accusamus minima quam quas officiis autem natus? Doloremque numquam quasi nam consectetur voluptatibus, velit dolorem cumque, animi culpa quam iusto.</p>
+    <div style="width: 200px;height: 200px;background-color: blue;"></div>
 </body>
 </html>
 

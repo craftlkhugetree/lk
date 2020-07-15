@@ -108,3 +108,125 @@ id选择器，#开头。
 交集选择器，同时符合多个条件。无空格分隔。一般不用于id，因为id已是唯一。注意：若有，则必须以元素选择器开头。
 并集选择器，h1,span{}，同时选择多种选择器。选择器分组。
 
+24.直接包含才是父子元素。祖先元素可以有很多，从父元素开始。后代元素也包括直接和间接。拥有同一个父元素，才叫兄弟元素。
+（1）div > span{}父子元素，跟准确一点可以用类  div.box > span{}
+（2）div span{} 后代元素
+（3）p + span{}	兄弟元素，且紧挨着的一个
+（4）p ~ span{}	选择后面的所有兄弟
+
+25.属性选择器
+（1）title="abc"	鼠标上去会有提示文字
+（2）p[title]{}	属性选择器，有title属性的p标签被选中。
+（3）p[属性名=属性值]{}	不但要有属性名，还得是这个属性值的才会被选中。
+（4）p[title^=abc]{}	以abc开头的才被选中
+（5）p[title$=abc]{}	以abc结尾的才被选中
+（6）p[title*=abc]{}	只要有abc即可
+
+26.伪类选择器，特殊的状态。
+<ul>
+        <li></li>
+        <li></li>
+        <li></li>
+
+</ul>
+（1）要给第一个li加红色，可以用class="first"， ul>li.first{color:red;}，
+那么这个类就和该行耦合了，若在这一行之前又加了一个li，那么该行就不是第一行了。
+伪类用来指一个元素的特殊状态，比如第一个子元素，某个被点击的元素，鼠标移入的元素。。。
+ul>li:first-child{}	
+:last-child	
+:nth-child(3) 选中第三个子元素，若为n则表示全都选中；2n表示偶数位或even；2n+1奇数位或odd。
+
+:first-of-type	同类型子元素的第一个
+:last-of-type
+:nth-of-type
+
+（2）:not()	否定伪类	
+ul > li:not(:nth-of-type(3)){}
+
+（3）超链接的几种状态：访问过的变色；没访问过的。
+a:link{color:red;}	link表示没访问过的链接，实际是正常的链接
+a:visited{}		visited表示访问过的，但由于隐私的原因，visited只能修改颜色，不能设置font-size之类的属性。
+a:hover{}	鼠标移入
+a:active{}	鼠标点击
+
+27.伪元素选择器，不存在的元素。特殊的位置。
+（1）首字母下沉，	p#weilei::first-letter{font-size:50px;}
+（2）p::first-line{background-color:red;}	即便伸缩，也只是第一行变红
+（3）p::selection{background-color:yellow;}	鼠标选中的内容变色
+（4）div::before{content:'abc';color:red;}	div后的那个缝
+div::after{content:'xyz';color:blue;}		div前的那个缝
+
+28.样式的继承，一个元素的样式也会应用到它的后代。祖先和后代之间。
+默认有继承，所以是有利的，但是必然也有不利之处。所以颜色可以继承，而背景不能继承（默认背景为透明）
+
+29.选择器的权重
+行内（内联样式）	1,0,0,0	style="color:red;"	用内联样式，很难用css去改，所以少用。
+id		0,1,0,0	
+类和伪类选择器	0,0,1,0
+元素选择器	1
+通配选择器	0
+继承的样式	无
+100个类累加也不会超过id的优先级。如果优先级相等，则优先使用靠下的样式。
+在某个样式后边添加!important，则变为最高优先级，甚至超过内联样式。但要慎用！！！
+
+30.同样的200px在不同的显示屏上可能显示效果不一样。
+em相对于元素的字体大小来计算，1em=1font-size，em随字体大小而变。
+rem相对于根元素的字体大小来计算，html{font-size:30px;}。
+
+31.颜色单位：
+英文名red，orange；
+RGB值，0-255（0-100%）；
+RGBA(106,153,85,.5)半不透明，1是完全不透明；
+十六进制的RGB，#ffffff白色，两两重复可以写成#bfa->#bbffaa
+HSL值，HSLA值，在ps工业里用的较多。H色相0-360闭环（0=360=红），S饱和度（颜色浓度0-100%），L亮度（颜色的亮度0-100%）
+
+0都表示没有颜色，就是黑；255表示最亮白色。
+
+32.文档流，网页多层结构，一层摞着一层，用户只能看到最顶上一层。这些层中的最底层就是文档流，我们所创建的元素默认都是在文档流中排列。
+元素的两个状态：在文档流，脱离文档流。
+
+33.文档流中，块元素默认宽度为父元素全部，默认高度被内容撑开。独占一行。自上向下垂直排列。
+文档流中，行内元素不会独占一行，自左向右水平排列，高度和宽度都是被内容撑开。
+
+34.盒子模型，页面中的所有东西都是盒子。页面布局就是把不同的盒子放到不同的位置。
+盒子的组成：content、padding、border、margin
+border-width默认大约3px，上右下左。三个值：上、左右、下。两个值：上下、左右。
+		border-top-width...
+border-color默认使用color:颜色；规则与上相同。所以color不单只是字体，它是前景色，包括字体、边框等。。。
+border-style：solid、dotted、dashed、double、默认为none。
+border:这种方式，三者没有顺序。	
+		border-top:none;
+
+35.内边距的设置会影响盒子大小，背景色会延伸到padding内。但是内容不会延伸到padding里。
+padding:10px 20px;
+padding-top:	padding-bottom:
+
+36.margin不会影响盒子大小，但是影响实际占用的大小。margin-top使元素下移，margin-left使自己右移。而下和右挤别人，不影响自己。如果设置为负值，则往反方向移动。
+
+37.盒子的水平布局
+元素在其父元素的水平位置由七个因素决定，总和为父元素内容区的宽度。
+	.box1 {
+            width: 800px;
+            height: 200px;
+            background-color: #bfa;
+            border-width: 10px;
+            border-color: red;
+            border-style: solid;
+            padding: 10px;
+        }
+        .inner{
+            width: 200px;
+            height: 100%;
+            background-color: orange;
+        }
+0+0+0+200+0+0+0	= 800	！！！必须满足，若不成立，则为过度约束，浏览器要自动调整，若无auto情况，那么调整margin-right:600px。
+其中width（默认为auto）,margin-left（0）,margin-right可以设置为auto，浏览器会在过度约束时，自动调整auto。
+若宽度和一个外边距为auto，则这个外边距变为零，宽度会调整为最大。
+若三者都是auto，这外边距都是零，宽度最大。
+若两个外边距为auto，则两个外边距平分。
+ <div class="box1">
+        <div class="inner">
+            div1
+        </div>
+ </div>
+

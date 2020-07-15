@@ -3,6 +3,35 @@ ctrl+h批量替换 vscode中内容
 插件：angular，ionic，swiper-snippets，Chinese (Simplified)，Markdown，Vim，Live Server
 
 命令行code . 新窗口vscode打开当前文件夹
+ul>li	建立ul li嵌套
+div*5	ul>li*5
+!+Tab	h5页面
+
+alt+方向：当前行上下移动
+ctrl+home/end	第一行/最后
+
+alt+shift+方向 	复制方向
+ctrl+F2		批量替换
+ctrl+x		删除一行
+
+lorem+tab	可以生成一堆英文
+ctrl+enter	快速换行
+ctrl+shift+T	重开标签页
+ctrl+shift+pgUp/pgDown	移动标签页
+ctrl+shift+`	打开终端
+
+ctrl+shift+f	搜索所有文本
+ctrl+t		#
+ctrl+shift+p	>
+ctrl+k,ctrl+s 	快捷键编辑	“折叠文件夹”+shift+alt+x
+ctrl+k,ctrl+o	打开文件夹
+ctrl+k f	关闭文件夹
+
+ctrl+shift+左右	选中左右单词
+ctrl+back	删左边单词
+
+ctrl+alt+左右	分组
+
 
 我们常常会比较习惯于在元素的属性中以data-xxxx保存一些简单的数据，因此保存索引也可以这么干
 var a=document.getElementsByTagName("li");

@@ -19,3 +19,4 @@ ng build --aot	Ô¤±àÒë¼¼Êõ£¬ng¿ò¼Ü¾¡¿ÉÄÜÑ¹Ëõ£¬½«ÐèÒªä¯ÀÀÆ÷½âÊÍµÄ²¿·ÖÖ±½Ó±àÒë³Éä¯À
 ng bulid -prod	Éú³ÉÄ£Ê½£¬¹Ø±Õdebug¿ª¹ØºÍµ÷Ê½¹¦ÄÜµÈÄÚÈÝ¡£ CDN¼ÓËÙÍ¨¹ýÎÄ¼þhashÀ´ÅÐ¶ÏÊÇ·ñ¸üÐÂ¡£
 
 
+5.ng add ng-zorro-antd

@@ -9,6 +9,23 @@ Alt + .：使用上一条命令的最后一个参数
 
 
 
+find ./ -type d -print0 -name '.git' |xargs rm -rf出错，删太多
+find path -option [ -print ] [ -exec -ok command ] {} \;
+-print 应该 option 后面
+find ./ -type d  -name '.git' -print0 |xargs -0 rm -rf
+-type f 为文件
+
+平常我们经常把find和xargs搭配使用，例如：
+find . -name "*.txt" | xargs rm
+
+但是这个命令如果遇到文件名里有空格或者换行符，就会出错。因为xargs识别字符段的标识是空格或者换行符，所以如果一个文件名里有空格或者换行符，xargs就会把它识别成两个字符串，自然就出错了。
+这时候就需要-print0和-0了。
+find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行了。
+然后xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误了。选择NULL做分隔符，是因为一般编程语言把NULL作为字符串结束的标志，所以文件名不可能以NULL结尾，这样确保万无一失。
+
+所以比较我们推荐的比较保险的命令是
+
+find . -name "*.txt" -print0 | xargs -0 rm -rf
 
 
 dos:

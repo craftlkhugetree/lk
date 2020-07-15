@@ -115,3 +115,9 @@ tabs和路由
 11~~增加自定义主题颜色 theme文件夹
 修改标签ion-button的颜色反色，修改自定义标签的color，background等等选项。。
 i-color
+
+
+组织部小程序
+1.cnpm i
+2.ionic serve
+3.
