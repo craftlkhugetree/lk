@@ -4,6 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+    .menu-down::after {display: inline-block;margin-left: .04rem;width: .07rem;height: .05rem;content: "";background-size: auto auto;background-size: auto auto;color: #999;background-size: contain;vertical-align: middle;}
+
+    .top {
+        position: absolute;
+      }
+    
+      .top::before,.top::after {
+        top: 5px;
+        position: absolute;
+        content: '';
+        border-top: 10px #fff solid;
+        border-left: 10px transparent dashed;
+        border-right: 10px transparent dashed;
+        border-bottom: 10px transparent dashed;
+      }
+    
+      .top::before {
+        border-top: 10px #0099CC solid;
+      }
+    
+      .top::after {
+        bottom: -15px;
+        /*覆盖并错开1px*/
+        border-top: 10px #fff solid;
+      }
+      </style>
 </head>
 <body>
     <dl>
@@ -12,7 +40,8 @@
     </dl>
     <a href="#bottom">前往底部</a>
     <a href="jiujiu.html">99乘法表</a>
-    <a href="javascript:;">zhanwei</a>
+    <a class=menu-down" href="javascript:;">zhanwei</a>
+    <i class="top"></i>
     
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur earum magnam deleniti laudantium eum rerum labore ipsum incidunt, error maxime, pariatur non, accusamus facilis explicabo quis praesentium ea sunt. Repellendus.</p>
     <p> 在未庄再看见阿Ｑ出现的时候，是刚过了这年的中秋。人们都惊异，说是阿Ｑ回来了，于是又回上去想道，他先前那里去了呢？阿Ｑ前几回的上城，大抵早就兴高采烈的对人说，但这一次却并不，所以也没有一个人留心到。他或者也曾告诉过管土谷祠的老头子，然而未庄老例，只有赵太爷钱太爷和秀才大爷上城才算一件事。假洋鬼子尚且不足数，何况是阿Ｑ：因此老头子也就不替他宣传，而未庄的社会上也就无从知道了。

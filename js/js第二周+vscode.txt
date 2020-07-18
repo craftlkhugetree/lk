@@ -17,10 +17,12 @@ ctrl+x		删除一行
 lorem+tab	可以生成一堆英文
 ctrl+enter	快速换行
 ctrl+shift+T	重开标签页
+alt+左右		同一标签打开的文件间移动
 ctrl+shift+pgUp/pgDown	移动标签页
 ctrl+shift+`	打开终端
 
 ctrl+shift+f	搜索所有文本
+ctrl+shift+e	资源管理器
 ctrl+t		#
 ctrl+shift+p	>
 ctrl+k,ctrl+s 	快捷键编辑	“折叠文件夹”+shift+alt+x
@@ -28,9 +30,12 @@ ctrl+k,ctrl+o	打开文件夹
 ctrl+k f	关闭文件夹
 
 ctrl+shift+左右	选中左右单词
+ctrl+shift+上下	选中上下行
 ctrl+back	删左边单词
 
 ctrl+alt+左右	分组
+ctrl+0		foucs侧边栏
+ctrl+,		打开设置自动保存
 
 
 我们常常会比较习惯于在元素的属性中以data-xxxx保存一些简单的数据，因此保存索引也可以这么干

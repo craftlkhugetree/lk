@@ -9,6 +9,8 @@ vscode°²×°angular snippets
 
 
 cmd:where node  
+gnvm config registry TAOBAO
+gnvm search *.*.* ÀýÈç gnvm search 12.*.* 
 gnvm install 12.0.0
 gnvm update latest      <n stable    or   n v12.0 >
 gnvm ls

@@ -6,6 +6,7 @@ ctrl+r
 
 
 Alt + .：使用上一条命令的最后一个参数
+shift+Ins	git窗口的拷贝
 
 
 

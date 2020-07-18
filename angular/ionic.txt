@@ -120,4 +120,93 @@ i-color
 组织部小程序
 1.cnpm i
 2.ionic serve
-3.
+3. 156 5070 9373：123456abc	138 7777 7777：t123456	18561167080：Huo123456
+识别码926349  
+http://zw.leancloud.biz/SysManage/UserManagement
+test43991
+123456	release/20200430
+
+408728/liken/123456
+
+
+156 5070 9373：123456abcX	master
+
+git clone git@gitlab.lean.com:liuting/zw-alllink.git
+//git init
+git remote add origin git@gitlab.lean.com:liuting/zw-alllink.git
+git remote -v
+//git fetch origin
+git branch -a
+git fetch origin release/1.0.0-200430:temp
+git diff temp
+git checkout temp	切换到temp分支，本地分支已commit。
+git merge temp
+git branch -d temp	删除temp分支
+
+4.ng update --all = true --force = true后出现问题，ng异常中断。
+ng g m gov/gov --routing
+ionic g page gov出错，彻底删除ng：
+npm uninstall -g angular-cli
+
+npm uninstall -g @angular/cli
+
+npm cache clean
+
+Delete the C:\Users\YOU\AppData\Roaming\npm\node_modules\@angular folder.
+————————————————
+
+
+5.[fsevents@^1.2.7] optional install error: Package require os(darwin) not compatible with your platform(win32)
+cnpm rebuild node-sass再cnpm install
+
+6.
+1、卸载node.js
+
+2、删除C:\Users\Administrator\AppData\Roaming下边的npm、npm-cache
+
+3、重新安装node.js，再次在dos中输入node -v和npm -v可以看到相应的版本号
+
+4、npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+5、cnpm install -g yarn ionic @angular/cli@8 
+
+6、rm -rf git仓库，再重新clone
+
+7.年份选择
+ng g ng-zorro-antd-mobile:date-picker-basic --name=/gov/indexshow/timep	
+在要显示这个模块的页面，比如/tabs/workbench/allapp/allapp.page.html使用这个组件，先要在
+allapp.module.ts里配置：
+import { TimepComponent} from '../../../gov/indexshow/timep/timep.component';
+
+@NgModule({
+  
+	imports: [
+... ],
+  
+	declarations: [TimepComponent]
+
+})
+
+8.固定ng g ng-zorro-antd-mobile:tabs-multitabs --name=/gov/indexshow/firstindex
+动态ng g ng-zorro-antd-mobile:tabs-dynamic --name=/gov/indexshow/firstindex
+
+
+数据穿透
+1.cdataname 企业名称,
+cotherpartnername 关联企业名称,
+partTax 地方税收,
+mainTax 主要税收,
+floorArea 占地面积,
+cOtherPartnerShortCode 统一社会信誉代码,
+cPartnerCName 分类名称,
+dCreateDate 创建时间,
+cMaker 创建者,
+cLatitudeLongitude 地理坐标,
+cDCName 地区名称,
+cOrgName 组织名称,
+cComPubNum 企业公众号,
+cPartWWW 街道,
+cIndName 伙伴代码,
+cPossName 属地名称,
+cGardName 园区名称,
+cTradeName 行业,
