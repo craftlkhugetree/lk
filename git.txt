@@ -15,8 +15,17 @@ git commit -m"功能A第一版"    # 将写好的功能A第一版代码commit
 git add 功能A.txt            # 将写好的功能A代码add
 git commit -m"功能A第二版"    # 将写好的功能A第二版代码commit
 
+合并为 git commit -am ""
 
+git remote rm origin 先删后改
+git remote add origin 
+git push origin ...
 
+$ git config user.name	实例
+$ git config user.email
+
+$ git config --global user.name "username"	全局
+$ git config --global user.email "email"
 
 git checkout master                                        # 回到master分支
 git merge --no-ff -m"merge 功能A with --no-ff" zhangsan     # 在master上执行merge操作
@@ -33,7 +42,7 @@ git merge 带上 --no-ff 参数会保存分支的历史信息。如果不加，merge后就看不到分支信
 
 生成并添加第一个ssh key
 cd ~/.ssh
-ssh  ssh-keygen -t ras -C "youremail@yourcompany.com"
+ssh-keygen -t rsa -C "youremail@yourcompany.com"
 
 这时可以一路回车，不输入任何字符，将自动生成id_rsa和id_rsa.pub文件。
 生成并添加第二个ssh key

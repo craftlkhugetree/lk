@@ -20,3 +20,14 @@ ng bulid -prod	生成模式，关闭debug开关和调式功能等内容。 CDN加速通过文件hash来判
 
 
 5.ng add ng-zorro-antd
+
+6.
+    [] 表示属性
+
+    () 表示事件
+
+    [()] 表示双向绑定
+
+    ng-content 表示组件内容占位符
+
+    #tpl 开头表示 ?ng-template #tpl?
