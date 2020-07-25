@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { WelcomeComponent.css} from './welcome.component.css'
 
 @Component({
   selector: 'app-welcome',

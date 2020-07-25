@@ -1,0 +1,12 @@
+/* ::ng-deep .welTTstyle {
+    background-color: aqua;
+} */
+
+:global .welTTstyle{
+    background-color: black;
+}
+
+/* :global (.ant-table-thead > tr > th){
+
+
+} */

@@ -8,6 +8,8 @@ ctrl+r
 Alt + .：使用上一条命令的最后一个参数
 shift+Ins	git窗口的拷贝
 
+ git log | grep -4 上下四行 | less
+git log | grep -4 --color=auto release 有less就不显色关键字
 
 
 find ./ -type d -print0 -name '.git' |xargs rm -rf出错，删太多

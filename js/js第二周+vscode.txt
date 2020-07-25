@@ -3,39 +3,78 @@ ctrl+h批量替换 vscode中内容
 插件：angular，ionic，swiper-snippets，Chinese (Simplified)，Markdown，Vim，Live Server
 
 命令行code . 新窗口vscode打开当前文件夹
-ul>li	建立ul li嵌套
+ul>li.item*5
+<ul>
+    <li class="item1"></li>
+    <li class="item2"></li>
+    <li class="item3"></li>
+    <li class="item4"></li>
+    <li class="item5"></li>
+</ul>
+ul>li.item#*5	多个#则带着id
 div*5	ul>li*5
 !+Tab	h5页面
+lorem+tab	可以生成一堆英文
+ctrl+,ctrl+k	ctrl+space	IntelliSense
+ctrl+k,ctrl+f	格式化	alt+shift+f
+
 
 alt+方向：当前行上下移动
+alt+shift+方向 	复制方向
+ctrl+x		删除一行
+ctrl+enter	快速换行
 ctrl+home/end	第一行/最后
 
-alt+shift+方向 	复制方向
-ctrl+F2		批量替换
-ctrl+x		删除一行
+shift+左右	选中左右单词
+shift+上下	选中上下行	ctrl+/	注释
+ctrl+back	删左边单词
+ctrl+shift+l	选中相邻行相同的单词
 
-lorem+tab	可以生成一堆英文
-ctrl+enter	快速换行
+F8		在error间切换
+ctrl+F2		批量替换 Hit F2 while in the symbol Book to rename all instances.
+// Reference the function
+
+new Book("War of the Worlds", "H G Wells");
+
+new Book("The Martian", "Andy Weir");
+
+
+/**
+ * Represents a book.
+ 
+*
+ * @param {string} title Title of the book
+ 
+* @param {string} author Who wrote the book
+ 
+*/
+
+function Book(title, author) {
+    this.title = title;
+    this.author = author;
+}
+
+
 ctrl+shift+T	重开标签页
 alt+左右		同一标签打开的文件间移动
 ctrl+shift+pgUp/pgDown	移动标签页
-ctrl+shift+`	打开终端
+ctrl+k,ctrl+o	打开文件夹
+ctrl+k f	关闭文件夹
+ctrl+k,ctrl+w	关闭所有页面
+
+ctrl+shift+`	打开新终端
+ctrl+`		回到终端
 
 ctrl+shift+f	搜索所有文本
-ctrl+shift+e	资源管理器
+ctrl+shift+e	资源管理器	ctrl+shift+x	扩展
 ctrl+t		#
 ctrl+shift+p	>
 ctrl+k,ctrl+s 	快捷键编辑	“折叠文件夹”+shift+alt+x
-ctrl+k,ctrl+o	打开文件夹
-ctrl+k f	关闭文件夹
 
-ctrl+shift+左右	选中左右单词
-ctrl+shift+上下	选中上下行
-ctrl+back	删左边单词
 
-ctrl+alt+左右	分组
+ctrl+alt+左右	分组	ctrl+1，2	分组件移动
 ctrl+0		foucs侧边栏
-ctrl+,		打开设置自动保存
+ctrl+,		打开设置,可以修改是否自动保存
 
 
 我们常常会比较习惯于在元素的属性中以data-xxxx保存一些简单的数据，因此保存索引也可以这么干
