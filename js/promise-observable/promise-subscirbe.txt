@@ -1,0 +1,17 @@
+1.假设我们有一个方法名为getFromSlowServer() 返回一个promise，我们这样去使用：
+getFromSlowServer().then((data) => {
+    console.log(data);
+});
+
+我们调用Promise提供的then方法，这个方法是意思就是“已收到服务端返回数据，用他来处理”。
+
+
+
+Obeservable和Promise服务的是同一个目标，但是他做了一些额外的事情。最主要的不同是Promise返回单纯的数据，但是一个Observable是一个流（stream）可以多次收到数据。将Observable看作流更简单，因为他们本身就是，他们叫做Observable是因为他们是可观测的（因为我们可以检测从流收到的数据）。
+Observable看起来和Promise很像，但是他是用subscrible而不是then。
+
+someObservable.subscribe((result) => {
+    console.log(result);
+});
+
+很明显在进行HTTP请求的时候我们的应用需要等待数据返回，因此Promise和Observable非常有用。这不是唯一需要异步编程的例子。有一些不那么明显的场景例如从获取本地存储数据，甚至从用户相机获取相片，这些场景都需要等待处理结束才能使用具体数据。
