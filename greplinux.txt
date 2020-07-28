@@ -1,0 +1,58 @@
+$ grep test test* #查找前缀有“test”的文件包含“test”字符串的文件  
+testfile1:This a Linux testfile! #列出testfile1 文件中包含test字符的行  
+testfile_2:This is a linux testfile! #列出testfile_2 文件中包含test字符的行  
+testfile_2:Linux test #列出testfile_2 文件中包含test字符的行 
+
+
+$ grep -r update /etc/acpi #以递归的方式查找“/etc/acpi”  下包含“update”的文件  
+
+/etc/acpi/ac.d/85-anacron.sh:# (Things like the slocate updatedb cause a lot of IO.)  
+Rather than  
+/etc/acpi/resume.d/85-anacron.sh:# (Things like the slocate updatedb cause a lot of  
+IO.) Rather than  
+/etc/acpi/events/thinkpad-cmos:action=/usr/sbin/thinkpad-keys--update 
+
+
+反向查找
+$ grep-v test* #查找文件名中包含test 的文件中不包含test 的行 
+
+查找时不区分大小写：
+$ grep –i "被查找的字符串" 文件名 
+
+$ find / -type f -name "*.log" | xargs grep "ERROR"
+find . -name "*.in" | xargs grep "thermcontact"
+
+git log | grep -4 上下四行 | less
+git log | grep -4 --color=auto release 有less就不显色关键字
+
+不同游戏编译目录下的压缩文件移动到同一个文件夹下，以便传给QA来测试
+ls ../../../../qx_game/game1[3456789]/build/web-mobile/*.zip|xargs -I file mv file ~/qxgame
+
+find ./ -type d -print0 -name '.git' |xargs rm -rf出错，删太多
+find path -option [ -print ] [ -exec -ok command ] {} \;
+-print 应该 option 后面
+find ./ -type d  -name '.git' -print0 |xargs -0 rm -rf
+-type f 为文件
+
+平常我们经常把find和xargs搭配使用，例如：
+find . -name "*.txt" | xargs rm
+
+但是这个命令如果遇到文件名里有空格或者换行符，就会出错。因为xargs识别字符段的标识是空格或者换行符，所以如果一个文件名里有空格或者换行符，xargs就会把它识别成两个字符串，自然就出错了。
+这时候就需要-print0和-0了。
+find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行了。
+然后xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误了。选择NULL做分隔符，是因为一般编程语言把NULL作为字符串结束的标志，所以文件名不可能以NULL结尾，这样确保万无一失。
+
+所以比较我们推荐的比较保险的命令是
+
+find . -name "*.txt" -print0 | xargs -0 rm -rf
+
+find / -name a*.xml -print -exec grep "searchtext"  {}  \;
+
+ 
+
+find / | xargs grep function 查找系统根目录下面的所有文件的内容中包含有function字符串的文件列表。
+find .|xargs grep x
+find . -exec grep x{} \;
+find / -name "httpd.conf"
+find / -name "rsync"
+为什么会这样能，因为通道命令符是把上一部的结果传递给下一步来处理，在 find . |grep x中虽然看似和find .|xargs grep x差不多，但是实际上还是有区别的。应为find .得到的结果是一串文件名集合，如果直接传递给grep的话，grep会把这些文件名看作一些无意义的字符串来处理。但是传递给xargs，他会把他当作一个有意义的文件来处理。

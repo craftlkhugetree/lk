@@ -1,0 +1,458 @@
+1.land-Evaluation空间数据叠加
+https://gitlab.lean.com/zwzq/zw-project/tree/release/test/src/app/routes/spatial-data-overlay
+
+cdataname 企业名称,
+cotherpartnername 关联企业名称,
+partTax 地方税收,
+mainTax 主要税收,
+floorArea 占地面积,
+cOtherPartnerShortCode 统一社会信誉代码,
+cPartnerCName 分类名称,
+dCreateDate 创建时间,
+cMaker 创建者,
+cLatitudeLongitude 地理坐标,
+cDCName 地区名称,
+cOrgName 组织名称,
+cComPubNum 企业公众号,
+cPartWWW 街道,
+cIndName 伙伴代码,
+cPossName 属地名称,
+cGardName 园区名称,
+cTradeName 行业,
+
+（1）nztable表格序号：
+<script type="text/javascript">
+          var count = 0;
+          count++;
+          document.write("<td>"+ count  +"</td>");
+      
+</script>无效
+
+let i=index;
+<td>{{i + 1}}</td>取不到，换成index as i就行。
+
+let x of sortNo;
+<td>{{x}}</td>取不到	
+for(var i=0;i<res.data.length;i++){
+          this.sortNo[i]=i+1;
+        }
+
+绝不能给get到的数组内对象添加序号属性，这是修改原始数据，never。
+最后还要考虑分页后，序号又从1开始了。
+ <td>{{basicTable.data.indexOf(item)+1+(nzPageIndex-1)*nzPageSize}}</td>
+
+（2）thead style=""	内联无效，::ng-deep
+（3）选中值为null的字段，修改为“无资料”
+checkShow(resData:any){
+    for(var item of resData)//数组
+	{
+        for(var i in item)//对象可以这样处理
+			{
+          if(item[i]===null){
+            item[i]="无资料";
+          }
+        }
+    }
+  }
+（4）取得浏览器本地数据
+current_org = JSON.parse(window.sessionStorage.getItem('zw_currentOrg'));
+searchObj = {
+    // 组织ID
+    cOrgUUID: this.current_org.cOrgUUID,
+    
+// 帐套ID
+    cAccUniqueID: this.account.cAccUniqueID,
+  }; 
+
+
+ngOnInit() {
+    this.initdata()
+  }
+initdata() {
+     
+	this.http.post('/cnic-dcas/AnalysisBySynthesisAction/getSpatialDataOverlay', this.searchObj)
+    .subscribe((res: any) => {
+      
+		if (res.code === 1) {
+        
+	this.checkShow(res.data)
+         
+	this.landEvaluatingTable = res.data;
+         
+	} else {
+        this.message.error(res.msg) 
+      }
+    });
+ 
+  }
+
+（5）this.basicT = document.getElementById("basicTable");//也无效
+（6）若有字段，但是该字段内容全为null，则不显示该列，如何操作。若字段本身不存在，为null，那如何操作？ng-show或者[hidden]
+
+（7）ng g ng-alain:module sys
+CLI 会自动在 src/app/routes/sys 下创建 sys.module.ts 和 sys-routing.module.ts 文件，前者是系统设置模块组件定义文件；后者是系统设置模块路由配置文件。当然为了使模块跟主模块产生联系，还需要至 src/app/routes/routes-routing.module.ts 文件内注册新建的业务模块：
+path: 'sys', loadChildren: () => import('./sys/sys.module').then(m => m.SysModule)
+
+ng g ng-alain:list log -m=sys	在 sys 目录下创建一个日志列表页。
+增加一个以模态框打开的查看页来显示更多详情：
+ng g ng-alain:view view -m=sys -t=log
+
+-t=log 表示希望把创建的文件放进至 sys/log/view 下面。
+
+ng g ng-alain:module your-module-name此命令会在routes目录下新建一个目录，添加module和route文件，并更新根路由文件。
+ng g ng-alain:list your-page-name -m your-module-name
+页面必须属于某个模块，所以此命令的-m参数是必填项。虽然可以不指定模块新建影子组件。
+ng g ng-alain:tpl your_template_name your_page_name -m your_module_name
+
+（8）:host  ::ng-deep	
+:host 表示选择器，选择当前的组件。
+::ng-deep 可以忽略中间className的嵌套层级关系。直接找到你要修改的className。
+
+:host ::ng-deep .ant-table-thead > tr > th {
+    background-color: cyan;
+}
+
+（9）
+
+（10）
+
+2.today-ng-steps
+https://github.com/NG-ZORRO/today-ng-steps/blob/legacy-v1/tutorial/1.md
+（1）ng serve出错，可能是大版本问题 删了相关文件版本的^符号。
+还是不行于是从cnpm i改为npm i，还是不行就yarn。
+ng g m pages/setup
+ng g c pages/setup --module pages/setup
+ng g s services/local-storage/local-storage --module app
+
+（2）利用 service 解耦
+在我们开始写界面之前，先简单分析一下。显然，我们需要把用户名和初始化标记存入 local storage，也很显然，我们不应该把 localStorage.set 等代码直接写在组件文件中，一是因为其他 module 和 component 肯定也要访问用户名信息，二是这提高了代码的耦合性——如果我们切换了存储机制（比如我们要迁移到 Electron 上，要利用基于数据库和文件的存储），我们需要到处修改——所以我们要在这里引入 local storage service。
+在 local-storage.service.ts 同目录下创建 local-storage.namespace.ts 文件。在用 local storage 进行存储的时候使用命名空间是个最佳实践，命名空间可以是应用名加模块名等形式。
+
+不能让 ListComponent 来管理 List，而应当交给 ListService 来做。同理，Todo 的管理也应当交给 TodoService。这也符合 MVC 设计模式，如果说 HTML 文件是 UI，component.ts 文件是 Controller，我们就需要另外一个文件作为 Model，service 在这里就很合适。
+利用 service 作为 model 来维护信息源。
+
+（3）
+模态框（Modal）是覆盖在父窗体上的子窗体。通常，目的是显示来自一个单独的源的内容，可以在不离开父窗体的情况下有一些互动。子窗体可提供信息、交互等。
+
+（4）
+
+interface Square {
+  kind: 'square';
+  size: number;
+}
+
+interface Rectangle { 
+  kind: 'rectangle';
+  width: number;
+  height: number;
+}
+
+interface Circle {
+  kind: 'circle', 
+  r: number
+}
+
+// 联合类型
+type Shape = Square | Rectangle
+
+function area(s:Shape){
+  switch (s.kind){
+    case "square":
+      return s.size * s.size;
+    case "rectangle":
+      return s.height * s.width
+    case "circle":
+      return Math.PI * s.r ** 2  
+    default:
+      // 检查s是不是nerver类型 如果是 前面分支case齐全。 s不是nerver类型 有遗漏的case没写
+      return ((e: nerver) => {throw new Error(e)})(s)    
+  }
+}
+
+（5）右键点击实现：
+contextmenu 属性规定了元素的上下文菜单。当用户右击元素时将显示上下文菜单。
+
+import {
+  NzDropdownService,	//实现右键菜单
+  NzDropdownContextComponent,
+  NzModalService
+} from 'ng-zorro-antd';
+
+private dropdown: NzDropdownContextComponent; //构造函数里注入右键菜单的服务
+
+（6）在服务中创建了一个RxJS主题,以便多个组件可以订阅它并获取更新的值，
+
+通过组件中提供的服务订阅Subject,调用.next()
+通过 rxjs 订阅 lists 发生的变化，并且封装了一系列方法，好像是多此一举的行为。其实这不仅是为了避免发生在意料之外的对数据的改动（你可以确保 lists 不会因为第三方代码而发生出人意料的变化），如果组件需要一套复杂的逻辑来展示 service 中的数据，那么这种模式会让你清楚的了解数据的流动方式和属性之间的依赖。
+
+（7）&&返回最后一个为真的值，||返回第一个为真的值。
+private processTodos(listUUID: string, todos: Todo[], rank: RankBy, completedHide: boolean): void {
+    const filteredTodos = todos
+      .filter(todo => {
+        return ((listUUID === 'today' && todo.planAt && floorToDate(todo.planAt) <= getTodayTime())
+          || (listUUID === 'todo' && (!todo.listUUID || todo.listUUID === 'todo'))
+          || (listUUID === todo.listUUID));
+      })
+      .map(todo => Object.assign({}, todo) as Todo)
+      .sort(rankerGenerator(rank))
+      .filter(todo => completedHide ? !todo.completedFlag : todo);
+
+    this.todos = [].concat(filteredTodos);
+  }
+
+（8）如何通过css倾斜穿透(How to strike through obliquely with css)，利用 transform 属性旋转 标签元素。
+
+.strikethrough {
+  position: relative;
+}
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid;
+  border-color: inherit;
+
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+  -ms-transform:rotate(-5deg);
+  -o-transform:rotate(-5deg);
+  transform:rotate(-5deg);
+}
+
+<span class="strikethrough">Deleted text</span>
+或者直接：
+.strikethrough {
+  text-decoration: line-through;
+  color: #999999
+}
+
+（9）如何通过boolean变量或条件表达式绑定类
+<span [ngClass]="{'strikethrough' : item.completedFlag}">{{ item.title }}</span>
+     <span [class.strikethrough]="item.completedFlag">{{ item.title }}</span>
+"let-" is only supported on ng-template elements.
+
+
+（10）泛型
+class Greeter<T> {
+    greeting: T;
+    constructor(message: T) {
+        this.greeting = message;
+    }
+    greet() {
+        return this.greeting;
+    }
+}
+
+let greeter = new Greeter<string>("Hello, world");
+
+let button = document.createElement('button');
+button.textContent = "Say Hello";
+button.onclick = function() {
+    alert(greeter.greet());
+}
+
+document.body.appendChild(button);
+
+tsc到js：
+var Greeter = /** @class */ (function () {
+    function Greeter(message) {
+        this.greeting = message;
+    }
+    Greeter.prototype.greet = function () {
+        return this.greeting;
+    };
+    return Greeter;
+}());
+var greeter = new Greeter("Hello, world");
+var button = document.createElement('button');
+button.textContent = "Say Hello";
+button.onclick = function () {
+    alert(greeter.greet());
+};
+document.body.appendChild(button);
+
+（11）前一篇文章中曾经讨论过为什么不直接访问 service 的属性，而用一种看起来比较麻烦的订阅机制，这里就展现出原因了：借助 rxjs 的强大威力，我们在当前列表改变的时候，不需要命令式地去修改列表，我们之后会做的排序，同样通过这种机制监听排序依据改变的事件。如果你想要增加更多的功能，良好的可拓展性是很有必要的。
+
+（12）// ...
+this.stream$
+  .pipe(
+    takeUntil(this.compelete$),
+    switchMap(id => 
+      combineLatest(
+        this.store.pipe(select(getAuth, { id, name: 'create' })),
+        this.store.pipe(select(getAuth, { id, name: 'edit' })),
+        this.service.getWhiteList()
+      )
+    ),
+  )
+  .subscribe(([res1,  res2, res3]) => {
+     // ...
+   });
+// ...
+
+上面这段代码，主体还是比较容易理解的，监听stream$变化，获取 create，edit权限，以及白名单，然后 do something。这个时候 bug 就出现了，表象比较简单就是：白名单设置的权限有问题。
+
+通过各种 debug，终于发现问题，正常使用时，断点会进入上述代码的subscribe，可是其他异常情况依然进入了上述代码的subscribe。
+
+自我检查：takeUntil 写了，destroy 写了，destroy 里 this.complete$.complete() 也写了。
+
+那么问题出在哪里了呢？
+
+原来就出在了 takeUntil 这里，takeUntil写在switchMap前面，那么takeUntil虽然结束了，但是switchMap这个流依然没被关闭。于是乎，讲takeUntil放在switchMap后面，尝试之后问题确实解决了。
+
+    当 this.complete$ 结束时，由takeUntil操作符返回的 observable 就算完成了，其订阅也会被自动取消。
+    然而，由于 stream$的订阅者所订阅的 observable 并非由 takeUntil返回，而是由 switchMap返回，所以当takeUntil的observable 完成时，stream$ 的订阅是不会被自动取消的。
+    在switchMap的所有 observable 全部完成之前，stream$ 的订阅者都将始终保持订阅。所以，除非 combineLatest率先完成，否则这个订阅将不会结束
+
+是不是所有的takeUntil都应该放在最后呢？当然并不是所有的takeUntil都应该放在最后。
+
+（13）简单介绍下combineLatest的作用。combineLatest可以将多个Observable进行合并，并将它们最新的值作为输出。它存在以下几个特点：
+
+    combineLatest会等到所有的Observable都emit一次数据之后才开始emit数据
+    在收集完一次数据之后，任何一个Observable emit了数据，则会emit数据，并不会再次等待所有Observable再次emit数据。
+    如果在所有Observable都emit数据之前，某个Observable执行了complete，则combineLatest不会emit任何数据，直接complete
+    combineLatest如果有n个Observbale，则emit的值是长度为n的数组
+    比如：
+
+const ob1 = Rx.Observable.interval(1000).map(d => `ob1:${d}`).take(3);
+const ob2 = Rx.Observable.interval(1000).delay(2000).map(d => `ob2:${d}`).take(2);
+
+输出为：
+
+["ob1:1", "ob2:0"]
+["ob1:2", "ob2:0"]
+["ob1:2", "ob2:1"]
+complete
+
+
+由于ob2会延长2秒执行，在ob2发射第一个数据0的时候，ob1开始发射1，所以第一个输出的是[“ob1:1”, “ob2:0”]。ob1发射完2后就complete了，但是之后ob2还在继续发射数据，所以最后输出[“ob1:2”, “ob2:1”]并complete。
+
+const ob1 = Rx.Observable.interval(1000).map(d => `ob1:${d}`).take(3);
+const ob2 = Rx.Observable.empty();
+Rx.Observable.combineLatest(ob1, ob2).subscribe({
+  next: (data) => console.log(data),
+  complete: () => console.log('complete')
+});
+
+
+输出为：complete。
+因为ob2不发射任何数据，直接complete了。这导致combineLatest在收集到所有observable的数据前有complete的observable，所以combineLatest就直接complete了。
+
+（14）组件间通讯：子组件中@input，接收父组件传值；@output。这俩@都是在子组件中，而html调用都在父组件中。
+1.父传子 （@input）
+
+parent.ts:
+
+export class ParentPage {
+
+ menu:'菜单';
+
+  }
+parent.html:
+
+  <page-child [childMenu] = 'menu'></page-child>
+
+child.ts:
+
+import{Component,Input} from '@angular/core';
+
+export class ChildPage{
+
+@Input() childMenu:string;
+
+}
+
+child.html:
+
+<div>{{childMenu}}</div>
+
+  2.子传父 （@Output）
+
+child.ts:
+
+import { Component, EventEmitter, Output }from'@angular/core';
+
+export class ChildPage {
+
+  @Output() changeNumber: EventEmitter =new EventEmitter();
+
+  Number: number =0;
+
+  constructor() {
+
+    this.changeNumber.emit(this.Number+10)
+
+  }
+
+}
+
+parent.html:
+
+<h2>{{num}}</h2>
+
+<page-child (changeNumber)="newNumber($event)"></page-child>
+
+parent.ts:
+
+export class ParentPage {
+
+  num: number =0;
+
+  newNumber(num:number){
+
+      this.num= num;
+
+  }
+
+}
+
+
+
+（15）<input nz-input 
+       
+		#hello
+       
+		placeholder="#变量，用来表示这个标签，用.调用其属性，#xxx;xxx.value;"
+       		(keydown.enter)="consoleLogg(hello.value);hello.value=''">
+
+（16）createEmbeddedView：context
+
+创建Template 自身 Context 的属性，以ngFor为例：
+查看ngFor Context源码：
+export class NgForOfContext<T> {
+  constructor(
+      public $implicit: T, public ngForOf: NgIterable<T>, public index: number,
+      public count: number) {}
+
+  get first(): boolean { return this.index === 0; }
+
+  get last(): boolean { return this.index === this.count - 1; }
+
+  get even(): boolean { return this.index % 2 === 0; }
+
+  get odd(): boolean { return !this.even; }
+}
+<div *ngFor="let hero of heroes; let i=index; let odd=odd">
+  ({{i}}) {{hero.name}}
+</div>
+解析后：
+<ng-template ngFor let-hero [ngForOf]="heroes" let-i="index" let-odd="odd" >
+  <div>({{i}}) {{hero.name}}</div>
+</ng-template>
+
+从例子中可以看到，通过let-i let-odd可以获取到Template的context，这是angular提供的一种语法。因为在 Angular中是没有作用域继承的，所以在模版中无法隐式实现两个无关数据源。一个简单的实现方案就是：一个显式、一个隐式。由于ng-template tag 是写在某个 Component 的 template属性中的，所以在 ng-template tag 之下的部分当然能访问的也只有 Component 作为 Context 提供的属性，从而保持行为的一致性，而如果需要访问到 Template 的 Context，我们就需要使用额外的引入语法。比如 let-i="index"，就是把 Template Context 中的 index属性引入到当前的 Component Context 中并赋予别名 i，这样，我们就能够使用 i 这个标识符来访问到 Template Context 中的属性了，并且仍然保持了行为的一致性和作用域的独立性。（引自知乎）
+
+模板输入变量是这样一种变量，你可以在单个实例的模板中引用它的值。 这个例子中有好几个模板输入变量：hero、i和odd。 它们都是用let作为前导关键字。
+
+模板输入变量和模板引用变量是不同的，无论是在语义上还是语法上。
+
+我们使用let关键字（如let hero）在模板中声明一个模板输入变量。 这个变量的范围被限制在所重复模板的单一实例上。
+而声明模板引用变量使用的是给变量名加#前缀的方式（#var）。 一个引用变量引用的是它所附着到的元素、组件或指令。它可以在整个模板任意位置**访问。
+
+模板输入变量和引用变量具有各自独立的命名空间。let hero中的hero和#hero中的hero并不是同一个变量。
+
+
+
+（17）
