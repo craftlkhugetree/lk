@@ -1,34 +1,14 @@
-alt+b   alt+d或者ctrl+k		光标回退一单词再删之
-ctrl+a	ctrl+e	光标
+alt+b   alt+f	光标回退/前进一单词
+alt+d	删除后一单词
+ctrl+w	删除前一单词
+ctrl+a	ctrl+e	光标前往最前/最后
 ctrl+u  ctrl+k	删除
 ctrl+y	粘贴缓存
-ctrl+r	
+ctrl+r	搜索过往命令
+alt+.	使用上一条命令的最后一个参数
 
-
-Alt + .：使用上一条命令的最后一个参数
 shift+Ins	git窗口的拷贝
 
- git log | grep -4 上下四行 | less
-git log | grep -4 --color=auto release 有less就不显色关键字
-
-
-find ./ -type d -print0 -name '.git' |xargs rm -rf出错，删太多
-find path -option [ -print ] [ -exec -ok command ] {} \;
--print 应该 option 后面
-find ./ -type d  -name '.git' -print0 |xargs -0 rm -rf
--type f 为文件
-
-平常我们经常把find和xargs搭配使用，例如：
-find . -name "*.txt" | xargs rm
-
-但是这个命令如果遇到文件名里有空格或者换行符，就会出错。因为xargs识别字符段的标识是空格或者换行符，所以如果一个文件名里有空格或者换行符，xargs就会把它识别成两个字符串，自然就出错了。
-这时候就需要-print0和-0了。
-find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行了。
-然后xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误了。选择NULL做分隔符，是因为一般编程语言把NULL作为字符串结束的标志，所以文件名不可能以NULL结尾，这样确保万无一失。
-
-所以比较我们推荐的比较保险的命令是
-
-find . -name "*.txt" -print0 | xargs -0 rm -rf
 
 
 dos:
@@ -47,3 +27,5 @@ telnet 192.168.9.154 8081	监测该端口是否打开
 终端安装了国产杀毒软件，口令均为复杂口令，关闭了如3389等风险端口，使用了江民准入，内外网隔离等安全策略。
 10.信息系统风险评估：
 已有专业的测评公司进行了系统测评，整改和验收，达到了等保三级要求。
+
+10.17.9.2和10.17.9.3防火墙ssh的两个漏洞，文件说解决办法是厂商升级，那就看看防火墙界面有没有硬件升级的选项，升级硬件。第二个办法是直接关闭防火墙ssh功能，只允许主机连接登录。

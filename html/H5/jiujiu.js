@@ -1,3 +1,4 @@
+console.log("node xxx.js")
 function jiujiu(){
     var b99 = []
     for(var i=1;i<10;i++){

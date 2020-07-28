@@ -72,7 +72,8 @@ ctrl+shift+p	>
 ctrl+k,ctrl+s 	快捷键编辑	“折叠文件夹”+shift+alt+x
 
 
-ctrl+alt+左右	分组	ctrl+1，2	分组件移动
+ctrl+alt+左右	分组	ctrl+1，2	分组间移动
+alt+1,2		标签间移动
 ctrl+0		foucs侧边栏
 ctrl+,		打开设置,可以修改是否自动保存
 
