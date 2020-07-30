@@ -1,0 +1,30 @@
+.firstLine {
+    margin-top: 60px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.todolist {
+    width: 400px;
+    margin: 20px auto;
+}
+
+.inputForm {
+        margin-bottom: 20px;
+        width: 300px;
+        height: 32px;
+}
+/* 
+input {
+    margin-bottom: 20px;
+    width: 300px;
+    height: 32px;
+}
+
+
+button {
+    height: 32px;
+    width: 80px; 
+} */

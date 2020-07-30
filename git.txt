@@ -7,6 +7,17 @@ git diff readme.txt
 关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
 
+fatal: in unpopulated submodule 'angular/angulardemo01' 因为push从不推送这个目录，而且在这个目录下也不能git add .
+解决办法： 在上级目录git rm -rf --cached angulardemo01
+然后 git add angulardemo01
+
+client_loop: send disconnect: Connection reset by peers
+fatal: the remote end hung up unexpectedly
+fatal: early EOF
+fatal: index-pack failed
+当推送大量数据时（初始推送大型存储库，使用非常大的文件进行更改）可能需要 http.postBuffer 在 git 客户端 （而不是服务器）上设置更高的 设置 ；将 Git 缓冲区大小增加到 repo 的最大单个文件大小：
+git config --global http.postBuffer 157286400
+或者直接git config remote.origin.url git@github.com:your_username/your_project.git
 
 git branch                  # 先看一下自己在哪个分支
 git checkout -b zhangsan    # 创建一个名为zhangsan的分支

@@ -1,0 +1,14 @@
+<p>search works!</p>
+
+
+<div class="search">
+    <input class="firstLine" type="text" [(ngModel)]="keyword" (keydown)="keyDown($event)">
+    <!-- (keyup)="doSearch($event) -->
+    <button (click)="doSearch()">搜索</button>
+
+    <hr>
+
+    <ul>
+        <li *ngFor="let item of historyList;let key=index;">{{item}}        <button (click)="deleteHistory(key)">删除</button></li>
+    </ul>
+</div>

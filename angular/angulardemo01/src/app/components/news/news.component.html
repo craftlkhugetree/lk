@@ -1,0 +1,82 @@
+
+<p>news works!</p>
+<p>news works!</p>
+<p>news works!</p>
+<p>news works!</p>
+
+<hr />
+<h1>angular模板里面绑定数据</h1>
+<h2>HWOlLO</h2>
+<h2>{{title}}</h2>  <!--绑定数据-->
+<h2>{{username}}</h2>  <!--绑定数据-->
+
+
+<h6>{{userinfo["username"]}}</h6>
+<h6>{{message}}</h6>
+
+<hr />
+<h1>angular模板里面绑定属性</h1>
+<div title="我是一个div，鼠标扫过就出字">
+    鼠标瞄上去看一下
+</div>
+
+<div [title]="student">
+    绑定属性,动态数据前后要加中括号 
+</div>
+
+<hr />
+<h1>angular模板里面绑定html</h1>
+<div>
+    {{content}}------------>html标签也被当文本输出了
+</div>
+<span [innerHTML]='content' class="red"></span>
+
+
+<hr />
+<h1>angular模板里面允许简单运算</h1>
+1+2 = {{1+2}}
+
+
+
+<hr />
+<h1>angular模板里面循环,*ngFor="let item of arr"里的item和arr很关键</h1>
+<ol>
+    <li *ngFor="let item of arr">
+        {{item}}
+    </li>
+    <li *ngFor="let item of list1">
+        {{item}}
+    </li>
+    <li *ngFor="let item of list">  
+        {{item}}
+    </li>
+    <li>abc</li>
+    <li *ngFor="let items of arr">
+        {{list1}}
+    </li>
+</ol>
+
+<ul>
+    <li *ngFor="let item of userlist">
+        {{item.username}} ---- {{item.age}}
+    </li>
+</ul>
+
+<ul>
+    <li *ngFor="let cars of car">
+        <h3>{{cars.carN}}</h3>
+        <ol>    <!--不能直接跟li，因为li不能嵌套li-->
+            <li *ngFor="let item of cars.list">
+                {{item.name}} -----> {{item.price}}
+            </li>
+        </ol>
+    </li>
+</ul>
+
+
+<hr/>
+<div #myBox>
+    I'm a DOM.
+</div>
+<button (click)="getChildRun()">获取组件的方法</button>
+<app-header #header></app-header>

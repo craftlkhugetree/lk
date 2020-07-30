@@ -1,0 +1,106 @@
+<h1>引入图片</h1>
+
+<img src='assets/images/1.PNG' alt="ad"/>   <!--扩展名大小写必须一致-->
+<img [src]="picUrl"/>
+
+<hr />
+<h1>循环数据，显示数据索引</h1>
+<ul>
+    <li *ngFor="let item of list;let key=index;">
+        {{item.title}}____{{key}}
+    </li>
+</ul>
+
+
+<hr />
+<h2>ngIF</h2>
+<div *ngIf="!flag">
+    显示
+</div>
+
+<ul>
+    <li *ngFor="let item of list;let key =index">
+        <span *ngIf="key==1" class="red">
+            {{key}} -----> {{item.title}}
+        </span>
+        <span *ngIf="key!=1">
+            {{key}} -----> {{item.title}}
+        </span>
+    </li>
+</ul>
+
+
+<hr />
+<h1>ngswitch条件判断</h1>
+<span [ngSwitch]="orderStatus">
+<p *ngSwitchCase="1">
+    已支付
+</p>
+<p *ngSwitchCase="2">
+    已确认
+</p>
+<p *ngSwitchCase="3">
+    已发货
+</p>
+<p *ngSwitchCase="4">
+    已收货
+</p>
+<p *ngSwitchDefault>
+    无效订单
+</p>
+</span>
+
+
+<hr />
+<h1>ngClass,ngStyle属性</h1>
+<div [ngClass]="{'red':true}">
+    尽量不要用DOM来改变class
+</div>
+<div [ngClass]="{'red':!flag,'orange':flag}">
+    尽量不要用DOM来改变class
+</div>
+
+
+<strong>循环数组，让数组第一个元素为red</strong>
+<li *ngFor="let item of list;let key=index;" [ngClass]="{'red': key==0}">
+    gg
+</li>
+<hr/>
+<p style="color:red">I'm a p tag.</p>
+<p [ngStyle]="{'color':' red'}">I'm ngStyle p tag.</p>
+<p [ngStyle]="{'color': attr}">I'm var attr.</p>
+<hr/>
+<h1>PIPE</h1>
+{{today| date:'yyyy-MM-dd HH:mm:ss'}} <br>
+<hr/>
+<h1>事件</h1>
+原title值::{{title}} <br>
+<button (click) = "run()">执行事件</button>
+<button (click) = "getData()">执行方法获取数据</button>
+<button (click) = "setData()">执行方法改变属性里面的数据</button>
+<button (click) = "runEvent($event)">执行方法获取事件对象</button>
+<hr/>
+<h1>表单事件 事件对象</h1>
+<!-- <input type="text" (keyDown)="keyDown()"/> --> <!--keydown不能大写D-->
+<!-- <input type="text" (keydown)="keyDown($event)"> -->
+<input type="text" (keyup)="keyDown($event)">   <!--keydown不显示当前值因为键盘刚按下还没弹起-->
+
+<hr/>
+<h1>双向数据绑定只针对表单--MVVM,业务逻辑的数据是model,而这些html是视图</h1>
+<input type="text" [(ngModel)]="keywords" />
+{{keywords}} <br>
+
+<button (click)="changeKeywords()">改变keywords</button>
+<button (click)="getKeywords()">获取keywords</button>
+
+
+<hr/>
+<h2>这是一个home组件--DOM操作演示</h2>
+
+<div id="box">
+    this is a box.
+</div>
+
+<div id="box1" *ngIf="flag">
+    this is box1.
+</div>

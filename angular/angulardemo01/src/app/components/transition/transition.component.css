@@ -1,0 +1,19 @@
+#aside {
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    background: #000;
+    color: #fff;
+    transform: translate(100%,0 );    /* 向右漂移100%，但是下方有滚动条,需要全局
+    body {
+        width: 100%;
+        overflow: hidden;
+    } */
+    transition: all 2s; /*过渡为2秒*/
+}
+
+.firstLine {
+    margin-top: 60px;
+}
