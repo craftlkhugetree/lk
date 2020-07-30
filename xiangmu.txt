@@ -41,7 +41,7 @@ for(var i=0;i<res.data.length;i++){
 最后还要考虑分页后，序号又从1开始了。
  <td>{{basicTable.data.indexOf(item)+1+(nzPageIndex-1)*nzPageSize}}</td>
 
-（2）thead style=""	内联无效，::ng-deep
+（2）thead style=""	内联无效，::ng-deep即可，不行就:host ::ng-deep
 （3）选中值为null的字段，修改为“无资料”
 checkShow(resData:any){
     for(var item of resData)//数组
@@ -108,7 +108,7 @@ ng g ng-alain:tpl your_template_name your_page_name -m your_module_name
 :host 表示选择器，选择当前的组件。
 ::ng-deep 可以忽略中间className的嵌套层级关系。直接找到你要修改的className。
 
-:host ::ng-deep .ant-table-thead > tr > th {
+::ng-deep .ant-table-thead > tr > th {
     background-color: cyan;
 }
 
@@ -232,6 +232,9 @@ private processTodos(listUUID: string, todos: Todo[], rank: RankBy, completedHid
 <span [ngClass]="{'strikethrough' : item.completedFlag}">{{ item.title }}</span>
      <span [class.strikethrough]="item.completedFlag">{{ item.title }}</span>
 "let-" is only supported on ng-template elements.
+eg:  
+<nz-list *ngIf="todos.length > 0" [nzDataSource]="todos" [nzRenderItem]="item" 	[nzItemLayout]="'horizontal'">
+<ng-template #item let-item>
 
 
 （10）泛型
@@ -455,4 +458,6 @@ export class NgForOfContext<T> {
 
 
 
-（17）
+（17）引用的模板是方法的，需要中括号，否则会引用不到：
+      <nz-list-item class="suggestion-item" [nzActions]="[setTodayAction]">
+        <ng-template #setTodayAction>

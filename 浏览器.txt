@@ -1,3 +1,9 @@
+13.Hit F1 to settings.
+ctrl+shift+p	for commands
+ctrl+shift+t	for reopen
+alt+rightarrow	tab forward
+
+
 1.console.table(tabledata, tablecolumns)	必须是数组的形式
 指定表格表头标题名，参数只能是对应的键名：
 var site1 = { name : "Runoob", site : "www.runoob.com" }
@@ -66,7 +72,3 @@ The scope of queryObjects() is the currently-selected execution context in the c
 
 12.table(data[, columns])
 
-13.Hit F1 to settings.
-ctrl+shift+p	for commands
-ctrl+shift+t	for reopen
-alt+rightarrow	tab forward

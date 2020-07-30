@@ -56,3 +56,8 @@ find . -exec grep x{} \;
 find / -name "httpd.conf"
 find / -name "rsync"
 为什么会这样能，因为通道命令符是把上一部的结果传递给下一步来处理，在 find . |grep x中虽然看似和find .|xargs grep x差不多，但是实际上还是有区别的。应为find .得到的结果是一串文件名集合，如果直接传递给grep的话，grep会把这些文件名看作一些无意义的字符串来处理。但是传递给xargs，他会把他当作一个有意义的文件来处理。
+
+
+ps -ef  |awk  '{print $2}'
+ps -ef | awk NR==2	NR!=2 不打印第2行；$NF最后一行
+ps -ef  |head -2	显示前2行；tail -2 后两行

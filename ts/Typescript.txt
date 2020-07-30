@@ -8,3 +8,91 @@ tsc --init
 
 3.慕课网笔记在hello.ts
 b站笔记在heima.ts
+
+4.	 （1）class 中使用static 
+		// static  可以使用 this来访问到
+		const x = point.x - this.init.x;
+		// 同样也可以使用类名来访问
+		const y = point.y - Grid.init.y;
+
+（2）class 中get 和set的用法
+private _fullName: string;
+get fullName(): string{      
+		return this._fullName;
+	}
+
+（3）readonly 的用法
+class Animal {
+	readonly age: number;
+	constructor(dogAge: number) {
+		this.age = dogAge;
+	}
+}
+
+const animal = new Animal(6);
+animal.age = 10;     // 会提示 该属性是不可以修改的
+
+（4）函数参数的可选择性
+function fullName (firstName: string, lastName?: string) {
+	return firstName + "," + lastName;
+}
+// 下面两种用法都是可以的   一个简单的? 就完成了java中的overload了
+fullName("帅比", "小白");
+fullName("帅比");
+
+//当然我们也可以通过es6中的  ...不定参数 也可以实现, 但是这就跟ts 没关系啦
+function fullName(...arr) {}
+
+（5）使用泛型
+
+// T 是一个类型变量 它是一种特殊的变量 只用于表示类型而不是值
+function Generic<T>(anyParam: T): T {
+	return anyParam;
+}
+// 完整写法
+Generic<string>(anyParam: "小白");    // 结果是  => "小白"
+// 推理性写法
+Generic(anyParam: "小白");           // 小白 为string 就可以推断出 前面的为<string>  所以你可以省略<string>
+
+====================================================================================
+interface LengthWise {
+	length: number;
+}
+// 这样子的话 我们就可以拿到 参数里面的length 了 
+function Generic<T extends LengthWise>(anyParam: T): T {
+    console.log(anyParam.length);
+	return anyParam;
+}
+// 因为 string 自己就有 length的属性
+Generic(anyParam: "小白");  
+
+// 如果是number的话 它没有, 所以需要自己定义个length  来符合规范
+Generic(anyParam:{length: 1, other: 10});  
+====================================================================================
+
+（6）方法的重载
+
+class Dog {
+	constructor(name: string) {
+
+	}
+    
+    // 写方法的重载 在ts实现中  要先声明 然后在实现
+    eat(food: string): boolean;
+    //{result: boolean, msg: string} 是方法要返回的结构样式
+    eat(food: {name: string, amount: number}): {result: boolean, msg: string};
+	
+	// 这里是方法的实现  eat(food: string | {name: string, amount: number})  这样子写也是一样的
+	// 等同于 eat(food: any) 只不过 上面的写法更加的精确一点
+	eat(food: any): any {
+		if(typeof food === 'string') {
+			return food === '狗粮';
+		} else {
+			const result = food.name === '狗粮';
+			return {
+				result: result,
+				msg: result? "是狗粮": "不是狗粮"
+			};
+		}
+	}
+}

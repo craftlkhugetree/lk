@@ -16,7 +16,7 @@ const routes: Routes = [
   },
 
   {
-    path:'address',component:AddressComponent,
+    path:'components/address',component:AddressComponent,
   },
 ];
 

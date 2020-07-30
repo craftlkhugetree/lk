@@ -13,9 +13,11 @@ export class MonitorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("tsInit:test")
   }
 
   change(){}
   // timePK = new Date()
 
+  // window.console.log("tsInit:test")
 }

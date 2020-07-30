@@ -1,1 +1,141 @@
 1.管理页面不需要提供给客户浏览器，所以管理模块可以懒加载。而惰性加载的才会拥有自己的注入器。希望服务是全局单例，除了在根模块声明外，最好在服务的装饰器中指定给root模块使用，好处是摇树优化。
+
+2.在user-routing.module.ts下的components目录里有address组件，那么
+{path:'components/address',component:AddressComponent},
+里path的内容就表示 user/components/address
+相应的	<a [routerLink]="[ './components/address' ]">address</a>
+
+若为	{path:'address',component:AddressComponent},
+那么浏览器栏就是user/address
+相应的	<a [routerLink]="[ './address' ]">address</a>
+不用管components目录。因为有import AddressComponent
+
+3.
+ {
+    path:'article',loadChildren:()=>import('./modules/article/article.module').then(m=>m.ArticleModule) 
+  },
+只要路由里有这条，不用[routerLink]，就可以在浏览器里访问http://localhost:4200/article
+
+4.不用路由也OKKK！而且目录名不一定要和组件名相同。
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { AppComponent } from './app.component';
+import { WelcomeComponent } from './home/welcome.component';
+import { ProductModule } from './products/product.module';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    WelcomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot([  //没有路由文件了 const routes: Routes = [];
+      { path: 'welcome', component: WelcomeComponent },
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+    ]),
+    ProductModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+5.import不一定要写完整文件名，可以from目录名，import该目录下某文件里的export 类名即可。
+
+import { IProduct } from './product'; //接口名为IProduct，在product.ts里
+
+6.	 （1）class 中使用static 
+		// static  可以使用 this来访问到
+		const x = point.x - this.init.x;
+		// 同样也可以使用类名来访问
+		const y = point.y - Grid.init.y;
+
+（2）class 中get 和set的用法
+private _fullName: string;
+get fullName(): string{      
+		return this._fullName;
+	}
+
+（3）readonly 的用法
+class Animal {
+	readonly age: number;
+	constructor(dogAge: number) {
+		this.age = dogAge;
+	}
+}
+
+const animal = new Animal(6);
+animal.age = 10;     // 会提示 该属性是不可以修改的
+
+（4）函数参数的可选择性
+function fullName (firstName: string, lastName?: string) {
+	return firstName + "," + lastName;
+}
+// 下面两种用法都是可以的   一个简单的? 就完成了java中的overload了
+fullName("帅比", "小白");
+fullName("帅比");
+
+//当然我们也可以通过es6中的  ...不定参数 也可以实现, 但是这就跟ts 没关系啦
+function fullName(...arr) {}
+
+（5）使用泛型
+
+// T 是一个类型变量 它是一种特殊的变量 只用于表示类型而不是值
+function Generic<T>(anyParam: T): T {
+	return anyParam;
+}
+// 完整写法
+Generic<string>(anyParam: "小白");    // 结果是  => "小白"
+// 推理性写法
+Generic(anyParam: "小白");           // 小白 为string 就可以推断出 前面的为<string>  所以你可以省略<string>
+
+====================================================================================
+interface LengthWise {
+	length: number;
+}
+// 这样子的话 我们就可以拿到 参数里面的length 了 
+function Generic<T extends LengthWise>(anyParam: T): T {
+    console.log(anyParam.length);
+	return anyParam;
+}
+// 因为 string 自己就有 length的属性
+Generic(anyParam: "小白");  
+
+// 如果是number的话 它没有, 所以需要自己定义个length  来符合规范
+Generic(anyParam:{length: 1, other: 10});  
+====================================================================================
+
+（6）方法的重载
+
+class Dog {
+	constructor(name: string) {
+
+	}
+    
+    // 写方法的重载 在ts实现中  要先声明 然后在实现
+    eat(food: string): boolean;
+    //{result: boolean, msg: string} 是方法要返回的结构样式
+    eat(food: {name: string, amount: number}): {result: boolean, msg: string};
+	
+	// 这里是方法的实现  eat(food: string | {name: string, amount: number})  这样子写也是一样的
+	// 等同于 eat(food: any) 只不过 上面的写法更加的精确一点
+	eat(food: any): any {
+		if(typeof food === 'string') {
+			return food === '狗粮';
+		} else {
+			const result = food.name === '狗粮';
+			return {
+				result: result,
+				msg: result? "是狗粮": "不是狗粮"
+			};
+		}
+	}
+}
+
+7.

@@ -13,6 +13,8 @@ import { SettingComponent } from './components/home/setting/setting.component';
 import { PcateComponent } from './components/product/pcate/pcate.component';
 import { PlistComponent } from './components/product/plist/plist.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

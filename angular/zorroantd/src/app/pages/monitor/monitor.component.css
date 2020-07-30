@@ -1,7 +1,7 @@
-:host ::ng-deep .ant-table-thead{
+ /* :host ::ng-deep .ant-table-thead{
     background-color: cadetblue;
-}
+} */
 
-:host ::ng-deep .ant-table-thead > tr > th {
+ ::ng-deep .ant-table-thead > tr > th {
     background-color: cyan;
 }

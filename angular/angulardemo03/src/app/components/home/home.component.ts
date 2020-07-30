@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
-import { _HttpClient, ModalHelper } from '@delon/theme';
-import { NzTableModule } from 'ng-zorro-antd/table';
+// import { _HttpClient, ModalHelper } from '@delon/theme';
+// import { NzTableModule } from 'ng-zorro-antd/table';
+// import { NgZorroAntdModule } from 'ng-zorro-antd'
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   current_org = JSON.parse(window.sessionStorage.getItem('zw_currentOrg'));
   account = JSON.parse(window.sessionStorage.getItem('zw_loginInfo')).account;
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) { }
+  constructor(private http: HttpClient) { }
+  // constructor(private http: HttpClient, private modal: ModalHelper) { }
 
   ngOnInit(): void {
     this.initdata()

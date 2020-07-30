@@ -1,5 +1,7 @@
 1.npm uninstall -g @angular/cli
 用yarn安装项目的全部依赖出现报错，则yarn config set ignore-engines true
+yarn add delon 还是不行，只能在package.json添加依赖 "@delon/theme":"9.5.5"，以使用_HttpClient和ModalHelper
+实在用不了只能 yarn remove @delon/theme
 
 2.User Interface
 ng-zorro-antd的版本也是跟随angular的版本实时更新的，这个UI框架是阿里事业部的团队做的，可是说这个框架就是专门为angular而做的。
@@ -21,7 +23,7 @@ ng bulid -prod	生成模式，关闭debug开关和调式功能等内容。 CDN加速通过文件hash来判
 
 5.ng add ng-zorro-antd
 
-6.
+6.cnpm i ng-alain
     [] 表示属性
 
     () 表示事件
