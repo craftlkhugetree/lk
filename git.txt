@@ -10,6 +10,8 @@ git diff readme.txt
 fatal: in unpopulated submodule 'angular/angulardemo01' 因为push从不推送这个目录，而且在这个目录下也不能git add .
 解决办法： 在上级目录git rm -rf --cached angulardemo01
 然后 git add angulardemo01
+但是这样把不需要的也给add了，所以 git reset angular/angulardemo01/node_modules/
+
 
 client_loop: send disconnect: Connection reset by peers
 fatal: the remote end hung up unexpectedly
