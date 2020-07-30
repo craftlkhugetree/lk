@@ -1,0 +1,12 @@
+<nz-layout class="right-control">
+  <nz-header class="header-wrapper">
+    <app-header></app-header>
+  </nz-header>
+  <nz-content class="list-wrapper">
+    <app-todo></app-todo>
+  </nz-content>
+  <div class="quick-add-wrapper" [class.center]="todoList.todos.length === 0">
+    <!-- 这个(addd)就是子传父 -->
+    <app-quick-add (addd)="add($event)"></app-quick-add>
+  </div>
+</nz-layout>

@@ -1,0 +1,10 @@
+<input nz-input
+       #addInput
+       placeholder="想要做什么？"
+       (keydown.enter)="addTodo(addInput.value); addInput.value = ''">
+
+
+<input nz-input 
+       #hello
+       placeholder="#变量，用来表示这个标签，用.调用其属性，#xxx;xxx.value;"
+       (keydown.enter)="consoleLogg(hello.value);hello.value=''">

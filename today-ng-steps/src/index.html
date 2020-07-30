@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TodayNg</title>
+  <base href="./">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    /*Location 对象属性
+属性 	描述
+hash 	返回一个URL的锚部分
+host 	返回一个URL的主机名和端口
+hostname 	返回URL的主机名
+href 	返回完整的URL
+pathname 	返回的URL路径名。
+port 	返回一个URL服务器使用的端口号
+protocol 	返回一个URL协议
+search 	返回一个URL的查询部分
+Location 对象方法
+方法 	说明
+assign() 	载入一个新的文档
+reload() 	重新载入当前文档
+replace() 	用新的文档替换当前文档*/
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[ a[ 0 ] ] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>
