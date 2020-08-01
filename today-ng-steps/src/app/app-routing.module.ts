@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'main', redirectTo: '/main', pathMatch: 'full' },
   { path: 'summary', redirectTo: '/summary', pathMatch: 'full' },
   { path: 'setting', redirectTo: '/setting', pathMatch: 'full' },
-  { path: '', redirectTo: '/setup', pathMatch: 'full' }
+  { path: '', redirectTo: '/setup', pathMatch: 'full' },
+  { path: '**', redirectTo: '/setup', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -2,6 +2,13 @@
 ctrl+h批量替换 vscode中内容
 插件：angular，ionic，swiper-snippets，Chinese (Simplified)，Markdown，Vim，Live Server
 
+VsCode中，使用VIM插件后，ctrl+c不能用，可以通过 File -> Preference -> Settings中   vim.useCtrlKeys 选项设置为 false即可。
+
+alt+点击行  可以多行同时输入
+ctrl+/ 注释
+ctrl+k+f  格式化选定文档
+ctrl+shift+[  折叠部分区域
+
 命令行code . 新窗口vscode打开当前文件夹
 ul>li.item*5
 <ul>
@@ -192,10 +199,3 @@ if (js && js.parentNode && js.parentNode.id === 'test-div' && js.id === 'test-js
 
 
 
-vscode：
-VsCode中，使用VIM插件后，ctrl+c不能用，可以通过 File -> Preference -> Settings中   vim.useCtrlKeys 选项设置为 false即可。
-div*3   link*3 自动三行
-alt+点击行  可以多行同时输入
-ctrl+/ 注释
-ctrl+k+f  格式化选定文档
-ctrl+shift+[  折叠部分区域

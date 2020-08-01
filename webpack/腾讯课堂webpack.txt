@@ -91,3 +91,27 @@ if(module.hot){
 	
 20.执行webpack --mode development打包			
 压缩可视化npm install webpack-bundle-analyzer
+
+21.
+npm install --save-dev packageName
+# 简写
+npm i -D packageName
+
+npm install --save packageName
+# 简写
+npm i -S packageName
+
+NPM（Node Package Manager）是包含在Node.js里面的一个包管理工具，NPM会随着Node.js一起安装。
+package.json文件可以自己手动创建，也可以使用命令来创建：
+
+npm init
+
+文件中包含了NPM包的基本信息（项目名称、版本号、项目描述、作者）和依赖管理，例如：
+
+{
+    "name": "demo",
+    "version": "1.0.0",
+    "devDependencies": {
+        "webpack": "^4.29.6"
+    }
+｝

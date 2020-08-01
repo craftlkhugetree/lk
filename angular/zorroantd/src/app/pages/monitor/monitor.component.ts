@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonitorComponent implements OnInit {
   ddd = [110,333];
-  pNo:number;
-  expression:boolean = true;
+  pNo:number ;
+  expression:boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    console.log("tsInit:test")
+   this.pNo = 2;
+   console.log("tsInit:test")
   }
 
   change(){}

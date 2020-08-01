@@ -138,4 +138,76 @@ class Dog {
 	}
 }
 
-7.
+7.dep.service.ts文件：
+@Injectable()
+export class DepService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   * 获取全部部门
+   */
+  public getDeps = (): Observable<Array<Department>> => {
+    return this.http.get<Array<Department>>('http://121.43.180.55:8182/api/departments');
+  }
+
+在dep.service.ts中添加分页代码：
+/**
+   * 获取部门-分页
+   */
+  public getDepsPaged = (pageIndex, pageSize): Observable<HttpResponse<any>> => {
+    return this.http.get<HttpResponse<any>>('http://121.43.180.55:8182/api/departments?page='
+      + pageIndex + '&size=' + pageSize , { observe: 'response' });
+  }
+
+
+deplist.component.ts文档：
+ /**
+   * part1—data
+   */
+  departments: Array<Department> = [];
+  depForm: FormGroup;
+  dep: Department;
+
+
+  /**
+   * part2—methods
+   */
+  /**
+   * 获取部门
+   */
+  getDeps() {
+    this.depService.getDeps().subscribe(
+      (data) => {
+        console.log('DepListConponment loadAllDepartments data', data);
+        // this.departments = new Array<Department>();
+        // this.departments.concat(data);
+        this.departments = data;
+      },
+      (error) => {
+        console.log('DepListConponment loadAllDepartments error', error);
+      },
+      () => {
+      }
+    );
+  }
+
+ getDeps() {
+    this.isloading = true;
+    this.depService.getDepsPaged(this.pageIndex - 1, this.pageSize).subscribe(
+      (data: HttpResponse<any>) => {
+        console.log('DepListComponent loadAllDepartments data', data);
+        this.departments = data.body;
+        if ( data.headers) {
+          this.dataTotal = parseInt(data.headers.get('X-Total-Count'), 10);
+        }
+
+      },
+      (error) => {
+        console.log('DepListComponent loadAllDepartments error', error);
+      },
+      () => {
+        this.isloading = false;
+      }
+    );
+
+  }

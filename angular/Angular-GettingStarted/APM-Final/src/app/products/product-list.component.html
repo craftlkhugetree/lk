@@ -51,8 +51,8 @@
             <td>{{ product.productCode | lowercase | convertToSpaces:'-' }}</td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
-            <td>
-              <pm-star [rating]='product.starRating'
+            <td>              <!-- 父传子与子传父，product-list为父，star为子 -->
+              <pm-star [rating]='product.starRating'  
                        (ratingClicked)='onRatingClicked($event)'>
               </pm-star>
             </td>
