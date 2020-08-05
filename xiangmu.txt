@@ -343,14 +343,23 @@ Rx.Observable.combineLatest(ob1, ob2).subscribe({
 输出为：complete。
 因为ob2不发射任何数据，直接complete了。这导致combineLatest在收集到所有observable的数据前有complete的observable，所以combineLatest就直接complete了。
 
-（14）组件间通讯：子组件中@input，接收父组件传值；@output。这俩@都是在子组件中，而html调用都在父组件中。
+（14）组件间通讯：子组件中@input，接收父组件传值；@output给父组件传值。这俩@都是在子组件中，而html调用都在父组件中。
+在APM-Final项目中，star.components文件为子组件：
+@Input() rating = 0;	
+@Output() ratingClicked: EventEmitter<string> =new EventEmitter<string>();
+而product-list为父组件：
+<pm-star [rating]='product.starRating'  
+                       (ratingClicked)='onRatingClicked($event)'>
+              </pm-star>
+在父组件中点击那些星星，就有星值的文字反馈到父组件上显示；而星星的颗数，需要父组件将星值传递给子组件，由子组件star来显示。
+
 1.父传子 （@input）
 
 parent.ts:
 
 export class ParentPage {
 
- menu:'菜单';
+ menu='菜单';
 
   }
 parent.html:
@@ -365,11 +374,11 @@ export class ChildPage{
 
 @Input() childMenu:string;
 
-}
+}借助 @Input()，Angular 将 menu 的值传给子级，以便该 childMenu 渲染为 ‘菜单’。
 
 child.html:
 
-<div>{{childMenu}}</div>
+<div>{{childMenu}}</div>	menu被传到子组件，再在父容器中显示
 
   2.子传父 （@Output）
 
@@ -394,8 +403,8 @@ export class ChildPage {
 parent.html:
 
 <h2>{{num}}</h2>
-
-<page-child (changeNumber)="newNumber($event)"></page-child>
+<page-child (changeNumber)="newNumber($event)"></page-child>	
+$event就是(changeNumber)所绑定的的鼠标事件， (click)="constructor()">也就是子传父了。
 
 parent.ts:
 
@@ -457,6 +466,10 @@ export class NgForOfContext<T> {
 模板输入变量和引用变量具有各自独立的命名空间。let hero中的hero和#hero中的hero并不是同一个变量。
 
 
+
+模板引用变量 #newItem 的 HTML <input>，用户可在其中键入条目名称。用户键入到 <input> 中的内容都存储在 #newItem 变量中。
+<label>Add an item: <input #newItem></label>
+<button (click)="addNewItem(newItem.value)">Add to parent's list</button>
 
 （17）引用的模板是方法的，需要中括号，否则会引用不到：
       <nz-list-item class="suggestion-item" [nzActions]="[setTodayAction]">

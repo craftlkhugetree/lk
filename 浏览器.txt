@@ -1,6 +1,7 @@
 13.Hit F1 to settings.
 ctrl+shift+p	for commands
 ctrl+shift+t	for reopen
+ctrl+t		for newTab
 alt+rightarrow	tab forward
 
 

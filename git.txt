@@ -1,3 +1,24 @@
+git log -p -2	只显示最近的两次提交，显示每次提交所引入的差异。
+每次提交的简略统计信息，可以使用 --stat 选项
+另一个非常有用的选项是 --pretty。 这个选项可以使用不同于默认格式的方式展示提交历史。 这个选项有一些内建的子选项供你使用。 比如 oneline 会将每个提交放在一行显示，在浏览大量的提交时非常有用。 另外还有 short，full 和 fuller 选项，它们展示信息的格式基本一致，但是详尽程度不一：
+$ git log --pretty=oneline
+最有意思的是 format ，可以定制记录的显示格式。 这样的输出对后期提取分析格外有用——因为你知道输出的格式不会随着 Git 的更新而发生改变：
+$ git log --pretty=format:"%h - %an, %ar : %s"
+ca82a6d - Scott Chacon, 6 years ago : changed the version number
+$ git log --pretty=format:"%h %s" --graph
+
+
+另一个非常有用的过滤器是 -S（俗称“pickaxe”选项，取“用鹤嘴锄在土里捡石头”之意）， 它接受一个字符串参数，并且只会显示那些添加或删除了该字符串的提交。 假设你想找出添加或删除了对某一个特定函数的引用的提交，可以调用：
+
+$ git log -S function_name
+
+
+来看一个实际的例子，如果要在 Git 源码库中查看 Junio Hamano 在 2008 年 10 月其间， 除了合并提交之外的哪一个提交修改了测试文件，可以使用下面的命令：
+$ git log --pretty="%h - %s" --author='Junio C Hamano' --since="2008-10-01" \
+   --before="2008-11-01" --no-merges -- t/
+
+git blame git.txt
+
 git init
 git diff readme.txt 
 要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；

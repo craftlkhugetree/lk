@@ -21,6 +21,11 @@
             margin-left: auto;
             margin-right: auto;
         }
+        p#shouzimu::first-letter{
+            font-size: 50px;
+        }
+        div::before{content: 'lk';color: red;}
+        div::after{content: 'xcy';color: brown;}
     </style>
 </head>
 <body>
@@ -29,6 +34,25 @@
             div1
         </div>
     </div>
+    <p id="shouzimu">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus ipsam laudantium similique minus! Incidunt libero sunt mollitia, ipsam, veritatis voluptas suscipit corporis quasi error fugiat, quibusdam itaque deleniti. Enim, incidunt.</p>
 
+    <div style="background-color: chartreuse;">
+        <div>test after before</div>
+        qiantao
+    </div>
+    <script type="text/javascript">
+        let data=[{a:1,b:2},{c:3,b:2},{e:4,b:3}]
+        ;(data.filter((value,index,array)=>{    //循环
+            console.log(array)  //data数组
+            // console.log(array.findIndex(item=>item.b===value.b))
+            // console.log(array.findIndex(ite => console.log("ite is:",ite)))
+            console.log(array.findIndex(i=>i.b===3))    //2 findIndex()找到下标，i是data中对象元素
+            console.log(index)  //下标
+            console.log(value)  //当前下标的对象
+            })
+        )
+        console.log("下标-1：",data[-1])
+     
+    </script>
 </body>
 </html>

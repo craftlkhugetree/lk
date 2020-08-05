@@ -211,3 +211,8 @@ deplist.component.ts文档：
     );
 
   }
+
+8.ng new router --routing
+touch app-routing.module.ts
+ng g m app-routing
+都能生成app-routing.module.ts文件

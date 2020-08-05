@@ -25,16 +25,29 @@ import { NewnewsComponent } from './components/newnews/newnews.component';
 import { HomieComponent } from './components/homie/homie.component';
 import { LifecycleComponent } from './components/lifecycle/lifecycle.component';
 
+import { ContactListComponent } from './components/contact-list/contact-list.component';
+import { ContactDetailComponent } from './components/contact-detail/contact-detail.component'
+
+import { BackendService } from './backend.service'
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 /**装饰器接收一个元数据对象，告诉ng如何编译和启动应用 */
 @NgModule({
   declarations: [ /**配置当前项目运行的组件 */
-    AppComponent, NewsComponent, HomeComponent, FormComponent, SearchComponent, TodolistComponent, HeaderComponent, TransitionComponent, FooterComponent, NewnewsComponent, HomieComponent, LifecycleComponent, 
+    AppComponent, NewsComponent, HomeComponent, FormComponent, SearchComponent, TodolistComponent, HeaderComponent, TransitionComponent, FooterComponent, NewnewsComponent, HomieComponent, LifecycleComponent, ContactListComponent, ContactDetailComponent, 
   ],
   imports: [      /**配置当前模块运行依赖的其他模块 */
     BrowserModule,
     FormsModule,
+    // InMemoryWebApiModule.forRoot(BackendService),
+    HttpClientInMemoryWebApiModule.forRoot(BackendService),
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [StorageService],  /**配置项目所需要的服务 */
   bootstrap: [AppComponent]

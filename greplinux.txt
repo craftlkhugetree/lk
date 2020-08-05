@@ -27,6 +27,8 @@ git log | grep -4 --color=auto release 有less就不显色关键字
 
 不同游戏编译目录下的压缩文件移动到同一个文件夹下，以便传给QA来测试
 ls ../../../../qx_game/game1[3456789]/build/web-mobile/*.zip|xargs -I file mv file ~/qxgame
+ git log --pretty=oneline git.txt | head -1 | awk '{print $1}' | xargs -I ff git show ff git.txt
+
 
 find ./ -type d -print0 -name '.git' |xargs rm -rf出错，删太多
 find path -option [ -print ] [ -exec -ok command ] {} \;
