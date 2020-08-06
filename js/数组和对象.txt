@@ -1,0 +1,11 @@
+let data=[{a:1,b:2},{c:3,b:2},{e:4,b:3}]
+        ;(data.filter((value,index,array)=>{    //循环
+            console.log(array)  //data数组
+            console.log(array.findIndex(i=>i.b===3))    
+		//2 findIndex()找到下标，i是data中对象元素
+            console.log(index)  //下标
+            console.log(value)  //当前下标的对象
+            })
+        )
+
+data.find(item => item.b===3)	//find()找到元素，也就是b===3的对象
