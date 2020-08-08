@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position</title>
+    <style>
+        body{
+            font-size: 30px;
+        }
+        .box1,.box2,.box3{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+        }
+
+        .box1{
+            background-color: aqua;
+        }
+        .box2{
+            background-color: rgba(255, 0, 0, 0.3);
+            top:50px;
+            left: 50px;
+            z-index: -1;
+        }
+        .box3{
+            background-color: yellow;
+            top: 100px;
+            left: 100px;
+            z-index: -1;
+        }
+        .line{
+            width: 1px;
+            height: 10px;
+            background-color: #999;
+            margin: 100px 12px;
+            /* float:right; */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="box1">1</div>
+    <div class="box2">2</div>
+    <div class="box3">3</div> -->
+
+    <i class="line">1</i>
+    <i class="line">2</i>
+    <i class="line">3</i>
+    <i class="line">4</i>
+    <i class="line">5</i>
+    
+
+    <div class="line"></div>
+
+</body>
+</html>

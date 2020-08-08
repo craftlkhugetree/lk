@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {WebSocketService} from '../shared/web-socket.service'
 
+/**
+ * 依赖库
+npm install ws --save  
+类型定义文件 
+npm install @types/ws -save   */
 
 @Component({
   selector: 'app-web-socket',

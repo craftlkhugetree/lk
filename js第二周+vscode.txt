@@ -9,6 +9,11 @@ ctrl+/ 注释
 ctrl+k+f  格式化选定文档
 ctrl+shift+[  折叠部分区域
 
+ul>li>a>img
+div.box1+.box2+box3
+	<div class="box1"></div>
+    	<div class="box2"></div>
+    	<box3></box3>
 命令行code . 新窗口vscode打开当前文件夹
 ul>li.item*5
 <ul>

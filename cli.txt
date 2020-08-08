@@ -7,7 +7,11 @@ ctrl+y	粘贴缓存
 ctrl+r	搜索过往命令
 alt+.	使用上一条命令的最后一个参数
 
-shift+Ins	git窗口的拷贝
+shift+Ins	git窗口的粘贴
+ctrl+Ins	复制
+git show 哈希
+
+git下start打开cmd，再explorer .打开当前目录。
 
 
 

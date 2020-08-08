@@ -24,9 +24,9 @@ class Slider {
     }
 
 
-    initPoint(){    /*生成索引的小圆点,与图片数对应*/
+    initPoint(){    /*生成索引的小圆点,与图片数对应。*/
         const num = this.picBox.children.length;    /*ul的children是li*/
-        let frg = document.createDocumentFragment()
+        let frg = document.createDocumentFragment() //另一种方法是用border-radius:50%;就能生成
 
         for(let i=0; i< num; i++){
             let li = document.createElement("li")   /*准备在ol中生成li小圆点*/
