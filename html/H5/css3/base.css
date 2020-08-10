@@ -1,0 +1,19 @@
+/*common css*/
+.clearfix::before,
+.clearfix::after{
+    content:'';
+    display: table;
+    clear: both;
+}
+
+body{
+    font: 14px;
+    color: #333;
+    min-width: 1226px;  /*防止body缩放过程中太小，使w溢出*/
+}
+
+/*中间容器的宽度*/
+.w{
+    width: 1226px;
+    margin: 0 auto;
+}
