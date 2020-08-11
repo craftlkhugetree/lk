@@ -31,3 +31,34 @@
         background-color: hsl(100, 0, 100)
         
     }
+
+
+    .test{
+        /* /指定要执行过渡的属性width,height，逗号隔开，但不能从auto过渡  */
+        transition-property: all;  
+        transition-duration: 2s;
+        transition-timing-function: ease;
+        /* 过渡的时序函数，默认值ease慢速开始加速后最后减速，可选值linear匀速，ease-in加速，ease-out减速，ease-in-out
+         cubic-bezier(.25,.1,.25,1);贝塞尔曲线这个是ease，setps(3,end)跳三步start表示时间开始时执行过渡，
+         */
+        transition-delay: 2s;
+        animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+
+    @keyframes ball{
+        from{
+            margin-top: 0;
+        }
+        33%{
+            margin-top: 400px;
+            animation-timing-function: ease-in;
+        }
+        66%{
+            margin-top: 100px;
+            animation-timing-function: ease-out;
+        }
+        to{
+            margin-top: 400px;
+            animation-timing-function: ease-in;
+        }
+    }

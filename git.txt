@@ -18,6 +18,12 @@ $ git log --pretty="%h - %s" --author='Junio C Hamano' --since="2008-10-01" \
    --before="2008-11-01" --no-merges -- t/
 
 git blame git.txt
+查看某行代码由谁写的，在哪个commit中提交的：
+其显示格式为：
+commit ID | 代码提交作者 | 提交时间 | 代码位于文件中的行数 | 实际代码
+这样，我们就可以知道 commit ID 了，然后使用命令：git show commitID 来看
+
+。
 
 git init
 git diff readme.txt 

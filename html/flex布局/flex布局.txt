@@ -2,9 +2,10 @@ https://www.bilibili.com/video/BV1E7411774G/?spm_id_from=333.788.videocard.16
 
 1.浮动布局支持老版本浏览器，而flex不支持IE6-9。
 
-2.外部包裹是开启flex布局的元素，叫做flex container；其中的每个元素叫做flex items。
+2.外部包裹是开启flex布局的元素，叫做flex container；其中的父元素>子元素叫做flex items。
 
-3. /* display: flex; 块级元素 */
+3. 弹性容器的设置
+/* display: flex; 块级元素 */
             display: inline-flex;	行内元素
 
 4.布局模型
@@ -16,7 +17,7 @@ cross start，cross end，cross size
 （1）flex-flow是 flex-direction || flex-wrap 的缩写属性。
 flex-flow: row-reverse wrap;
 （2）flex-direction，默认items是沿主轴从start往end方向排布（左上角从左到右）
-direction默认值为row，其他值有row-reverse;column;colum-reverse
+默认值为row，其他值有row-reverse;column;colum-reverse。
 （3）justify-content决定了flex items在主轴上的对齐方式。
 默认为flex-start，其他值有flex-end，center。
 还有三种等分主轴的方式：space-between，space-evenly，space-around。
@@ -32,10 +33,9 @@ wrap-reverse
 6.flex items上的css属性
 （1）order，决定items的排布顺序，order可以为正负正数或零，越小越靠前
 （2）align-items写在容器里，然后item内部可以写align-self来覆盖。
-（3）flex-grow，默认值为零，让item按比例增加，比如item内部都写 flex-grow:正整数;
-如果是小数，且总和小于一,那么剩余空间占不满，各增加剩余空间的一部分。
+（3）flex-grow，默认值为零，让item按比例增加，flex-grow:正整数;分配弹性容器的剩余空间。如果是小数，且总和小于一,那么剩余空间占不满，各增加剩余空间的一部分。
 （4）flex-shrink默认值为一,如果没有wrap那么不换行就会等比例收缩。当item超出容器时，这个参数才可以起作用。若总和小于一，那么item反而会超出容器宽度。
 （5）flex-basis,优先级比width要高，而width优先级比内容的size高。
 （6）flex是 flex-grow||flex-shrink||flex-basis的缩写，可以指定1个，2个或3个值。
 
-7.
+7.会弹的导航条，nav li{flex-grow:1;} 随着li增加，	nav的剩余空间始终被li平分。

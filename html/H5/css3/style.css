@@ -1,0 +1,47 @@
+body {
+  width: 100px;
+  height: 100px;
+  background-color: #bfa;
+}
+body div {
+  color: red;
+}
+.box5 {
+  width: 100px;
+}
+.box6 {
+  color: #bfa;
+}
+div {
+  width: 300px;
+  height: 300px;
+}
+.box > .box1 {
+  color: red;
+}
+.box:hover {
+  color: orange;
+}
+.p1,
+.p2 {
+  width: 100px;
+}
+.p2 {
+  color: orange;
+}
+.p3 {
+  width: 100px;
+}
+div {
+  width: 200px;
+  height: 200px;
+}
+span {
+  color: #800080;
+}
+body:hover {
+  background-color: #92ff77;
+}
+.tab1 {
+  width: 200px;
+}

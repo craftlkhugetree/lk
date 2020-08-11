@@ -1,0 +1,81 @@
+body{
+    width: 100px;
+    height: 100px;
+    background-color: #bfa;
+
+    div{
+        color: red;
+    }
+}
+
+@a:100px;   //声明变量
+@b:#bfa;
+@c:box6;
+.box5{
+    width: @a;
+}
+//作为类名或者一部分值使用时，必须  @{变量名}
+//变量名发生重叠时，使用较近的；变量提升
+.@{c}{
+    color:@b;
+}
+
+div{
+    width: 300px;
+    height: $width;
+}
+
+
+.box{
+    >.box1{ //子元素
+        color:red;
+    }
+    //  &就表示外层的父元素
+    &:hover{
+        color:orange;
+    }
+}
+
+.p1{
+    width: 100px;
+}
+//选择器分组，p2单独扩展。
+.p2:extend(.p1){
+    color: orange;
+}
+
+.p3{
+    .p1();  //直接引用，复制了p1的样式，mixin
+}
+
+//类选择器后加了括号，创建了一个mixin，p4专门给别人用，自己不出现。引用时可以不加括号。
+.p4(){
+    height: 100px;
+}
+
+
+//混合函数中可以设置变量，以及默认值
+.test(@w,@h:200px){
+    width: @w;
+    height: @h;
+}
+
+div{
+    .test(200px);
+}
+
+span{
+    color:average(red,blue);    //平均函數 
+}
+body:hover{
+    background-color: darken(#bfa,10%); //加深函數
+}
+
+//所有数值都可以直接运算
+.tab1{
+    width: 100px+100px;
+}
+
+//@import "a.less";  //导入
+
+//less编译配置选项在ctrl+,  添加sourceMap:true, 产生一个style.css.map,得到less和css的对应关系。
