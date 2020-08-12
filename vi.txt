@@ -1,3 +1,11 @@
+- y: copy URL in current tab
+ "p": { "type": "urls.paste", "newTab": false },
+
+- gu: go to parent directory
+- gU: go to root directory
+ "gi": { "type": "focus.input" },
+ ".": { "type": "repeat.last" },
+
 在全部内容的行首添加//号注释
 
 :% s/^/\/\//g

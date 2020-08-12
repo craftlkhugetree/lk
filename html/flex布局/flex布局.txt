@@ -22,20 +22,96 @@ flex-flow: row-reverse wrap;
 默认为flex-start，其他值有flex-end，center。
 还有三种等分主轴的方式：space-between，space-evenly，space-around。
 （4）align-items，决定了items在交叉轴上的对齐方式。
-默认为normal，与stretch效果一样，当items在交叉轴方向size为auto时，会自动拉伸至填充容器。其他值有flex-start顶部对齐，flex-end底部对齐，center，baseline基线对齐（基线在字符x底部，第一行文本）。
+默认为normal，与stretch效果一样（同行同高），当items在交叉轴方向size为auto时，会自动拉伸至填充容器。其他值有flex-start顶部对齐，flex-end底部对齐，center，baseline基线对齐（基线在字符x底部，第一行文本）。
 （5）flex-wrap，决定了容器是单行还是多行。
 默认值是nowrap，当容器的一行放不下时，默认会压缩items。
-其他值是wrap，自动换行，平分交叉轴。
+其他值是wrap，自动换行，平分交叉轴。wrap-reverse
 （6）align-content，决定了多行items在交叉轴上的对齐方式。
 默认值是stretch；其他值有flex-start；flex-end；center；space-between，space-evenly，space-around。
-wrap-reverse
+上面两个content都是针对空白。
 
 6.flex items上的css属性
 （1）order，决定items的排布顺序，order可以为正负正数或零，越小越靠前
-（2）align-items写在容器里，然后item内部可以写align-self来覆盖。
+（2）align-items写在容器里，然后每个item内部可以写align-self来单独覆盖。
 （3）flex-grow，默认值为零，让item按比例增加，flex-grow:正整数;分配弹性容器的剩余空间。如果是小数，且总和小于一,那么剩余空间占不满，各增加剩余空间的一部分。
 （4）flex-shrink默认值为一,如果没有wrap那么不换行就会等比例收缩。当item超出容器时，这个参数才可以起作用。若总和小于一，那么item反而会超出容器宽度。
-（5）flex-basis,优先级比width要高，而width优先级比内容的size高。
-（6）flex是 flex-grow||flex-shrink||flex-basis的缩写，可以指定1个，2个或3个值。
+（5）flex-basis,若主轴横向，那么优先级比width要高，而width优先级比内容的size高。默认为auto，那表示以元素宽高为主。
+（6）flex是 flex-grow||flex-shrink||flex-basis的缩写，可以指定1个，2个或3个值。flex:none;就是不伸缩。
 
-7.会弹的导航条，nav li{flex-grow:1;} 随着li增加，	nav的剩余空间始终被li平分。
+7.会弹的导航条，nav li{flex-grow:1;} 随着li数量增加，nav的剩余空间始终被li平分。
+
+8.弹性元素里flex:auto;就是自动铺满容器。增长系数。但是这样一来，元素是有多大就多大，间距会很小了。所以元素width:15%;
+弹性容器display:flex;justify-content:space-around;
+
+9.像素，屏幕由一个个发光小点构成，这小点就是像素。分为css像素和物理像素。
+分辨率1920*1080就是横竖小点个数，就是物理像素（截图工具）。
+浏览器要将css像素转化为物理像素，如何转化由浏览器决定，默认在pc端，一个ccs像素===一个物理像素。
+视口viewport，用computed看到html是1920 css像素，所以此时二者比例1:1；
+放大两倍后，视口宽度 960 css像素，而物理像素还是1920，此时为1:2；
+结论：可以通过缩放视口，来改变css像素和物理像素的比例。
+
+10.单位像素的大小越小，屏幕越清晰。
+24寸 1920*1080	；iphone6 4.7寸 750*1334物理像素
+宽度为900px的网页如何在iphone6中显示？移动端网页默认视口宽度为980css像素，以确保pc端网页可在移动端正常显示。但体验很差。所以要专门开发m版。
+
+11.移动端，默认视口980css像素，比例就是 980/750,这个比例很不好看，网页内容很小。所以必须确保有一个合理的像素比，一个css像素对应2,3个物理像素。
+可以通过<meta name="viewport" content="width=200px">调整html视口大小，比例现在是200:750。
+每一款移动设备都有一个最佳像素比，查Device Metrics得到iphone6的Density为2.0，修改content="width=375px"
+但是不同设备的最佳像素比不同，所以要用变量 content="width=device-width",这一句的含义与 inital-scale=1.0相同。这就设置了完美视口。
+
+12.由于不同设备的最佳像素比不同，所以不能再用px来进行布局，而用vw视口宽度。100vw表示一个视口的宽度，1vm=1%视口宽度。
+设计图宽度 750px，1125px，二倍图 三倍图。
+二倍图中，100vw=750px 就可以将px换算成vw了。0.133333vw=1px
+
+13.vw适配方案。 根据1rem=1html字体大小
+但是注意：styles只是设置的样式，computed才是生效的样式。
+网页字体除了0，最小就是12px，所以设置 html{font-size:0.133333vw;}已经比12px小了，所以不生效。要将字体扩大40倍，设为5.33333vw，相当于1rem=40设计图px，
+
+.box{
+	width:48rem;	除以40，变为width:1.2rem;
+}
+移动端没有hover
+
+14.垂直居中：
+（1）align-items:center;
+（2）43.要让文字在父元素中垂直居中，只需设置父元素的line-height与父元素height相同。
+（3）59.开启absolute后，垂直方向也有公式了，设置margin-top和margin-bottom为auto，top和bottom为0后，就能垂直居中。
+（4）75.td元素默认垂直居中，vertical-align:middle;text-align:center;利用td的这个特性，两个div，父元素设置display:table-cell;就方便子元素去中心了。
+
+（5）水平居中，width:80%;margin:0 auto;
+（5）若元素宽高确定，那么可以这样居中  position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;
+若元素不定宽高，要靠内容撑开，上面就不行了，因为会先auto宽高，铺满屏幕。这时就可以用left:50%;top:50%;相对于包含块，
+再transform:translateX(-50%) translateY(-50%);相对于自己。
+
+15.有些地方太长而显示省略号，是这样做的：
+.box{
+    width:200px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+弹性元素要设置flex:none;去掉伸缩，然后弹性容器设置overflow:auto;只在自己的区域滚动条，不影响页面其他地方。
+
+16.小竖线可以直接在html里用 |；
+也可以用border-left:1px solid blue;
+也可以 .line{
+            width: 1px;
+            height: 10px;
+            background-color: #999;
+            margin: 10px 12px;
+            float:right;
+        }
+还可以
+.nav-box ul li:not(:last-child) :after {      /*小竖线且最后一个没有*/
+    content:"";
+    width:1px;
+    height:14px;
+    background: #cccccc;
+    position: absolute;
+    top:8px;
+    right:0px;
+    display:block;  //浮动的话就变成块元素了
+}
+边框可以用border，outline，也可以直接用伪元素的背景色::before{content:'';width:50px;height:1px;background:red;}
+
+17.
