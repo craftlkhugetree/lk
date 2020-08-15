@@ -32,7 +32,7 @@ let i=index;
 <td>{{i + 1}}</td>取不到，换成index as i就行。
 
 let x of sortNo;
-<td>{{x}}</td>取不到	
+<td>{{x}}</td>取不到
 for(var i=0;i<res.data.length;i++){
           this.sortNo[i]=i+1;
         }
@@ -87,6 +87,7 @@ initdata() {
   }
 
 （5）this.basicT = document.getElementById("basicTable");//也无效
+，因为页面还没加载，如果用button按钮来事件驱动，就可以取到id了。	
 （6）若有字段，但是该字段内容全为null，则不显示该列，如何操作。若字段本身不存在，为null，那如何操作？ng-show或者[hidden]
 
 （7）ng g ng-alain:module sys

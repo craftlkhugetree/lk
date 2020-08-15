@@ -1,6 +1,6 @@
 <nz-table #nzTable [nzData]="ddd" [nzPageSize]="10" nzBordered="true">
   <thead>
-    <tr>
+    <tr >
       <th>Title</th>
       
       <th>ooop</th>
@@ -30,6 +30,8 @@
     </tr>
   </tbody>
 </nz-table>
+
+<button (click)="change()">dianwo</button>
 
 <nz-list [nzDataSource]="" [nzRenderItem]="item">
   <ng-template #item let-i>

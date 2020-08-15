@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            // Person.prototype.toString = function () {
+            //     return "构造函数prototype toString()" + this.age;
+            // }
+            var per = new Person("lk", 18)
+            per.toString = function(){
+                return "对象直接改 toString()" + this.age; 
+            }
+
+            var res = per.toString()
+            console.log(per)
+            // console.log(res)
+            /*es6之前，在页面中打印一个对象时，实际输出的是对象的toString方法的返回值*/
+    </script>
+</body>
+</html>
