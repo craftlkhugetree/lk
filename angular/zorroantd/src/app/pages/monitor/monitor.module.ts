@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 // import { MonitorRoutingModule } from './monitor-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
   imports: [
     CommonModule,
     // MonitorRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule,
   ]
 })
 export class MonitorModule { }

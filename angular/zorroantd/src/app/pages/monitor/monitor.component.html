@@ -112,3 +112,85 @@ default 3
 <script type="text/javascript">
   console.log("htmlscript:test")
 </script>
+
+
+<!-- <nz-card style="margin-left: 8px;min-height: 612px;" nzTitle="四上库变更记录">
+
+</nz-card> -->
+
+<nz-card style="margin-left: 8px;min-height: 612px;" nzTitle="">
+  <nz-card-tab style="font-size: 20px;padding:0 auto">
+    四上
+  </nz-card-tab>
+
+    <nz-tabset nzSize="default" [(nzSelectedIndex)]="tabIndex" nzType="card" nzTabBarGutter="0" >
+      <nz-tab nzTitle="移入记录" >
+      </nz-tab>
+      <nz-tab nzTitle="移出记录" >
+      </nz-tab>
+    </nz-tabset>
+    <nz-table #receiveTable [nzData]="UserReceiveList" *ngIf="tabIndex === 0" [nzLoading]="isReceiveLoading"
+      [nzBordered]="true" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0" style="margin-top: 20px">
+      <thead >
+        <tr>
+          <th >序号</th>
+          <th >公司名称</th>
+          <th >操作方式</th>
+          <th >操作人</th>
+          <th >操作时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of receiveTable.data;index as i" >
+          <!-- <td><a (click)="viewNotice(data)">{{ data.cTitle }}</a></td> -->
+          <td >{{i+1+(nzPageIndex0-1)*nzPageSize0}}</td>
+          <td>{{ data.cVerifier }}</td>
+          <td>{{ data.dVerifySysTime }}</td>
+          <!-- <td><label nz-checkbox nzDisabled [ngModel]="data.bNeedReply"></label></td>
+                    <td><label nz-checkbox nzDisabled [ngModel]="data.bWhisper"></label></td> -->
+          <td>{{ data.iReadCount }}</td>
+          <td>      
+            
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-table #createTable [nzData]="UserCreateList" *ngIf="tabIndex === 1" [nzLoading]="isCreateLoading"
+      [nzBordered]="true" [(nzPageIndex)]="nzPageIndex1" [(nzPageSize)]="nzPageSize1" style="margin-top: 20px">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>公司名称</th>
+          <th>操作人</th>
+          <th>操作时间</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of createTable.data;index as i">
+          <td>{{i+1+(nzPageIndex1-1)*nzPageSize1}}</td>
+          <td>{{ data.cTitle }}</td>
+          <td>{{ data.cMaker }}</td>
+          <td>{{ data.dCreateSysTime }}</td>
+          <!-- <td><label nz-checkbox nzDisabled [ngModel]="data.bNeedReply"></label></td>
+                          <td><label nz-checkbox nzDisabled [ngModel]="data.bWhisper"></label></td> -->
+          <td>{{ data.iReadCount }}</td>
+          <!-- <td>{{ data.iReplyCount }}</td>
+                          <td>{{ data.data.main.iStatus === 0 ? '未发送' : '已发送' }}</td>
+                          <td>
+                            <a (click)="editNotice(data)" *ngIf="data.data.main.iStatus === 0">编辑</a>
+                            <a (click)="viewNotice(data)" *ngIf="data.data.main.iStatus === 1">查看</a>
+                            <nz-divider *ngIf="data.data.main.iStatus === 0" nzType="vertical"></nz-divider>
+                            <a nz-popconfirm nzTitle="确定要删除吗?" *ngIf="data.data.main.iStatus === 0" (nzOnConfirm)="deleteEditRow(data)">删除</a>
+                          </td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+</nz-card>
+
+<style>
+  ::ng-deep .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    text-align: center;
+  }
+</style>

@@ -30,6 +30,9 @@ cTradeName 行业,
 
 let i=index;
 <td>{{i + 1}}</td>取不到，换成index as i就行。
+<tr *ngFor="let data of receiveTable.data;index as i">
+  <td>{{i+1+(nzPageIndex-1)*nzPageSize}}</td>
+</tr>
 
 let x of sortNo;
 <td>{{x}}</td>取不到
@@ -87,6 +90,7 @@ initdata() {
   }
 
 （5）this.basicT = document.getElementById("basicTable");//也无效
+basicT.innerHTML = "该id的文本节点";
 ，因为页面还没加载，如果用button按钮来事件驱动，就可以取到id了。	
 （6）若有字段，但是该字段内容全为null，则不显示该列，如何操作。若字段本身不存在，为null，那如何操作？ng-show或者[hidden]
 
