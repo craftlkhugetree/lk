@@ -11,7 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 // import { NzRadioModule } from 'ng-zorro-antd/radio';
-
+import { BackendService } from './services/backend.service'
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
 
 registerLocaleData(en);
 
@@ -27,6 +28,7 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    // HttpClientInMemoryWebApiModule.forRoot(BackendService),    //本地内存数据拦截了我的远程数据
     // NzRadioModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

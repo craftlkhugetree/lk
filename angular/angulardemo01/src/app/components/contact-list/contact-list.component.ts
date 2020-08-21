@@ -14,8 +14,9 @@ export class ContactListComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {
+    // console.log("ngOnInit-getContacts:",this.contactService.getContacts())
+    // console.log("ngOnInit-getContacts:",this.contactService.getContacts().subscribe())
     this.contactService.getContacts().subscribe((data : any[])=>{
-        console.log(data);
         this.contacts = data;
     })
   }

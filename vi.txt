@@ -1,6 +1,8 @@
 - y: copy URL in current tab
  "p": { "type": "urls.paste", "newTab": false },
 
+y+P
+
 - gu: go to parent directory
 - gU: go to root directory
  "gi": { "type": "focus.input" },

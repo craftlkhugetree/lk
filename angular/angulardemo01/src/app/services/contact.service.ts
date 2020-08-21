@@ -9,7 +9,9 @@ export class ContactService {
   API_URL: string = "/api/";
   constructor(private http: HttpClient) { }
   getContacts(){    
-   return this.http.get(this.API_URL + 'contacts')
+    let test = this.http.get(this.API_URL + 'contacts');
+    console.log("getContacts():",test);
+   return test
   }
   getContact(contactId){
    return this.http.get(`${this.API_URL + 'contacts'}/${contactId}`) 

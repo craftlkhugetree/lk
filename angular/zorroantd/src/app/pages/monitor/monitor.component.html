@@ -122,13 +122,26 @@ default 3
   <nz-card-tab style="font-size: 20px;padding:0 auto">
     四上
   </nz-card-tab>
+  <nz-tabset nzSize="default" [(nzSelectedIndex)]="tabIndex" nzType="card" nzTabBarGutter="0" [nzTabBarExtraContent]="dataQueryTemplate" 
+    [nzTabBarStyle]="styObj" nz-row>
 
-    <nz-tabset nzSize="default" [(nzSelectedIndex)]="tabIndex" nzType="card" nzTabBarGutter="0" >
-      <nz-tab nzTitle="移入记录" >
-      </nz-tab>
-      <nz-tab nzTitle="移出记录" >
-      </nz-tab>
-    </nz-tabset>
+    <nz-tab nzTitle="移入记录">
+    </nz-tab>
+    <nz-tab nzTitle="移出记录">
+    </nz-tab>
+
+    <ng-template #dataQueryTemplate >
+      <nz-form-item >
+        <nz-form-label nz-col [nzSpan]="6">按月份查询</nz-form-label>
+        <nz-form-control nz-col [nzSpan]="6">
+          <nz-month-picker nzShowToday="true" nzAllowClear="false" nzPlaceHolder="请选择日期">
+          </nz-month-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+  </nz-tabset>
+    
+  
     <nz-table #receiveTable [nzData]="UserReceiveList" *ngIf="tabIndex === 0" [nzLoading]="isReceiveLoading"
       [nzBordered]="true" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0" style="margin-top: 20px">
       <thead >
@@ -187,6 +200,7 @@ default 3
       </tbody>
     </nz-table>
 </nz-card>
+
 
 <style>
   ::ng-deep .ant-table-thead > tr > th,

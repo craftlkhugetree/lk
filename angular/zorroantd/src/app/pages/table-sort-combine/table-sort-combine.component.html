@@ -1,0 +1,70 @@
+
+<nz-form-item>
+  <nz-form-label [nzSpan]="6">按月份查询</nz-form-label>
+    <nz-form-control [nzSpan]="18">
+      <nz-month-picker  [(ngModel)]="dDataDate" nzShowToday="true" nzAllowClear="false" [nzDisabledDate]="disabledDate"
+                    nzPlaceHolder="请选择日期" (ngModelChange)="dataQuery($event)" >
+      </nz-month-picker>
+    </nz-form-control>
+</nz-form-item>
+
+ <nz-table
+     #ajaxTable
+     nzShowSizeChanger
+     [nzFrontPagination]="false"
+     [nzData]="listOfData"
+     [nzLoading]="loading"
+     [nzTotal]="total"
+     [(nzPageIndex)]="pageIndex"
+     [(nzPageSize)]="pageSize"
+     (nzPageIndexChange)="searchData()"
+     (nzPageSizeChange)="searchData(true)"
+     >
+     <thead (nzSortChange)="sort($event)" nzSingleSort>
+       <tr>
+           <th>No.</th>
+         <th nzShowSort nzSortKey="name">Name</th>
+         <th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>
+         <th nzShowSort nzSortKey="email"><span>Email</span></th>
+         <th nzCustomFilter>time：每个 nz-dropdown-menu 只能作为一个 [nz-dropdown] 的输入项
+          <!-- <i nz-icon nzType="search" nzTheme="outline"></i> -->
+          <i
+          nz-th-extra
+          class="ant-table-filter-icon"
+          nz-icon
+          nz-dropdown
+          #dropdown="nzDropdown"
+          nzType="search"
+          [nzDropdownMenu]="menu"
+          [class.ant-table-filter-open]="dropdown.nzVisible"
+          nzTrigger="click"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTableFilter
+        ></i>
+         </th>
+         <th>back ?</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let data of ajaxTable.data,index as i">
+         <td>{{i+1+(pageIndex-1)*pageSize}}</td>
+         <td>{{ data.name.first }} {{ data.name.last }}</td>
+         <td>{{ data.gender }}</td>
+         <td>{{ data.email }}</td>
+         <td>{{ data.dob.date}}</td>
+         <td>
+            <button nz-button nzType="primary" (click)="showConfirm(i+(pageIndex-1)*pageSize)" >回退</button>
+         </td>
+       </tr>
+     </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="search-box">
+    <input type="text" nz-input placeholder="请输入搜索内容" [(ngModel)]="searchValue" />
+    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+      搜索
+    </button>
+    <button nz-button nzSize="small" (click)="reset()">重置</button>
+  </div>
+</nz-dropdown-menu>

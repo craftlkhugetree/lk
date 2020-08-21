@@ -1,5 +1,15 @@
 1.管理页面不需要提供给客户浏览器，所以管理模块可以懒加载。而惰性加载的才会拥有自己的注入器。希望服务是全局单例，除了在根模块声明外，最好在服务的装饰器中指定给root模块使用，好处是摇树优化。
 
+ERROR Error: Uncaught (in promise): Error: Template parse errors: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+解决： 在此compoent对应的model文件中 
+
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+
+并在@NgModule 中的imports： 中添加FormsModule
+
+
+
 2.在user-routing.module.ts下的components目录里有address组件，那么
 {path:'components/address',component:AddressComponent},
 里path的内容就表示 user/components/address

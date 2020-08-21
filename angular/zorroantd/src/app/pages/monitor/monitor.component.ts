@@ -18,7 +18,6 @@ export class FeatureModule {}
   styles:[
     `
     ::ng-deep .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active{
-      /* padding-left: 0; */
       color:#fff;
       background: #1890ff;
       border-radius:0;
@@ -34,9 +33,13 @@ export class FeatureModule {}
   // ::ng-deep  .ant-layout *{
   //   border:hidden;
   // }
-  ::ng-deep nz-tabset .ant-tabs-bar{
-    border:hidden;
-  }
+  // ::ng-deep nz-tabset .ant-tabs-bar{
+  //   border:hidden;
+  // }
+  // ::ng-deep .ant-tabs.ant-tabs-card .ant-tabs-extra-content {
+  //   width:60%; //template放在一条线上
+  // }
+
   
   
     `
@@ -52,6 +55,10 @@ export class MonitorComponent implements OnInit {
  nzPageSize0:number=10;
  nzPageIndex1:number=1;
  nzPageSize1:number=10;
+ styObj = {
+    width:"60%",
+    // margin:"auto 10%",
+}
   UserReceiveList = [
     {
       cVerifier:111111,

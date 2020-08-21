@@ -1,0 +1,44 @@
+
+<nz-form-item>
+    <nz-form-label [nzSpan]="6">按月份查询</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+        <nz-month-picker  [(ngModel)]="dDataDate" nzShowToday="true" nzAllowClear="false" [nzDisabledDate]="disabledDate"
+                      nzPlaceHolder="请选择日期" (ngModelChange)="dataQuery($event)" >
+        </nz-month-picker>
+      </nz-form-control>
+  </nz-form-item>
+  
+   <nz-table
+       #ajaxTable
+       nzShowSizeChanger
+       [nzFrontPagination]="false"
+       [nzData]="listOfData"
+       [nzLoading]="loading"
+       [nzTotal]="total"
+       [(nzPageIndex)]="pageIndex"
+       [(nzPageSize)]="pageSize"
+       (nzPageIndexChange)="searchData()"
+       (nzPageSizeChange)="searchData(true)"
+       >
+       <thead (nzSortChange)="sort($event)" nzSingleSort>
+         <tr>
+             <th>No.</th>
+           <th nzShowSort nzSortKey="name">id</th>
+           <th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">name</th>
+           <th>time</th>
+           <th>back ?</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let data of ajaxTable.data,index as i">
+           <td>{{i+1+(pageIndex-1)*pageSize}}</td>
+           <td>{{ data.id }}</td>
+           <td>{{ data.name }}</td>
+           <td>{{ data.date}}</td>
+           <td>
+              <button nz-button nzType="primary" (click)="showConfirm(i+(pageIndex-1)*pageSize)" >回退</button>
+           </td>
+         </tr>
+       </tbody>
+  </nz-table>
+  

@@ -1,0 +1,58 @@
+1.两个思路：根据日期条件get数据；get全部数据后再根据日期filter。
+
+2.ng-zorro的样式可以在html里 <style></style>或者内联式，
+下面修改了tab标签页样式（分为激活页和其他页），消除tab card左边距，隐藏tab标签下的横线，table内容居中。
+@Component(
+	styles: [
+    `
+      // ::ng-deep app-reserve-management-change-record .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+      //   color: #fff;
+      //   background: #1890ff;
+      //   border-radius: 0;
+      // }
+      // ::ng-deep .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+      //   border-radius: 0;
+      // }
+      // ::ng-deep div.ant-card-head.ng-star-inserted {
+      //   padding: 0 0;
+      // }
+      ::ng-deep nz-tabset .ant-tabs-bar {
+        border: hidden;
+      }
+      ::ng-deep .ant-table-thead > tr > th,
+      .ant-table-tbody > tr > td {
+        text-align: center;
+      }
+    `,
+  ],
+})
+
+
+3.
+some():方法用于检测数组中的元素是否有满足指定条件的，若满足返回true，否则返回false；
+every():方法用于检测数组中所有元素是否都符合指定条件，若符合返回true，否则返回false；
+
+    array.some(function(item,index,array){
+          //item:当前元素的值；
+     
+          //index:当前元素的索引；
+     
+          // array:当前元素的数组对象；
+     
+    })
+
+some()方法会依次执行数组的每个元素；
+如果有一个元素满足条件，则表达式返回true，剩余的元素不会再执行检测。如果没有满足条件的元素，则返回false
+注意：some()不会对空数组进行检测；
+some()和every()都不会改变原始数组；
+
+4.
+属性或参数中使用 ？表示该属性或参数为可选项
+
+属性或参数中使用 ！表示强制解析（告诉typescript编译器，这里一定有值），常用于vue-decorator中的@Prop
+
+变量后使用 ！表示类型推断排除null、undefined
+
+0 ? 1 : 2
+	//得到2，可用于数组长度是否为零
+9 ？1 : 2	//得到1
