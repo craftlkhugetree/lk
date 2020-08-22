@@ -92,6 +92,7 @@ initdata() {
 （5）this.basicT = document.getElementById("basicTable");//也无效
 basicT.innerHTML = "该id的文本节点";
 ，因为页面还没加载，如果用button按钮来事件驱动，就可以取到id了。	
+或者在ngOnInit()里加入document语句。
 （6）若有字段，但是该字段内容全为null，则不显示该列，如何操作。若字段本身不存在，为null，那如何操作？ng-show或者[hidden]
 
 （7）ng g ng-alain:module sys

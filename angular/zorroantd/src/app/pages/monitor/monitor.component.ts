@@ -37,11 +37,8 @@ export class FeatureModule {}
   //   border:hidden;
   // }
   // ::ng-deep .ant-tabs.ant-tabs-card .ant-tabs-extra-content {
-  //   width:60%; //template放在一条线上
+  //   width:60%; //extra template放在一条线上
   // }
-
-  
-  
     `
   ]
 })

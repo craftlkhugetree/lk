@@ -28,7 +28,7 @@
          <th nzShowSort nzSortKey="email"><span>Email</span></th>
          <th nzCustomFilter>time：每个 nz-dropdown-menu 只能作为一个 [nz-dropdown] 的输入项,nzCustomFilter表示自定义搜索（没用自带的那套filterFn）
           <!-- <i nz-icon nzType="search" nzTheme="outline"></i> -->
-          <!-- ant-table-filter-icon让search图标贴边 -->
+          <!-- ant-table-filter-icon让search图标贴边,nz-input里的autofocus只有第一次。 -->
       <!-- (keydown)="($event.which === 13) ? search() : 0" -->
 
           <i
@@ -63,9 +63,9 @@
      </tbody>
 </nz-table>
 <nz-dropdown-menu #menu="nzDropdownMenu">
-  <div class="search-box">
-    <input type="text" nz-input placeholder="请输入搜索内容" [(ngModel)]="searchValue" (onfocus)="focusF" (keydown)="($event.which === 13) ? search() : 0"/>
-    <!-- <input type="text" nz-input placeholder="请输入搜索内容" [(ngModel)]="searchValue" (onfocus)="focusF" (keydown)=keydown($event)/> -->
+  <div class="search-box" >
+    <input type="text" nz-input #myInput placeholder="请输入搜索内容" [(ngModel)]="searchValue" (keydown)="($event.which === 13) ? search() : 0" />
+    <!-- <input type="text"  class="getFocusInput"  nz-input placeholder="请输入搜索内容" [(ngModel)]="searchValue" (onfocus)="focusF" (keydown)=keydown($event)/> -->
     <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button" 
         >
       搜索

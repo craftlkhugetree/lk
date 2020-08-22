@@ -26,6 +26,7 @@
     `,
   ],
 })
+这里面有中文注释就无效了。。。
 
 
 3.
@@ -56,3 +57,26 @@ some()和every()都不会改变原始数组；
 0 ? 1 : 2
 	//得到2，可用于数组长度是否为零
 9 ？1 : 2	//得到1
+
+5.上传excel文件，不按表头。搜索。排序。回退。自动进入input，按回车触发搜索。
+<nz-divider nzType="vertical"></nz-divider> 小竖线
+<nz-dropdown>	下拉列表还可以用模板导入[nzDropdownMenu]="menu"
+            <a class="ant-dropdown-link" nz-dropdown>
+              More <i nz-icon type="down"></i> 向下图标
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a (click)="act()">active</a>
+              </li>
+            </ul>
+</nz-dropdown>
+如果nz-dropdown 下的 nz-menu 默认不可选中。如果需要菜单可选中，可以指定 <ul nz-menu nzSelectable>.
+
+6. funThreeDot( ...args) {
+    console.log( args.length);
+  };
+this.funThreeDot( ...[1, 2, 3]);  // len = 3
+    
+this.funThreeDot([1,2,3]);        // len = 1，当做数组对象
+
+7.
