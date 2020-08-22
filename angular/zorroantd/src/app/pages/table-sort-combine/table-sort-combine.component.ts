@@ -49,6 +49,9 @@ export class TableSortCombineComponent implements OnInit {
   sortKey: string | null = null;
   filterGender = [{ text: 'male', value: 'male' }, { text: 'female', value: 'female' }];
   searchGenderList: string[] = [];
+  searchValue=''
+  nzDropdown=true
+  focusF=true;
 
 
   dDataDate:Date = new Date();  //new 才能得到当天日期，默认为当前月份。
@@ -93,7 +96,7 @@ export class TableSortCombineComponent implements OnInit {
 
   constructor(private randomUserService: RandomUserService,    private btnModal: NzModalService) {}
 
-  searchData(reset: boolean = false): void {
+  searchData(reset: boolean = false): void {  //选择日期查询，取得全部数据后，本地筛选
     if (reset) {
       this.pageIndex = 1;
     }
@@ -104,7 +107,7 @@ export class TableSortCombineComponent implements OnInit {
         this.loading = false;
         this.total = 100;
         this.tListOfData = data.results;
-        this.listOfData = this.tListOfData.filter(i => (new Date(i.dob.date).getMonth()+1)===(new Date().getMonth()+1) )
+        this.listOfData = this.tListOfData.filter(i => (new Date(i.dob.date).getMonth()+1)===(new Date().getMonth()+1) )//仅看相同月份，不考虑年
         // for(var i=0;i<this.total;i++){
         //  (this.listOfData[i] as any).ayear = this.getRandomDateBetween().getFullYear();
         //  (this.listOfData[i] as any).amonth = this.getRandomDateBetween().getMonth()+1;
@@ -112,25 +115,70 @@ export class TableSortCombineComponent implements OnInit {
       });
   }
 
+  // 表格搜索
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  // sort(sortName: string, value: string): void {
+  //   this.sortName = sortName;
+  //   this.sortValue = value;
+  //   this.search();
+  // }
+
+  search(): void {  //输入查询日期
+    let tdate = new Date(this.searchValue)
+    let ttmp = this.tListOfData.filter(i => tdate.getFullYear()===new Date(i.dob.date).getFullYear())
+    this.listOfData = ttmp
+    this.dDataDate = null
+    // const filterFunc = (item: { name: object,gender: string, email:string,registeredTimeDate: string }) => {
+    //   return (
+    //     (this.listOfData.length  //长度为零时，三元选择符选后者。
+    //       ? this.listOfData.some(
+    //           registeredTimeDate => item.registeredTimeDate.indexOf(registeredTimeDate) !== -1,
+    //         )
+    //       : false) && item.companyName.indexOf(this.searchValue) !== -1
+    //   );
+    // };
+    // const data = this.data.filter((item: { companyName: string; companyCode: string; registeredTimeDate: string }) =>
+    //   filterFunc(item),
+    // );
+    // this.listdata = data.sort((a, b) =>
+    //   this.sortValue === 'ascend'
+    //     ? a[this.sortName!] > b[this.sortName!]
+    //       ? 1
+    //       : -1
+    //     : b[this.sortName!] > a[this.sortName!]
+    //     ? 1
+    //     : -1,
+    // );
+  }
+  keydown(e:any){
+    if(e.which===13){
+      this.search()
+    }
+  }
+
   updateFilter(value: string[]): void {
     this.searchGenderList = value;
     this.searchData(true);
   }
 
-  getRandomDateBetween() { // 生成当前时间一个月内的随机时间。
-    var date = new Date();
-    var e = date.getTime();//当前时间的秒数
-    var f = date.getTime()-(300*24*60*60*1000); //300天之前的秒数
-    let temp = new Date(this.RandomNumBoth(f,e))
-    // return `${temp.getFullYear()}`+'年'+`${temp.getMonth()+1}`+'月';
-    return temp;
-  }
-  RandomNumBoth(Min,Max){
-    var Range = Max - Min;
-    var Rand = Math.random();
-    let num = Min + Math.round(Rand * Range); //四舍五入
-    return num;
-  }
+  // getRandomDateBetween() { // 生成当前时间十个月内的随机时间。
+  //   var date = new Date();
+  //   var e = date.getTime();//当前时间的秒数
+  //   var f = date.getTime()-(300*24*60*60*1000); //300天之前的秒数
+  //   let temp = new Date(this.RandomNumBoth(f,e))
+  //   // return `${temp.getFullYear()}`+'年'+`${temp.getMonth()+1}`+'月';
+  //   return temp;
+  // }
+  // RandomNumBoth(Min,Max){
+  //   var Range = Max - Min;
+  //   var Rand = Math.random();
+  //   let num = Min + Math.round(Rand * Range); //四舍五入
+  //   return num;
+  // }
   
 
   ngOnInit(): void {

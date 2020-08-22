@@ -131,9 +131,11 @@ default 3
     </nz-tab>
 
     <ng-template #dataQueryTemplate >
-      <nz-form-item >
-        <nz-form-label nz-col [nzSpan]="6">按月份查询</nz-form-label>
-        <nz-form-control nz-col [nzSpan]="6">
+      <nz-form-item nz-col [nzSpan]="12">
+        <nz-form-label >按月份查询</nz-form-label>
+      </nz-form-item>
+      <nz-form-item nz-col [nzSpan]="12">
+        <nz-form-control >
           <nz-month-picker nzShowToday="true" nzAllowClear="false" nzPlaceHolder="请选择日期">
           </nz-month-picker>
         </nz-form-control>

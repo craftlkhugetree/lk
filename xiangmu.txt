@@ -233,7 +233,7 @@ private processTodos(listUUID: string, todos: Todo[], rank: RankBy, completedHid
   color: #999999
 }
 
-（9）如何通过boolean变量或条件表达式绑定类
+（9）如何通过boolean变量或条件表达式绑定类 class.样式通过boolean来控制是否显示。today todo项目。
 <span [ngClass]="{'strikethrough' : item.completedFlag}">{{ item.title }}</span>
      <span [class.strikethrough]="item.completedFlag">{{ item.title }}</span>
 "let-" is only supported on ng-template elements.
