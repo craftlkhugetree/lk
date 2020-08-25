@@ -109,6 +109,9 @@ export class WelcomeComponent implements OnInit {
         this.total = 100;
         this.tListOfData = data.results;
         this.listOfData = this.tListOfData.filter(i => (new Date(i.dob.date).getMonth()+1)===(new Date().getMonth()+1) )//仅看相同月份，不考虑年
+        console.log("data:",data)
+        console.table("全部数据:",this.tListOfData)
+        console.log("渲染数据：",this.listOfData)
       });
   }
 

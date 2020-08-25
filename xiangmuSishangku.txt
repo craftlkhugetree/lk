@@ -58,7 +58,9 @@ some()和every()都不会改变原始数组；
 	//得到2，可用于数组长度是否为零
 9 ？1 : 2	//得到1
 
-5.上传excel文件，不按表头。搜索。排序。回退。自动进入input，按回车触发搜索。
+5.上传excel文件，不按表头。搜索。排序。回退。自动进入input，按回车触发搜索。ngOnInit()内部不能用返回值函数。返回的日期不是Date类型，要new Date()转化，再管道|date:'yyyy-MM'或者直接getFullYear()，dataQuery()同一个result两个标签。
+回退时来个输入框。
+
 <nz-divider nzType="vertical"></nz-divider> 小竖线
 <nz-dropdown>	下拉列表还可以用模板导入[nzDropdownMenu]="menu"
             <a class="ant-dropdown-link" nz-dropdown>

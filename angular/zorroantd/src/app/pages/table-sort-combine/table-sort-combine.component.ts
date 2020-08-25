@@ -110,6 +110,7 @@ export class TableSortCombineComponent implements OnInit {
         this.loading = false;
         this.total = 100;
         this.tListOfData = data.results;
+        this.tListOfData.map(i => i.dob.date=new Date(i.dob.date))
         // this.listOfData = this.tListOfData.filter(i => (new Date(i.dob.date).getMonth()+1)===(new Date().getMonth()+1) )//仅看相同月份，不考虑年
         this.listOfData = this.tListOfData
         // for(var i=0;i<this.total;i++){

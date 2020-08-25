@@ -55,9 +55,10 @@
          <td>{{ data.name.first }} {{ data.name.last }}</td>
          <td>{{ data.gender }}</td>
          <td>{{ data.email }}</td>
-         <td>{{ data.dob.date}}</td>
+         <!-- <td>{{ data.dob.date.getFullYear()}}-{{data.dob.date.getMonth()}}</td> -->
+         <td>{{data.dob.date | date:'yyyy-MM-dd,HH:mm:ss'}}</td>
          <td>
-            <button nz-button nzType="primary" (click)="showConfirm(i+(pageIndex-1)*pageSize)" >回退</button>
+            <button nz-button nzType="primary" (click)="showConfirm(i+(pageIndex-1)*pageSize)" [disabled]="1===2">回退</button>
          </td>
        </tr>
      </tbody>

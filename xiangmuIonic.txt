@@ -9,7 +9,7 @@ test43991
 
 408728/liken/123456
 
-禅道账号   liken    密码   Ll123456
+http://192.168.16.106/pro/my/禅道账号   liken    密码   Ll123456
 
 
 156 5070 9373：123456abcX	master
@@ -73,4 +73,7 @@ import { TimepComponent} from '../../../gov/indexshow/timep/timep.component';
 8.固定ng g ng-zorro-antd-mobile:tabs-multitabs --name=/gov/indexshow/firstindex
 动态ng g ng-zorro-antd-mobile:tabs-dynamic --name=/gov/indexshow/firstindex
 
+
+项目月报
+1.
 
