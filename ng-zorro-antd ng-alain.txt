@@ -1,3 +1,6 @@
+提示某个目录或文件找不到npm ERR! enoent This is related to npm not being able to find a file.
+直接npm install上面说的那个包就行了，另外：修改npm源即可，少用cnpm。
+
 1.npm uninstall -g @angular/cli
 用yarn安装项目的全部依赖出现报错，则yarn config set ignore-engines true
 yarn add delon 还是不行，只能在package.json添加依赖 "@delon/theme":"9.5.5"，以使用_HttpClient和ModalHelper

@@ -4,7 +4,9 @@ ctrl+h批量替换 vscode中内容
 
 VsCode中，使用VIM插件后，ctrl+c不能用，可以通过 File -> Preference -> Settings中   vim.useCtrlKeys 选项设置为 false即可。
 
+ctrl+End	文件末尾
 alt+点击行  可以多行同时输入
+ctrl+h	替换
 ctrl+/ 注释
 ctrl+k+f  格式化选定文档
 ctrl+shift+[  折叠部分区域
@@ -32,7 +34,8 @@ ctrl+,ctrl+k	ctrl+space	IntelliSense
 ctrl+k,ctrl+f	格式化	alt+shift+f
 
 
-alt+方向：当前行上下移动
+alt+上下：当前行上下移动
+alt+左右：光标间移动
 alt+shift+方向 	复制方向
 ctrl+x		删除一行
 ctrl+enter	快速换行
@@ -69,7 +72,6 @@ function Book(title, author) {
 
 
 ctrl+shift+T	重开标签页
-alt+左右		同一标签打开的文件间移动
 ctrl+shift+pgUp/pgDown	移动标签页
 ctrl+k,ctrl+o	打开文件夹
 ctrl+k f	关闭文件夹

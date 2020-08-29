@@ -1,7 +1,11 @@
-组织部小程序https://gitlab.lean.com/liuting/zw-alllink
+组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink
 1.cnpm i
 2.ionic serve
 3. 156 5070 9373：123456abc	138 7777 7777：t123456	18561167080：Huo123456
+奥链测试  public microSeverStr = 'http://192.168.9.154:8081';
+奥链正式  // public microSeverStr = 'https://gateway.leancloud.biz:4443';
+
+
 识别码926349  
 http://zw.leancloud.biz/SysManage/UserManagement
 test43991
@@ -9,7 +13,6 @@ test43991
 
 408728/liken/123456
 
-http://192.168.16.106/pro/my/禅道账号   liken    密码   Ll123456
 
 
 156 5070 9373：123456abcX	master

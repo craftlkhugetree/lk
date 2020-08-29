@@ -1,3 +1,61 @@
+不同tab要不同date，日期不干扰，ngModel.
+回退index，不能只传i，要多页序号过来。
+上传excel文件，不按表头。搜索。排序。回退。自动进入input，按回车触发搜索。ngOnInit()内部不能用返回值函数。返回的日期不是Date类型，要new Date()转化，再管道|date:'yyyy-MM'或者直接getFullYear()，dataQuery()同一个result两个标签。
+回退时来个输入框。
+
+  current_org = JSON.parse(window.sessionStorage.getItem('zw_currentOrg'));
+要放在构造函数和ngOnInit()下面？？？哪里都不行啊，能否获取数据再switchOrgID()???
+  accTemp = JSON.parse(window.sessionStorage.getItem('zw_loginInfo'));则无所谓。。。
+initdataIn和query()能否合并？？？
+
+按对象日期排序：    resData.sort((x,y)=>{return y.createTime.getTime()-x.createTime.getTime()})
+浅拷贝，一变都变，很麻烦。需要深拷贝，来复制出独立数据。扩展运算符实现深拷贝：
+// 当value是基本数据类型，比如String，Number，Boolean时，是可以使用扩展运算符进行深拷贝的
+// 当value是引用类型的值，比如Object，Array，引用类型进行深拷贝也只是拷贝了引用地址，所以属于浅拷贝
+var car = {brand: "BMW", price: "380000", length: "5米"}
+var car1 = { ...car, price: "500000" }
+console.log(car1); // { brand: "BMW", price: "500000", length: "5米" }
+console.log(car); // { brand: "BMW", price: "380000", length: "5米" }
+
+利用filter结合indexOf，可以巧妙地去除Array的重复元素：
+deleteRepElements() {
+    var newPhotos, oldPhotos = ['x1', 'x2', 'x3', 'x2', 'x3', 'x4'];
+    newPhotos = oldPhotos.filter(function (element, index, self) {
+    	return self.indexOf(element) === index;
+    });
+    console.log(newPhotos)
+}
+因为indexOf总是返回第一个元素的位置，后续的重复元素位置与indexOf返回的位置不相等，因此被filter滤掉了。
+
+
+判断变量a为非空，未定义或者非空串才能执行方法体的内容
+var a;
+if(a!=null&&typeof(a)!=undefined&&a!=''){
+    //a有内容才执行的代码  
+}
+实际上我们只需要写一个判断表达：
+if(!!a){
+    //a有内容才执行的代码...  
+}
+就能和上面达到同样的效果。a是有实际含义的变量才执行方法，否则变量null，undefined和''空串都不会执行以下代码。 !!a==Boolean(a)
+
+因为javascript是弱类型的语言（变量没有固定的数据类型）所以有时需要强制转换为相应的类型
+类似的如:
+
+a = parseInt("1234")        //转换为数字 
+a = "1234" + 0              //转换为数字 
+b = 1234 + ""               //转换为字符串 
+c = someObject.toString()   //将对象转换为字符串 
+其中：
+    第1种、第4种为显式转换
+    第2种、第3种为隐式转换
+
+布尔型的转换，javascript约定和c类似，规则为：
+    false、undefinded、null、0、“” 为 false
+    true、1、“somestring”、[Object] 为 true
+~是按位取反的意思，表现出来的现象是 ~X = -(X+1)
+
+
 1.两个思路：根据日期条件get数据；get全部数据后再根据日期filter。
 
 2.ng-zorro的样式可以在html里 <style></style>或者内联式，
@@ -58,8 +116,7 @@ some()和every()都不会改变原始数组；
 	//得到2，可用于数组长度是否为零
 9 ？1 : 2	//得到1
 
-5.上传excel文件，不按表头。搜索。排序。回退。自动进入input，按回车触发搜索。ngOnInit()内部不能用返回值函数。返回的日期不是Date类型，要new Date()转化，再管道|date:'yyyy-MM'或者直接getFullYear()，dataQuery()同一个result两个标签。
-回退时来个输入框。
+5.
 
 <nz-divider nzType="vertical"></nz-divider> 小竖线
 <nz-dropdown>	下拉列表还可以用模板导入[nzDropdownMenu]="menu"

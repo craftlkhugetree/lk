@@ -1,0 +1,3 @@
+private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
+Flex绘制移动端表格，FlexItem  flex-grow:2不均匀分配表格，border-right。
+showPicker 自制下拉多列选择组件。

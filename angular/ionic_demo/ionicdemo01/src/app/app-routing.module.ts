@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'news',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
   },
+  {
+    path: 'demogridbasic',
+    loadChildren: () => import('./demogridbasic/demogridbasic.module').then( m => m.DemogridbasicPageModule)
+  },
 ];
 @NgModule({
   imports: [
