@@ -1,0 +1,178 @@
+1.
+var myArray = [5, 10, 50];
+
+Math.max(myArray);    // Error: NaN
+
+Math.max.apply(Math, myArray);    // 50
+Math.max(...myArray);    // 50
+
+扩展操作符的另一个优点，就是它可以很简单地和构造函数一起使用：
+new Date(...[2016, 5, 6]);    // Mon Jun 06 2016 00:00:00 GMT-0700 (Pacific Daylight Time)`
+当然，我们可以用ES5重写上面的代码，但我们则需要用一个复杂的模式来避免类型错误：
+
+new Date.apply(null, [2016, 4, 24]);    // TypeError: Date.apply is not a constructor
+
+new (Function.prototype.bind.apply(Date, [null].concat([2016, 5, 6])));   // Mon Jun 06 2016 00:00:00 GMT-0700 (Pacific Daylight Time)
+
+2.　　rest参数和扩展操作符拥有相同的语法，不同的是，rest参数是把所有的参数收集起来转换成数组，而扩展操作符是把数组扩展成单独的参数。
+rest参数在创建一个可变函数（即一个参数个数可变的函数）时尤其有用。rest参数有着数组固有的优势，可以快捷地替换 arguments 对象（下文会解释这个名词）。下面这个函数是用ES5写的，我们来看下：
+
+function checkSubstrings(string) {
+  for (var i = 1; i < arguments.length; i++) {
+    if (string.indexOf(arguments[i]) === -1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+checkSubstrings('this is a string', 'is', 'this');   // true
+该函数检查字符串（this is a string）是否包括这些子串（is, this）。这个函数存在的第一个问题是，我们必须看函数体内是否有多个参数。第二个问题是，循环必须从 1 开始，而不是从 0 开始, 因为 arguments[0] 指向的就是第一个参数（this is a string）。 如果以后我们想要在这个字符串的前面或者后面添加另一个参数，我们可能会忘记更新循环体。而使用rest参数，我们就可以很容易地避免这些问题：
+
+
+function checkSubstrings(string, ...keys) {
+  for (var key of keys) {
+    if (string.indexOf(key) === -1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+checkSubstrings('this is a string', 'is', 'this');   // true
+　　该函数的输出跟前一个函数的输出是一样的。这里再提一下，参数 string 被包含在这个函数的 argument 中，并且第一个被传递进来，剩下的参数都被放到一个数组，并且赋给了名为 keys 的变量。
+
+　　使用rest参数替代 arguments 对象来提高代码的可读性和避免一些js的优化问题。 然而，rest参数也不是没有缺点的。例如，它必须是最后一个参数，否则就会报错。
+　　另一个缺点是，一个函数声明只能允许有一个rest参数。
+
+3.在ES5中，JS 并不支持默认参数, 但是，我们也有一种变通的方案，那就是在函数中使用 OR 操作符（ ||）。我们简单地模仿ES5中的默认参数，请看下面函数：
+
+function foo(param1, param2) {
+   param1 = param1 || 10;
+   param2 = param2 || 10;
+   console.log(param1, param2);
+}
+这种方法在函数中普遍使用，但它有一个瑕疵，那就是传入 0 或者 null 也会触发默认值，因为 0 和 null 都被认为是false. 所以，如果我们需要给函数传入 0 和 null 时，我们需要另一种方式去检测这个参数是否缺失：
+
+function foo(param1, param2) {
+  if(param1 === undefined){
+    param1 = 10;
+  }
+  if(param2 === undefined){
+    param2 = 10;
+  }
+  console.log(param1, param2);
+}
+
+ES6有了默认参数，我们甚至可以使用函数去找回默认参数的值：
+
+function getParam() {
+    alert("getParam was called");
+    return 3;
+}
+
+function multiply(param1, param2 = getParam()) {
+    return param1 * param2;
+}
+
+multiply(2, 5);     // 10
+multiply(2);     // 6 (also displays an alert dialog)
+
+　　注意 getParam 这个函数只有在第二个参数省略时才会被调用。所以当我们给 multiply 传入两个参数并调用它时，alert是不会出现的。
+
+请注意，JavaScript 和其它语言不同， 它是在函数被调用时，才去求参数的默认值。
+function add(value, array = []) {
+  array.push(value);
+  return array;
+}
+
+add(5);    // [5]
+add(6);    // [6], not [5, 6]
+
+
+
+4.
+
+function initiateTransfer({protocol, port, delay, retries, timeout, log} = {}) {
+     // code to initiate transfer
+}
+
+initiateTransfer();    // no error
+
+　　上面这个函数中，需要解构赋值的参数有了一个默认值，这个默认值就是一个空对象。这时候，函数被调用时，即使没有传入参数，也不会报错了。
+
+5.在强类型语言中，我们必须在函数声明中明确参数的类型，但是 JavaScript 没有这种特性。在JavaScript中，我们传递给函数的参数个数不限，也可以是任何类型的数据。
+
+　　假设现在有一个函数，这个函数只接受一个参数。但是当函数被调用时，它本身没有限制传入的参数只能是一个，我们可以随意地传入一个、两个、甚至是更多。我们也可以什么都不传，这样都不会报错。
+
+　　形参（arguments）和 实参（parameters）的个数不同有两种情况：
+
+　　·实参少于形参
+
+　　　　缺失的参数都会等同于 undefined。
+
+　　·实参多于形参
+
+　　　　多余的参数都将被忽略，但它们会以数组的形式保存于变量 arguments 中。
+如果一个参数在函数调用时缺失了，它将被设为 undefined。基于这一点，我们可以在参数缺失时抛出一个错误：
+
+function foo(mandatory, optional) {
+    if (mandatory === undefined) {
+        throw new Error('Missing parameter: mandatory');
+    }
+}
+
+　　在 ES6 中，我们可以更好地利用这个特性，使用默认参数来设定必填参数：
+
+function throwError() {
+    throw new Error('Missing parameter');
+}
+
+function foo(param1 = throwError(), param2 = throwError()) {
+    // do something
+}
+
+foo(10, 20);    // ok
+foo(10);   // Error: missing parameter
+
+6.参数对象是一个类数组的对象，只是它没有数组本身具备的方法，如slice() 和 foreach()。 如果要在参数对象中使用数组的方法，首先要把它转换成一个真正的数组。
+
+function sort() {
+    var a = Array.prototype.slice.call(arguments);
+    return a.sort();
+}
+
+sort(40, 20, 50, 30);    // [20, 30, 40, 50]
+
+ES6 新增了更直接的方法，用 Array.from() 把任何类数组对象转换成数组：
+function sort() {
+    var a = Array.from(arguments);
+    return a.sort();
+}
+
+7.被调用 属性指向当前正在执行的函数，而 调用 属性则指向那个调用了 当前正在执行的函数 的函数。 在ES5的严格模式下，这些属性是不被支持的，如果尝试使用它们，则会报错。
+
+　　arguments.callee 这个属性在递归函数中很有用，尤其在匿名函数中。因为匿名函数没有名称，只能通过 arguments.callee 来指向它。
+
+var result = (function(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * arguments.callee(n - 1);
+  }
+})(4);   // 24
+
+8.在ES5非严格模式下，参数对象 有个不一般的特性：它能使 自身的值 跟 与之相对应的命名参数的值 保持同步。
+加上 严格模式， 现在改变 arguments[0] 的值是不会影响到 param 的值了，打印出来的值也跟预期的一致。 在 ES6中 该函数的输出跟在 ES5 严格模式下是一样的。需要记住的是，当函数声明中使用了默认值时，参数对象是不会受到影响的：
+
+function foo(param1, param2 = 10, param3 = 20) {
+   console.log(param1 === arguments[0]);    // true
+   console.log(param2 === arguments[1]);    // true
+   console.log(param3 === arguments[2]);    // false
+   console.log(arguments[2]);    // undefined
+   console.log(param3);    // 20
+}
+
+foo('string1', 'string2');
+
+　　在这个函数中，尽管 param3 有默认值 20，但是 arguments[2] 仍然是 undefined, 因为函数调用时只传了两个值。换言之，设定默认值对参数对象是没有任何影响的。

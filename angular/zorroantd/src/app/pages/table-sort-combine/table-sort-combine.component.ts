@@ -19,7 +19,7 @@ export class RandomUserService {
     sortOrder: string,
     genders: string[]
   ): Observable<{}> {
-    let params = new HttpParams()
+    let params = new HttpParams() //链式语法构建 HttpParams 对象。这是因为 HttpParams 对象是不可变的，通过 set()方法可以防止该对象被修改。
       .append('page', `${pageIndex}`)
       .append('results', `${pageSize}`)
       .append('sortField', sortField)
@@ -27,6 +27,18 @@ export class RandomUserService {
     genders.forEach(gender => {
       params = params.append('gender', gender);
     });
+    const params1= new HttpParams()
+    .set('orderBy', '"$key"')
+    .set('limitToFirst', "1");
+    // let courses$ = this.http
+    // .get("/courses.json", {params1})
+    // .do(console.log)
+    // .map(data => _.values(data));
+
+    const params2= new HttpParams();
+    params2.set('orderBy', '"$key"');
+    params2.set('limitToFirst', "1");
+    console.log("params:",params1,genders,params,params2);
     return this.http.get(`${this.randomUserUrl}`, {
       params
     });

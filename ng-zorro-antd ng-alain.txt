@@ -1,3 +1,35 @@
+https://www.cnblogs.com/xudengwei/p/9214959.html?tdsourcetag=s_pcqq_aiomsg
+一个运行中的angular应用是一个组件树。在变更检测期间，angular按照以下的特定顺序检查每一个组件：
+1、更新所有子组件/指令绑定的特性，比如父子组件传值
+2、调用所有的自组件/指令的ngOnInit, OnChanges和ngDocCheck生命周期勾子
+3、更新当前组件的DOM视图，比如{{name}}
+4、为一个子组件运行变更检测
+5、调用所有子组件/指令的ngAfterViewInit生命周期勾子
+每一步操作后，angular会记住每一步用于操作的值，它们会被保存在控制器视图的oldValues属性中，在对所有的组件进行检查后，angular进入下一个摘要周期（digest cycle验证摘要），而不是执行上面列表中的操作，它将当前值与上一个摘要周期中保存的值进行比较，过程如下：
+1、检查传递给子组件的值与将用于更新这些组件属性的值相同
+2、检查用于用于更新dom元素的值与将用于更新这些元素的值相同
+3、对所有子组件执行相同的检查
+
+将b组件注入到a组件中并且更新其绑定的属性text，我们将会在ngOnInit生命周期勾子中更新该属性值，因为ngOnInit是在绑定完成之后被触发的，不出所料，我们得到了报错：
+Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
+仔细观察上述变更检测的执行顺序就会发现ngOnInit生命周期勾子是在dom更新操作之前被触发的，这就是为什么上面没有得到报错的原因。我们现在需要一个在dom更新操作完成之后的生命周期勾子，比如ngAfterViewInit就非常适合这次我们又得到了预料中的错误：
+AppComponent.ngfactory.js:8 ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'I am A component'. Current value: 'updated name'.
+那些导致dom渲染的父组件属性更新或操作往往是通过服务或者可观察对象模式间接实现的，但是根本原理和原因是相同的。
+现在，让我们看一些真实场景下导致错误的共同模式。
+1、共享服务
+该应用设计为在父组件和子组件之间共享一个服务。子组件为服务设置一个值，继而通过更新父组件的属性实现反应，我称这个父属性的更新为间接的，因为与上面的例子不同，现在子组件更新父组件属性不是非常显著的。
+2、同步事件广播（Synchronous event broadcasting）
+该应用设计为一个子组件发送一个事件，然后父组件监听这个事件，该事件会导致父组件一些属性值的更新。同时这些属性被用于子组件的输入绑定中。这也是一个间接的父组件属性更新。
+3、动态组件实例化（Dynamic component instantiation）ngAfterViewInit
+这种模式不同于之前输入绑定受到影响，而是会引起dom更新操作抛出错误。该应用设计为在父组件的ngAfterViewInit中动态的添加一个子组件，由于添加子组件需要dom修改，dom更新后继而触发ngAfterViewInit生命周期钩子，抛出错误。
+
+针对这个报错的两个最大众化的解决方案 —— 异步属性更新和强制附加变化检测周期
+setTimeout(() => {
+            this.parent.text = 'updated text';
+        });
+
+
+
 某个module找不到，那就npm安装它。比如 @ionic-native/contacts/ngx找不到，那就npm i @ionic-native/contacts
 在@antv/f2里出现的问题，直接切换版本，npm i @antv/f2@3.4.2
 

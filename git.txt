@@ -1,5 +1,7 @@
 git checkout  -b new_camp 创建并跳转到new_camp新分支名
 git rm -- cached proxy.conf.json	每次要查看add的内容啊~~~！
+【git reset 文件名】即可撤销git的add操作。
+ (use "git restore --staged <file>..." to unstage)
 
 从远程仓库里拉取一条本地不存在的分支时：
 git checkout -b 本地分支名 origin/远程分支名
