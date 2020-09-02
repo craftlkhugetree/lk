@@ -1,5 +1,15 @@
+某个module找不到，那就npm安装它。比如 @ionic-native/contacts/ngx找不到，那就npm i @ionic-native/contacts
+在@antv/f2里出现的问题，直接切换版本，npm i @antv/f2@3.4.2
+
 提示某个目录或文件找不到npm ERR! enoent This is related to npm not being able to find a file.
 直接npm install上面说的那个包就行了，另外：修改npm源即可，少用cnpm。
+
+bug moment"' can only be default-imported using the 'allowSyntheticDefaultImports' flag
+import moment from 'moment';
+替换成
+import * as Moment from 'moment';
+
+
 
 1.npm uninstall -g @angular/cli
 用yarn安装项目的全部依赖出现报错，则yarn config set ignore-engines true

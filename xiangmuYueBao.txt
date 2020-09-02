@@ -1,3 +1,17 @@
 private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
+
 Flex绘制移动端表格，FlexItem  flex-grow:2不均匀分配表格，border-right。
 showPicker 自制下拉多列选择组件。
+
+两个组件大部分内容和函数相同，能否注入或传值？
+
+listOfData不是数组了，而是只有一个元素。
+this.listOfDisplayData[0].yueBao说无法读取undefined的属性yueBao，那说明前面这个可能不存在，所以要用?:三元运算符。
+
+navProject(projectObj) {//只能传一个对象，而且内部属性值不能再是对象，所以要拆拆。
+    let tPro = projectObj.project
+    let tmpPro = {yueBao:projectObj.yueBao,selectedDate:new Date(this.dataObj.dYuliu7),...tPro}
+    console.log("navPro:",projectObj,tmpPro)
+    this.router.navigate(['/gov/project/monthly-report/projectfilling'], 
+        {queryParams:tmpPro});
+  }

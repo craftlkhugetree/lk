@@ -1,8 +1,14 @@
 git checkout  -b new_camp 创建并跳转到new_camp新分支名
+git rm -- cached proxy.conf.json	每次要查看add的内容啊~~~！
 
 从远程仓库里拉取一条本地不存在的分支时：
 git checkout -b 本地分支名 origin/远程分支名
 
+最后一次的提交，对应命令参数 -n 1
+最近一次提交所有更改过的文件
+对应命令 git log -n 1 --stat
+最近一次提交所有更改的细节
+对应命令 git log -n 1 -p
 
 
 git log -p -2	只显示最近的两次提交，显示每次提交所引入的差异。
