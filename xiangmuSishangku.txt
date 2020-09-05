@@ -1,5 +1,11 @@
 https://www.bookstack.cn/read/ng.ant.design-v8.0/49687de66a121932.md的模拟接口
 
+ <div nz-col nzSpan="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">按月份查询</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+同一行的“查询”按钮，因为没加 nz-form-control而在页面缩放中丢失位置。
+
 不同tab要不同date，日期不干扰，ngModel.
 回退index，不能只传i，要多页序号过来。
 操作人员是当前登录人员，而不是上传文件的那个人。！

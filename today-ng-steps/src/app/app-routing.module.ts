@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'summary', redirectTo: '/summary', pathMatch: 'full' },
   { path: 'setting', redirectTo: '/setting', pathMatch: 'full' },
   { path: '', redirectTo: '/setup', pathMatch: 'full' },
-  { path: '**', redirectTo: '/setup', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/setup', pathMatch: 'full' }, //这一句阻碍了main打开模态，使得所有都转到setup，所以路由守卫里的console url只有/setup
 ];
 
 @NgModule({

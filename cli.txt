@@ -1,3 +1,8 @@
+all：
+ctrl+左右	单词左右跳跃
+ctrl+back/del	单词左右删除
+
+shell：
 alt+b   alt+f	光标回退/前进一单词
 alt+d	删除后一单词
 ctrl+w	删除前一单词

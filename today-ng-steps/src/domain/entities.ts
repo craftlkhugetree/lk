@@ -20,7 +20,7 @@ export class Todo {
   }
 }
 
-export class List {
+export class List { 
   _id: string;
   title: string;
   createdAt: number;

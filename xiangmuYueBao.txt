@@ -1,5 +1,14 @@
 private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
 
+this.http.post().subscribe()获取远程数据的函数，最好在ngOnInit()里的setTimeout(()=>{});
+
+
+
+ionic的提示框是this.toast.show(res.msg);或者自定义的信息。
+import { NzMessageService } from 'ng-zorro-antd/message';
+    private message: NzMessageService,
+antd的提示是this.message.error(res.msg);
+
 Flex绘制移动端表格，FlexItem  flex-grow:2不均匀分配表格，border-right。
 showPicker() 自制下拉多列选择组件。
 
@@ -15,6 +24,13 @@ navProject(projectObj) {//只能传一个对象，而且内部属性值不能再是对象，所以要拆拆
     this.router.navigate(['/gov/project/monthly-report/projectfilling'], 
         {queryParams:tmpPro});
   }
+或者不拆，而是直接
+  jump(data: any, id,valDate) {
+    data = JSON.stringify(data);
+    this.router.navigate(['/gov/project/monthly-report/project-status'], {queryParams: {data, id,valDate}});
+  }
+新页面调用，直接this.route.queryParams.subscribe(queryParams => {
+      this.id = queryParams.id;
 
 
 移动端绘制类似toggle的tab选项卡：
@@ -51,3 +67,36 @@ navProject(projectObj) {//只能传一个对象，而且内部属性值不能再是对象，所以要拆拆
     border-radius: 10px;
     font-size: 15px;
 }
+
+
+
+
+浏览器中点击input输入框时，placeholder的值不消失的方法 ， blur() 方法用于移除文本域的焦点。
+<input type="text" placeholder="请输入" onfocus="this.placeholder=''" onblur="this.placeholder='请输入'">
+
+
+placeholder右对齐的写法，兼容性比较高的一种方法 
+::-webkit-input-placeholder { /* WebKit browsers */
+    direction: rtl;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    direction: rtl;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ but I'm not sure about working */
+    direction: rtl;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    direction: rtl;
+}
+
+用showpicker()做的日期选择就不会随着 this.nav.navigateBack('/tabs/workbench/allapp');而丢失数据；但是ionic自带的datepicker就会丢失日期，所以返回按钮用    window.history.back();为了跳转后保存当前页的数据，还可以用session.put,或者传递一个request到新页面再返回。
+但是当跳转前的页面无法修改时，返回按钮，到底是返回到哪里了？必须小心。能否用路由守卫？能否定义一个记录历史地址的service？
+alllink的back.service.ts是绑定了什么？
+
+也可以this.router.navigate(['url'],{queryParams:{参数1:实参1,参数2:实参2}});
+这个好处是可以从多个组件返回值到同一个组件，只要在该接收组件判断this.route.queryParams.subscribe(queryParams => {  if(queryParams.参数1){}})
+所以要在接收组件里进行判断，即便是只有一个组件（一组参数）会跳过去。
+
+ionic的日期最大最小
+this.maxDate = new Date(this.value.getFullYear()+"-12-31:00:00:00")
+this.minDate = new Date(this.maxDate.getFullYear()+"-01-01:00:00:00")

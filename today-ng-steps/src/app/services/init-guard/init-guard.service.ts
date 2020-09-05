@@ -14,15 +14,20 @@ export class InitGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const init = !!this.store.get(INIT_FLAG);
 
+    console.log("router,route,state:",this.router,route,state)
     if (state.url.includes('setup') && init) {
       this.router.navigateByUrl('/main');
+      console.log("initguard:canAcitivate(1):",init,"/main ")
+      console.log("initguard:canAcitivate(state.url):",state,state.url)
       return false;
+      // return true;
     }
     if (!state.url.includes('setup') && !init) {
       this.router.navigateByUrl('/setup');
+      console.log("initguard:canAcitivate(2):",init,"/setup ")
       return false;
     }
-
+    console.log("initguard:canAcitivate(3):",init,"not /main or /setup")
     return true;
   }
 }

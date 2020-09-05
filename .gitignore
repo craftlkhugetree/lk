@@ -50,7 +50,7 @@ Thumbs.db
 .firebase
 src/assets/alain-default.less
 scripts/var.less
-proxy.conf.json
+#proxy.conf.json
 
 # electron
 app/node_modules

@@ -74,6 +74,7 @@ export class TodoComponent implements OnInit, OnDestroy {
   }
 
   private processTodos(listUUID: string, todos: Todo[], rank: RankBy, completedHide: boolean): void {
+    console.log("todo:processTodos():",todos);
     const filteredTodos = todos
       .filter(todo => {
         return ((listUUID === 'today' && todo.planAt && floorToDate(todo.planAt) <= getTodayTime()) //如果这条为真，那么后面的||就不用考虑了，直接返回&&的最后一项，表达式结果为true
@@ -92,6 +93,8 @@ export class TodoComponent implements OnInit, OnDestroy {
   }
 
   click(uuid: string): void {
+    console.log("todo:click(uuid):",uuid)
+    console.log("todo:click(todos[]):",this.todos)
     this.router.navigateByUrl(`/main/${uuid}`);
   }
 

@@ -34,7 +34,7 @@ export class SetupComponent implements OnInit {
   completeSetup(): void {
     this.store.set(INIT_FLAG, true);
     this.store.set(START_USING_DATE, getTodayTime());
-    this.store.set(USERNAME, this.username);
+    this.store.set(USERNAME, this.username);  //自定义服务的set方法把数据放到localStorage里了
 
     this.router.navigateByUrl('main');
   }

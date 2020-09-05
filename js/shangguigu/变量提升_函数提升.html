@@ -31,6 +31,11 @@
         var fn3=function(){
             console.log("fn3()")
         }
+        for(let i=1;i<7;i++){   //ionic动态命名变量
+            var res = 'res'+i;
+            $scope[res] = i;
+            console.log("$scope:",res);
+        }
 
     </script>
     
