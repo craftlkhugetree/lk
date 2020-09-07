@@ -23,7 +23,7 @@
         var b = 3
 
         fn2()   //fn2   函数提升
-        //fn3()   //TypeError: fn3 is not a function，变量提升
+        fn3()   //TypeError: fn3 is not a function，变量提升
 
         function fn2(){ //通过function声明的函数，在之前就可以直接调用
             console.log("fn2()")

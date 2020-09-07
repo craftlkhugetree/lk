@@ -119,6 +119,17 @@
     rxjs "6.5.5"
     source-map "0.7.3"
 
+"@angular-devkit/core@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.npm.taobao.org/@angular-devkit/core/download/@angular-devkit/core-10.1.0.tgz?cache=0&sync_timestamp=1599087758553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40angular-devkit%2Fcore%2Fdownload%2F%40angular-devkit%2Fcore-10.1.0.tgz#3e4d6abc0b949f4e2fba94077d17c132eb0a673f"
+  integrity sha1-Pk1qvAuUn04vupQHfRfBMusKZz8=
+  dependencies:
+    ajv "6.12.4"
+    fast-json-stable-stringify "2.1.0"
+    magic-string "0.25.7"
+    rxjs "6.6.2"
+    source-map "0.7.3"
+
 "@angular-devkit/core@9.1.12":
   version "9.1.12"
   resolved "https://registry.npm.taobao.org/@angular-devkit/core/download/@angular-devkit/core-9.1.12.tgz?cache=0&sync_timestamp=1599087758553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40angular-devkit%2Fcore%2Fdownload%2F%40angular-devkit%2Fcore-9.1.12.tgz#7cebce51918fe7f3462d8c58c9fbd5a3e2c3b3e7"
@@ -139,6 +150,15 @@
     ora "4.0.3"
     rxjs "6.5.4"
 
+"@angular-devkit/schematics@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.npm.taobao.org/@angular-devkit/schematics/download/@angular-devkit/schematics-10.1.0.tgz?cache=0&sync_timestamp=1599087758780&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40angular-devkit%2Fschematics%2Fdownload%2F%40angular-devkit%2Fschematics-10.1.0.tgz#11f12174585966984f823e1740331115f4f2958c"
+  integrity sha1-EfEhdFhZZphPgj4XQDMRFfTylYw=
+  dependencies:
+    "@angular-devkit/core" "10.1.0"
+    ora "5.0.0"
+    rxjs "6.6.2"
+
 "@angular/animations@~10.0.4":
   version "10.0.14"
   resolved "https://registry.npm.taobao.org/@angular/animations/download/@angular/animations-10.0.14.tgz#8e7fa9b26c70cf8e67ec0cc943211eb3957dda8c"
@@ -146,7 +166,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/cli@9.x":
+"@angular/cli@9":
   version "9.1.12"
   resolved "https://registry.npm.taobao.org/@angular/cli/download/@angular/cli-9.1.12.tgz#c6e41c80c387200766fc52a6b42fde869dcc0cef"
   integrity sha1-xuQcgMOHIAdm/FKmtC/ehp3MDO8=
@@ -1461,7 +1481,7 @@ ajv@6.12.3:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
+ajv@6.12.4, ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
   version "6.12.4"
   resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.4.tgz?cache=0&sync_timestamp=1597480799381&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-6.12.4.tgz#0614facc4522127fa713445c6bfd3ebd376e2234"
   integrity sha1-BhT6zEUiEn+nE0Rca/0+vTduIjQ=
@@ -2239,6 +2259,14 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^4.0.0, chalk@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/chalk/download/chalk-4.1.0.tgz?cache=0&sync_timestamp=1591687076871&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchalk%2Fdownload%2Fchalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
+  integrity sha1-ThSHCmGNni7dl92DRf2dncMVZGo=
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/chardet/download/chardet-0.7.0.tgz?cache=0&sync_timestamp=1594010660915&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchardet%2Fdownload%2Fchardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
@@ -2330,7 +2358,7 @@ cli-cursor@^3.1.0:
   dependencies:
     restore-cursor "^3.1.0"
 
-cli-spinners@^2.2.0:
+cli-spinners@^2.2.0, cli-spinners@^2.4.0:
   version "2.4.0"
   resolved "https://registry.npm.taobao.org/cli-spinners/download/cli-spinners-2.4.0.tgz?cache=0&sync_timestamp=1595080364429&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcli-spinners%2Fdownload%2Fcli-spinners-2.4.0.tgz#c6256db216b878cfba4720e719cec7cf72685d7f"
   integrity sha1-xiVtsha4eM+6RyDnGc7Hz3JoXX8=
@@ -5239,6 +5267,13 @@ log-symbols@^3.0.0:
   dependencies:
     chalk "^2.4.2"
 
+log-symbols@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/log-symbols/download/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
+  integrity sha1-abPMRtIPRI7M23XqH6cz2eghySA=
+  dependencies:
+    chalk "^4.0.0"
+
 log4js@^6.2.1:
   version "6.3.0"
   resolved "https://registry.npm.taobao.org/log4js/download/log4js-6.3.0.tgz#10dfafbb434351a3e30277a00b9879446f715bcb"
@@ -5674,6 +5709,11 @@ next-tick@~1.0.0:
   resolved "https://registry.npm.taobao.org/next-tick/download/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ng-alain@^9.5.5:
+  version "9.5.5"
+  resolved "https://registry.npm.taobao.org/ng-alain/download/ng-alain-9.5.5.tgz#fd2010596a076c6c6b528fce63a6a0a5df1893d4"
+  integrity sha1-/SAQWWoHbGxrUo/OY6agpd8Yk9Q=
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.npm.taobao.org/nice-try/download/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -6019,6 +6059,20 @@ ora@4.0.3:
     cli-spinners "^2.2.0"
     is-interactive "^1.0.0"
     log-symbols "^3.0.0"
+    mute-stream "0.0.8"
+    strip-ansi "^6.0.0"
+    wcwidth "^1.0.1"
+
+ora@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.taobao.org/ora/download/ora-5.0.0.tgz?cache=0&sync_timestamp=1596812525427&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fora%2Fdownload%2Fora-5.0.0.tgz#4f0b34f2994877b49b452a707245ab1e9f6afccb"
+  integrity sha1-Tws08plId7SbRSpwckWrHp9q/Ms=
+  dependencies:
+    chalk "^4.1.0"
+    cli-cursor "^3.1.0"
+    cli-spinners "^2.4.0"
+    is-interactive "^1.0.0"
+    log-symbols "^4.0.0"
     mute-stream "0.0.8"
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
@@ -7276,7 +7330,7 @@ rxjs@6.5.5, rxjs@~6.5.5:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^6.5.3:
+rxjs@6.6.2, rxjs@^6.5.3:
   version "6.6.2"
   resolved "https://registry.npm.taobao.org/rxjs/download/rxjs-6.6.2.tgz?cache=0&sync_timestamp=1599146160503&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frxjs%2Fdownload%2Frxjs-6.6.2.tgz#8096a7ac03f2cc4fe5860ef6e572810d9e01c0d2"
   integrity sha1-gJanrAPyzE/lhg725XKBDZ4BwNI=

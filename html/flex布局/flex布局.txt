@@ -74,14 +74,14 @@ flex-flow: row-reverse wrap;
 
 14.垂直居中：
 （1）align-items:center;
-（2）43.要让文字在父元素中垂直居中，只需设置父元素的line-height与父元素height相同。
-（3）59.开启absolute后，垂直方向也有公式了，设置margin-top和margin-bottom为auto，top和bottom为0后，就能垂直居中。
+（2）43.要让文字在父元素中垂直居中，只需设置子元素的line-height与父元素height相同。
+（3）59.开启absolute后，垂直方向也有公式了，设置margin-top和margin-bottom为auto，再position的top和bottom为0后，就能垂直居中。
 （4）75.td元素默认垂直居中，vertical-align:middle;text-align:center;利用td的这个特性，两个div，父元素设置display:table-cell;就方便子元素去中心了。
 
-（5）水平居中，width:80%;margin:0 auto;
-（5）若元素宽高确定，那么可以这样居中  position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;
+（5）水平居中，width:80%;margin:0 auto;	text-align文本的水平对齐
+（6）59.若元素宽高确定，那么可以这样居中  position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;
 若元素不定宽高，要靠内容撑开，上面就不行了，因为会先auto宽高，铺满屏幕。这时就可以用left:50%;top:50%;相对于包含块，
-再transform:translateX(-50%) translateY(-50%);相对于自己。
+再相对于自身transform:translateX(-50%) translateY(-50%);相对于自己。
 
 15.有些地方太长而显示省略号，是这样做的：
 .box{
@@ -114,4 +114,8 @@ flex-flow: row-reverse wrap;
 }
 边框可以用border，outline，也可以直接用伪元素的背景色::before{content:'';width:50px;height:1px;background:red;}
 
-17.
+17.	41.去除点是list-style:none;去除项目符号风格。
+	去除下划线text-decoration:none;
+40.visibility默认值为visible，还有hidden也是隐藏，但还占据原来的位置。而display:none;是不占位的。
+83.边框可以用border，outline，也可以直接用伪元素的背景色::before{content:'';width:50px;height:1px;background:red;}
+79.隐藏可以用display:none; 或者 height:0;overflow:hidden;  后一种办法可以加上动画效果，因为要让高度慢慢恢复，就可以用transition:height 3s;三秒来恢复高度。

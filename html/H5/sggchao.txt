@@ -57,7 +57,7 @@ javascript:; 表示什么都不执行，这样点击时就没有任何反应。
  href=”javascript:;”就是去掉a标签的默认行为，跟href=”javascript:void(0)”是一样的，void 是JavaScript 的一个运算符，void(0)就是什么都不做的意思。
 简单来说，”javascript:”是另外一种嵌套js代码在网页中的方法。 
     跟通过标签嵌套js代码差不多。 
-    如点击下面链接会会执行”javascript:”后面的内容。不过不推荐这种写法。 
+    如点击下面链接会执行”javascript:”后面的内容。不过不推荐这种写法。 
     理由是使用标签href属性通常是保存超链接，用来控制页面转向。
  <a href = "javascript:alert(22);">点我</a>
 
@@ -112,7 +112,7 @@ id选择器，#开头。
 并集选择器，h1,span{}，同时选择多种选择器。选择器分组。
 
 24.直接包含才是父子元素。祖先元素可以有很多，从父元素开始。后代元素也包括直接和间接。拥有同一个父元素，才叫兄弟元素。
-（1）div > span{}父子元素，跟准确一点可以用类  div.box > span{}
+（1）div > span{}父子元素，更准确一点可以用类  div.box > span{}
 （2）div span{} 后代元素
 （3）p + span{}	兄弟元素，且紧挨着的一个
 （4）p ~ span{}	选择后面的所有兄弟
@@ -158,6 +158,7 @@ a:active{}	鼠标点击
 （3）p::selection{background-color:yellow;}	鼠标选中的内容变色
 （4）div::before{content:'abc';color:red;}	<div>后的那个缝
 div::after{content:'xyz';color:blue;}		</div>前的那个缝
+因为div又不会显示出来，显示的始终是content，所以before，after相对于content。
 
 28.样式的继承，一个元素的样式也会应用到它的后代。祖先和后代之间。
 默认有继承，所以是有利的，但是必然也有不利之处。所以颜色可以继承，而背景不能继承（默认背景为透明）
@@ -213,6 +214,11 @@ padding-top:	padding-bottom:
 36.margin不会影响盒子大小，但是影响实际占用的大小。margin-top使元素下移，margin-left使自己右移。而下和右挤别人，不影响自己。如果设置为负值，则往反方向移动。
 
 37.盒子的水平布局
+ <div class="box1">
+        <div class="inner">
+            div1
+        </div>
+ </div>
 元素在其父元素的水平位置由七个因素决定，总和为父元素内容区的宽度。
 	.box1 {
             width: 800px;
@@ -229,15 +235,11 @@ padding-top:	padding-bottom:
             background-color: orange;
         }
 0+0+0+200+0+0+0	= 800	！！！必须满足，若不成立，则为过度约束，浏览器要自动调整，若无auto情况，那么调整margin-right:600px。
-其中width（默认为auto）,margin-left（0）,margin-right可以设置为auto，浏览器会在过度约束时，自动调整auto。
+其中width（默认为auto）,margin-left（0）和margin-right三者可以设置为auto，浏览器会在过度约束时，自动调整auto。
 若宽度和一个外边距为auto，则这个外边距变为零，宽度会调整为最大。
 若三者都是auto，则外边距都是零，宽度最大。
 若两个外边距为auto，则两个外边距平分。也就是居中！！！
- <div class="box1">
-        <div class="inner">
-            div1
-        </div>
- </div>
+
 
 38.使用overflow属性来处理溢出，默认值为visible，用hidden就可以隐藏溢出（但是连文字内容都隐藏了），所以用scroll生成滚动条，最后一个值auto更灵活（能隐藏水平滚动条）。
 overflow-x:
@@ -275,7 +277,7 @@ ul不但有外边距还有padding，所以设置 ul{margin:0;padding:0},但这�
 42. overflow:hidden裁剪溢出，比如ul li*3 三个图，但是ul设置了宽高，三个图溢出了，那么用overflow就可以把溢出的先裁减了,然后设置三个图的宽高，使之适应。为何图片会大呢，是为了适应某些大屏幕，所以图片大小是块的2倍。
 <a href="#">回到页顶</a>
 
-43.要让文字在父元素中垂直居中，只需设置父元素的line-height与父元素height相同
+43.要让文字在父元素中垂直居中，只需设置子元素的line-height与父元素height相同
 
 44.用margin-left和padding-left都能实现一样的效果，但margin就把这块距离给外部了，如果这一行设置过hover反色的话，那么这一块就不反色了，而padding则还是在元素内部，这一行都会反色。
 
@@ -448,7 +450,7 @@ content-box从内容区计算，border-box从边框计算。
 可选值cover和contain。
 （5）background-attachment背景图片是否随元素移动，默认值scroll，可选值
 fixed不随元素移动。
-（6）简写不像font有顺序要求，只要注意 background-position/background-size，
+（6）background的简写不像font有顺序要求，只要注意 background-position/background-size，
 而且background-origin必须在background-clip前面。
 background:#bfa url('') center center/contain  border-box no-repeat;
 
@@ -493,7 +495,7 @@ thead,tbody,tfoot即便打乱顺序，thead还是在头部。<th>表示头部单
 td元素默认垂直居中，vertical-align:middle;text-align:center;利用td的这个特性，两个div，父元素设置display:table-cell;就方便子元素去中心了。
 table是个块元素，但是默认宽度不是100%。
 border-spacing:0px;消除边框间距
-border-collapse:collapse;直接合并边框
+border-collapse:collapse;  	是否cells inside a <table>直接合并边框
 
 76.表单用于提交数据，
 <form  action="目的文件">
@@ -587,7 +589,7 @@ animation: name duration timing-function delay iteration-count direction fill-mo
 transform:translateX(100px);	若是50%，那是相对于自身来算的。
 若元素宽高确定，那么可以这样居中  position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;
 若元素不定宽高，要靠内容撑开，上面就不行了，因为会先auto宽高，铺满屏幕。这时就可以用left:50%;top:50%;相对于包含块，
-再transform:translateX(-50%) translateY(-50%);
+再相对于自身transform:translateX(-50%) translateY(-50%);
 
 89.鼠标移入有个上提的效果
 .box:hover{
@@ -723,14 +725,14 @@ body:hover{
 @media only screen{}    老浏览器读到only会直接忽略这一句，更兼容。
 
 101.媒体特性，
-@media(width:500px){}   只有视口到达500px时才生效，一个点不方便。
+@media(width:500px){}   只有视口到达500px时才生效，仅在这一个点不方便。
 @media(min-width:500px){}   用min-width     max-width
 上述样式切换的分界点，叫做断点。很关键，常用的有：小于768超小屏幕，max-width=768px;
 大于768小屏幕，大于992中型屏幕，大于1200大型屏幕。
 @media(only screen and (min-width:500px) and (max-width:700px)){}   如果表示或，那用逗号隔开。
 
 102.响应式设计的网页，移动端优先，渐进增强。
-三横杠逐渐变化为叉:
+三横杠图标逐渐变化为叉:
 
 li{
     transition:0.5s;
