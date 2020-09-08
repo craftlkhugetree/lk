@@ -66,6 +66,7 @@ c = someObject.toString()   //将对象转换为字符串
 ~是按位取反的意思，表现出来的现象是 ~X = -(X+1)
 
 (keydown)="($event.which === 13) ? search() : 0"
+或者在js文件里：
   keydown(e:any){
     if(e.which===13){
       this.search()
