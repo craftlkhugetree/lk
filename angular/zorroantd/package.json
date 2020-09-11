@@ -23,7 +23,23 @@
     "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@ant-design/icons-angular": "^9.0.0",
+    "@antv/data-set": "^0.10.2",
+    "@antv/g2": "^3.5.11",
+    "@antv/g2-plugin-slider": "^2.1.1",
+    "@antv/l7": "^2.1.5",
+    "xlsx": "^0.16.6",
+    "ng-alain": "^8.4.0",
+    "@delon/abc": "^8.9.0",
+    "@delon/acl": "^8.9.0",
+    "@delon/auth": "^8.9.0",
+    "@delon/cache": "^8.9.0",
+    "@delon/chart": "^8.9.0",
+    "@delon/form": "^8.9.0",
+    "@delon/mock": "^8.9.0",
+    "@delon/theme": "^8.9.0",
+    "@delon/util": "^8.9.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.28",
@@ -44,6 +60,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "ng-alain": "^8.4.0"
   }
 }

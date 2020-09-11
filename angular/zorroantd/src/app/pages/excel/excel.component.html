@@ -1,0 +1,43 @@
+<p>excel works!</p>
+<div>导出</div>
+<button (click)="daochu()">导出</button>
+<div>导入</div>
+<input type="file" (change)="daoru($event)" multiple="false" />
+
+
+<button nz-button (click)="url()">Via Url</button>
+<input type="file" (change)="change($event)" multiple="false" class="ml-sm" />
+<p class="mt-sm">result: {{ dataDelon | json }}</p>
+
+<nz-table #nzTable [nzData]="inputdata" [nzPageSize]="10">
+  <thead>
+    <tr>
+      <th>Title</th>
+      
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of nzTable.data">
+      <td>{{i[0]}}</td>
+      
+      <td>
+        <a href="#" (click)="edit(i)">Edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a href="#" (click)="del(i)">Remove</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-dropdown>
+          <a class="ant-dropdown-link" nz-dropdown>
+            More <i nz-icon type="down"></i>
+          </a>
+          <ul nz-menu>
+            <li nz-menu-item>
+              <a (click)="daoru()">active</a>
+            </li>
+          </ul>
+        </nz-dropdown>
+        
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

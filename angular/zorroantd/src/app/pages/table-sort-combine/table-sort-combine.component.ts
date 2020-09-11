@@ -39,6 +39,9 @@ export class RandomUserService {
     params2.set('orderBy', '"$key"');
     params2.set('limitToFirst', "1");
     console.log("params:",params1,genders,params,params2);
+    this.http.get('http://localhost:3000/list').subscribe((res:any)=>{
+      console.log("mock:",res)
+    })
     return this.http.get(`${this.randomUserUrl}`, {
       params
     });

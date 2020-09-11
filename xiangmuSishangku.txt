@@ -64,6 +64,7 @@ c = someObject.toString()   //将对象转换为字符串
     false、undefinded、null、0、“” 为 false
     true、1、“somestring”、[Object] 为 true
 ~是按位取反的意思，表现出来的现象是 ~X = -(X+1)
+~~的作用是去掉小数部分
 
 (keydown)="($event.which === 13) ? search() : 0"
 或者在js文件里：

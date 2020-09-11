@@ -5,6 +5,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { TableSortCombineComponent } from './table-sort-combine/table-sort-combine.component';
 import { WorkplaceComponent } from './workplace/workplace.component'
 import { BackendgetComponent } from './backendget/backendget.component'
+import { ExceltxtComponent } from './exceltxt/exceltxt.component'
+import { ExcelComponent } from './excel/excel.component'
 
 const routes: Routes = [
   // { path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) },
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path:'workplace', component:WorkplaceComponent},
   {path:'workplace', component:WorkplaceComponent},
   {path:'backendget', component:BackendgetComponent},
+  {path:'exceltxt', component:ExceltxtComponent},
+  {path:'excel', component:ExcelComponent},
 ];
 
 @NgModule({

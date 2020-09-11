@@ -22,3 +22,4 @@ for i in ${f[*]};
 do
         mv $preF/$i/$suF/react-main.*.js .
 done
+

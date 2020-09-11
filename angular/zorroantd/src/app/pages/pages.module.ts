@@ -12,12 +12,14 @@ import { FormsModule } from '@angular/forms';
 import { BackendgetComponent } from './backendget/backendget.component'; // <-- NgModel lives here
 // import { BackendService } from '../services/backend.service'
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
+import { ExceltxtComponent } from './exceltxt/exceltxt.component';
+import { ExcelComponent } from './excel/excel.component'
 
 
 
 
 @NgModule({
-  declarations: [MonitorComponent,WelcomeComponent, TableSortCombineComponent, WorkplaceComponent, BackendgetComponent ],
+  declarations: [MonitorComponent,WelcomeComponent, TableSortCombineComponent, WorkplaceComponent, BackendgetComponent, ExceltxtComponent, ExcelComponent ],
   imports: [
     CommonModule,
     PagesRoutingModule,
