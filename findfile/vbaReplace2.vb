@@ -176,7 +176,29 @@ End With
            MsgBox ws.Name & objBook.Name
            
            For m = 0 To UBound(OldStr)
-               ActiveSheet.UsedRange.Cells.Replace "OldStr(m)", "NewStr(m)"
+               'ActiveSheet.UsedRange.Cells.Replace "OldStr(m)", "NewStr(m)"
+               ws.UsedRange.Cells What:=OldStr(m), Replacement:=NewStr(m), LookAt:=xlPart, SearchOrder _
+                 :=xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+
+                 ws.UsedRange.Cells.Replace What:=OldStr(m), Replacement:=NewStr(m), LookAt:=xlPart, SearchOrder _
+                 :=xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+
+                 For Each c In sh.UsedRange
+                    If c.Value <> "" Then c.Value = Replace(c.Value, "添加", "卫生")
+                If ws.UsedRange.Value <> "" Then 
+                    ws.UsedRange.Value=Replace(ws.UsedRange.Value,OldStr(m),NewStr(m))
+                End If
+
+                ws.UsedRange.Replace What:=OldStr(m), Replacement:=NewStr(m), LookAt:=xlPart
+                ws.UsedRange.Replace OldStr(m),NewStr(m),xlPart
+                arr = ws.UsedRange
+                For r=1 To UBound(arr)
+                    For c=1 To UBound(arr,2)
+                        arr(r,c) = Replace(arr(r,c),OldStr(m),NewStr(m),xlPart)
+                    Next
+                Next
+                ws.UsedRange = arr
+    
            Next m
        Next ws
        objBook.Save
@@ -189,6 +211,7 @@ End With
    
    Set objWord = Nothing
    Set objExcel = Nothing
+   Set fso1 = Nothing
    MsgBox "转换完成"
        
 End Sub

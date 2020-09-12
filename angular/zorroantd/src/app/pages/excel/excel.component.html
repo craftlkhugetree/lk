@@ -1,8 +1,9 @@
 <p>excel works!</p>
 <div>导出</div>
-<button (click)="daochu()">导出</button>
+<button (click)="daochu()" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">导出</button>
 <div>导入</div>
-<input type="file" (change)="daoru($event)" multiple="false" />
+<input type="file" (change)="daoru($event)" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+<!-- <button accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8" (click)="daoru($event)">导入</button> -->
 
 
 <button nz-button (click)="url()">Via Url</button>
