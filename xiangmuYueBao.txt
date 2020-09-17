@@ -2,6 +2,32 @@ private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取leng
 
 this.http.post().subscribe()获取远程数据的函数，最好在ngOnInit()里的setTimeout(()=>{});
 
+const file = (<HTMLInputElement>document.getElementById('inputUploadfiles')).files[0];   如果不加<HTMLInputElement>就会一直报错：类型“HTMLElement”上不存在属性“files
+
+//dom没加载完，无法addEventListener****************
+  fileSelect;fileElem;fileList;
+  ionViewDidEnter() {
+  this.fileSelect = document.getElementById("fileSelect");
+  this.fileElem = document.getElementById("fileElem");
+  this.fileList = document.getElementById("fileList");
+  }
+  // @HostListener('window:onload',['$event']) 
+  @HostListener('click', ['$event'])
+  // window.onload = function () {
+  onClick(event) {
+    if (event.path[0].id === "fileSelect") {
+      if (this.fileSelect) {
+        this.fileSelect.addEventListener("click", e => {
+          e.preventDefault(); // prevent navigation to "#"
+          if (this.fileElem) {
+            this.fileElem.click();
+          }
+        }, false);
+        this.fileElem.addEventListener("change", this.handleFiles, false);
+      }
+    }
+    console.log("filefamily:", this.fileSelect, this.fileList, this.fileElem,event,event.path[0].id)
+  };
 
 
 ionic的提示框是this.toast.show(res.msg);或者自定义的信息。
@@ -100,3 +126,30 @@ alllink的back.service.ts是绑定了什么？
 ionic的日期最大最小
 this.maxDate = new Date(this.value.getFullYear()+"-12-31:00:00:00")
 this.minDate = new Date(this.maxDate.getFullYear()+"-01-01:00:00:00")
+
+
+************ionic打包遇到了很多问题，sdk用android命令打开，看看有没有命令
+ionic cordova platform add android 需要的版本，
+以及环境变量 set | findstr /I android
+ionic cordova build android  //编译debug版本
+ionic cordova build android --prod //prod优化代码提升运行速度
+
+
+遇到一个大问题是 no java file extend CordovaActivity  找到爆出这个问题的prepare.js后，将if里的throw语句注销，
+出现The "path" argument must be of type string. 于是怀疑是path函数的问题，于是在path的每个参数后面加了 || ''  希望可以跳过这个问题，但还是不行。
+再看是哪个java文件extend CordovaActivity 呢？是/platforms/android/app/src/main/java/com/sdjy/zwalllink/MainActivity.java
+于是在if语句里直接赋值，但发现const声明的变量不能二次赋值，于是将其改为let。同事路径要绝对路径，终于跳过了这步prepared。
+
+
+gradle过大,添加daemon
+Windows下：
+（window）/Users/”your pc_name”/.gradle
+
+Linux下：（在home/${user}目录下创建gradle.properties）
+
+touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" >> ~/.gradle/gradle.properties
+也可以先下载好gradle，然后添加CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL环境变量为gradle压缩包地址。
+
+又出现android版本问题，prepare.js里修改
+const minSdkVersion = '21' || this._config.getPreference('android-minSdkVersion', 'android');
+最后修改了config.xml里的版本号为22

@@ -83,8 +83,8 @@ export class ExcelComponent implements OnInit {
       // this.inputdata = (XLSX.utils.sheet_to_html(ws));
       // let range = XLSX.utils.decode_range(ws['!ref']);  //行列数
       // console.log("rangeDecode:",range)      
-      this.inputdata = (XLSX.utils.sheet_to_json(ws));
-      // this.inputdata = (XLSX.utils.sheet_to_json(ws, {header: 1}));
+      // this.inputdata = (XLSX.utils.sheet_to_json(ws));
+      this.inputdata = (XLSX.utils.sheet_to_json(ws, {header: 1}));
 
 
       // console.log("inputdata",reader,e,e.target,bstr,wb,wsname,ws,this.inputdata)

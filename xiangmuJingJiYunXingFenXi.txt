@@ -1,0 +1,10 @@
+经济运行分析基础设置，应当把四个isFlag放在一个数组里。
+
+选择单个文件上传，选择框中只能看到excel文件。
+<input type="file" (change)="daoru($event)" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+
+//1数组初始化
+var arr = new Array(10);
+arr.fill(0);
+//2数组初始化
+var arr=Array.apply(null, Array(10)).map(() => 0);

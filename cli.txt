@@ -27,6 +27,17 @@ tskill pid
 ping /?		查看帮助，或者 ping --help
 telnet 192.168.9.154 8081	监测该端口是否打开
 
+forfiles /p "d:\lk\findfile" /m *.txt /s /c "cmd /c start.bat @path"
+start %1	::%[1-9]表示参数，打开该文件
+/s是递归下级目录
+
+call test2.bat "hello" "haha" 
+        在“test2.bat”文件里写:
+        echo %1  (打印: "hello")
+        echo %2  (打印: "haha")
+        echo %0  (打印: test2.bat)
+        echo %19 (打印: "hello"9)
+
 win+i	所有设置
 win+a	操作中心
 

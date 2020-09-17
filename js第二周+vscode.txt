@@ -5,7 +5,8 @@ ctrl+h批量替换 vscode中内容
 VsCode中，使用VIM插件后，ctrl+c不能用，可以通过 File -> Preference -> Settings中   vim.useCtrlKeys 选项设置为 false即可。
 
 ctrl+[]	增减缩进
-CTRL + K CTRL + S = 显示快捷方式
+ctrl+y	恢复撤销
+CTRL + K CTRL + S = 显示快捷键方式
 ctrl+b	侧边栏
 ctrl+j	cmd栏
 F8	下一个错误
@@ -54,6 +55,7 @@ ctrl+enter	快速换行
 ctrl+home/end	第一行/最后
 
 shift+左右	选中左右单词
+ctrl+shift+箭头	选到末尾或开头
 shift+上下	选中上下行	ctrl+/	注释
 ctrl+back	删左边单词
 ctrl+shift+l	选中相邻行相同的单词

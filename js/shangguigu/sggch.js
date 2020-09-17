@@ -157,7 +157,14 @@ onmousemove=""     鼠标移动事件
 window.onload = function () {};   该响应函数将在页面加载完成后执行，这就不会出现无法获取dom对象的情况了。
 
 24.获取元素节点
-getElementById()
-getElementsByTagName()  li,p,div    返回类数组对象，有长度有索引
-getElementsByName()
+getElementById().innerHTML   标签内的文本,  .onclick()=function name(params) {}给按钮增加点击函数。
+getElementsByTagName()  li,p,div    返回类数组对象collection，有长度有索引；
+getElementsByName() input自结束标签没有内部, 所以用name属性、value属性、type属性等。只有class要用className调用。
+找到标签对象，再操作其属性。
+
+25.元素节点的子节点
+var lis = document.getElementsByTagName("li")
+lis.childNodes;包含文本节点在内的所有节点，甚至包括换行和空白。IE8及以下不会把空白当做子节点。
+lis.children;只包括子元素，不是节点。
+lis.lastChild;lis.firstChild;
 
