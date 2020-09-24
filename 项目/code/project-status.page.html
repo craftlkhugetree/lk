@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="back()">
+        <ion-icon slot="start" name="chevron-back-outline" style="margin-right: 0px;color: #000;"></ion-icon>
+        <span style="color: #000;">返回</span>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>项目状态</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div style="border-top: 1px solid #ccc;"></div>
+  <ListItem style="margin-top: 30px;"
+  Picker
+  [extra]="name"
+  [arrow]="'horizontal'"
+  [data]="singleArea"
+  [(ngModel)]="value"
+  (ngModelChange)="onOk($event)"
+>
+  流程状态:
+</ListItem>
+
+
+  <div *ngIf="name === '正在办理'"> 
+
+    <List [className]="'date-picker-list'">
+      <ListItem
+        DatePicker
+        [extra]="currentDateFormat3(value3, 'yyyy年mm月dd日')"
+        [arrow]="'horizontal'"
+        [mode]="'date'"
+        [(ngModel)]="value3"
+        (onOk)="onOk3($event)"
+      >
+      <Brief>{{ name1 }}</Brief>
+      </ListItem>
+    </List>
+</div>
+
+<div *ngIf="name === '已办理'">
+
+  <List [className]="'date-picker-list'">
+    <ListItem
+      DatePicker
+      [extra]="currentDateFormat(value1, 'yyyy年mm月dd日')"
+      [arrow]="'horizontal'"
+      [mode]="'date'"
+      [(ngModel)]="value1"
+      (onOk)="onOk1($event)"
+    >
+    <Brief>{{ name1 }}</Brief>
+    </ListItem>
+  </List>
+
+  <List [className]="'date-picker-list'">
+    <ListItem
+      DatePicker
+      [extra]="currentDateFormat2(value2, 'yyyy年mm月dd日')"
+      [arrow]="'horizontal'"
+      [mode]="'date'"
+      [(ngModel)]="value2"
+      (onOk)="onOk2($event)"
+    >
+    <Brief>{{ name2 }}</Brief>
+    </ListItem>
+  </List>
+
+
+  <div style="font-size: 15px;margin: 10px 0px 0px 14px;color:#797979">
+    
+    <div style="margin-bottom:8px">上传附件:</div>
+    <div Button [type]="'primary'" [size]="'small'" (click)="upload()"
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+    >选择文件</div>
+      <!-- <input type="file"  id="file" name="file" multiple="multiple"  multiple="false" (change)="change($event)"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      /> -->
+    </div>
+  
+    <div>
+      <input  type="file"  id="inputUploadfiles" (change)="upload()"><br />	
+      <!-- <input type="file" id="fileElem" multiple style="display:none" >
+      <a href="javascript:;" id="fileSelect" style="font-size:30px" >Select some files</a> 
+      <div id="fileList">
+        <p >No files selected!</p>
+      </div> -->
+    </div>
+</div>
+
+  <div style="width: 90%;margin: 200px auto;">
+    <div Button [type]="'primary'"  (click)="submit()" >保存</div>
+  </div>
+
+
+</ion-content>

@@ -1,0 +1,84 @@
+<!-- <page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <button (click)="add()" nz-button nzType="primary">新建</button>
+  </ng-template>
+</page-header> -->
+<!-- <nz-card>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+  <st #st [data]="url" [columns]="columns"></st>
+</nz-card> -->
+
+<!-- <div *ngFor="let item of landEvaluatingTable">{{item.cdataname}} {{item.cotherpartnername}}</div> -->
+
+<nz-table
+  #basicTable
+  [nzData]="landEvaluatingTable"
+  [nzBordered]="true"
+  style="margin-bottom: 12px"
+  [(nzPageIndex)]="nzPageIndex"
+  [(nzPageSize)]="nzPageSize"
+>
+  <!-- 
+ <nz-table #basicTable [nzData]="landEvaluatingTable" [nzShowPagination]="false" [(nzPageIndex)]="nzPageIndex"
+    [nzBordered]="true" [(nzPageSize)]="nzPageSize" style="margin-bottom: 12px"> -->
+
+  <thead style="background: cadetblue !important">
+    <tr>
+      <th rowspan="2">序号</th>
+      <!-- <th  rowspan="2" [nzSortFn]="sortNo">序号</th> -->
+      <th rowspan="2">企业名称</th>
+      <th rowspan="2">统一社会信誉代码</th>
+      <th colspan="16">主要情况</th>
+    </tr>
+    <tr>
+      <th>属地名称</th>
+      <th>地区名称</th>
+      <th>地方税收</th>
+      <th>主要税收</th>
+      <th>行业</th>
+      <th>组织名称</th>
+      <th>分类名称</th>
+      <th>园区名称</th>
+      <th>占地面积</th>
+      <th>创建者</th>
+      <th>创建时间</th>
+      <th>地理坐标</th>
+      <!-- <th>街道</th>
+        <th>企业公众号</th>
+        <th >伙伴代码</th> -->
+      <th>关联企业名称</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of basicTable.data">
+      <!-- <tr *ngFor="let item of basicTable.data;index as i"> -->
+      <!-- <td>{{i + 1}}</td> -->
+      <!-- <script type="text/javascript">
+          var count = 0;
+          count++;
+          document.write("<td>"+ count  +"</td>");
+      </script> -->
+      <!-- <td>{{x}}</td> -->
+      <!-- <td>{{basicTable.data.indexOf(item)+1}}</td> -->
+      <td>{{ basicTable.data.indexOf(item) + 1 + (nzPageIndex - 1) * nzPageSize }}</td>
+      <td>{{ item.cdataname }}</td>
+      <td>{{ item.cOtherPartnerShortCode }}</td>
+      <td>{{ item.cPossName }}</td>
+      <td>{{ item.cDCName }}</td>
+      <td>{{ item.partTax }}</td>
+      <td>{{ item.mainTax }}</td>
+      <td>{{ item.cTradeName }}</td>
+      <td>{{ item.cOrgName }}</td>
+      <td>{{ item.cPartnerCName }}</td>
+      <td>{{ item.cGardName }}</td>
+      <td>{{ item.floorArea }}</td>
+      <td>{{ item.cMaker }}</td>
+      <td>{{ item.dCreateDate }}</td>
+      <td>{{ item.cLatitudeLongitude }}</td>
+      <!-- <td>{{item.cPartWWW}}</td>
+        <td>{{item.cComPubNum}}</td>
+        <td>{{item.cIndName}}</td> -->
+      <td>{{ item.cotherpartnername }}</td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -8,51 +8,62 @@
     <button>测试1</button>
     <button>测试2</button>
     <button>测试3</button>
-    <script type="text/javascript" src='closure.js'></script>
+    <!-- <script type="text/javascript" src='closure.js'></script> -->
     <script>
-        var btns = document.getElementsByTagName('button')
-        //遍历加监听
+        // var btns = document.getElementsByTagName('button')
+        // //遍历加监听
 
-        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
-            var btn = btns[i]
-            btn.onclick = function(){
-                alert('num'+(i+1)+'个') //不触发，i全为3了
-            }
-        }
+        // for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+        //     var btn = btns[i]
+        //     btn.onclick = function(){
+        //         alert('num'+(i+1)+'个') //不触发，i全为3了
+        //     }
+        // }
 
-        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
-            var btn = btns[i]
-            btn.index = i    //没有这一句，i全部为3
-            btn.onclick = function(){
-                alert('num'+(this.index+1)+'个')
-            }
-        }
+        // for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+        //     var btn = btns[i]
+        //     btn.index = i    //没有这一句，i全部为3
+        //     btn.onclick = function(){
+        //         alert('num'+(this.index+1)+'个')
+        //     }
+        // }
 
-        //匿名函数自调用，利用闭包。外部函数被调用多次，产生了多个闭包。
-        for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
-            ;(function(j){  //局部j
-                var btn = btns[j]
-                btn.onclick = function(){   //按钮在页面关闭前不会释放，所以闭包不会释放
-                    alert(j+1)
+        // //匿名函数自调用，利用闭包。外部函数被调用多次，产生了多个闭包。
+        // for (var i=0,length=btns.length;i<length;i++){  //这样length只计算一次
+        //     ;(function(j){  //局部j
+        //         var btn = btns[j]
+        //         btn.onclick = function(){   //按钮在页面关闭前不会释放，所以闭包不会释放
+        //             alert(j+1)
+        //         }
+        //     })(i)   //这是一个全局i，括号表示调用。
+        // } 
+
+
+
+        // var f =fn1()
+        // f()
+        // var mm = myModule()
+        // mm.doSomething()
+        // mm.doOtherthing()
+        // var ff= bigfn()
+        // ff()
+        // ff = null   //让内部函数成为垃圾对象，回收闭包，防止内存泄露
+
+        // var obj={}
+        // for(var i=0;i<10000;i++){
+        //     //obj[i] = new Array(10000000)  //内存溢出 Paused before potential out-of memory crash.
+        // }
+
+        function   repSig(str){
+                let sig = [',', '\\.', '\\\\', '/', '<', '>', ';', ':', '"', '{', '}','\'','；','。']
+                for (let i = 0; i < sig.length; i++) {
+                    let p = new RegExp(sig[i], 'g')
+                    str = str.replace(p, '')
+                    console.log("str:", str)
                 }
-            })(i)   //这是一个全局i，括号表示调用。
-        } 
-
-
-
-        var f =fn1()
-        f()
-        var mm = myModule()
-        mm.doSomething()
-        mm.doOtherthing()
-        var ff= bigfn()
-        ff()
-        ff = null   //让内部函数成为垃圾对象，回收闭包，防止内存泄露
-
-        var obj={}
-        for(var i=0;i<10000;i++){
-            //obj[i] = new Array(10000000)  //内存溢出 Paused before potential out-of memory crash.
-        }
+                return str;
+            }
+            console.log("ceshi:",repSig("fds1.,/'\;'{}；。\\"))
     </script>
     
 </body>

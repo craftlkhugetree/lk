@@ -1,0 +1,74 @@
+1.基础设置 basic-settings
+
+经济运行分析基础设置，应当把四个isFlag放在一个数组里。
+
+选择单个文件上传，选择框中只能看到excel文件。
+<input type="file" (change)="daoru($event)" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+
+//1数组初始化
+var arr = new Array(10);
+arr.fill(0);
+//2数组初始化
+var arr=Array.apply(null, Array(10)).map(() => 0);
+
+改名或新增，要先查重！！！
+异步怎么那么难控制！！！while(true){if(this.flag===true){getData();break;}}不行。
+this.http.post().subscribe(()=>{});必须有subscribe才能执行。
+
+ <ng-template  ngFor let-data [ngForOf]="receiveTable.data"  let-i="index">
+
+/^(0|[1-9][0-9]*|-[1-9][0-9]*)$/.test(9.32)  	/*false 保证整数*/
+
+post的参数为对象，对象内的属性值处于变动中，所以每次要reset()，但是必须要setTimeout吗？
+
+/**this.eAreaName !== '' && this.eAreaName !== null  就是 !!this.eAreaName
+要详细提示，哪个input没有输入或输入不合格式。*/
+
+judgeText(str: any) {
+    if (!!str && !!str.replace(/\s*/g, '')) {
+      // str = str.replace(/\\/g, '');
+      return true;
+    }
+  }
+judgeNotText(str: any) {
+    if (!str || !str.replace(/\s*/g, '')) {
+      return true;
+    }
+  }
+
+
+let map = {
+  ">": "&gt;",
+  "<": "&lt;",
+}
+
+
+let reStr = '(' + Object.keys().map(it => '\\' + it).join('|') + ')'
+
+let re = new RegExp(reStr, 'g')
+
+str.replace(re, it => map[it])
+
+
+修改map变量即可。  另外map能够克服浅拷贝。
+var a = '&<>\'"'.split('');
+
+var b = '&amp;\n&lt;\n&gt;\n&apos;\n&quot;'.split('\n');
+
+var s = '<abc="123">';
+
+
+for (i in a) {
+    var p = new RegExp(a[i], 'g')
+    s = s.replace(p, b[i]);
+}
+
+
+console.log(s)
+
+编辑某行业名称，意味着提交新行业名称，同时删除旧行业名称！！！
+别再html和ts间传递序号了，直接传递对象！！！
+
+
+nz-drawer必须 [nzClosable]="true"
+      (nzOnClose) = "aCancel()"	才能点击蒙皮关闭遮罩。

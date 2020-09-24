@@ -1,3 +1,5 @@
+1.ionic项目月报，项目填报   projectfilling  monthly-report
+
 private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
 
 this.http.post().subscribe()获取远程数据的函数，最好在ngOnInit()里的setTimeout(()=>{});
@@ -132,6 +134,7 @@ this.minDate = new Date(this.maxDate.getFullYear()+"-01-01:00:00:00")
 ionic cordova platform add android 需要的版本，
 以及环境变量 set | findstr /I android
 ionic cordova build android  //编译debug版本
+ionic cordova build android --verbose --warning-mode all
 ionic cordova build android --prod //prod优化代码提升运行速度
 
 
@@ -153,3 +156,12 @@ touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" >> ~/.gradle/
 又出现android版本问题，prepare.js里修改
 const minSdkVersion = '21' || this._config.getPreference('android-minSdkVersion', 'android');
 最后修改了config.xml里的版本号为22
+
+MainActivity.java IDEA 错误:非法字符:“\ufeff”解决方案
+出现的问题：
+
+　　　　（在UTF-8编码格式下）出现非法字符   然后启动项目失败
+
+解决：用sublime将出现非法字符的文件内容剪切出来，使之形成一个空文件，然后转码成GBK，保存、构建，然后再转成UTF-8，再次保存、构建，然后把刚刚剪切出来的代码复制进去。
+
+安装打开后白屏，ionic cordova plugin remove cordova-plugin-ionic-webview 
