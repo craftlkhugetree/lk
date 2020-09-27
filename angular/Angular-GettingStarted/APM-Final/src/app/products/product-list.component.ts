@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IProduct } from './product'; //接口名为IProduct，在product.ts里
+import { IProduct ,judgeText,testabc } from './product'; //接口名为IProduct，在product.ts里
 import { ProductService } from './product.service';
 
 @Component({
@@ -50,5 +50,9 @@ export class ProductListComponent implements OnInit {
       },
       error: err => this.errorMessage = err
     });
+    
+    let a:testabc ;
+    a.description = 'hello'
+    console.log(judgeText('   a'),a)
   }
 }

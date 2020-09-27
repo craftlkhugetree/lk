@@ -1,0 +1,692 @@
+<style>
+  ::ng-deep .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  ::ng-deep div > .ant-row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<nz-card>
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      基础设置
+    </div>
+  </div>
+</nz-card>
+
+<nz-card>
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <nz-tabset nzSize="default" [(nzSelectedIndex)]="tabIndex" nzType="card" [nzTabBarExtraContent]="extraTemplate">
+        <nz-tab nzTitle="自定义企业分类"> </nz-tab>
+        <nz-tab nzTitle="预警规则设置"> </nz-tab>
+        <nz-tab nzTitle="处理地设置"> </nz-tab>
+        <nz-tab nzTitle="行业字段设置"> </nz-tab>
+      </nz-tabset>
+      <ng-template #extraTemplate>
+        <button nz-button nzType="primary" (click)="newComClass()" *ngIf="tabIndex === 0">
+          <i nz-icon nzType="plus"></i>新建分类
+        </button>
+        <!-- <button nz-button nzType="primary" (click)="newAlertRule()" *ngIf="tabIndex === 1">
+          <i nz-icon nzType="plus"></i>新建规则
+        </button> -->
+        <button nz-button nzType="primary" (click)="newAreaCode()" *ngIf="tabIndex === 2">
+          <i nz-icon nzType="plus"></i>新建处理地
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          (click)="newIndustryField()"
+          *ngIf="tabIndex === 3 && !disableBtn"
+          [disabled]="disableBtn"
+        >
+          <i nz-icon nzType="plus"></i>新建行业字段
+        </button>
+      </ng-template>
+      <nz-modal [(nzVisible)]="isVisible0" nzTitle="新增企业分类" (nzOnCancel)="newComCancel()" (nzOnOk)="newComOk()">
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">分类名称:</div>
+          <div nz-col nzSpan="16">
+            <input
+              nz-input
+              [(ngModel)]="newComName"
+              id="newComName"
+              name="newComName"
+              placeholder="请输入分类名称"
+              maxlength="100"
+              (keydown)="$event.which === 13 ? newComOk() : 0"
+              autofocus
+            />
+          </div>
+        </div>
+      </nz-modal>
+      <nz-modal
+        [(nzVisible)]="isVisible1"
+        nzTitle="新增预警规则"
+        (nzOnCancel)="newAlertCancel()"
+        (nzOnOk)="newAlertOk()"
+      >
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">规则名称:</div>
+          <div nz-col nzSpan="16">
+            <input
+              nz-input
+              [(ngModel)]="newAlertName"
+              id="newAlertName"
+              name="newAlertName"
+              placeholder="请输入规则名称"
+              maxlength="230"
+              autofocus
+            />
+          </div>
+        </div>
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">阈值:</div>
+          <div nz-col nzSpan="16">
+            <nz-input-group [nzSuffix]="'%'">
+              <input type="number" nz-input placeholder="请输入阈值" [(ngModel)]="threshold" />
+            </nz-input-group>
+          </div>
+        </div>
+      </nz-modal>
+      <nz-modal
+        [(nzVisible)]="isVisible2"
+        nzTitle="新增处理地对应关系"
+        (nzOnCancel)="newAreaCancel()"
+        (nzOnOk)="newAreaOk()"
+      >
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">地区名称:</div>
+          <div nz-col nzSpan="16">
+            <input
+              nz-input
+              [(ngModel)]="newAreaName"
+              id="newAreaName"
+              name="newAreaName"
+              placeholder="请输入地区名称"
+              maxlength="100"
+              autofocus
+            />
+          </div>
+        </div>
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">代码:</div>
+          <div nz-col nzSpan="16">
+            <nz-input-group>
+              <input type="number" nz-input placeholder="请输入代码" [(ngModel)]="areaCode" />
+            </nz-input-group>
+          </div>
+        </div>
+      </nz-modal>
+      <nz-modal [(nzVisible)]="isVisible3" nzTitle="新增行业字段" (nzOnCancel)="newIFCancel()" (nzOnOk)="newIFOk()">
+        <div nz-row style="height: 32px;">
+          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">行业名称:</div>
+          <div nz-col nzSpan="16">
+            <input
+              nz-input
+              [(ngModel)]="newIFName"
+              placeholder="请输入行业名称"
+              maxlength="100"
+              (keydown)="$event.which === 13 ? newIFOk() : 0"
+              autofocus
+            />
+          </div>
+        </div>
+      </nz-modal>
+    </div>
+  </div>
+
+  <!-- tab0. 自定义企业分类 -->
+  <div *ngIf="tabIndex === 0">
+    <nz-table
+      #receiveTable
+      [nzData]="disData0"
+      [nzScroll]="{ x: '240px' }"
+      [nzLoading]="isLoading0"
+      [nzBordered]="true"
+      [(nzPageIndex)]="nzPageIndex0"
+      [(nzPageSize)]="nzPageSize0"
+    >
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>分类名称</th>
+          <!-- <th>创建人</th> -->
+          <!-- <th>创建时间</th> -->
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of receiveTable.data; index as i">
+          <td>{{ i + 1 + (nzPageIndex0 - 1) * nzPageSize0 }}</td>
+          <td>{{ data.cEnterpriseNameClass }}</td>
+          <!-- <td>{{ data.creator }}</td> -->
+          <!-- <td>{{ data.date | date:'medium'}}</td> -->
+          <td>
+            <button nz-button nzType="link" (click)="assignCom(i + (nzPageIndex0 - 1) * nzPageSize0)">分配</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzType="link" (click)="editCom(i + (nzPageIndex0 - 1) * nzPageSize0)">编辑</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              nz-popconfirm
+              nzPopconfirmTitle="确定删除吗?"
+              [nzIcon]="iconTpl"
+              (nzOnConfirm)="delCom(i + (nzPageIndex0 - 1) * nzPageSize0)"
+              (nzOnCancel)="dCancel()"
+            >
+              删除
+            </button>
+            <ng-template #iconTpl>
+              <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="ieVisible0" nzTitle="修改企业分类名称" (nzOnCancel)="eComCancel()" (nzOnOk)="eComOk()">
+      <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">分类名称:</div>
+        <div nz-col nzSpan="16">
+          <input
+            nz-input
+            [(ngModel)]="eComName"
+            id="eComName"
+            name="eComName"
+            placeholder="请输入分类名称"
+            maxlength="100"
+            (keydown)="$event.which === 13 ? eComOk() : 0"
+            autofocus
+          />
+        </div>
+      </div>
+    </nz-modal>
+    <nz-drawer
+      [nzVisible]="iaVisible0"
+      nzPlacement="right"
+      nzTitle="'{{ aComClass }}'的企业列表"
+      [nzClosable]="true"
+      (nzOnClose)="comCancel()"
+      [nzWidth]="'30%'"
+      [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+    >
+      <nz-spin [nzSpinning]="isSpinning0">
+        <nz-input-group [nzSuffix]="suffixIcon">
+          <input
+            type="text"
+            nz-input
+            placeholder="请输入关键字"
+            [(ngModel)]="searchValue0"
+            (keydown)="$event.which === 13 ? comSearch() : 0"
+          />
+        </nz-input-group>
+        <ng-template #suffixIcon>
+          <button nz-button nzType="link" (click)="comSearch()" [disabled]="isSpinning0">
+            <i nz-icon nzType="search"></i>
+          </button>
+          <nz-divider nzType="vertical" *ngIf="searchF"></nz-divider>
+          <button nz-button nzType="link" (click)="searchReset0()" [disabled]="isSpinning0" *ngIf="searchF">
+            <span>后退</span>
+          </button>
+        </ng-template>
+        <label
+          nz-checkbox
+          *ngIf="searchF"
+          [(ngModel)]="allCheckedz"
+          (ngModelChange)="updateAllCheckedz()"
+          [nzIndeterminate]="indeterminatez"
+        >
+          全部
+        </label>
+        <div *ngIf="searchF">
+          <div *ngFor="let item of searArr">
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="updateSingleCheckedz()">
+              {{ item.label }}
+            </label>
+          </div>
+        </div>
+        <label
+          nz-checkbox
+          *ngIf="!searchF"
+          [(ngModel)]="allChecked0"
+          (ngModelChange)="updateAllChecked0()"
+          [nzIndeterminate]="indeterminate0"
+        >
+          全部
+        </label>
+        <div *ngIf="!searchF">
+          <div *ngFor="let item of checkOptionsOne0; index as i">
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="updateSingleChecked0(i)">
+              {{ item.label }}
+            </label>
+          </div>
+        </div>
+        <!--     
+                <nz-tree
+                  #nzTreeComponent0
+                  [nzData]="nodes0"
+                  nzCheckable
+                  nzAsyncData
+                  [nzSearchValue]="searchValue0"
+                  [nzCheckedKeys]="defaultCheckedKeys0"
+                  (nzClick)="nzClick0($event)"
+                >
+                </nz-tree> -->
+      </nz-spin>
+      <div>
+        <button nz-button nzType="primary" (click)="comCancel()" [disabled]="isSpinning0">
+          <span>取消</span>
+        </button>
+        <button nz-button nzType="primary" (click)="comOk()" [disabled]="isSpinning0">
+          <span>保存</span>
+        </button>
+      </div>
+    </nz-drawer>
+  </div>
+
+  <!-- tab1. 预警规则设置 -->
+  <div *ngIf="tabIndex === 1">
+    <nz-table
+      #receiveTable
+      [nzData]="disData1"
+      [nzScroll]="{ x: '240px' }"
+      [nzLoading]="isLoading1"
+      [nzBordered]="true"
+      [(nzPageIndex)]="nzPageIndex1"
+      [(nzPageSize)]="nzPageSize1"
+    >
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>规则名称</th>
+          <th>阈值</th>
+          <!-- <th>创建时间</th> -->
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of receiveTable.data; index as i">
+          <td>{{ i + 1 + (nzPageIndex1 - 1) * nzPageSize1 }}</td>
+          <td>{{ data.ruleDescription }}</td>
+          <td>{{ data.ruleOfValue }}</td>
+          <!-- <td>{{ data.date | date:'medium'}}</td> -->
+          <td>
+            <button nz-button nzType="link" (click)="editAlert(i + (nzPageIndex1 - 1) * nzPageSize1)">编辑</button>
+            <!-- <nz-divider nzType="vertical"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              nz-popconfirm
+              nzPopconfirmTitle="确定删除吗?"
+              [nzIcon]="iconTpl"
+              (nzOnConfirm)="delAlert(i + (nzPageIndex1 - 1) * nzPageSize1)"
+              (nzOnCancel)="dCancel()"
+            >
+              删除
+            </button>
+            <ng-template #iconTpl>
+              <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+            </ng-template> -->
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="ieVisible1" nzTitle="修改规则" (nzOnCancel)="eAlertCancel()" (nzOnOk)="eAlertOk()">
+      <!-- <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">规则名称:</div>
+        <div nz-col nzSpan="16">
+          <input
+            nz-input
+            [(ngModel)]="eAlertName"
+            id="eAlertName"
+            name="eAlertName"
+            placeholder="请输入规则名称"
+            maxlength="230"
+          />
+        </div>
+      </div> -->
+      <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">阈值:</div>
+        <div nz-col nzSpan="16">
+          <nz-input-group [nzSuffix]="''">
+            <input
+              type="number"
+              nz-input
+              placeholder="请输入阈值"
+              [(ngModel)]="eThreshold"
+              autofocus
+              (keydown)="$event.which === 13 ? eAlertOk() : 0"
+            />
+          </nz-input-group>
+        </div>
+      </div>
+    </nz-modal>
+  </div>
+
+  <!-- tab2. 处理地设置 -->
+  <div *ngIf="tabIndex === 2">
+    <nz-table
+      #receiveTable
+      [nzData]="disData2"
+      [nzScroll]="{ x: '240px' }"
+      [nzLoading]="isLoading2"
+      [nzBordered]="true"
+      [(nzPageIndex)]="nzPageIndex2"
+      [(nzPageSize)]="nzPageSize2"
+    >
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>地区名称</th>
+          <th>代码</th>
+          <!-- <th>创建时间</th> -->
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of receiveTable.data; index as i">
+          <td>{{ i + 1 + (nzPageIndex2 - 1) * nzPageSize2 }}</td>
+          <td>{{ data.dataProcessing }}</td>
+          <td>{{ data.dataProcessingCode }}</td>
+          <!-- <td>{{ data.date | date:'medium'}}</td> -->
+          <td>
+            <button nz-button nzType="link" (click)="editArea(i + (nzPageIndex1 - 1) * nzPageSize1)">编辑</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              nz-popconfirm
+              nzPopconfirmTitle="确定删除吗?"
+              [nzIcon]="iconTpl"
+              (nzOnConfirm)="delArea(i + (nzPageIndex1 - 1) * nzPageSize1)"
+              (nzOnCancel)="dCancel()"
+            >
+              删除
+            </button>
+            <ng-template #iconTpl>
+              <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="ieVisible2" nzTitle="修改地区对应代码" (nzOnCancel)="eAreaCancel()" (nzOnOk)="eAreaOk()">
+      <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">地区名称:</div>
+        <div nz-col nzSpan="16">
+          <input nz-input [(ngModel)]="eAreaName" placeholder="请输入地区名称" maxlength="100" autofocus />
+        </div>
+      </div>
+      <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">代码:</div>
+        <div nz-col nzSpan="16">
+          <nz-input-group>
+            <input type="number" nz-input placeholder="请输入代码" [(ngModel)]="eCode" />
+          </nz-input-group>
+        </div>
+      </div>
+    </nz-modal>
+  </div>
+
+  <!-- tab3. 行业字段设置 -->
+  <div *ngIf="tabIndex === 3">
+    <nz-table
+      #receiveTable
+      [nzData]="disData3"
+      [nzScroll]="{ x: '240px' }"
+      [nzLoading]="isLoading3"
+      [(nzPageIndex)]="nzPageIndex3"
+      [(nzPageSize)]="nzPageSize3"
+    >
+      <thead>
+        <tr>
+          <!-- <th nzShowExpand></th> -->
+          <th>行业序号</th>
+          <th>行业名称</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <ng-template ngFor let-data [ngForOf]="receiveTable.data" let-i="index">
+         <tr> -->
+        <tr *ngFor="let data of receiveTable.data; index as i">
+          <!-- <td nzShowExpand [(nzExpand)]="data.expand" ></td> -->
+          <td>{{ i + 1 + (nzPageIndex3 - 1) * nzPageSize3 }}</td>
+          <td>
+            <span style="font:bold">{{ data.nameOfTheIndustry }}</span>
+          </td>
+          <td>
+            <button nz-button nzType="link" (click)="assignIF(i + (nzPageIndex3 - 1) * nzPageSize3)">分配</button>
+            <nz-divider nzType="vertical" *ngIf="!disableBtn"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              (click)="editIF(i + (nzPageIndex3 - 1) * nzPageSize3)"
+              [disabled]="disableBtn"
+              *ngIf="!disableBtn"
+            >
+              编辑
+            </button>
+            <nz-divider nzType="vertical" *ngIf="!disableBtn"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              nz-popconfirm
+              nzPopconfirmTitle="确定删除吗?"
+              [disabled]="disableBtn"
+              (nzOnConfirm)="delIF(i + (nzPageIndex3 - 1) * nzPageSize3)"
+              (nzOnCancel)="dCancel()"
+              [nzIcon]="iconTpl"
+              *ngIf="!disableBtn"
+            >
+              删除
+            </button>
+            <ng-template #iconTpl>
+              <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+            </ng-template>
+            <nz-divider nzType="vertical" *ngIf="!disableBtn"></nz-divider>
+            <button
+              nz-button
+              nzType="link"
+              (click)="newField(i + (nzPageIndex3 - 1) * nzPageSize3)"
+              [disabled]="disableBtn"
+              *ngIf="!disableBtn"
+            >
+              新增字段
+            </button>
+            <nz-modal
+              [(nzVisible)]="isField"
+              nzTitle="为'{{ newFieldName }}'增加一个字段"
+              (nzOnCancel)="newFCancel()"
+              (nzOnOk)="newFOk()"
+            >
+              <div nz-row style="height: 32px;">
+                <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">字段名称:</div>
+                <div nz-col nzSpan="16">
+                  <input
+                    nz-input
+                    [(ngModel)]="newF"
+                    placeholder="请输入字段名称"
+                    maxlength="100"
+                    (keydown)="$event.which === 13 ? newFOk() : 0"
+                    autofocus
+                  />
+                </div>
+              </div>
+            </nz-modal>
+          </td>
+        </tr>
+        <!-- <tr [nzExpand]="data.expand" > 
+            <td></td>
+            <td colspan="4">
+              <nz-table
+                #innerTable
+                [nzData]="listOfChData[i + (nzPageIndex3 - 1) * nzPageSize3]"
+                nzSize="small"
+                [nzShowPagination]="false"
+                [nzFrontPagination]="false"
+                nzBordered="true"
+              >
+                <thead>
+                  <tr>
+                    <th>字段序号</th>
+                    <th>字段名</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of innerTable.data; index as j">
+                    <td>{{ j + 1 }}</td>
+                    <td>{{ data.fieldNames }}</td>
+                    <td>
+                      <button
+                        nz-button
+                        nzType="link"
+                        (click)="editField(j, i + (nzPageIndex3 - 1) * nzPageSize3)"
+                        [disabled]="disableBtn"
+                      >
+                        编辑
+                      </button>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <button
+                        nz-button
+                        nzType="link"
+                        nz-popconfirm
+                        nzPopconfirmTitle="确定删除吗?"
+                        [disabled]="disableBtn"
+                        (nzOnConfirm)="delField(j, i + (nzPageIndex3 - 1) * nzPageSize3)"
+                        (nzOnCancel)="dCancel()"
+                        [nzIcon]="iconTpl"
+                      >
+                        删除
+                      </button>
+                      <ng-template #iconTpl>
+                        <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+                      </ng-template>
+                      <nz-modal
+                        [(nzVisible)]="ieField"
+                        nzTitle="修改字段名称"
+                        (nzOnCancel)="eFieldCancel()"
+                        (nzOnOk)="eFieldOk()"
+                      >
+                        <div nz-row style="height: 32px;">
+                          <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">
+                            字段名称:
+                          </div>
+                          <div nz-col nzSpan="16">
+                            <input
+                              nz-input
+                              [(ngModel)]="eFieldName"
+                              placeholder="请输入字段名称"
+                              maxlength="100"
+                              (keydown)="$event.which === 13 ? eFieldOk() : 0"
+                              autofocus
+                            />
+                          </div>
+                        </div>
+                      </nz-modal>
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </td>
+        </tr>  -->
+        <!-- </ng-template> -->
+      </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="ieVisible3" nzTitle="修改行业名称" (nzOnCancel)="eIFCancel()" (nzOnOk)="eIFOk()">
+      <div nz-row style="height: 32px;">
+        <div nz-col nzSpan="5" style="margin:0 auto;text-align: center;line-height: 32px;">行业名称:</div>
+        <div nz-col nzSpan="16">
+          <input
+            nz-input
+            [(ngModel)]="eIFName"
+            id="eIFName"
+            name="eIFName"
+            placeholder="请输入行业名称"
+            maxlength="100"
+            (keydown)="$event.which === 13 ? eIFOk() : 0"
+            autofocus
+          />
+        </div>
+      </div>
+    </nz-modal>
+    <nz-drawer
+      [nzVisible]="iaVisible3"
+      nzPlacement="right"
+      nzTitle="'{{ idField }}'的字段列表"
+      [nzClosable]="true"
+      (nzOnClose)="aCancel()"
+      [nzWidth]="'30%'"
+    >
+      <nz-spin [nzSpinning]="isSpinning3">
+        <nz-input-group [nzSuffix]="suffixIcon">
+          <input
+            type="text"
+            nz-input
+            placeholder="请输入关键字"
+            [(ngModel)]="searchValue3"
+            (keydown)="$event.which === 13 ? aSearch() : 0"
+          />
+        </nz-input-group>
+        <ng-template #suffixIcon>
+          <button nz-button nzType="link" (click)="aSearch()" [disabled]="isSpinning3">
+            <i nz-icon nzType="search"></i>
+          </button>
+          <nz-divider nzType="vertical" *ngIf="search3F"></nz-divider>
+          <button nz-button nzType="link" (click)="searchReset()" [disabled]="isSpinning3" *ngIf="search3F">
+            <span>后退</span>
+          </button>
+        </ng-template>
+
+        <label
+          nz-checkbox
+          *ngIf="!search3F"
+          [(ngModel)]="allChecked"
+          (ngModelChange)="updateAllChecked()"
+          [nzIndeterminate]="indeterminate"
+        >
+          全部
+        </label>
+        <div *ngIf="!search3F">
+          <div *ngFor="let item of checkOptionsOne">
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="updateSingleChecked()">
+              {{ item.label }}
+            </label>
+          </div>
+        </div>
+        <label
+          nz-checkbox
+          *ngIf="search3F"
+          [(ngModel)]="allChecked3"
+          (ngModelChange)="updateAllChecked3()"
+          [nzIndeterminate]="indeterminate3"
+        >
+          全部
+        </label>
+        <div *ngIf="search3F">
+          <div *ngFor="let item of searArr3">
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="updateSingleChecked3()">
+              {{ item.label }}
+            </label>
+          </div>
+        </div>
+      </nz-spin>
+      <div>
+        <button nz-button nzType="primary" (click)="aCancel()" [disabled]="isSpinning3">
+          <span>取消</span>
+        </button>
+        <button nz-button nzType="primary" (click)="aOk()" [disabled]="isSpinning3">
+          <span>保存</span>
+        </button>
+      </div>
+    </nz-drawer>
+  </div>
+</nz-card>
