@@ -1,5 +1,7 @@
 1.ionic项目月报，项目填报   projectfilling  monthly-report
 
+后退按钮就用this.nav.back();能保存前一个页面信息。
+
 private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
 
 this.http.post().subscribe()获取远程数据的函数，最好在ngOnInit()里的setTimeout(()=>{});
@@ -57,9 +59,11 @@ navProject(projectObj) {//只能传一个对象，而且内部属性值不能再是对象，所以要拆拆
     data = JSON.stringify(data);
     this.router.navigate(['/gov/project/monthly-report/project-status'], {queryParams: {data, id,valDate}});
   }
-新页面调用，直接this.route.queryParams.subscribe(queryParams => {
-      this.id = queryParams.id;
-
+新页面调用，直接在ngOnInit里this.route.queryParams.subscribe(queryParams => {
+	if(queryParmams.id){
+      		this.id = queryParams.id;
+	}
+}这个是可以接收不同页面传送的参数，前提是要有if判断是否存在，且不同名。
 
 移动端绘制类似toggle的tab选项卡：
   <div class="schedule-tab">

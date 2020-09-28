@@ -85,7 +85,7 @@ nz-drawer必须
 
 回退按钮，意味着所有改动都要rollback，比如勾选（搜索后的勾选是直接作用在主参照上的），但是由于浅拷贝，this.listOfChData的变化，导致checkOptionsOne也变了，总之！！！任何时候都可能是浅拷贝，必须注意！！！再一个就是异步this.http.post()能及时获取数据吗？
 
-
+死循环不能用在异步等异步上，会直接在网页上点击这个按钮时卡住不动。还是setTimeout吧。毕竟if块内，不能再定义函数了。
   login(data) {
     return this.http.post(`${environment.url.management}/api/login`, {
       'type': 'xxx',
@@ -108,3 +108,5 @@ function startCount(){
     setTimeout(startCount,1000);    //setTimeout是超时调用，可用条件控制递归
 }    
 setTimeout(startCount,1000);    //1s后执行
+
+最好不要在html里写死，因为会在网页开发者模式看到，最好用变量定义在ts文件里。如果要修改名称，那只要修改ts里的变量即可全部修改。

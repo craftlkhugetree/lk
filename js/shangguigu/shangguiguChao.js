@@ -166,7 +166,19 @@ getElementsByName() input自结束标签没有内部, 所以用name属性、valu
 25.元素节点的子节点
 var lis = document.getElementsByTagName("li")
 lis.childNodes;包含文本节点在内的所有节点，甚至包括换行和空白。IE8及以下不会把空白当做子节点。
-lis.children;只包括子元素，不是节点。
-lis.lastChild;lis.firstChild;
+lis.children;只包括子元素，不包括文本节点Object Text。
+lis.lastChild;lis.firstChild;  首尾子节点，包括空白文本节点。
 
+26.获取父节点和兄弟节点（也能获得空白的文本）
+parentNode,previousSibling,nextSibling
+获取按钮，再绑定onclick单击响应函数
+function  myClick(idStr,fun) {
+  let btn = document.getElementById(idStr);
+  btn.onclick = fun;
+  }
+}
+元素.innerHTML 获取包括子元素在内的节点，元素.innerText只获取文本。也可以获取节点后，用nodeValue属性获取文本。
+previousElementSibling获取前一个兄弟元素，不包括空白文本。
+文本框的value属性就是输入值。name属性专门用来被选中，比如都是name="itmes"，那就可用document.getElementsByName("items");全选中。
 
+27.单击响应函数内部的this是谁呢？就是给谁绑定的，单击的这个按钮对象。
