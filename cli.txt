@@ -18,6 +18,8 @@ git show 哈希
 
 git下start打开cmd，再explorer .打开当前目录。
 
+ctrl+shift+enter 打断表格
+
 
 
 dos:

@@ -1,6 +1,6 @@
 1.ionic项目月报，项目填报   projectfilling  monthly-report
 
-后退按钮就用this.nav.back();能保存前一个页面信息。
+后退按钮就用this.nav.back();能保存前一个页面信息。但是无法刷新那个页面，即便navigate也不行，不调用接口，所以要靠传递参数来手动更新dom数据。注意：通过params传递的参数，会随着页面跳转增多而消失，所以每次跳转都要传递这个参数。
 
 private 不能在同一个类里获取其length ？当然不是，这不是private的锅，而是调取length的数组为空！！！所以每一步都必须给出判断限制。
 
@@ -40,7 +40,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 antd的提示是this.message.error(res.msg);
 
 Flex绘制移动端表格，FlexItem  flex-grow:2不均匀分配表格，border-right。
-showPicker() 自制下拉多列选择组件。
+showPicker() 自制下拉多列选择组件。也可以在<div>内部用table表格。
 
 两个组件大部分内容相同，能否注入或传值？或使用同一个函数？
 
@@ -169,3 +169,30 @@ MainActivity.java IDEA 错误:非法字符:“\ufeff”解决方案
 解决：用sublime将出现非法字符的文件内容剪切出来，使之形成一个空文件，然后转码成GBK，保存、构建，然后再转成UTF-8，再次保存、构建，然后把刚刚剪切出来的代码复制进去。
 
 安装打开后白屏，ionic cordova plugin remove cordova-plugin-ionic-webview 
+
+
+upload(){
+    const file = (<HTMLInputElement>document.getElementById('inputUploadfiles')).files[0];	
+    this.files.push(file)
+    const formData = new FormData();
+    const xhr = new XMLHttpRequest();	
+    
+    xhr.open('POST', 
+        // this.appConfig.microSeverStr+
+        this.userInfo.cFileServerInfo +
+        '/Sys_DocumentLibray_CNICM/upLoadImageDocument/' +
+        this.userInfo.account.iSysID +
+        '/' +
+        this.userInfo.cUserName,
+     true);	
+    xhr.onreadystatechange = function() {	
+      if (xhr.readyState == 4 && xhr.status == 200) {	
+        alert(xhr.responseText);	
+      }	
+    };	
+    // xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+    this.files.forEach((file: any, index) => {
+      formData.append('files[]' + index, file);
+    });
+    let tmpXhr = xhr.send(formData);	
+  }
