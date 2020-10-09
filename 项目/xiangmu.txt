@@ -1,6 +1,13 @@
 1.land-Evaluation空间数据叠加
 https://gitlab.lean.com/zwzq/zw-project/tree/release/test/src/app/routes/spatial-data-overlay
 
+ "/cnic-projectmanagement/*": {
+    "target": "http://192.168.9.154:8081",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+
 cdataname 企业名称,
 cotherpartnername 关联企业名称,
 partTax 地方税收,

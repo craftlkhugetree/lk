@@ -1,3 +1,4 @@
+https://www.bilibili.com/video/bv1YW411T7GX/?p=102
 1.html里的每一个文件都是一个asset，都需要服务器响应一次。js都在内存里，事件驱动就是等着鼠标点击按钮，其他代码不必再执行一次。
 
 2.js诞生于1995年，当时处理前端验证，用户输入是否符合规则，放在服务器上太浪费，浏览器就可以前端验证。
@@ -182,3 +183,56 @@ previousElementSibling获取前一个兄弟元素，不包括空白文本。
 文本框的value属性就是输入值。name属性专门用来被选中，比如都是name="itmes"，那就可用document.getElementsByName("items");全选中。
 
 27.单击响应函数内部的this是谁呢？就是给谁绑定的，单击的这个按钮对象。
+
+28.获取body标签，可以 document.getElementsByTagName("body")[0]
+也可以 document.body;
+而 document.documentElement;是html根标签
+document.all;获得所有元素组成的数组，也可以是document.getElementsByTagName("*");
+document.getElementsByClassName();是IE9及以上才支持。
+document.querySelector(".box div")可以根据一个css选择器来查询,这在IE8也兼容。但是只返回第一个。
+所以有了 document.querySelectorAll(".box");返回一个数组
+
+29.创建节点
+myClick("btn01",function () {
+  var li = document.createElement("li");
+  var gzText = document.createTextNode("广州");
+  li.appendChild(gzText)
+  var city = document.getElementById("city")
+  city.appendChild(li)
+})
+
+父节点.insertBefore(新，旧); replaceChild(new,old); removeChild();
+子节点.parentNode.removeChild(子节点)
+DOM增删改也可以用innerHTML，比如  city.innerHTML += "<li>广州</li>";而且影响范围小，所以可以将上述两种结合使用
+var li = document.createElement("li")
+li.innerHTML = "广州"
+city.appendChild(li)
+
+30.点击超链接，必然会跳转，若不想跳转，可以在单击响应函数最后添加 return false;
+var name = tr.children[0].innerHTML;
+var flag = confirm("确认删除"+name+"吗?");
+
+31.把input提交，同时增加一行表格
+var nameTd = document.createElement("td")
+var aTd = document.createElement("td")
+
+var a = document.createElement("a")
+a.href = "javascript:;"
+
+//创建文本节点
+var nameText = document.createTextNode(name);
+var delText = document.createTextNode("Del");
+//将文本添加到td,a
+nameTd.appendChild(nameText)
+a.appendChild(delText)
+aTd.appendChild(a)
+
+tr.appendChild(nameTd)
+tr.appendChild(aTd)
+如果直接把tr添加到table中，那么上述添加的tr，是和tbody同级别的，显示上没有区别，但是若给tbody增加样式，将无法影响到添加的tr
+
+tr.getElementsByTagName("a")[0].onclick = delA  //单击响应函数a，由函数对象赋值，所以不能是delA()
+
+32.上述添加一行表格，也可以用 tr.innerHTML = "<td>"+name+"</td>"+
+                                           "<td><a href='javascript:;'>Del</a></td>"
+另外一种添加方式为 tbody.innerHTML += "<tr>"+....+"</tr>";   但是这样会把所有的tr都给影响了，效率低，不安全。

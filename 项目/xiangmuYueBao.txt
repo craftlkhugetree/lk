@@ -34,6 +34,58 @@ const file = (<HTMLInputElement>document.getElementById('inputUploadfiles')).fil
   };
 
 
+隐藏input，同时关联button到input的(change)，来上传文件。
+src\app\gov\project\monthly-report\project-status\project-status.page.ts
+ <div style="font-size: 15px;margin: 10px 0px 0px 14px;color:#797979">
+    
+    <div style="margin-bottom:8px">上传附件:</div>
+
+    <input type="file" id="_file" multiple style="display: none;" (change)="selectFile($event)">
+    <div Button style="margin-left: 2%;margin-top: 4px;" [type]="'ghost'" [inline]="true" [size]="'small'" (click)="_selectFile()">上传附件</div>
+    <ul>
+      <li style="width: 96%;margin-left: 2%;color: #0c88e9;" *ngFor="let item of fileList;">
+        <span style="display: inline-block;width: 90%;text-align: left;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" (click)="jump(item)">{{item.name || item.cDocumentName}}</span>
+        <span style="display: inline-block;width: 10%;text-align: center;color: red;vertical-align: top;" (click)="deleteEnclosure(item)">删除</span>
+      </li>
+    </ul>
+</div> 
+
+  _selectFile() {
+      this.el.nativeElement.querySelector('#_file').click();
+    }
+ // 实际导入
+  selectFile(e: any) {
+    let fileList = e.target.files;
+    const tempList = ['doc', 'docx', 'xls', 'xlsx' , 'pdf' , 'jpg' , 'png'];
+    fileList = Array.from(fileList);
+    for (let i = 0, len = fileList.length; i < len; ++i) {
+      let suffix = fileList[i].name.split('.');
+      suffix = suffix[suffix.length - 1];
+      // tslint:disable-next-line: only-arrow-functions
+      if (tempList.every( function(value) {return value !== suffix; })) {
+        this.toast.info('不允许上传除word，excel, 图片 , pdf 之外的文件，已自动筛除', 3000);
+        fileList.splice(i, 1);
+        --i;
+        --len;
+        continue;
+      }
+      let x = true;
+      for (let j = 0, _len = this.fileList.length; j < _len; ++j) {
+        if (fileList[i].name === this.fileList[j].name) {
+          this.toast.info('发现重复的文件，已自动筛除', 3000);
+          x = false;
+          break;
+        }
+      }
+      if (x) {
+        this.fileList.push(fileList[i]);
+        // this.fileListBeifen.push(fileList[i]);
+        // console.log( this.fileListBeifen);
+      }
+    }
+  }
+
+
 ionic的提示框是this.toast.show(res.msg);或者自定义的信息。
 import { NzMessageService } from 'ng-zorro-antd/message';
     private message: NzMessageService,

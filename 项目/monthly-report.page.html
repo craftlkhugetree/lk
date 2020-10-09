@@ -1,0 +1,280 @@
+<style>
+  /* ion-button{
+    --padding-bottom:px;
+  } */
+  ion-item {
+    height:35px;
+    border-bottom:1px solid black;
+  }
+</style>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="back()">
+        <ion-icon slot="start" name="chevron-back-outline" style="margin-right: 0px;color: #000;"></ion-icon>
+        <span style="color: #000;">返回</span>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>项目月报</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div>
+    <Navbar >
+      <Flex [justify]="'center'" [align]="'stretch'"
+      style="background-color: #ffffff;width: 100%;border-bottom: 1px solid rgb(218, 215, 215);">
+      <FlexItem style="height: 35px;">
+        <div style="font-size: 17px ;color:#000;text-align: center;margin-top: 7px;">
+          月报时间：
+        </div>
+      </FlexItem>
+      <FlexItem style="height: 35px;">
+        <div (click)="showDatePicker()" style="font: 17px ;color:#000;text-align: center;margin-top: 7px;">
+          <!-- {{currentDateObj.children?currentDateObj.label+""+currentDateObj.children.label:currentDateObj.label}}  点开之前没有children-->
+          {{currentDateObj.children?currentDateObj.label+""+currentDateObj.children.label:nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"}}
+          <Icon [type]="'down'" [size]="'xxs'"></Icon>  
+        </div>
+      </FlexItem>
+      <FlexItem style="height: 35px;">
+        <div >
+          <ion-button (click)="toggleForm()" fill="clear" size="small" *ngIf="!isShowForm">
+            <span style="font-size: 17px;text-align: center;margin-top: 1px;">条件筛选</span>
+            <Icon [type]="'right'" [size]="'xxs'"></Icon>
+          </ion-button>
+          <ion-button (click)="toggleForm()" fill="clear" size="small" *ngIf="isShowForm">
+            <span style="font-size: 17px;text-align: center;margin-top: 1px;">收起筛选</span>
+            <Icon [type]="'left'" [size]="'xxs'"></Icon>
+          </ion-button>
+        </div>
+      </FlexItem>
+    </Flex>
+    </Navbar>
+    <Drawer
+  class="my-drawer"
+  [ngStyle]="{  minHeight: this.height + 'px'}"
+  [enableDragHandle]="true"
+  [sidebar]="sidebar"
+  [open]="isShowForm"
+  (onOpenChange)="onOpenChange($event)"
+  >
+
+  <!-- <ion-list *ngIf="isShowForm">
+    <ion-item >
+      <ion-label>月报状态：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.monthlyState" placeholder="请选择">
+        <ion-select-option *ngFor="let i of ybztData" value="{{i}}">{{i}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>项目名称：</ion-label>
+      <ion-input type="text" placeholder="请输入" clearInput="true" [(ngModel)]="dataObj.projectName"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>行政区域：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.administrativeRegion" placeholder="请选择">
+        <ion-select-option *ngFor="let i of quYuData" value="{{i.cDCName}}">{{i.cDCName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>属地区域：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.affiliatedUnit" placeholder="请选择">
+        <ion-select-option *ngFor="let i of shuDiData" value="{{i.cPossName}}">{{i.cPossName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属园区：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.garden" placeholder="请选择">
+        <ion-select-option *ngFor="let i of yuanQuData" value="{{i.cGardName}}">{{i.cGardName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属行业：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.industry" placeholder="请选择">
+        <ion-select-option *ngFor="let i of hangYeData" value="{{i.cTradeName}}">{{i.cTradeName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属产业：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.industryCC" placeholder="请选择">
+        <ion-select-option *ngFor="let i of chanYeData" value="{{i.cEstaName}}">{{i.cEstaName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>项目类别：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.projectClassification" placeholder="请选择">
+        <ion-select-option *ngFor="let i of xmlbData" value="{{i}}">{{i}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>项目提报单位：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.cReportToDepartment" placeholder="请选择">
+        <ion-select-option *ngFor="let i of DW" value="{{i.cSetActivePlaneName}}">{{i.cSetActivePlaneName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>自定义类别：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.cCustomCategories" placeholder="请选择">
+        <ion-select-option *ngFor="let i of classRefer" value="{{i.cCustomClassName}}">{{i.cCustomClassName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>行业编码：</ion-label>
+      <ion-input type="text" placeholder="请输入" clearInput="true" [(ngModel)]="dataObj.cSubclass"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>责任单位：</ion-label>
+      <ion-input type="text" placeholder="请输入" clearInput="true" [(ngModel)]="dataObj.cAccountabilityUnit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>总投资区间：</ion-label>
+      <ion-input type="number" placeholder="请输入" clearInput="true" [(ngModel)]="minVal"></ion-input>
+      <a style="text-align: center;margin-right: 25px;">~</a>
+      <ion-input type="number" placeholder="请输入" clearInput="true" [(ngModel)]="maxVal"></ion-input>
+    </ion-item>
+    <div  style="margin: 8px auto;text-align: center;">
+      <div Button [type]="'primary'" [inline]="true"  [size]="'small'" (click)="getData()" style="margin-right: 24px;">查询</div>
+      <div Button [type]="'ghost'" [inline]="true"  [size]="'small'" (click)="resetData()">重置</div>
+    </div>
+  </ion-list> -->
+
+  <!-- <WhiteSpace [size]="'sm'" ></WhiteSpace> -->
+
+  <div style="margin: 10px;">
+    <Flex [justify]="'center'" [align]="'stretch'" style="font-weight: bold;background-color: #ececec;width: 100%;border: 1px solid #ccc;">
+      <FlexItem style="height: 35px;flex-grow: 3;">
+        <div style="text-align: center;border-right: 1px solid #ccc;height:35px;line-height: 35px;">
+          项目名称
+        </div>
+      </FlexItem>
+      <FlexItem style="height: 35px;">
+        <div style="margin-left:-5px;text-align: center;border-right: 1px solid #ccc;height:35px;line-height: 35px;">
+          月报状态
+        </div>
+      </FlexItem>
+      <FlexItem style="height: 35px;">
+        <div style="text-align: center;border-right: 1px solid #ccc;height:35px;line-height: 35px;">
+          操作
+        </div>
+      </FlexItem>
+    </Flex>
+
+    <div style="font-size: 14px;">
+      <Flex [justify]="'center'" [align]="'stretch'" *ngFor="let item of listOfDisplayData"
+        style="background-color: #ffffff;width: 100%;border: 1px solid #ccc;border-top:none">
+        <FlexItem style="text-align: center; height: 35px;flex-grow: 3;width: 100%;">
+          <div style="
+             white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
+            border-right: 1px solid #ccc;height:35px;line-height: 35px;">
+            {{item.project.projectName}}
+          </div>
+        </FlexItem>
+        <FlexItem style="height: 35px;">
+          <div style="border-right: 1px solid #ccc;height:35px;line-height: 35px;text-align: center;">
+            <span *ngIf="item.yueBao === '未上报'" style="color: #fe868a">{{ item.yueBao }}</span>
+            <span *ngIf="item.yueBao === '未审核'" style="color: #f4bb59">{{ item.yueBao }}</span>
+            <span *ngIf="item.yueBao === '已审核'" style="color: #6fc080">{{ item.yueBao }}</span>
+          </div>
+        </FlexItem>
+        <FlexItem style="height: 35px;">
+          <div style="border-right: 1px solid #ccc;text-align: center;">
+            <ion-button (click)="navProject(item)" fill="clear" size="small" >
+              <a>查看</a>
+            </ion-button>
+          </div>
+        </FlexItem>
+      </Flex>
+    </div>
+</div>
+  <!-- <app-projectfilling *ngIf="false" [starTest]="starParent"></app-projectfilling> -->
+    </Drawer>
+  </div>
+
+<!-- <ng-template #icon>
+  <Icon type="ellipsis"></Icon>
+</ng-template> -->
+<ng-template #sidebar style="font-size: 10px;">
+  <ion-list *ngIf="isShowForm">
+    <ion-item >
+      <ion-label>月报状态：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.monthlyState" placeholder="请选择月报状态">
+        <ion-select-option *ngFor="let i of ybztData" value="{{i}}">{{i}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>项目名称：</ion-label>
+      <ion-input type="text" placeholder="请输入项目名称" clearInput="true" [(ngModel)]="dataObj.projectName"></ion-input>
+      <!-- <input type="text" placeholder="请输入" clearInput="true" [(ngModel)]="dataObj.projectName"> -->
+    </ion-item>
+    <ion-item >
+      <ion-label>行政区域：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.administrativeRegion" placeholder="请选择行政区域">
+        <ion-select-option *ngFor="let i of quYuData" value="{{i.cDCName}}">{{i.cDCName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>属地区域：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.affiliatedUnit" placeholder="请选择属地区域">
+        <ion-select-option *ngFor="let i of shuDiData" value="{{i.cPossName}}">{{i.cPossName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属园区：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.garden" placeholder="请选择所属园区">
+        <ion-select-option *ngFor="let i of yuanQuData" value="{{i.cGardName}}">{{i.cGardName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属行业：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.industry" placeholder="请选择所属行业">
+        <ion-select-option *ngFor="let i of hangYeData" value="{{i.cTradeName}}">{{i.cTradeName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>所属产业：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.industryCC" placeholder="请选择所属产业">
+        <ion-select-option *ngFor="let i of chanYeData" value="{{i.cEstaName}}">{{i.cEstaName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>项目类别：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.projectClassification" placeholder="请选择项目类别">
+        <ion-select-option *ngFor="let i of xmlbData" value="{{i}}">{{i}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>项目提报单位：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.cReportToDepartment" placeholder="请选择项目提报单位">
+        <ion-select-option *ngFor="let i of DW" value="{{i.cSetActivePlaneName}}">{{i.cSetActivePlaneName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>自定义类别：</ion-label>
+      <ion-select interface="popover" [(ngModel)]="dataObj.cCustomCategories" placeholder="请选择自定义类别">
+        <ion-select-option *ngFor="let i of classRefer" value="{{i.cCustomClassName}}">{{i.cCustomClassName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>行业编码：</ion-label>
+      <ion-input type="text" placeholder="请输入行业编码" clearInput="true" [(ngModel)]="dataObj.cSubclass"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>责任单位：</ion-label>
+      <ion-input type="text" placeholder="请输入责任单位" clearInput="true" [(ngModel)]="dataObj.cAccountabilityUnit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>总投资区间：</ion-label>
+      <!-- <ion-input type="number" placeholder="请输入" clearInput="true" [(ngModel)]="minVal"></ion-input>
+      <a style="text-align: center;margin-right: 25px;">~</a>
+      <ion-input type="number" placeholder="请输入" clearInput="true" [(ngModel)]="maxVal"></ion-input> -->
+      <input type="number" [(ngModel)] = "minVal" style="width: 25%;">
+              ~
+      <input type="number" [(ngModel)] = "maxVal" style="width: 25%;">
+    </ion-item>
+    <div  style="margin: 8px auto;text-align: center;">
+      <div Button [type]="'primary'" [inline]="true"  [size]="'small'" (click)="getData()" style="margin-right: 24px;">查询</div>
+      <div Button [type]="'ghost'" [inline]="true"  [size]="'small'" (click)="resetData()">重置</div>
+    </div>
+  </ion-list>
+</ng-template>
+
+</ion-content>
