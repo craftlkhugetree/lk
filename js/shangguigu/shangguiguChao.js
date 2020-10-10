@@ -236,3 +236,84 @@ tr.getElementsByTagName("a")[0].onclick = delA  //单击响应函数a，由函�
 32.上述添加一行表格，也可以用 tr.innerHTML = "<td>"+name+"</td>"+
                                            "<td><a href='javascript:;'>Del</a></td>"
 另外一种添加方式为 tbody.innerHTML += "<tr>"+....+"</tr>";   但是这样会把所有的tr都给影响了，效率低，不安全。
+
+
+33.如果在for循环中给表格每一行绑定单击响应函数，不能用fun[i]，因为页面加载完成后for循环就执行完了，而响应函数要等待点击，所以这里不能用fun[i]
+来表示当前行，而要用this。
+
+34.元素.style.width = "300px";  像 background-color 要用驼峰命名法改为 backgroundColor
+上述通过style属性，来设置和读取的只能是内联样式。
+以下两种方法都是只读的，无法修改样式：
+（1）要获取当前生效的样式（只有IE有效）：元素.currentStyle.width; 若没有设置，那么返回的是默认样式，像width就是auto。
+（2）其他浏览器和IE9支持的是 getComputedStyle(box1,null); 第一个参数为要获取样式的元素，第二个参数为伪元素
+      没有设置的样式，不是返回默认值，而是实际值。
+
+35.上述问题，若要都兼容，那就要写一个支持所有浏览器的函数
+function getStyle(obj,name){
+  if(window.getComputedStyle){ //有这个函数，说明是正常浏览器。变量没找到则报错，属性没找到则返回undefined。
+    return getComputedStyle(obj,null)[name] //这里不能用 .name，因为name是个变量，可以是width，height等
+  } else {
+    return obj.currentStyle[name]
+  }
+}
+
+36.元素的可见宽度和高度，不带px，返回的是数值。但是包括内容区和padding。
+clientWidth
+clientHeight  都是只读，不可修改。
+box1.offsetWidth  包括内容区，padding，border。
+box1.offsetHeight
+offsetParent  获取离该元素最近的开启了定位的祖先元素，若都没positin则返回body。
+
+box4.scrollWidth
+box4.scrollHeight
+box4.scrollLeft
+box4.scrollTop
+当 scrollHeight - scrollTop === clientHeight 时，说明滚动条到底了。
+这就能确保阅读协议到底。
+事件：滚动条滚动时触发  onscroll
+window.onload = function () {
+    var id = document.getElementById("id")
+    var inputs = document.getElementsByTagName("input")
+    id.onscroll = function () {
+      if (id.scrollHeight - id.scrollTop === id.clientHeight) {
+        inputs[0].disabled = false;
+        inputs[1].disabled = false;
+      }
+    }
+  }
+
+  37.鼠标在div中移动时获取其坐标，事件：onmousemove
+  当事件响应函数被触发时，浏览器每次都会将一个事件对象作为实参传递进响应函数
+  e.clientX
+  e.clientY
+  但是IE8是不传递事件对象e的，而是将其作为window对象的属性保存。 window.event.clientX
+  兼容写法：
+ areaDiv.onmousemove = function (event) {
+  if(!event){
+    event = window.event;
+  }  // 或者为  event = event || window.event;
+}
+
+38.使div跟随鼠标移动,当然要先开启定位
+box1.style.left = e.clientX + 'px'
+box1.style.top = e.clientY + 'px'
+这样的写法，box1只能往下走，鼠标一旦移出box1就不会触发了，所以不能给box1绑定，而是绑定给document。
+进一步，若有上下滚动条了，那么鼠标会相对于box1有个 scrollTop的距离。因为clientX是相对于可见窗口的。
+所以，鼠标相对于可见窗，box1相对于页面，那么两者之间就有了距离。
+这里就要改用pageX和pageY了，但是不支持IE8。
+为了兼容，就要把div1的零点移动到可见窗零点。
+chrome认为滚动条是body的，可以用body.scrollTop;火狐则认为滚动条是html的，因为body的父元素无法容纳body的高度才有了滚动条。
+前者用  document.body.scrollTop
+后者用  document.documentElement.scrollTop
+var st = document.body.scrollTop || document.documentElement.scrollTop;
+box1.style.top = e.clientY + st + 'px'
+
+39.事件的冒泡，后代元素被触发时，其祖先元素也会被触发。
+大部分情况下是有益的，比如38中的box1移动，是绑定给了document，若document中还有其他区域块，那么当box1移入区域块后，事件就会冒泡给
+document，使得box1在区域块中也能移动。
+有些情况是不好的，比如父子元素中都有点击事件，那么在子元素中点击，会导致父元素点击同时触发。
+这时，就需要通过事件对象来取消冒泡
+s1.onclck = function (e) {
+  e = e || window.event;
+  e.cancelBubble = true;  //div会停在区域块边缘，点击子元素也不会触发父元素的相同事件了
+}

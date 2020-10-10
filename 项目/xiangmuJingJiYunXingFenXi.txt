@@ -1,5 +1,7 @@
 1.基础设置 basic-settings
 
+行业字段设置：树形组件，自带搜索框，用函数获取勾选项。
+
 编辑条目时，ngModel出现开发者模式的变更检测问题，
 remove-reason.component.html:103 ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ng-untouched: true'. Current value: 'ng-untouched: false'.
 
@@ -12,7 +14,7 @@ You haven't shared where you've attached the (change) event handler, but it's cl
 
 You should be using (ngModelChange) instead of (change).
 
-
+[attr.colspan]='变量值'
 
 cc=[{},{}]
 map并不能保证防止浅拷贝，尤其是数组元素为对象时。必须小心再小心。
