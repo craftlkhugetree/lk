@@ -30,6 +30,7 @@ arr.sort();  也会修改原数组，默认按unicode编码，所以11会排到2
     arr.sort(function(a,b){
         return (x=a-b);//升序
     })//浏览器根据x判断顺序，若x<0,则元素位置不变；若x>0，则交换位置；若x=0，则认为a=b.
+[]...new Set(arr)]  去重
 
 
 7.全局作用域的函数定义非常危险，污染了命名空间。用prototype添加方法。
@@ -317,3 +318,52 @@ s1.onclck = function (e) {
   e = e || window.event;
   e.cancelBubble = true;  //div会停在区域块边缘，点击子元素也不会触发父元素的相同事件了
 }
+
+40.事件冒泡的应用：事件的委派
+已有三个超链接，且循环绑定了单击响应函数。现在要append几个<li><a></a></li>，那么新加超链接要重新绑定。
+所以我们希望只绑定一次事件，即可应用到多个元素，即便元素是后添加的。
+事件的委派：将事件统一绑定给元素的共同祖先，这样当后代元素的事件触发时，会一直冒泡到祖先，从而通过祖先元素的响应函数来处理事件。
+给祖先绑定的事件不能写死，而要用 event.target.className 来判断所点击的超链接是哪一个，而且判断超链接中的class=""最好用正则，否则会有开头相同的类名被选中。
+
+41.使用  对象.事件 = 函数   的形式，生效的只是绑定在最后的一个。
+同时绑定多个，可以用   obj.addEventListener("click",回调函数,false)   // 是否在捕获阶段触发
+上述方法在IE8不支持，可以用  obj.attachEvent("onclick",回调函数);  执行顺序相反。
+
+注意：addEventListener()中的this为绑定的对象，而attachEvent()中的this是window。 在兼容IE8时要考虑到这一点。
+
+function bind(obj,eventStr,callback) {
+  if(obj.addEventListener){
+    obj.addEventListener(eventStr,callback,false)
+  }else{
+    obj.attachEvent("on"+eventStr,function () {
+      // 在匿名函数里调用回调，从浏览器手里收回调用权。这就指定了this为绑定的对象。
+      callback.call(obj)
+    })
+  }
+};
+
+42.事件的传播：
+微软认为应当由内到外传播；网景公司认为相反。
+w3c综合了上述方案，将事件的传播分为三个阶段：
+（1）捕获阶段，从最外层祖先元素开始，向目标元素捕获。但是默认不触发事件；
+（2）目标阶段，事件捕获到目标元素，捕获结束开始触发目标事件；
+（3）冒泡阶段，事件从目标向他的祖先传递，依次触发相同的事件。
+若希望在捕获阶段就触发，那就把 addEventListener()的第三个参数改为true。
+
+43.拖拽box1元素：鼠标在box1上按下时开始拖拽onmousedown；移动onmousemove；松开onmouseup。
+// 求出div的偏移量  鼠标.clientX - 元素.offsetLeft
+box1.onmousedown = function (event) {
+  document.onmousemove = function () {
+    
+  }
+  document.onmouseup = function () {
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
+}
+如果按了ctrl+A后再拖拽，那么会把整个屏幕都移动。因为浏览器默认去搜索引擎中搜索内容，导致拖拽异常。
+若不希望出现这种异常，就取消默认行为，用 return false; 但对IE8要另想办法。
+btn01.setCapture();会把下一次所有的鼠标按下相关事件捕获到btn01自身上，哪怕点击的是btn02，或者点击桌面。。。但只抢一次。
+所以在IE8用这个办法，就会让点击的元素捕获所有事件，而不会传递到屏幕其他元素身上。再在鼠标松开时释放捕获 box1.releaseCapture();
+
+另一个问题是，chrome不支持 setCapture(),所以要判断执行  box1.setCapture && box1.setCapture();

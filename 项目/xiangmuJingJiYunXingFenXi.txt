@@ -1,6 +1,11 @@
 1.基础设置 basic-settings
 
 行业字段设置：树形组件，自带搜索框，用函数获取勾选项。
+ this.nzTreeComponent.getCheckedNodeList(), 变更检测会出错，所以要放在  ngAfterViewInit()
+
+this.defaultExpandedKeys3 = ['0'];要二次赋值，才能确保tree在刷新后仍能展开。
+
+模态一定不能放在表格内部，第一会黑屏，第二会很慢，要放到与表格同级的位置。
 
 编辑条目时，ngModel出现开发者模式的变更检测问题，
 remove-reason.component.html:103 ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ng-untouched: true'. Current value: 'ng-untouched: false'.

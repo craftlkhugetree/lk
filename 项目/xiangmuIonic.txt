@@ -1,9 +1,18 @@
 组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink
 
-添加菜单共三步：
+添加菜单共三步： 图片见项目
 http://192.168.9.154:28080/login  17853730736   123或者123456或者手机号
 http://192.168.9.154:28081/login  17853305033   17853305033
 再去测试的“职责管理”分配，并保存编辑。
+正式平台：
+https://b.leancloud.biz/opm/login  	17853730736 123
+https://b.leancloud.biz/ops/login	17853730736 123
+
+正式库地址：https://gateway.leancloud.biz:4443
+    // cAccUniqueID: "l48a2afc9fbc04614cb492055a4a93ee2cc5",
+    // cOrgDepUUID: "q0djb881258c1090423c91ae347df0305284",
+    // cOrgUUID: "vi59f11f8c5e5ca341d9ac2707653c2bef42",
+
 	
 1.cnpm i
 2.ionic serve
@@ -18,6 +27,7 @@ test43991
 123456	release/20200430
 
 408728/liken/123456
+正式：509944
 
 
 https://www.npmjs.com/	liken 156507xwlabc
