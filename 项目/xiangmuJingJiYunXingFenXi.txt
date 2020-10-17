@@ -131,3 +131,19 @@ function startCount(){
 setTimeout(startCount,1000);    //1s后执行
 
 最好不要在html里写死，因为会在网页开发者模式看到，最好用变量定义在ts文件里。如果要修改名称，那只要修改ts里的变量即可全部修改。
+
+
+
+drawer的底部要能浮动起来
+[nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: right;
+    background: #fff;
+    border-top: 1px solid rgb(232, 232, 232);
+  }

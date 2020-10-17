@@ -367,3 +367,165 @@ btn01.setCapture();会把下一次所有的鼠标按下相关事件捕获到btn0
 所以在IE8用这个办法，就会让点击的元素捕获所有事件，而不会传递到屏幕其他元素身上。再在鼠标松开时释放捕获 box1.releaseCapture();
 
 另一个问题是，chrome不支持 setCapture(),所以要判断执行  box1.setCapture && box1.setCapture();
+拖拽图片，要先给它开启绝对定位。
+
+44.鼠标滚轮滚动事件，onmousewheel;  但火狐中是DOMMouseScroll，而且得用 addEventListener()绑定
+box1.onmousewheel = function () {
+  alert("scroll")
+};
+bind(box1,"DOMMouseScroll",box1.onmousewheel);  // 即可兼容火狐
+除了火狐，其他浏览器支持 event.wheelDelta属性，向上滚是正值，向下是负值。
+火狐是 event.detail 属性，但正负相反。
+鼠标滚动时，滚动条会跟着滚动，这是浏览器的默认行为，要用 return false; 取消这一默认行为。但是由于兼容火狐的
+bind()函数内部使用了 addEventListener()函数，无法用 return false;取消默认行为，所以要用 event.preventDefault();但是
+IE8又不支持这个方法，所以要写为  event.preventDefault && event.preventDefault();
+
+45.键盘事件一般绑定给能获取焦点的对象或document
+document.onkeydown = function(event) {
+  // 如果按着不松开，那么会连续触发；当onkeydown连续触发时，第一次和第二次会有间隔，之后就流畅了，这是防止误输入。
+  event = event || window.event;
+  // event.keyCode === 17   Ctrl
+  // event.altKey && event.keyCode ===89    alt+y是否按下
+}
+document.onkeyup = function name(params) {
+}
+
+input 文本框中，输入是默认行为，所以return false;可以控制输入内容
+if(event.keyCode >= 48 && event.keyCode <= 57) {
+  return false; // 不允许输入数字
+}
+
+// 按方向键移动box1， 
+var speed = 10;
+if(event.ctrlKey){
+  speed = 100;  //  若按下方向键同时按下ctrl，则加速
+}
+switch(event.keyCode){
+  case 37:
+    box1.sytle.left = box1.offsetLeft - speed + 'px'; // 连续触发时，第一次和第二次有间隔，万一躲子弹就糟了
+    break;
+}
+
+46.BOM对象
+window：整个浏览器窗口
+navigator：浏览器信息
+location：浏览器地址栏
+history：浏览器历史记录，由于隐私原因只能向前或后退，而不能获取具体的历史记录。而且只在当次访问有效。
+screen：显示器信息
+由于历史原因，navigator中的大部分属性都已经不能帮助我们识别浏览器了，一般把判断为网景的浏览器 显示好的效果，判断为ie的效果就一般，所以IE11的
+navigator.appName也改为网景了。所以现在用usrAgent来判断浏览器。
+"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+IE11:"Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; .NET CLR 2.0.50727; SLCC2; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; Tablet PC 2.0; rv:11.0) like Gecko"
+IE10:"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Win64; x64; Trident/7.0; .NET CLR 2.0.50727; SLCC2; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; Tablet PC 2.0)"
+ 
+if(/firefox/i.test(navigator.userAgent)){ // chrome,msie,
+  alert("火狐");
+};
+IE11 已经消除了msie字段，所以无法用userAgent判断，但还可以用IE独有的对象来判断，如 if(window.ActiveXObject)
+但是IE11 将这个存在的东西 转为布尔值的false，所以应该用 alert("ActiveXObject" in window)
+
+修改location为路径字符串，则页面会自动跳转且生成历史记录。
+location.assigh("https://www.baidu.com");
+location.reload();
+CTRL+F5 强制清空缓存的刷新， location.reload(true);
+location.replace()也是跳转，但是不会生成历史记录，无法后退。
+
+47.window的方法
+var  count = document.getElementById("count")
+for(let i=0;i<10000;i++){
+  count.innerHTML = i;  // 这样只会显示最后一个9999，而不是我们希望的数字跳动
+}
+
+// 用window的异步函数来实现数字跳动
+// 用timer标识表示定时器异步。 若把这个异步写在按钮的单击响应函数里，那么若多次点击，则会同时跑多个异步。
+var num = 1;
+clearInterval(timer);   // 必须在按钮的单击响应函数里，先关再开。
+var timer = setInterval(() => {
+  count.innerHTML = num++;
+  if(num ===11){
+    clearInterval(timer); //即便timer为null，也不报错，当然什么也不做。
+  }
+}, 500);
+
+轮播图：  
+index = 0;
+index++;
+index = index % imgArr.length;
+
+48.用异步函数来克服，箭头移动box1时，起步时的卡顿45.。
+将移动方向和移动速度拆分开，让方向键只控制方向。
+var dir=0; 
+document.onkeydown = function (event) {
+  event = event || window.event;
+  if(event.ctrlKey){
+    speed = 500
+  }else{
+    speed = 10  // 松开ctrl则速度回归正常
+  }
+  dir = event.keyCode;
+}
+而setInterval()控制速度，让box1始终踩油门待命，等待dir变为37，38，39，40，解决了启动时的卡顿问题。
+松开方向键则将dir=0
+
+49.点击按钮让box1持续移动
+var attr = "left";
+// speed正负表示左移还是右移,target为终点800，obj为box1。
+// 但这样调用必须知道speed正负才行，这样不好，应该用current=parseInt(getStyle(obj,"left"));比较current与target来自动判断speed正负。
+function move(obj,attr,target,speed,callback?:any){    // attr:left top width height
+  clearInterval(obj.timer);
+  if(current > target){
+    speed = -speed;
+  }
+  obj.timer = setInterval(() => {
+    // 获取box1的原来的样式left值
+    var oldValue = parseInt(getStyle(box1,"left"))
+    // 设置新值,每次移动间距为10
+    var newValue = oldValue + speed // 10;
+
+    // 当移动到800px时，停止移动,若间距不能被整除，则最后一次会超过800才停，所以要置为800
+    if(newValue > 800){
+      newValue = 800;
+    }
+    box1.style.left = newValue + "px"
+    if(newValue === 800){
+      clearInterval(obj.timer)
+      callback && callback(); // 无限扩展
+    }
+  }, 30);
+}
+
+50.轮播图：图片用li摆成一行；然后用div控制视窗大小为图片大小，并overflow:hidden;
+list-style:none;  // 祛除项目符号 ul的大痦子
+opacity:0.5;  
+filter:alpha(opacity=50); // 兼容IE8的透明
+allA[i].style.backgroundColor = ""  // 清除内联样式，否则hover会被覆盖掉
+
+51.通过style属性来修改元素样式，没修改一个样式,浏览器就需要重新渲染一次页面，性能较差，而且css和js耦合。
+最好一行代码，可以修改多个样式。所以直接修改样式名最好，css新建一个样式b2，然后  box.className = "b2";
+如果不是替换样式b1，而是给b1追加b2，那么就是 box.className +=" b2"
+function addClass(obj, claName) {
+ if(!hasClass(obj,claName)) {
+    obj.className += " "+claName
+ }
+}
+function hasClass(obj, claName) {
+  let reg = new RegExp("\\b"+claName+"\\b")  //  单词边界，不能是b20，只能是b2
+  return reg.test(obj.className)
+}
+删除一个类，可以 obj.className.replace(reg,"")
+然后可以把添加类、删除类合并为  toggleClass()
+
+51.将菜单高度调小，则二级菜单就被隐藏了。展开和隐藏的动画，就是49的 move()函数
+
+52.字符串的好处就是：不论前端后端，不论什么编程语言，都能识别字符串。
+JSON就是一个特殊格式的字符串，可以转换为任意语言中的对象。JavaScript Object Notation(js对象表示法)
+JSON对象和js对象格式一致，但是JSON字符串中的属性名必须加双引号，允许的值为字符串、数值、布尔值、null、对象（不包括函数）、数组。
+JSON数组就是数组加上单引号
+let json = '{"name":"bob","age":18}'
+let obj = JSON.parse(json);       
+json = JSON.stringify(obj);
+但是IE7及以下不支持JSON，它们的兼容方法是 eval(); 可以执行一段字符串形式的js代码，并将执行结果返回。
+注意：eval() 执行的字符串中若有{}，则会被当成代码块，若不希望若此，则要加上括号
+let obj1 = eval("("+json+")");
+但是 eval()的性能较差，而且有安全隐患。所以兼容IE7最好引入json2.js文件。

@@ -13,6 +13,7 @@ https://b.leancloud.biz/ops/login	17853730736 123
     // cOrgDepUUID: "q0djb881258c1090423c91ae347df0305284",
     // cOrgUUID: "vi59f11f8c5e5ca341d9ac2707653c2bef42",
 
+ÕýÊ½£ºhttp://zw.leancloud.biz/login   622891  	zhangqiang£º123456
 	
 1.cnpm i
 2.ionic serve
