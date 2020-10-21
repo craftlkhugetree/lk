@@ -9,3 +9,6 @@ let data=[{a:1,b:2},{c:3,b:2},{e:4,b:3}]
         )
 
 data.find(item => item.b===3)	//find()找到元素，也就是b===3的对象
+
+
+interface Tuple extends Array<number | string> {0: string; 1: number; length: 2;}
