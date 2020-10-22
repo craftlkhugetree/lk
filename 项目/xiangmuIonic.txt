@@ -96,4 +96,8 @@ import { TimepComponent} from '../../../gov/indexshow/timep/timep.component';
 
 项目月报
 1.
-
+ionic注册安卓物理返回键的处理方法：
+在app.js的.run函数中注册
+$ionicPlatform.registerBackButtonAction(function (e) {
+    //阻止默认的处理方法
+    e.preventDefault();
