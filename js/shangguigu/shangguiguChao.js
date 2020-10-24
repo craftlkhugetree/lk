@@ -96,7 +96,7 @@ str1.concat(str2);
 str.indexOf('h',0);   //检索str中是否有字符串h，并返回第一出现的索引，若无则返回-1。默认从0索引开始
 str.lastIndexOf('h');   //从后往前找
 str.slice(1,4); //截取[1,4)
-str.sbustring(0,2); //截取[0,2),但是不能用-1表示末尾，负值表示零；若第二个参数小于第一个，就自动换位。
+str.substring(0,2); //截取[0,2),但是不能用-1表示末尾，负值表示零；若第二个参数小于第一个，就自动换位。
 str.substr(start,num);
 str.split(",");    //根据分隔符，拆分为数组。split('');拆分每个字符
 

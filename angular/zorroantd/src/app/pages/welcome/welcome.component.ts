@@ -243,8 +243,8 @@ export class WelcomeComponent implements OnInit {
       .post(
         // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustry",
         // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
-        "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss",
+        "http://192.168.9.14:18097/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
+        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss",
         this.objIndustry
       )
       // this.http.post('/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllFieldAndFixedFieldSettingsInTheIndustryCalss',this.objIndustry,)
@@ -252,12 +252,12 @@ export class WelcomeComponent implements OnInit {
         if (res.code === 1) {
           this.disData =
             // res.data.getAllClassificationFieldIndustry;
-            // res.data.getIndustrialFinancial;
-            res.data.getAllFieldAndFixedFieldSettingsInTheIndustryCalss;
+            res.data.getIndustrialFinancial;
+            // res.data.getAllFieldAndFixedFieldSettingsInTheIndustryCalss;
           console.log(`一二级指标disData,${tmp[0].nameOfTheIndustry}:`, this.disData);
           if(i ===6){
               this.data7 = [...this.disData]
-              console.log("工业:",this.data7)
+              // console.log("工业:",this.data7)
               // this.delData()
           }
         } else {
@@ -334,22 +334,6 @@ export class WelcomeComponent implements OnInit {
     console.log("简略指标，总的一级指标，总的二级指标，添加二级指标",this.data, this.disData2,this.disData1,this.disData9);
   }
 
-  modifyRel(){
-    this.http.post("http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        this.disData9
-      )
-      .subscribe((res: any) => {
-        if (res.code === 1) {
-          this.disData =
-            res.data.getAllFieldAndFixedFieldSettingsInTheIndustryCalss;
-          console.log("disData3:", this.disData3);
-        } else {
-          // this.message.warning(res.msg);
-        }
-      });
-  }
-
-
   // 测试平台删除工业，正式平台要改组织id
   delData() {
     this.objIndustry.nameOfTheIndustry = null;
@@ -384,11 +368,6 @@ export class WelcomeComponent implements OnInit {
 
   // 添加工业
   addData1() {
-    // this.objIndustry.nameOfTheIndustry = "产值（本月）";
-    // this.objIndustry.ruleType = 6;
-    // this.objIndustry.enterpriseClassificationTableID = 14681;
-    // // this.objIndustry.fieldNames = "产值";
-    // this.objIndustry.whetherTheFieldIsDisplayed = '1';
     // 先删除，再添加disData0,最后添加disData9
     this.http
       .post(
@@ -397,8 +376,6 @@ export class WelcomeComponent implements OnInit {
         // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
         // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.disData9
-        // this.objIndustry
-        // this.tmpFirstChecked
       )
       .subscribe((res: any) => {
         if (res.code === 1) {
@@ -438,19 +415,24 @@ export class WelcomeComponent implements OnInit {
 
   // 添加其他6个行业，先添加一级指标otherData1，再二级指标otherData2
   otherData1 = [
-    {first:["商品销售额（本月）","商品销售额（累计）","其它"],id:8},
+    // {first:["商品销售额（本月）","商品销售额（累计）","其它"],id:8},
     {first:["营业收入（累计）"],id:11},
     {first:["完成投资（本年）","完成投资（本月）","商品房销售面积（本年）","商品房销售面积（本月）","商品房销售额（本年）","商品房销售额（本月）"],id:12},
-    {first:["本季本年折旧（累计）","本季营业收入（累计）","本季营业成本（累计）","本季营业税金及附加（累计）","本季营业利润（累计）","本季应付职工薪酬（累计）","本季应交增值税（累计）"],id:7},
+    // {first:["本季本年折旧（累计）","本季营业收入（累计）","本季营业成本（累计）","本季营业税金及附加（累计）","本季营业利润（累计）","本季应付职工薪酬（累计）","本季应交增值税（累计）"],id:7},
+    {first:["本季签订的建筑合同额（累计）","本季建筑业总产值（累计）","本季竣工产值（累计）"],id:10},
+    // {first:["本季从业人员期末人数（本季）","本季从业人员工资总额（累计）","本季从业人员平均工资（累计）","本季劳务派遣人员平均工资（累计）"],id:9},
   ]
   otherData2 = [
-    {second:[["商品销售额","同期商品销售额","商品销售额同比"],["累计商品销售额","同期累计商品销售额","上月累计商品销售额","累计商品销售额同比"],["累计数比对差","累计本季营业收入"]],id:8},
+    // {second:[["商品销售额","同期商品销售额","商品销售额同比"],["累计商品销售额","同期累计商品销售额","上月累计商品销售额","累计商品销售额同比"],["累计数比对差","累计本季营业收入"]],id:8},
     {second:[["累计营业收入","同期营业收入销售额","累计营业收入同比"]],id:11},
     {second:[["本年完成投资","本年完成投资同比"],["单月完成投资","单月完成投资同比","单月完成投资环比"],["本年商品房销售面积","本年商品房销售面积同比"],
       ["单月商品房销售面积","单月商品房销售面积同比","单月商品房销售面积环比"],["本年商品房销售额","本年商品房销售额同比"],["单月商品房销售额","单月商品房销售额同比","单月商品房销售额环比"]],id:12},
-    {second:[["累计本季本年折旧","累计本季本年折旧同比"],["累计本季营业收入","累计本季营业收入同比","累计本季销售收入-税务"],["累计本季营业成本","同期累计本季营业成本","累计本季营业成本同比"],
-      ["累计本季营业税金及附加","累计本季营业税金及附加同比"],["累计本季营业利润","累计本季营业利润同比"],["累计本季应付职工薪酬","累计本季应付职工薪酬同比"],
-      ["累计本季应交增值税","累计本季应交增值税同比","累计本季应交增值税-税务"]],id:7},
+    // {second:[["累计本季本年折旧","累计本季本年折旧同比"],["累计本季营业收入","累计本季营业收入同比","累计本季销售收入-税务"],["累计本季营业成本","同期累计本季营业成本","累计本季营业成本同比"],
+    //   ["累计本季营业税金及附加","累计本季营业税金及附加同比"],["累计本季营业利润","累计本季营业利润同比"],["累计本季应付职工薪酬","累计本季应付职工薪酬同比"],
+    //   ["累计本季应交增值税","累计本季应交增值税同比","累计本季应交增值税-税务"]],id:7},
+    {second:[["累计本季签订的建筑合同额","同期累计本季签订的建筑合同额","累计本季签订的建筑合同额同比"],["累计本季建筑业总产值","同期累计本季建筑业总产值","累计本季建筑业总产值同比"],
+         ["累计本季竣工产值","同期累计本季竣工产值","累计本季竣工产值同比"]],id:10},
+    // {second:[["本季从业人员期末人数","去年本季从业人员期末人数","从业人员同比增减"],["累计本季从业人员工资总额","去年累计本季从业人员工资总额","从业人员累计工资增长"],["累计本季从业人员平均工资","去年累计本季从业人员平均工资","从业人员平均工资增长"],["累计本季劳务派遣人员平均工资","去年累计本季劳务派遣人员平均工资","劳务派遣平均工资增长"]],id:9},
   ]
   other1 = []
   other2 = []
@@ -472,14 +454,14 @@ export class WelcomeComponent implements OnInit {
         this.other1.push(tmp);
       })
     }
-    console.log(this.other1,this.other2)
+    console.log("other1,2:",this.other1,this.other2)
   }
 
   addOther(){
       this.http
       .post(
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
         // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
         // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.other2
@@ -487,9 +469,6 @@ export class WelcomeComponent implements OnInit {
       )
       .subscribe((res: any) => {
         if (res.code === 1) {
-          // this.disData =
-          //   res.data.getupdClassificationField;
-            // res.data.getAllFieldAndFixedFieldSettingsInTheIndustryCalss;
         } else {
           this.message.warning(res.msg);
         }
@@ -498,7 +477,6 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.produceData();
     this.produceOther1();
-    // this.searchData();
     this.getData3();
     // this.addOther();
     // this.delData();

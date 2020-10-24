@@ -1,0 +1,31 @@
+职责分配  
+src\app\routes\sys-manage\resbonsibility-management\resbonsibility-management.component.ts
+
+
+
+
+// arr.forEach((item, index) => {
+    //   if (item[cParentCode] === '' || item[cParentCode] === '' || item[cParentCode] === null) {
+    //     // console.log(item)
+    //     tree.push({
+    //       title: item.cTreeName,
+    //       key: item.cTreeCode,
+    //       children: [],
+    //     });
+    //     arr.splice(index, 1);
+    //   }
+    // });
+每次splice都会删除i，生成新数组arr，那么紧挨着的i+1就到了i的位置，而forEach不会再去i的位置了。
+
+所以要用filter
+const arrNew:any = arr.filter(item => {
+      if (item[cParentCode] === '' || item[cParentCode] === '' || item[cParentCode] === null) {
+            tree.push({
+              title: item.cTreeName,
+              key: item.cTreeCode,
+              children: [],
+            });
+      }else{
+        return item;
+      }
+    });

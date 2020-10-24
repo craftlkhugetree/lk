@@ -5,6 +5,7 @@ ctrl+t		for newTab
 alt+rightarrow	tab forward
 ctrl+`		Console
 ctrl+L		清除
+ctrl+R		刷新
 
 1.console.table(tabledata, tablecolumns)	必须是数组的形式
 指定表格表头标题名，参数只能是对应的键名：
