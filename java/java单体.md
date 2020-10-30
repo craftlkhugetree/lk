@@ -122,4 +122,9 @@ ctrl+F2 批量修改
 26. Portlet完成组件的拼接。
 27. 依赖注入是目前最优秀的解耦方式。
 28. 单元测试：白盒、黑河、灰盒；压力测试：并发；疲劳强度测试：7天；冒烟测试：主要功能，比如支付；集成测试；回归测试：增加一个功能。自动化测试：场景设计。
-29. JUnit保证测试代码覆盖80%
+29. JUnit保证测试代码覆盖80%,代码评审review。   @Before @Test @After
+30. 断言：assertEquals(obj1,obj2);比较值， == 比较地址。地址引用和值引用。 assertSame()是否引用相同的对象。
+31. Log4j:log for Java; slf4j:Simple Loging Facade For Java(外观模式)。 logger.info("message is {}",msg);
+32. 字符串追加别用concat，用 format("%s %s",str1,str2);
+33. 创建目录，创建pom.xml，添加为maven项目，完善目录结构，配置spring和log4j，复制bootstrap和jquery到项目，配置tomcat。埋点。
+34. material design 移动端优先。
