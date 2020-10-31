@@ -104,6 +104,8 @@ ctrl+d  整行左移
 快捷方式doGet();doPost();
 req.getParameter("loginId").var 回车，自动添加String loginId =
 ctrl+F2 批量修改
+ctrl+alt+F8 打开断点处变量
+alt+shift+F 格式化代码
 
 16. 重构原则，先写代码，不要过度设计，业务实现之后再重构进行完善。
 17. 接口的幂等性问题，不论调用多少次http get方法，结果都一样。而post不具备幂等性。不能post里调get，或者get里调post。    get效率高，明文传输，参数大小有限；post分为两段，先询问fwq能否提交数据，同意后才提交。
@@ -128,3 +130,15 @@ ctrl+F2 批量修改
 32. 字符串追加别用concat，用 format("%s %s",str1,str2);
 33. 创建目录，创建pom.xml，添加为maven项目，完善目录结构，配置spring和log4j，复制bootstrap和jquery到项目，配置tomcat。埋点。
 34. material design 移动端优先。
+35. jstl，<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+可以判定条件，    <c:if test="${message != null}">
+类似于  ${message == null ? "style='display:none;'" : ""}
+
+36. JavaSE的入口是main函数，JavaWeb的入口是web.xml里的配置。所以Spring整合Web就是在web.xml里配置context的信息。
+37. 开始初始化spring context出错，调试发现为null。所以在控制器文件和服务文件里用了
+//        SpringContext context = new SpringContext();
+//        UserService userService = (UserService) context.getBean("userService");
+这是一种办法。另一种办法是用public final class SpringContext implements ApplicationContextAware, DisposableBean 来定义getBean()函数，其参数可以是beanId也可以直接是类名。
+
+38. 容器中Bean的作用域。单例：只有一个实例，默认是单例。原型：getBean()每次获取新的实例。portlet集群：页面有多个项目拼合而成。全局session，单点登录。
+39. 开启注解模式，@component @repository @service @controller 这种模式会在Java中插入硬编码，而且修改后需要重新编译。而xml配置方式，只要修改配置，重启tomcat即可。注解默认是单例singleton，value属性指定作用域,即配置的beanId。
