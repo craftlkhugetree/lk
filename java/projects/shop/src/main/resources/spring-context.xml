@@ -11,5 +11,8 @@
 
 <!--        <bean id="springContext" class="com.lk.shop.commons.context.SpringContext" />-->
     <context:annotation-config />
-    <context:component-scan base-package="com.lk.shop" />
+    <context:component-scan base-package="com.lk.shop">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
 </beans>

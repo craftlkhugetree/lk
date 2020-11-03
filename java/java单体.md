@@ -144,4 +144,6 @@ alt+shift+F 格式化代码
 39. 开启注解模式，@component @repository @service @controller 这种模式会在Java中插入硬编码，而且修改后需要重新编译。而xml配置方式，只要修改配置，重启tomcat即可。注解默认是单例singleton，value属性指定作用域,即配置方式的beanId项。
 40. 记住我功能，可以用flash cookie，兼容ie，而且不容易删掉。也就是flash shareObject。单步调试发现是String.format("%s;%s");里的分号导致问题，改成冒号即可，cookie value里不可以有分号。
 41. js有可能被禁用，所以用meta来跳转。
-42. servlet使用不够灵活，每创建一个servlet都要到web.xml中配置一次。默认调用doGet或doPost方法，一个servlet中有多个业务函数，需要传参来灵活调用 ?opts=add/del/update，这不方便，而且开发主要在业务逻辑，而不是到处配置。springmvc使用了dispatcherServlet组件类，处理所有的HTTP请求和响应。![流程图](D:\lk\java\dispatcherServlet.png)
+42. servlet使用不够灵活，每创建一个servlet都要到web.xml中配置一次。默认调用doGet或doPost方法，一个servlet中有多个业务函数，需要传参来灵活调用 ?opts=add/del/update，这不方便，而且开发主要在业务逻辑，而不是到处配置。springmvc使用了dispatcherServlet组件类，处理所有的HTTP请求和响应。
+43.  DispatcherServlet的servlet标签里<load-on-startup>1</load-on-startup>表示优先级1~6，如果没有这一块，那么jvm启动顺序随机。
+44.  80%的代码都是一次性的！！！
