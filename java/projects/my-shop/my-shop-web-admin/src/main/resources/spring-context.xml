@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--    DAO控制权交给spring，开始实例化的控制反转-->
+    <!--    <bean id="userDao" class="com.lk.my.shop.dao.impl.UserDaoImpl"/>-->
+    <!--    Service-->
+    <!--    <bean id="userService" class="com.lk.my.shop.service.impl.UserServiceImpl" />-->
+<!--        <bean id="userService" class="com.lk.shop.service.impl.UserServiceImpl" />-->
+
+<!--        <bean id="springContext" class="com.lk.shop.commons.context.SpringContext" />-->
+    <context:annotation-config />
+    <context:component-scan base-package="com.lk.my.shop.web.admin">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+</beans>

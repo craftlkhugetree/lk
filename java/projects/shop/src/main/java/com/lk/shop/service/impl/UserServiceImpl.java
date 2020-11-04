@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @Date: 2020/10/31 15:14
  * @Version: 1.0
  */
-@Service(value = "userService")
+@Service
 public class UserServiceImpl implements UserService {
     public void sayHi() {
         System.out.println("hi");

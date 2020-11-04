@@ -147,3 +147,29 @@ alt+shift+F 格式化代码
 42. servlet使用不够灵活，每创建一个servlet都要到web.xml中配置一次。默认调用doGet或doPost方法，一个servlet中有多个业务函数，需要传参来灵活调用 ?opts=add/del/update，这不方便，而且开发主要在业务逻辑，而不是到处配置。springmvc使用了dispatcherServlet组件类，处理所有的HTTP请求和响应。
 43.  DispatcherServlet的servlet标签里<load-on-startup>1</load-on-startup>表示优先级1~6，如果没有这一块，那么jvm启动顺序随机。
 44.  80%的代码都是一次性的！！！
+45. spring web mvc 的拦截器类似servlet的filter，用于对处理器进行预处理和后处理。用于日志记录、权限检查、性能监控、通用行为。 
+ preHandle,postHandle,afterCompletion
+46. Maven模块化开发：事不过三，三则重构，每个项目都要有pom.xml依赖，所以提取出来变成一个项目，让其他项目依赖它，创建统一的依赖管理。而整体变成了一个工程。领域模型就是entity。
+47. MyBatis基于Java的持久层框架，内部封装JDBC，使开发人员只需关注sql语句，无需花费精力处理诸如注册驱动、创建Connection、配置Statement等繁杂过程。ORM：将POJO这个Java原生对象与数据库中的表，关系映射起来。将两个不相干的东西联系起来就是中间件，比如tomcat servlet中间件将java程序在web浏览器上运行。
+48. 内存缓存32M、磁盘缓存2G、网络缓存。脏读脏写。
+49. Hibernate提供了全自动ORM，即POJO和表映射，以及sql自动生成和执行。Mybatis不会自动生成或执行sql语句。首先，Hibernate使用HQL方言来转化不同数据库的语言，缺乏灵活性;多表联查不友好left join，inner join，只在单表操作上有优势。  "from User where user.id=1"   SessionFactory factory
+query("from User where user.id=1"); 这句查询有jdbc知识、HQL、SQL等，违反了最少知识原则，要解耦。
+50. iBatis3 = MyBatis,在xml中配置sql语句，实现了sql与代码的分离。
+51.     Druid 是性能最好的数据库连接池，tomcat-jdbc 和 druid 性能接近。
+    proxool 在激烈并发时会抛异常，完全不靠谱。
+    c3p0 和 proxool 都相当慢，慢到影响 sql 执行效率的地步。
+    bonecp 性能并不优越，采用 LinkedTransferQueue 并没有能够获得性能提升。
+    除了 bonecp，其他的在 JDK 7 上跑得比 JDK 6 上快
+    jboss-datasource 虽然稳定，但是性能很糟糕
+52. 专门配置的servlet来提供数据库可视化：
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+53. ISO-8859-1一个字符集只能存1个字节，存中文可能只存了一半，乱码。UTF-8一个字符集能存3个字节。utf8mb4是扩展，一个字符集能存4个字节，表情包 emoji就是4个字节。
+54. service层就不归myBatis关了，它只管dao。所以dao里只写接口，而不用impl实现。而service里还是要自己实现的。
+55. DigestUtils.md5DigestAsHex();加密密码
