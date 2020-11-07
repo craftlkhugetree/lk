@@ -201,10 +201,10 @@ insert into a value(1),(2);
 insert into a_info value(1, 'a'),(2, 'b');
 mysql> explain select * from a join a_info using(id);
 ...+--------+--------+...
-|...| table  | type   |...
-|---|--------|--------|...
-|...| a      | index  |...
-|...| a_info | eq_ref |...
+|...| table  | type   |...|
+|---|--------|--------|---|
+|...| a      | index  |...|
+|...| a_info | eq_ref |...|
 ...+--------+--------+...
 此时 a_info 每条记录与 a 一一对应，通过主键 id 关联起来，所以 a_info 的 type 为 eq_ref。
 删除 a_info 的主键：ALTER TABLE  `a_info` DROP PRIMARY KEY;
@@ -240,3 +240,8 @@ ${title}
 
 65. get是幂等性请求，来去相同，而delete是单方面的，所以只能用post请求。
 66. @ResponseBody 注解表示该方法的返回的结果直接写入 HTTP 响应正文（ResponseBody）中，一般在异步获取数据时使用，通常是在使用 @RequestMapping 后，返回值通常解析为跳转路径，加上 @ResponseBody 后返回结果不会被解析为跳转路径，而是直接写入HTTP 响应正文中。
+该注解用于将 Controller 的方法返回的对象，通过适当的 HttpMessageConverter 转换为指定格式后，写入到 Response 对象的 body 数据区。
+#
+使用时机
+
+返回的数据不是 html 标签的页面，而是其他某种格式的数据时（如json、xml等）使用
