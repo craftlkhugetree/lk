@@ -200,12 +200,10 @@ create table a_info(id int primary key, title char(1));
 insert into a value(1),(2);
 insert into a_info value(1, 'a'),(2, 'b');
 mysql> explain select * from a join a_info using(id);
-...+--------+--------+...
 |...| table  | type   |...|
 |---|--------|--------|---|
 |...| a      | index  |...|
 |...| a_info | eq_ref |...|
-...+--------+--------+...
 此时 a_info 每条记录与 a 一一对应，通过主键 id 关联起来，所以 a_info 的 type 为 eq_ref。
 删除 a_info 的主键：ALTER TABLE  `a_info` DROP PRIMARY KEY;
 现在 a_info 已经没有索引了：
