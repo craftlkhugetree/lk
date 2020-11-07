@@ -200,10 +200,12 @@ create table a_info(id int primary key, title char(1));
 insert into a value(1),(2);
 insert into a_info value(1, 'a'),(2, 'b');
 mysql> explain select * from a join a_info using(id);
+
 |...| table  | type   |...|
 |---|--------|--------|---|
 |...| a      | index  |...|
 |...| a_info | eq_ref |...|
+
 此时 a_info 每条记录与 a 一一对应，通过主键 id 关联起来，所以 a_info 的 type 为 eq_ref。
 删除 a_info 的主键：ALTER TABLE  `a_info` DROP PRIMARY KEY;
 现在 a_info 已经没有索引了：
@@ -218,12 +220,12 @@ mysql> explain select * from a join a_info using(id);
 删除 a 的主键：alter table a drop primary key;
 现在 a 也没有索引了：
 mysql> explain select * from a join a_info using(id);
-...+--------+------+...
-...| table  | type |...
-...+--------+------+...
-...| a      | ALL  |...
-...| a_info | ALL  |...
-...+--------+------+...
+
+|...| table  | type |...|
+|---|--------|------|---|
+|...| a      | ALL  |...|
+|...| a_info | ALL  |...|
+
 现在两个表都使用全表扫描了。唯一性索引才会出现 eq_ref （非唯一性索引会出现 ref ），因为唯一，所以最多只返回一条记录，找到后无需继续查找，因此比 ref 更快。
 
 63. jquery修改和显示：
