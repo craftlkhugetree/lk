@@ -210,12 +210,12 @@ mysql> explain select * from a join a_info using(id);
 删除 a_info 的主键：ALTER TABLE  `a_info` DROP PRIMARY KEY;
 现在 a_info 已经没有索引了：
 mysql> explain select * from a join a_info using(id);
-+----+...+--------+--------+...
-| id |...| table  | type   |...
-|--------------------------|
-|  1 |...| a_info | ALL    |...
-|  1 |...| a      | eq_ref |...
-+----+...+--------+--------+...
+
+| id |...| table  | type   |...|
+|----|---|--------|--------|---|
+|  1 |...| a_info | ALL    |...|
+|  1 |...| a      | eq_ref |...|
+
 这次 MySQL 调整了执行顺序，先全表扫描 a_info 表，再对表 a 进行 eq_ref 查找，因为 a 表 id 还是主键。
 删除 a 的主键：alter table a drop primary key;
 现在 a 也没有索引了：
