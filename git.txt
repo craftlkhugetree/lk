@@ -3,6 +3,7 @@ git rm -- cached proxy.conf.json会在合并后的分支删除该文件，慎用！
 	每次要git status查看add的内容啊~~~！
 【git reset 文件名】即可撤销git的add操作。
  (use "git restore --staged <file>..." to unstage)
+git restore --staged ./java/projects/my-shop/**/target/
 
 撤销操作主要有如下几种
 

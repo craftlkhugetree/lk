@@ -529,3 +529,6 @@ json = JSON.stringify(obj);
 注意：eval() 执行的字符串中若有{}，则会被当成代码块，若不希望若此，则要加上括号
 let obj1 = eval("("+json+")");
 但是 eval()的性能较差，而且有安全隐患。所以兼容IE7最好引入json2.js文件。
+
+curl -X POST -i 'http://192.168.16.103:8088/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss' --data '{"cAccUniqueID":"m8p742eb8cb5d3684004bcdf308890550bd5","cOrgUUID":"hs9rd700a59181e648c4b73a1e1b83c69241","cOrgDepUUID":"eqrr6af78074513b4e1c81bc2eb7137b4a2e","ruleType":6}'
+

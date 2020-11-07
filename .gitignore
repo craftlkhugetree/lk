@@ -8,7 +8,7 @@
 /bazel-out
 
 #Spring
-*/target
+target/
 
 # dependencies
 /node_modules

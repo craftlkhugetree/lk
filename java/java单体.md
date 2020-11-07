@@ -105,7 +105,7 @@ ctrl+d  整行左移
 req.getParameter("loginId").var 回车，自动添加String loginId =
 ctrl+F2 批量修改
 ctrl+alt+F8 打开断点处变量
-alt+shift+F 格式化代码
+alt+shift+F 格式化代码  ctrl+alt+shift+L
 
 16. 重构原则，先写代码，不要过度设计，业务实现之后再重构进行完善。
 17. 接口的幂等性问题，不论调用多少次http get方法，结果都一样。而post不具备幂等性。不能post里调get，或者get里调post。    get效率高，明文传输，参数大小有限；post分为两段，先询问fwq能否提交数据，同意后才提交。
@@ -155,7 +155,7 @@ alt+shift+F 格式化代码
 49. Hibernate提供了全自动ORM，即POJO和表映射，以及sql自动生成和执行。Mybatis不会自动生成或执行sql语句。首先，Hibernate使用HQL方言来转化不同数据库的语言，缺乏灵活性;多表联查不友好left join，inner join，只在单表操作上有优势。  "from User where user.id=1"   SessionFactory factory
 query("from User where user.id=1"); 这句查询有jdbc知识、HQL、SQL等，违反了最少知识原则，要解耦。
 50. iBatis3 = MyBatis,在xml中配置sql语句，实现了sql与代码的分离。
-51.     Druid 是性能最好的数据库连接池，tomcat-jdbc 和 druid 性能接近。
+51. Druid 是性能最好的数据库连接池，tomcat-jdbc 和 druid 性能接近。
     proxool 在激烈并发时会抛异常，完全不靠谱。
     c3p0 和 proxool 都相当慢，慢到影响 sql 执行效率的地步。
     bonecp 性能并不优越，采用 LinkedTransferQueue 并没有能够获得性能提升。
@@ -173,3 +173,70 @@ query("from User where user.id=1"); 这句查询有jdbc知识、HQL、SQL等，�
 53. ISO-8859-1一个字符集只能存1个字节，存中文可能只存了一半，乱码。UTF-8一个字符集能存3个字节。utf8mb4是扩展，一个字符集能存4个字节，表情包 emoji就是4个字节。
 54. service层就不归myBatis关了，它只管dao。所以dao里只写接口，而不用impl实现。而service里还是要自己实现的。
 55. DigestUtils.md5DigestAsHex();加密密码
+56. @RequestMapping(value = "list", method = RequestMethod.GET) // value后是地址/list
+    public String list(Model model){
+        List<TbUser> tbUsers = tbUserService.selectAll();
+        model.addAttribute("tbUsers",tbUsers);  // model给字符串赋值，从控制层直接返回前端所需数据
+        return "user_list"; //jsp文件名
+    }
+57. 前端验证不彻底，因为可以直接在地址栏输入post参数，也可以关闭浏览器js。所以后台验证是最后的防线，必须什么都考虑到，什么都验证。
+. Spring MVC 的form标签主要有两个作用，绑定model，以及提交时除了get、post也支持put、delete
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<form:form cssClass="form-horizontal" action="/user/save" method="post" modelAttribute="tbUser">    同时要在UserController控制跳转到这个页面里增加 Model model.addAttribute("tbUser",tbUser);
+ <form:input cssClass="" path="email">   path项就把原来<input>里的id，name，value都包括了。
+
+59. @ModelAttribute可以表单初始化：绑定请求参数到命令对象；暴露@RequestMapping方法返回值为模型数据,也就是一定会在这个切面前执行；暴露表单引用对象为模型数据，也就是如果有返回值对象，那就自动放到Model里，从而不用model.addAttribute(s:,o:)。
+60. MyBatis的动态sql解决查询条件不确定的情况，mapper的动态sql的大于小于号，由于在xml文件中有特殊用法，所以要变为&gt; &lt;   &apos;  &quot;    &amp;
+61. 为什么xxxController注入的是xxxService，而不是xxxServiceImpl？在controller---->service---->serviceImpl---->dao的模式下，表面注入的是接口，实际注入的是实现类对象（实现类唯一）。这种controller---->serviceImpl---->dao模式也是可以的，可以对实现类增强，如事务、日志等（AOP动态代理实现）。
+
+@Autowired的对象是通过接口的话，Spring默认会使用jdk动态代理，jdk动态代理只能对实现了接口的类生成代理，而不能针对类，而且还可以对实现类对象做增强得到增强类（增强类与实现类是兄弟关系，增强类不能用实现类接收增强类对象，只能用接口接收）。
+
+62. mysql 在语句开头加上EXPLAIN ，可以分析 select 语句的执行，即 MySQL 的“执行计划。MySQL 在表里找到所需行的方式。包括（由左至右，由最差到最好）：
+| All | index | range | ref | eq_ref | const,system | null |
+eq_ref（等值引用）
+使用有唯一性索引查找（主键或唯一性索引）
+create table a(id int primary key);
+create table a_info(id int primary key, title char(1));
+insert into a value(1),(2);
+insert into a_info value(1, 'a'),(2, 'b');
+mysql> explain select * from a join a_info using(id);
+...+--------+--------+...
+...| table  | type   |...
+...+--------+--------+...
+...| a      | index  |...
+...| a_info | eq_ref |...
+...+--------+--------+...
+此时 a_info 每条记录与 a 一一对应，通过主键 id 关联起来，所以 a_info 的 type 为 eq_ref。
+删除 a_info 的主键：ALTER TABLE  `a_info` DROP PRIMARY KEY;
+现在 a_info 已经没有索引了：
+mysql> explain select * from a join a_info using(id);
++----+...+--------+--------+...
+| id |...| table  | type   |...
++----+...+--------+--------+...
+|  1 |...| a_info | ALL    |...
+|  1 |...| a      | eq_ref |...
++----+...+--------+--------+...
+这次 MySQL 调整了执行顺序，先全表扫描 a_info 表，再对表 a 进行 eq_ref 查找，因为 a 表 id 还是主键。
+删除 a 的主键：alter table a drop primary key;
+现在 a 也没有索引了：
+mysql> explain select * from a join a_info using(id);
+...+--------+------+...
+...| table  | type |...
+...+--------+------+...
+...| a      | ALL  |...
+...| a_info | ALL  |...
+...+--------+------+...
+现在两个表都使用全表扫描了。唯一性索引才会出现 eq_ref （非唯一性索引会出现 ref ），因为唯一，所以最多只返回一条记录，找到后无需继续查找，因此比 ref 更快。
+
+63. jquery修改和显示：
+    _checkbox.each(function (){
+                    $(this).prop("checked",true);
+                    console.log($(this).attr("id"),$(this).is(":checked"));
+                })
+
+64. jsp自定义标签<%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ attribute name="title" type="java.lang.String" required="true" description="模态框标题" %>
+${title}
+
+65. get是幂等性请求，来去相同，而delete是单方面的，所以只能用post请求。
+66. @ResponseBody 注解表示该方法的返回的结果直接写入 HTTP 响应正文（ResponseBody）中，一般在异步获取数据时使用，通常是在使用 @RequestMapping 后，返回值通常解析为跳转路径，加上 @ResponseBody 后返回结果不会被解析为跳转路径，而是直接写入HTTP 响应正文中。

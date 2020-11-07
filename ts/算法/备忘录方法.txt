@@ -1,0 +1,56 @@
+动态规划算法的一个变形是备忘录方法。备忘录方法也用一个表格来保存已解决的子问题的答案，在下次需要解决此问题时，只要简单地查看该子问题的解答，而不必重新计算。与动态规划算法不同的是，备忘录方法的递归方式是自顶向下的，而动态规划算法则是自底向上递归的。因此，备忘录方法的控制结构与直接递归方法的控制结构相同，区别在于备忘录方法为每个解过的子问题建立了备忘录以备需要时查看，避免了相同子问题的重复求解。 
+
+直接使用暴力解法。
+
+class Solution {
+    public int climbStairs(int n) {
+        return calcWays(n);
+    }
+    private int calcWays( int n ){
+        if ( n == 1) return 1;
+        if ( n == 2) return 2;
+        return calcWays(n-1) + calcWays(n-2);
+    }
+}
+
+
+
+
+很明显，无脑的递归暴力解法包含了大量的重复计算，提交上去直接标红提示超出时间限制。后来看了网上高票答案的分析，知道了备忘录的概念，于是很容易写出优化后的代码。
+//采用备忘录的方式来存子问题的解以避免大量的重复计算
+
+
+
+class Solution { 
+    int[] memo; 
+?    public int climbStairs(int n) { 
+?        memo = new int[n+1]; 
+?        return calcWays(n); 
+?    } 
+?    private int calcWays( int n ){ 
+?        if ( n == 1) return 1; 
+?        if ( n == 2) return 2; 
+?        if (memo[n] == 0) 
+?           memo[n] =  calcWays(n-1) + calcWays(n-2); 
+?        return memo[n]; 
+?    } 
+
+}
+
+
+
+再后来，发现备忘录是自顶向下的方式，稍许变动，修改为自低向上的递推方式就是动态规划的形式。
+
+class Solution { 
+
+?    public int climbStairs(int n) { 
+?        int[] memo = new int[n+1]; 
+?        memo[0] = 1; 
+?        memo[1] = 1; 
+
+?        for(int i = 2 ; i <= n; i++){ 
+?            memo[i] = memo[i-1] + memo[i-2]; 
+?        } 
+?        return memo[n]; 
+?    } 
+}

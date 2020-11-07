@@ -41,6 +41,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -79,45 +80,34 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/my-shop-commons/src/main/java/com/lk/my/shop/commons/utils" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/my-shop-web-admin/src/main/webapp/WEB-INF/views" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\resources\mapper\user" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\webapp\WEB-INF\views" />
       <recent name="D:\lk\java\projects\my-shop\my-shop-commons\src\main\java\com\lk\my\shop\commons\utils" />
       <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\java\com\lk\my\shop\web\admin\web\interceptor" />
       <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\webapp\static" />
-      <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\webapp\WEB-INF\views" />
       <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\resources" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\lk\java\projects\my-shop\my-shop-web-admin\src\main\resources\mapper\user" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.TbUserServiceTest.testSelectAll">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Tomcat Server.my-shop-web-admin">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TbUserServiceTest.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="my-shop-web-admin" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.lk.my.shop.web.admin.service.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.lk.my.shop.web.admin.service.test" />
-      <option name="MAIN_CLASS_NAME" value="com.lk.my.shop.web.admin.service.test.TbUserServiceTest" />
-      <option name="METHOD_NAME" value="testDelete" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,6 +123,22 @@
       <option name="PACKAGE_NAME" value="com.lk.my.shop.web.admin.service.test" />
       <option name="MAIN_CLASS_NAME" value="com.lk.my.shop.web.admin.service.test.TbUserServiceTest" />
       <option name="METHOD_NAME" value="testGetById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TbUserServiceTest.testInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="my-shop-web-admin" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lk.my.shop.web.admin.service.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lk.my.shop.web.admin.service.test" />
+      <option name="MAIN_CLASS_NAME" value="com.lk.my.shop.web.admin.service.test.TbUserServiceTest" />
+      <option name="METHOD_NAME" value="testInsert" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -187,7 +193,7 @@
       </method>
     </configuration>
     <configuration name="my-shop-web-admin" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.59" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8081/" />
+      <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
@@ -209,6 +215,9 @@
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="54690" />
       </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="60928" />
+      </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
@@ -225,6 +234,36 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
@@ -263,11 +302,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TbUserServiceTest.testInsert" />
         <item itemvalue="JUnit.TbUserServiceTest.testSelectAll" />
         <item itemvalue="JUnit.TbUserServiceTest.testSelectByUsername" />
         <item itemvalue="JUnit.TbUserServiceTest.testUpdate" />
         <item itemvalue="JUnit.TbUserServiceTest.testGetById" />
-        <item itemvalue="JUnit.TbUserServiceTest.testDelete" />
       </list>
     </recent_temporary>
   </component>
@@ -281,7 +320,12 @@
       <updated>1604372554781</updated>
       <workItem from="1604372557500" duration="9448000" />
       <workItem from="1604387271743" duration="3878000" />
-      <workItem from="1604448204108" duration="18909000" />
+      <workItem from="1604448204108" duration="20484000" />
+      <workItem from="1604535366581" duration="22579000" />
+      <workItem from="1604620441862" duration="11444000" />
+      <workItem from="1604640004363" duration="334000" />
+      <workItem from="1604640361657" duration="6634000" />
+      <workItem from="1604706855535" duration="12229000" />
     </task>
     <servers />
   </component>
@@ -313,94 +357,98 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" width="1092" height="730" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604384777892" />
-    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1604476936539">
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1604632595039">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1604476936539" />
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1604632595039" />
     <state x="1058" y="197" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1604372683595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1058" y="197" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604372683595" />
-    <state width="900" height="273" key="GridCell.Tab.0.bottom" timestamp="1604477401536">
+    <state x="723" y="348" key="#com.intellij.tools.ToolEditorDialog" timestamp="1604635014393">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="900" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604477401536" />
-    <state width="900" height="273" key="GridCell.Tab.0.center" timestamp="1604477401536">
+    <state x="723" y="348" key="#com.intellij.tools.ToolEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604635014393" />
+    <state width="1642" height="356" key="GridCell.Tab.0.bottom" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="900" height="273" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604477401536" />
-    <state width="900" height="273" key="GridCell.Tab.0.left" timestamp="1604477401535">
+    <state width="1642" height="356" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.0.center" timestamp="1604717892077">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="900" height="273" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604477401535" />
-    <state width="900" height="273" key="GridCell.Tab.0.right" timestamp="1604477401536">
+    <state width="1642" height="356" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892077" />
+    <state width="1642" height="356" key="GridCell.Tab.0.left" timestamp="1604717892077">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="900" height="273" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604477401536" />
-    <state width="1642" height="346" key="GridCell.Tab.1.bottom" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892077" />
+    <state width="1642" height="356" key="GridCell.Tab.0.right" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.1.center" timestamp="1604473016964">
+    <state width="1642" height="356" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.1.bottom" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016964" />
-    <state width="1642" height="346" key="GridCell.Tab.1.left" timestamp="1604473016964">
+    <state width="1642" height="356" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.1.center" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016964" />
-    <state width="1642" height="346" key="GridCell.Tab.1.right" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.1.left" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.2.bottom" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.1.right" timestamp="1604717892078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.2.center" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604717892078" />
+    <state width="1642" height="356" key="GridCell.Tab.2.bottom" timestamp="1604717891726">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.2.left" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891726" />
+    <state width="1642" height="356" key="GridCell.Tab.2.center" timestamp="1604717891726">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.2.right" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891726" />
+    <state width="1642" height="356" key="GridCell.Tab.2.left" timestamp="1604717891726">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.3.bottom" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891726" />
+    <state width="1642" height="356" key="GridCell.Tab.2.right" timestamp="1604717891726">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.3.center" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891726" />
+    <state width="1642" height="356" key="GridCell.Tab.3.bottom" timestamp="1604717891727">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.3.left" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891727" />
+    <state width="1642" height="356" key="GridCell.Tab.3.center" timestamp="1604717891727">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
-    <state width="1642" height="346" key="GridCell.Tab.3.right" timestamp="1604473016965">
+    <state width="1642" height="356" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891727" />
+    <state width="1642" height="356" key="GridCell.Tab.3.left" timestamp="1604717891727">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1642" height="346" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604473016965" />
+    <state width="1642" height="356" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891727" />
+    <state width="1642" height="356" key="GridCell.Tab.3.right" timestamp="1604717891727">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1642" height="356" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604717891727" />
     <state x="490" y="174" key="Maven.ArtifactSearchDialog" timestamp="1604384106950">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="174" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604384106950" />
-    <state x="461" y="151" key="SettingsEditor" timestamp="1604475479555">
+    <state x="461" y="151" key="SettingsEditor" timestamp="1604640339138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="151" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604475479555" />
+    <state x="461" y="151" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604640339138" />
     <state x="681" y="250" width="540" height="524" key="StructurePopup" timestamp="1604393195252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="681" y="250" width="540" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1604393195252" />
-    <state x="502" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1604472806479">
+    <state x="502" y="248" width="915" height="644" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1604538589913">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="502" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1604472806479" />
+    <state x="502" y="248" width="915" height="644" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1604538589913" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1604385695990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -409,10 +457,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="655" y="275" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604386440955" />
-    <state x="616" y="235" key="run.anything.popup" timestamp="1604386572761">
+    <state x="616" y="235" key="run.anything.popup" timestamp="1604632940865">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="235" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604386572761" />
+    <state x="616" y="235" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604632940865" />
     <state x="623" y="225" key="search.everywhere.popup" timestamp="1604385512384">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -421,7 +469,7 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception" />
+        <breakpoint enabled="true" type="javascript-exception" />
       </default-breakpoints>
     </breakpoint-manager>
   </component>

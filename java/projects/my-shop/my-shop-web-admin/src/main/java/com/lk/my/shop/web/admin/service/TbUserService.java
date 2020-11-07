@@ -1,5 +1,6 @@
 package com.lk.my.shop.web.admin.service;
 
+import com.lk.my.shop.commons.dto.BaseResult;
 import com.lk.my.shop.domain.TbUser;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface TbUserService {
     List<TbUser> selectAll();
 
-    void insert(TbUser tbUser);
+    BaseResult save(TbUser tbUser);
 
     void delete(Long id);
 
@@ -22,4 +23,8 @@ public interface TbUserService {
     void update(TbUser tbUser);
 
     List<TbUser> selectByUsername(String username);
+
+    TbUser login(String email, String password);
+
+    List<TbUser> search(TbUser tbUser);
 }
