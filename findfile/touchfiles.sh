@@ -1,4 +1,5 @@
 #!/bin/bash
+# source/bash/sh/ ./*.sh
 
 
 cd /d/test

@@ -37,6 +37,9 @@
             <a href="/user/form" class="main-header">
                 用户管理
             </a>
+            <a href="/content/category/list" class="main-header">
+                内容分类列表
+            </a>
 
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3">

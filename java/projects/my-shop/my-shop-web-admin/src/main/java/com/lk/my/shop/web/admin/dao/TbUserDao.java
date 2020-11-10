@@ -4,6 +4,7 @@ import com.lk.my.shop.domain.TbUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 定义数据访问接口
@@ -28,4 +29,19 @@ public interface TbUserDao {
     TbUser getByEmail(String email);
 
     List<TbUser> search(TbUser tbUser);
+
+    void deleteMulti(String[] ids);
+
+    /**
+     * 真的分页查询
+     * @param params：start和lengh
+     * @return
+     */
+    List<TbUser> page(Map<String, Object> params);
+
+    /**
+     * 前端需要的total
+     * @return
+     */
+    int count(TbUser tbUser);
 }

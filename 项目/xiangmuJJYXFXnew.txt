@@ -53,3 +53,5 @@ input  onKeyDown="if(this.value.length===10) return false;"达到10后无法操作
 有效：  oninput=" if (this.value.length > 15) {
                 this.value = this.value.slice(0,15); 
             }"
+
+nz-tree 若是异步树，那么就必须展开，否则下面的分支是不会初始化的。

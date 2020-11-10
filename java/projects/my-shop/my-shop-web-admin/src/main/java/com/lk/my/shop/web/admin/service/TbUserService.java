@@ -1,6 +1,7 @@
 package com.lk.my.shop.web.admin.service;
 
 import com.lk.my.shop.commons.dto.BaseResult;
+import com.lk.my.shop.commons.dto.PageInfo;
 import com.lk.my.shop.domain.TbUser;
 
 import java.util.List;
@@ -27,4 +28,10 @@ public interface TbUserService {
     TbUser login(String email, String password);
 
     List<TbUser> search(TbUser tbUser);
+
+    void deleteMulti(String[] ids);
+
+    PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
+
+    int count(TbUser tbUser);
 }

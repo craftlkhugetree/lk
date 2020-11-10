@@ -35,7 +35,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         // 以login结尾的请求
-        if (modelAndView.getViewName().endsWith("login")){
+        if (modelAndView !=null && modelAndView.getViewName().endsWith("login")){
             TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             if (user != null){
                 httpServletResponse.sendRedirect("/main");

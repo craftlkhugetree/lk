@@ -241,7 +241,132 @@ ${title}
 65. get是幂等性请求，来去相同，而delete是单方面的，所以只能用post请求。
 66. @ResponseBody 注解表示该方法的返回的结果直接写入 HTTP 响应正文（ResponseBody）中，一般在异步获取数据时使用，通常是在使用 @RequestMapping 后，返回值通常解析为跳转路径，加上 @ResponseBody 后返回结果不会被解析为跳转路径，而是直接写入HTTP 响应正文中。
 该注解用于将 Controller 的方法返回的对象，通过适当的 HttpMessageConverter 转换为指定格式后，写入到 Response 对象的 body 数据区。
-#
-使用时机
+# 使用时机
+    返回的数据不是 html 标签的页面，而是其他某种格式的数据时（如json、xml等）使用
+返回值为JSON，就不是视图了，那么拦截器那里的modelAndView就有可能为空，所以要先判断它是否为null
 
-返回的数据不是 html 标签的页面，而是其他某种格式的数据时（如json、xml等）使用
+67. a标签导致delete走了两遍，改成button即可。ajax也不需要a标签了，同时也因为 href="#"这个会刷新页面，所以a标签点击按钮时会变成两次ajax。
+68.   $("#modal-secondary").modal("show");
+        $("#modal-message").html(data.message); // html是写入文本内容
+ // 避免绑定del() 变成死循环，所以先解绑，再锁死删除按钮。不解绑，那就回调用多次delete接口
+                            $("#btnModalOk").unbind("click");
+                            $("#btnModalOk").bind("click",function () {
+                                $("#modal-secondary").modal("hide");
+                            })
+69. 伪分页支持50000条以内的数据，mysql数据表最大存储不要超过1000万条。
+70. select * from limit 0,5; 后台分页数据
+71. $(document).ready(function () {
+    App.init();
+})  //  init()是App里 return对象的一个属性。  这里是在页面初始化时执行App.init();  而ajax内部的东西可不是这个时候执行的。所以ajax里的要再激活一次。
+72. 需要被传输的对象，就要实现序列化接口。   
+public class PageInfo<T extends BaseEntity> implements Serializable {
+    private int draw;
+    private int recordsTotal;
+    private int recordsFiltered;
+    private List<T> data;
+    private String error;
+}
+数据库表字段较多，在传输或返回值时不需要全都使用，那么就可以将这部分变为 抽象类BaseEntity，然后数据库表可以继承它，再者上面的类也可以用 <T extends BaseEntity>来约束 List<T> data的类型，必须是数据库表字段的子集。
+    PageInfo<TbUser> pageInfo = new PageInfo<>();   这里PageInfo被约束在<TbUser>，因为TbUser extends BaseEntity
+
+73. <%--    隐藏域，用于编辑按钮--%>
+    <form:hidden path="id" />
+
+74. 隐藏传输的密码： 
+@JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+75.     // 需要jstl来forEach，所以要model参数
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String list(Model model) {
+        List<TbContentCategory> tbContentCategories = tbContentCategoryService.selectAll();
+        model.addAttribute("tbContentCategories",tbContentCategories);
+        return "content_category_list";
+    }
+}
+    
+76.  定义的Entity实体类，有一个布尔型属性 isParent， alt+Ins自动生成方法  getter和setter叫 getParent();setParent();   结果原本的isParent属性，在jsp页面变成了parent，这就是驼峰命名在idea上的问题：javax.el.PropertyNotFoundException: Property ****** not found on type ******
+EL（Expression Language） 是为了使JSP写起来更加简单。
+
+77. RPC，即 Remote Procedure Call（远程过程调用），是一个计算机通信协议。 该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。说得通俗一点就是：A计算机提供一个服务，B计算机可以像调用本地服务那样调用A计算机的服务。RPC并没有规定数据传输格式，这个格式可以任意指定，不同的RPC协议，数据格式不一定相同。
+当我们没有设置对象的字段的值的时候，Boolean类型的变量会设置默认值为null，而boolean类型的变量会设置默认值为false。局部变量使用基本数据类型，而定义POJO类属性和RPC返回值，建议使用包装类型Boolen，否则会有java.lang.NullPointerException
+NPE风险。NPE，指为基本类型的数据返回null值，防止NPE是程序员的基本休养。所有NPE的场景：
+
+    返回类型为基本数据类型，return包装数据类型的对象时，自动拆箱有可能产生NPE。
+
+public int f() {
+      return Integer 对象；
+ } 
+如果为null，自动拆箱抛NPE。 自动拆箱：就是将包装类自动转换成对应的基本数据类型。
+
+    数据库的查询结果可能为null。
+    集合里的元素即使isNotEmpty，取出的数据元素也可能为null。
+    远程调用返回对象时，一律要求进行空指针判断，防止NPE。
+    对于Session中获取的数据，建议NPE检查，避免空指针。
+    级联调用obj.getA().getB().getC();一连串调用，易产生NPE。
+举一个扣费的例子，我们做一个扣费系统，扣费时需要从外部的定价系统中读取一个费率的值，我们预期该接口的返回值中会包含一个浮点型的费率字段。当我们取到这个值得时候就使用公式：金额*费率=费用 进行计算，计算结果进行划扣。
+
+如果由于计费系统异常，他可能会返回个默认值，如果这个字段是Double类型的话，该默认值为null，如果该字段是double类型的话，该默认值为0.0。
+
+如果扣费系统对于该费率返回值没做特殊处理的话，拿到null值进行计算会直接报错，阻断程序。拿到0.0可能就直接进行计算，得出接口为0后进行扣费了。这种异常情况就无法被感知。
+
+这种使用包装类型定义变量的方式，通过异常来阻断程序，进而可以被识别到这种线上问题。如果使用基本数据类型的话，系统可能不会报错，进而认为无异常。
+
+78. int是基本数据类型，integer是引用数据类型，是int的包装类。
+
+**自动装箱**的过程：引用了valueOf()的方法
+     public static Integer valueOf(int i) {
+            assert IntegerCache.high >= 127;
+            if (i >= IntegerCache.low && i <= IntegerCache.high)
+                return IntegerCache.cache[i + (-IntegerCache.low)];
+            return new Integer(i);
+        }
+
+assertion就是在程序中的一条语句，它对一个boolean表达式进行检查，一个正确程序必须保证这个boolean表达式的值为true；如果该值为false，说明程序已经处于不正确的状态下，系统将给出警告并且退出。一般来说，assertion用于保证程序最基本、关键的正确性。
+java内部为了节省内存，IntegerCache类中有一个数组缓存了值从-128到127的Integer对象。当我们调用Integer.valueOf（int i）的时候，如果i的值是-128到127之间的，会直接从这个缓存中返回一个对象，否则就new一个新的Integer对象。
+即：当我们定义两个Integer的范围在【-128—+127】之间，并且值相同的时候，用==比较索引，因为是cache数组的同一个元素，所以地址相同，==返回true；而equals()只比较数值，两个new Integer(128); 地址不同，但值相同，所以equals()返回true。
+       当大于127或者小于-128的时候即使两个数值相同，也会new一个integer,那么比较的是两个对象，用==比较的时候返回false
+-1 = 10000001（原）= 11111110（反）= 11111111（补）
+正数的反码是其本身
+负数的反码是在其原码的基础上, 符号位不变，其余各个位取反.
+正数的补码就是其本身
+负数的补码是在其原码的基础上, 符号位不变, 其余各位取反, 最后+1. (即在反码的基础上+1)
+1 - 1 = 1 +（-1）这样就计算机就只处理加法就可以了
+
+1-1=1 +（-1）= 0000 0001+1000 0001 = 1000 0010 = -2
+
+所以计算机无法用原码表示
+
+所以出现了反码
+
+1-1=1 + (-1) = 0000 0001（原） + 1000 0001（原）= 0000 0001（反）+ 1111 1110（反）= 1111 1111（反） = 1000 0000（原）= -0
+
+这样就对了，但是-0这个问题没法解决
+
+所以又有了补码
+
+1-1 = 1 + (-1) = 0000 0001（原） + 1000 0001（原） = 0000 0001（补） +1111 1111（补）= 0000 0000（补）=0000 0000（原）
+
+这样-0就不存在，还可以用1000 0000表示-128
+
+79. 在VM初始化期间java.lang.Integer.IntegerCache.high属性可以被设置和保存在私有的系统属性sun.misc.VM class中。理论上讲，当系统需要频繁使用Integer时，或者说堆内存中存在大量的Integer对象时，可以考虑提高Integer缓存上限，避免JVM重复创造对象，提高内存的使用率，减少GC的频率，从而提高系统的性能。理论归理论，这个参数能否提高系统系统关键还是要看堆中Integer对象到底有多少、以及Integer的创建的方式。如果堆中的Integer对象很少，重新设置这个参数并不会提高系统的性能。即使堆中存在大量的Integer对象，也要看Integer对象时如何产生的
+
+1.大部分Integer对象通过Integer.valueOf()产生。说明代码里存在大量的拆箱与装箱操作。这时候设置这个参数会系统性能有所提高。
+
+2.大部分Integer对象通过反射，new产生。这时候Integer对象的产生大部分不会走valueOf()方法，所以设置这个参数也是无济于事。
+Integer的缓存上限可以通过Java虚拟机参数修改，Byte、Short、Long、Character(0-127)的缓存则没法修改。
+
+    tip1: 
+        String 的 valueOf方法只有对boolean的处理返回字面量（字符串常量池）， 其他都是new新的！
+
+        public static String valueOf(boolean b) {
+            return b ? "true" : "false";
+        }
+
+    tip2: 对于Byte而言值的范围在[-128，127] 
+
+    byte占一个字节空间，最高位是符号位，剩余7位能表示0-127，加上符号位的正负，就是-127至+127，但负0没必要，为充分利用，就用负零表示-128（即原码1000，0000）。（计算机转补码后存储）
+
+80. 
