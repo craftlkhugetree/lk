@@ -2,6 +2,9 @@ du -ch 	查看目录大小
 df -h	查看系统盘
 dd
 
+find ./ -size +100M
+可以用这个代码找到100m以上的文件
+
  find ./ -type f -name '*xls' -print0 | xargs -0 -I {} rm {} 递归删除目录下xls文件
 
 $ grep test test* #查找前缀有“test”的文件包含“test”字符串的文件  

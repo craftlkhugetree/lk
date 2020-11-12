@@ -14,7 +14,7 @@ yit        　//复制一对html标签中的内容  cit剪切  it 是一种文本对象。
 yft        　//复制当前行上光标到第一个t之间的所有内容
 %可以找到配对的括号，所以在visual模式下，可用%选中整个函数体。
 C-V选择列块后，I每行行首插入！
->所选中的部分都缩进或后退一个tab<  gv反复执行（不如.重复命令）	   J合并
+>所选中的部分都缩进或后退一个tab<  gv反复执行（但不如.重复命令）	   J合并
 
 linux下是~/.ideavimrc，windows下是~/_ideavimrc；插入模式:imap vv <C-v> 普通模式nnoremap rr <c-r>
 v	激活面向字符的可视模式

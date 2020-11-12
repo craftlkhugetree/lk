@@ -39,21 +39,22 @@
     </div>
     <button type="button" onclick="search()" class="btn btn-primary">搜索</button>
 </form:form>
-    用户列表
-    <c:if test="${baseResult != null}">
-        <div class="row">
-            <div class="alert alert-${baseResult.status == 200? "success" : "danger"}">
-                    ${baseResult.message}
-            </div>
+用户列表
+<c:if test="${baseResult != null}">
+    <div class="row">
+        <div class="alert alert-${baseResult.status == 200? "success" : "danger"}">
+                ${baseResult.message}
         </div>
-    </c:if>
+    </div>
+</c:if>
 
-    <a href="/user/form" type="button" class="btn btn-sm  btn-default">新增</a>
-    <button type="button" class="btn btn-sm  btn-default" onclick="App.deleteMulti('/user/delete')">删除</button>
-    <a href="#" type="button" class="btn btn-sm  btn-default">导入</a>
-    <a href="#" type="button" class="btn btn-sm  btn-default">导出</a>
+<a href="/user/form" type="button" class="btn btn-sm  btn-default">新增</a>
+<button type="button" class="btn btn-sm  btn-default" onclick="App.deleteMulti('/user/delete')">删除</button>
+<a href="#" type="button" class="btn btn-sm  btn-default">导入</a>
+<a href="#" type="button" class="btn btn-sm  btn-default">导出</a>
 
-    <table id="dataTable">
+<div class="box-body table-responsive">
+    <table id="dataTable" class="table table-hover">
         <thead>
         <tr>
             <th><input type="checkbox" class="minimal icheck_master" /></th>
@@ -66,28 +67,29 @@
         </tr>
         </thead>
         <tbody>
-<%--        <c:forEach items="${tbUsers}" var="tbUser">--%>
-<%--            <tr>--%>
-<%--                <td><input id="${tbUser.id}" type="checkbox" class="minimal" /> </td>--%>
-<%--                <td>${tbUser.id}</td>--%>
-<%--                <td>${tbUser.username}</td>--%>
-<%--                <td>${tbUser.phone}</td>--%>
-<%--                <td>${tbUser.email}</td>--%>
-<%--                <td><fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>--%>
-<%--                <td>--%>
-<%--                    <a href="#" type="button" class="btn btn-sm  btn-default">查看</a>--%>
-<%--                    <a href="#" type="button" class="btn btn-sm  btn-primary">编辑</a>--%>
-<%--                    <a href="#"  type="button" class="btn btn-sm  btn-danger">删除</a>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
+        <%--        <c:forEach items="${tbUsers}" var="tbUser">--%>
+        <%--            <tr>--%>
+        <%--                <td><input id="${tbUser.id}" type="checkbox" class="minimal" /> </td>--%>
+        <%--                <td>${tbUser.id}</td>--%>
+        <%--                <td>${tbUser.username}</td>--%>
+        <%--                <td>${tbUser.phone}</td>--%>
+        <%--                <td>${tbUser.email}</td>--%>
+        <%--                <td><fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>--%>
+        <%--                <td>--%>
+        <%--                    <a href="#" type="button" class="btn btn-sm  btn-default">查看</a>--%>
+        <%--                    <a href="#" type="button" class="btn btn-sm  btn-primary">编辑</a>--%>
+        <%--                    <a href="#"  type="button" class="btn btn-sm  btn-danger">删除</a>--%>
+        <%--                </td>--%>
+        <%--            </tr>--%>
+        <%--        </c:forEach>--%>
         </tbody>
     </table>
+</div>
 
 
 
-    <jsp:include page="../includes/footer.jsp"></jsp:include>
-    <modal.tag:modal />
+<jsp:include page="../includes/footer.jsp"></jsp:include>
+<modal.tag:modal />
 <%--    <modal.tag:modal message="泥猴啊" opts="confirm" url="/user/delete"></modal.tag:modal>--%>
 
 <script>
@@ -112,7 +114,7 @@
                 }
             }
         ];
-         _dataTable = App.initDataTables("/user/page", _columns);
+        _dataTable = App.initDataTables("/user/page", _columns);
     });
 
     function search() {

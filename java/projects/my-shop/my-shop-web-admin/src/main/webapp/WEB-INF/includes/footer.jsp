@@ -50,6 +50,7 @@
 <%--App--%>
 <script src="../../static/assets/app/validate.js"></script>
 <script src="../../static/assets/app/app.js"></script>
+<script src="../../static/assets/app/datetime.js"></script>
 <%--datatables--%>
 <script src="../../static/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../static/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

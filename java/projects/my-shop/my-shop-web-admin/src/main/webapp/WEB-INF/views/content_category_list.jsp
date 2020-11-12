@@ -9,11 +9,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="modal.tag" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
     <title>内容分类列表</title>
     <jsp:include page="../includes/header.jsp"></jsp:include>
+    <link rel="stylesheet" href="../../static/assets/plugins/treeTable/themes/vsStyle/treeTable.min.css" />
 </head>
 <body>
 分类列表
@@ -25,97 +25,56 @@
     </div>
 </c:if>
 
+<%--涉及到事务，不允许批量删除--%>
 <a href="/user/form" type="button" class="btn btn-sm  btn-default">新增</a>
-<button type="button" class="btn btn-sm  btn-default" onclick="App.deleteMulti('/user/delete')">删除</button>
 <a href="#" type="button" class="btn btn-sm  btn-default">导入</a>
 <a href="#" type="button" class="btn btn-sm  btn-default">导出</a>
 
-<table >
-    <thead>
-    <tr>
-        <th><input type="checkbox" class="minimal icheck_master" /></th>
-        <th>ID</th>
-        <th>父ID</th>
-        <th>名字</th>
-        <th>排序</th>
-        <th>是否父级</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-            <c:forEach items="${tbContentCategories}" var="tbContentCategory">
-                <tr>
-                    <td><input id="${tbContentCategory.id}" type="checkbox" class="minimal" /> </td>
-                    <td>${tbContentCategory.id}</td>
-                    <td>${tbContentCategory.parentId}</td>
-                    <td>${tbContentCategory.name}</td>
-                    <td>${tbContentCategory.sortOrder}</td>
-                    <td>${tbContentCategory.isParent}</td>
-                    <td>
-                        <a href="#" type="button" class="btn btn-sm  btn-default">查看</a>
-                        <a href="#" type="button" class="btn btn-sm  btn-primary">编辑</a>
-                        <a href="#"  type="button" class="btn btn-sm  btn-danger">删除</a>
-                    </td>
-                </tr>
-            </c:forEach>
-    </tbody>
-</table>
+<div class="box-body table-responsive">
 
+    <table id="treeTable" class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>父ID</th>
+            <th>名字</th>
+            <th>排序</th>
+            <th>是否父级</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${tbContentCategories}" var="tbContentCategory">
+            <tr id="${tbContentCategory.id}" pId="${tbContentCategory.parentId}">
+                <td>${tbContentCategory.id}</td>
+                <td>${tbContentCategory.parentId}</td>
+                <td>${tbContentCategory.name}</td>
+                <td>${tbContentCategory.sortOrder}</td>
+                <td>${tbContentCategory.isParent}</td>
+                <td>
+                    <a href="#" type="button" class="btn btn-sm  btn-default">编辑</a>
+                    <a href="#" type="button" class="btn btn-sm  btn-primary">新增下级</a>
+                    <a href="#"  type="button" class="btn btn-sm  btn-danger">删除</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 
 <jsp:include page="../includes/footer.jsp"></jsp:include>
-<%--<modal.tag:modal />--%>
-<%--    <modal.tag:modal message="泥猴啊" opts="confirm" url="/user/delete"></modal.tag:modal>--%>
 
-<%--<script>--%>
-<%--    let _dataTable;--%>
-<%--    $(function () {--%>
-<%--        let _columns = [--%>
-<%--            {--%>
-<%--                "data": function (row, type, val, meta) {--%>
-<%--                    return '<input id="' + row.id + '" type="checkbox" class="minimal" />'--%>
-<%--                }--%>
-<%--            },--%>
-<%--            {"data": "id"},--%>
-<%--            {"data": "username"},--%>
-<%--            {"data": "phone"},--%>
-<%--            {"data": "email"},--%>
-<%--            {"data": "updated"},--%>
-<%--            {--%>
-<%--                "data": function (row, type, val, meta) {--%>
-<%--                    return '<button onclick="showDetail()" type="button" class="btn btn-sm  btn-default">查看</button>' +--%>
-<%--                        '<a href="/user/form?id=' + row.id + '" type="button" class="btn btn-sm  btn-primary">编辑</a>' +--%>
-<%--                        '<a href="#"  type="button" class="btn btn-sm  btn-danger">删除</a>';--%>
-<%--                }--%>
-<%--            }--%>
-<%--        ];--%>
-<%--        _dataTable = App.initDataTables("/user/page", _columns);--%>
-<%--    });--%>
+<%--jquery-treeTable--%>
+<script src="../../static/assets/plugins/treeTable/jquery.treeTable.min.js"></script>
 
-<%--    function search() {--%>
-<%--        let username = $("#username").val();--%>
-<%--        let phone = $("#phone").val();--%>
-<%--        let email = $("#email").val();--%>
-<%--        let param = {--%>
-<%--            "username":username,--%>
-<%--            "phone":phone,--%>
-<%--            "email":email--%>
-<%--        };--%>
-<%--        console.log(param);--%>
-<%--        _dataTable.settings()[0].ajax.data = param;--%>
-<%--        _dataTable.ajax.reload();--%>
-<%--    };--%>
-
-<%--    function showDetail() {--%>
-<%--        $.ajax({--%>
-<%--            url: "/user/detail",--%>
-<%--            type: "get",--%>
-<%--            dataType: "html",--%>
-<%--            success: function (data) {--%>
-<%--                console.log(data);--%>
-<%--            }--%>
-<%--        });--%>
-<%--    };--%>
-<%--</script>--%>
+<script>
+    $(function (){
+        $('#treeTable').treeTable({
+            column: 2,
+            expandLevel:2
+        });
+    });
+</script>
 </body>
 </html>

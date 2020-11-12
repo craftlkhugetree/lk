@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,47 @@ public class ContentCategoryController {
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
+
+        List<TbContentCategory> targetList = new ArrayList<>();
+        List<TbContentCategory> sourceList = tbContentCategoryService.selectAll();
+
+        sortList(sourceList,targetList,0L);
+        // 需要jstl来forEach，所以要model
+        model.addAttribute("tbContentCategories", targetList);
+        return "content_category_list";
+    }
+
+    /**
+     * 分类排序，有一个父节点，就要递归地找出其所有子节点，并按顺序放在展示数组内
+     * @param sourceList    数据源合集
+     * @param targetList    排序后的集合
+     * @param parentId
+     */
+    private void sortList(List<TbContentCategory> sourceList, List<TbContentCategory> targetList, Long parentId){
+        for (TbContentCategory tbContentCategory: sourceList){
+            // 包装类必须用 equals();比较，不能用==
+            if (tbContentCategory.getParentId().equals(parentId)) {
+                targetList.add(tbContentCategory);
+                // 如果有子节点，继续全局追加
+                if (tbContentCategory.getIsParent()) {
+                    for (TbContentCategory contentCategory: sourceList) {
+                        if (contentCategory.getParentId().equals(tbContentCategory.getId())) {
+                            sortList(sourceList, targetList, tbContentCategory.getId());
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    /**
+     * 测试包装类和基本数据类型
+     * @param args
+     */
+    public static void main(String[] args) {
         int i = 128;
         Integer i2 = 128;
         Integer i3 = new Integer(128);
@@ -41,10 +83,5 @@ public class ContentCategoryController {
         Integer i7 = new Integer(123);
         Integer i8 = new Integer(123);
         System.out.println(i7 == i8);  //false
-
-        List<TbContentCategory> tbContentCategories = tbContentCategoryService.selectAll();
-        // 需要jstl来forEach，所以要model
-        model.addAttribute("tbContentCategories",tbContentCategories);
-        return "content_category_list";
     }
 }

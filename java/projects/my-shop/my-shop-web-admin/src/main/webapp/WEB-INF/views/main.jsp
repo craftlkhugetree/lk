@@ -40,6 +40,9 @@
             <a href="/content/category/list" class="main-header">
                 内容分类列表
             </a>
+            <a href="/content/list" class="main-header">
+                内容列表
+            </a>
 
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3">

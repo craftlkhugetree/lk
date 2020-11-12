@@ -369,4 +369,17 @@ Integer的缓存上限可以通过Java虚拟机参数修改，Byte、Short、Lon
 
     byte占一个字节空间，最高位是符号位，剩余7位能表示0-127，加上符号位的正负，就是-127至+127，但负0没必要，为充分利用，就用负零表示-128（即原码1000，0000）。（计算机转补码后存储）
 
-80. 
+80. let _dataTable = $("#dataTable").DataTable({});     $("#treeTable").treeTable({});
+     treeTable要分类排序，有一个父节点，就要递归地找出其所有子节点，并按顺序放在展示数组内。
+81. input的下拉框或模态框是不能输入的，所以要readonly="true"
+82. 之前的JSON插件有个排除密码的@，现在由于el问题，isParent变成getParent()里返回的parent。所以可以用 @JsonProperty(value = "isParent")新增一个返回值
+83. 选中树节点，得到是节点id，但是要显示的是节点名字，所以用隐藏域  <form:hidden path="categoryId" />       <input id="categoryName" class="" readonly="true" />帮助表单收集和发送信息，便于后端处理数据。用户点击提交的时候，隐藏域的内容也一并提交给后台，但对用户是不可见的。
+84. 回调函数 callback为何作为参数？因为在封装的时候，callback的内部都是个性化的内容，无法统一，所以作为一个参数传入,调用如下
+$(function () {
+    App.initZTree("/content/category/tree/data", ["id"], function(nodes) {
+        ...;
+    });
+});
+
+
+85. POJO（Plain Ordinary Java Object）简单的Java对象，包括private属性和对应的 getter、setter方法，而bean还要包含toString、不含参的构造方法等，这些都很臃肿，所以用Lombok插件来简化臃肿代码。编写的都是.java文件，而Lombok能在编译为.class文件时自动增加getter、setter方法，hook钩子。插件都是启动时加载的，所以要重启。
