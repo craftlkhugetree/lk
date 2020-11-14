@@ -57,9 +57,21 @@
 
     <select id="getById" resultType="TbContent">
         SELECT
-        <include refid="tbContentColumns"/>
+        a.id,
+        a.category_id aS categoryId,
+        a.title,
+        a.sub_title as subTitle,
+        a.title_desc as titleDesc,
+        a.url,
+        a.pic,
+        a.pic2,
+        a.content,
+        a.created,
+        a.updated,
+        b.name AS "tbContentCategory.name"
         FROM
         tb_content AS a
+        LEFT JOIN tb_content_category AS b ON a.category_id = b.id
         WHERE
         a.id = #{id}
     </select>

@@ -11,8 +11,16 @@
 
 <!--        <bean id="springContext" class="com.lk.shop.commons.context.SpringContext" />-->
     <context:annotation-config />
+<!--    自动扫描-->
     <context:component-scan base-package="com.lk.my.shop.web.admin">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+<!--    手动配置-->
+    <!-- 配置 Bean Validator 定义 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <bean id="beanValidator" class="com.lk.my.shop.commons.validator.BeanValidator">
+        <property name="validator" ref="validator" />
+    </bean>
     
 </beans>

@@ -29,3 +29,17 @@ const arrNew:any = arr.filter(item => {
         return item;
       }
     });
+
+Ê÷½ÚµãµÝ¹é
+  getCheckedRecursive(tree: NzTreeNode[],origin:any[],change:any[]){
+    tree.forEach(item => {
+      origin.forEach(element => {
+        if (element.cTreeCode === item.key) {
+          change.push({ iMenuID: element.iTreeID, cFBIDs: '' });
+        }
+      });
+      if (item.children && item.children.length>0){
+          this.getCheckedRecursive(item.children,origin,change);
+      };
+    });
+  }

@@ -1,5 +1,6 @@
 https://www.bilibili.com/video/av29299488
 千锋教育  李卫民
+https://www.funtl.com/zh/supplement1/#jsr-303-%E7%AE%80%E4%BB%8B
 
 1. 有道无术，术尚可求。有术无道，止于术。
 批判性思维：对思考的思考。
@@ -161,7 +162,7 @@ query("from User where user.id=1"); 这句查询有jdbc知识、HQL、SQL等，�
     bonecp 性能并不优越，采用 LinkedTransferQueue 并没有能够获得性能提升。
     除了 bonecp，其他的在 JDK 7 上跑得比 JDK 6 上快
     jboss-datasource 虽然稳定，但是性能很糟糕
-52. 专门配置的servlet来提供数据库可视化：
+52. 专门配置的servlet来提供数据库可视化：http://localhost:8081/druid/index.html
     <servlet>
         <servlet-name>DruidStatView</servlet-name>
         <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -382,4 +383,42 @@ $(function () {
 });
 
 
-85. POJO（Plain Ordinary Java Object）简单的Java对象，包括private属性和对应的 getter、setter方法，而bean还要包含toString、不含参的构造方法等，这些都很臃肿，所以用Lombok插件来简化臃肿代码。编写的都是.java文件，而Lombok能在编译为.class文件时自动增加getter、setter方法，hook钩子。插件都是启动时加载的，所以要重启。
+85. POJO（Plain Ordinary Java Object）简单的Java对象，包括private属性和对应的 getter、setter方法，而bean还要包含toString、不含参的构造方法等，这些都很臃肿，所以用Lombok插件来简化臃肿代码。编写的都是.java文件，而Lombok能在编译为.class文件时自动增加getter、setter方法，只要能hook在编译时即可。插件都是启动时加载的，所以要重启。 @Data注解  本来在getPassword()上@JsonIgnore，现在在属性password上注解。
+86. JSR-303提供了Bean验证的规范/标准，具体由自己实现，官方参考实现是Hibernate Validator。通过该类的方法来捕获异常，可以自己写一个public方法来输出异常。对于用户名，可以注解为
+@Length(min=6, max=20, message= "username must between 6~20 chars")
+@Pattern(regexp = RegexpUtils.PHONE, message="")
+@Pattern(regexp = RegexpUtils.EMAIL, message="")
+
+87. spring只能@Autowired注入对象，不能注入属性，一旦加上static就是属性了。
+88. dropzone支持文件上传。// jQuery的继承,不要继承反了
+        $.extend(defaultDropzoneOpts,opts);
+let foo = {
+    a: 5,
+    b: 6,
+    c: this.a + this.b  // Doesn't work c:NaN
+}
+定义对象，且内部属性的值依赖自身属性的值，但是无效，必须用闭包
+let o = (function () {
+    let obj = {
+        a: 5,
+        b: 6,
+        init: function() {
+            this.c = this.a + this.b;
+            return this;
+        }
+    }.init()
+    delete obj.init//删除初始化属性
+    return obj
+})()
+
+89. 富文本编辑器，Rich Text Editor, 简称 RTE, 它提供类似于 Microsoft Word 的编辑功能，容易被不会编写 HTML 的用户并需要设置各种文本格式的用户所喜爱。它的应用也越来越广泛。最先只有 IE 浏览器支持，其它浏览器相继跟进，在功能的丰富性来说，还是 IE 强些。
+90. 富文本编辑器只是个div，没有input，所以要在前面设置一个input隐藏域，测试用input，正式用hidden。
+91.             String serverPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
+
+92. dao和service各有很多相同的方法，所以可以封装在persistence持久层里的一个接口 BaseDao<T extends BaseEntit> 然后接口继承接口:
+public interface TbUserDao extends BaseDao<TbUser>{}
+同理有 BaseService<T extends BaseEntity>
+
+93. 自关联，在自己的对象内引用自己，又当子节点又当父节点。
+
+94. BaseTreeDao,BaseTreeService抽象到commons。在admin下新建包abstracts，再新建类AbstractBaseTreeServiceImpl,因为它不是通用的，可能只给admin使用，所以不是放在commons下。深度抽象！只关注业务本身！

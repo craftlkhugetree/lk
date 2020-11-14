@@ -6,6 +6,27 @@ let App = function () {
     // delete idArray
     let _idArray;
 
+    // default dropzone upload config
+    let defaultDropzoneOpts = {
+        url: "", // 文件提交地址
+        method: "post",  // 也可用put
+        paramName: "file", // 默认为file,可传入controller中自定义的变量名            // 传到后台的参数名称// 传到后台的参数名称
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 2, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        //previewsContainer:"#preview", // 上传图片的预览窗口
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传"+this.maxFiles+"个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持"+this.maxFilesize+"MB",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+    }
+
     /**
      * 私有方法,初始化
      */
@@ -124,6 +145,28 @@ let App = function () {
             }
         });
         return _dataTable;
+    };
+
+    /**
+     * 初始化dropzone
+     * @param opts
+     */
+    let handlerInitDropzone = function (opts) {
+        // jQuery的继承,不要继承反了
+        $.extend(defaultDropzoneOpts,opts);
+
+        // 官网共三种初始化方式，但这两种要关闭自动发现，否则console那里报错Uncaught Error: Dropzone already attached.
+        Dropzone.autoDiscover = false;
+
+        // $("#dropz").dropzone({
+        let myDropzone = new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
+        // {
+        //     init: function () {
+        //         this.on("success",function (file, data){
+        //             defaultDropzoneOpts.success(file,data);
+        //         })
+        //     }
+        // });
     }
 
     return {
@@ -140,6 +183,9 @@ let App = function () {
         },
         initDataTables: function (url,columns) {
             return handlerInitDataTables(url,columns);
+        },
+        initDropzone: function (opts) {
+            return handlerInitDropzone(opts);
         }
     }
 

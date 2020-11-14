@@ -179,7 +179,7 @@ db	往前删
 
 vim 之所以高效一个原因是对文本进行了抽象，如一个单词 一个句子 一个段落，就是文本对象（text-objects ）。配合 d（delete） c(change) 可以一次性操作不同大小的文本对象，如 ‘dap’ 可以删除一个函数所有内容, daw 删除光标所在的单词及周围的空格。
 
-console.log(Function instanceof Object ) 参数对调
+console.log(Function instanceof Object ) 参数对调替换
  daw w viwp F( p
 
 

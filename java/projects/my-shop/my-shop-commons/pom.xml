@@ -17,6 +17,12 @@
     <description></description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
         <dependency>
 <!--            父项目已经管理了版本号-->
             <groupId>org.apache.commons</groupId>
@@ -73,6 +79,20 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <!-- Json End -->
+
+        <!-- Lombok Begin -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- Lombok End -->
+
+        <!-- JSR-303 Begin -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- JSR-303 End -->
 
     </dependencies>
 

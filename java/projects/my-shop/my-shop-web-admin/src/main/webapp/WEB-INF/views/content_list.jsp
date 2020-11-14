@@ -106,7 +106,7 @@
             {"data": "categoryId"},
             {"data": "titleDesc"},
             {"data": function (row, type, val, meta){
-                return DateTime.format(row.updated, "yyyy-MM-dd HH:mm:ss");
+                    return DateTime.format(row.updated, "yyyy-MM-dd HH:mm:ss");
                 }},
             {
                 "data": function (row, type, val, meta) {
