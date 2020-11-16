@@ -1,0 +1,1954 @@
+数据库笔记:
+开启事务:
+1.自动transaction
+每句statement都是一个transaction.例一个update指令更新多笔纪录, 要就全部成功, 只要失败,全部会回复原值.
+
+2.ExplicitTransaction
+以Begin Transaction开始（开启）
+
+3.ImplicitTransaction (建议不要用)
+以Set Implicit_Transaction ON
+
+如何结束Transaction; 共有三种方式
+1. COMMIT Transaction(提交)
+Transaction期间的任何修改,都会保证到数据库中
+
+2. ROLLBACK Transaction（回滚）
+数据会回复Transaction前状态
+
+3. KILL <SPID> 强迫停止, 会rollback
+
+如果除数为0,则结果为空,否则计算
+	CASE 
+	WHEN SUM ( CAST ( [污染排放] AS NUMERIC ( 18, 3 )))=0 then null
+	else SUM ( CAST ( [销售收入] AS NUMERIC ( 18, 3 )) ) / SUM ( CAST ( [污染排放] AS NUMERIC ( 18, 3 )) )
+	END  [单位污染排放销售收入(万元)],
+
+--查询所有的触发器
+SELECT name from sysobjects WHERE type = 'TR'
+--查询所有的表
+SELECT name from sysobjects WHERE type = 'U'
+--查询所有的存储过程
+SELECT name from sysobjects WHERE type = 'P'
+--查询所有的视图
+SELECT name from sysobjects WHERE type = 'V'
+--查看触发器内容
+sp_helptext get_model
+
+//一个月之内及上个月之内,
+SELECT (sum(sl) * 0.3) AS 数量 ,hh as 货品,subbh as 店家 FROM px_mdxs WHERE subbh = '20013' AND kdrq BETWEEN DATEADD(MM,-2,GETDATE()) AND DATEADD(MM,-1,GETDATE())  GROUP BY subbh,hh
+
+查询计算机内存:
+SELECT c.value,c.value_in_use FROM sys.configurations c WHERE c.[name]='max server memory (MB)'
+
+设置计算机内存:
+sp_configure 'max server memory', 9216;
+GO
+RECONFIGURE;
+
+//查询列判断
+(CASE WHEN () THEN '0' ELSE '1' END) 是否预警
+
+
+将(cLatitudeLongitude,charindex字段按照,号隔开,
+
+SELECT left(cLatitudeLongitude,charindex(',',cLatitudeLongitude)-1) as 经度,reverse(left(reverse(cLatitudeLongitude),charindex(',',reverse(cLatitudeLongitude))-1)) as 纬度 FROM ls_temp_copy1_Test
+
+1、left()
+LEFT (<character_expression>， <integer_expression>)
+  返回character_expression 左起 integer_expression 个字符。
+
+2.charindex()
+   CHARINDEX (<’substring_expression’>， <expression>)
+   其中substring _expression 是所要查找的字符表达式，expression 可为字符串也可为列名表达式。如果没有发现子串，则返回0 值。
+此函数不能用于TEXT 和IMAGE 数据类型。
+
+3.stuff()
+--通过在第一个字符串 (abcde) 中删除从第二个位置（字符 b）开始的三个字符，
+--然后在删除的起始位置插入第二个字符串，创建并返回一个字符串。
+
+
+
+查询增加无锁查询:
+with(nolock)
+
+//如果是0则为空
+NULLIF(  a.nThisMonthPeriod, 0)
+
+sqlserver2019:
+安装包：链接： https://pan.baidu.com/s/1eU-QFDnfONYOsQcVQLjsDw 提取码：52jm
+
+直接离线安装包，可以直接安装。
+
+附赠密钥：
+
+SQL Server 2019
+Enterprise：HMWJ3-KY3J2-NMVD7-KG4JR-X2G8G
+Enterprise Core：2C9JR-K3RNG-QD4M4-JQ2HR-8468J
+Strandard：PMBDC-FXVM3-T777P-N4FY8-PKFF4
+Web：33QQK-WWQNB-G6T46-C86YB-TX2PH
+
+存储过程表值参数:@tp1 XTableType readonly
+声明表值参数变量:declare @tp2 as XTableType;
+
+sqlserver返回表数据:
+	RETURNS @temp TABLE(result NVARCHAR(100))
+
+//插入语句执行后返回插入的ID
+select SCOPE_IDENTITY()
+
+
+阻止在结果集中返回显示受T-SQL语句或则usp影响的行计数信息。
+当SET ONCOUNT ON时候，不返回计数，当SET NOCOUNT OFF时候，返回计数；
+
+增加排序字段:
+row_number() over(order by 排序字段) id
+select * from 
+-- 将带有排序的结果当成一个表
+(select row_number() over(order by operatorGuid) id, * from ApproveFlowDetail) a
+
+where a.approveFlowGuid = (select top 1 guid from ApproveFlow  
+				where ApproveDefineGuid = '1' ORDER BY approveID) and a.id = 1
+
+字符串如果有数:
+IF datalength(@niubi) > 0 
+
+int 转 varchar
+declare @i int
+set @i=1
+convert(varchar,@i)
+
+varchar 转 int
+declare @str varchar
+set @str='1'
+convert(int,@str)
+数据库循环
+
+declare @i int
+set @i = 1
+while @i < 101
+begin
+print @i
+set @i = @i + 1
+end
+
+--将年-季两个字段合并成一个字段,中间用-隔开,
+	select (CAST(iyear as varchar(20))+'-'+CAST(iQuarter as varchar(20))) shaiXuan,* from #ls
+
+1增
+
+1.1【插入单行】
+insert [into] <表名> (列名) values (列值)
+例：insert into Strdents (姓名,性别,出生日期) values ('开心朋朋','男','1980/6/15')
+
+1.2【将现有表数据添加到一个已有表】
+insert into <已有的新表> (列名) select <原表列名> from <原表名>
+例：insert into tongxunlu ('姓名','地址','电子邮件')
+select name,address,email
+from Strdents
+
+1.3【直接拿现有表数据创建一个新表并填充】
+select <新建表列名> into <新建表名> from <源表名>
+例：select name,address,email into tongxunlu from strdents
+
+1.4【使用union关键字合并数据进行插入多行】
+insert <表名> <列名> select <列值> tnion select <列值>
+例：insert Students (姓名,性别,出生日期)
+select '开心朋朋','男','1980/6/15' union（union表示下一行）
+select '蓝色小明','男','19**/**/**'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2删
+
+2.1【删除<满足条件的>行】
+delete from <表名> [where <删除条件>]
+例：delete from a where name='开心朋朋'（删除表a中列值为开心朋朋的行）
+
+2.2【删除整个表】
+truncate table <表名>
+truncate table tongxunlu
+注意：删除表的所有行，但表的结构、列、约束、索引等不会被删除；不能用语有外建约束引用的表
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3改
+
+update <表名> set <列名=更新值> [where <更新条件>]
+例：update tongxunlu set 年龄=18 where 姓名='蓝色小名'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+4查
+
+4.1``精确（条件）查询
+select <列名> from <表名> [where <查询条件表达试>] [order by <排序的列名>[asc或desc]]
+
+4.1.1【查询所有数据行和列】
+例：select * from a
+说明：查询a表中所有行和列
+
+4.1.2【查询部分行列--条件查询】
+例：select i,j,k from a where f=5
+说明：查询表a中f=5的所有行，并显示i,j,k３列
+
+4.1.3【在查询中使用ＡＳ更改列名】
+例：select name as 姓名 from a where xingbie='男'
+说明：查询a表中性别为男的所有行，显示name列，并将name列改名为（姓名）显示
+
+4.1.4【查询空行】
+例：select name from a where email is null
+说明：查询表a中email为空的所有行，并显示name列；SQL语句中用is null或者is not null来判断是否为空行
+
+4.1.5【在查询中使用常量】
+例：select name, '唐山' as 地址 from Student
+说明：查询表a，显示name列，并添加地址列，其列值都为'唐山'
+
+4.1.6【查询返回限制行数(关键字：top percent)】
+例１：select top 6 name from a
+说明：查询表a，显示列name的前６行，top为关键字
+例２：select top 60 percent name from a
+说明：查询表a，显示列name的60%，percent为关键字
+
+4.1.7【查询排序（关键字：order by , asc , desc）】
+例：select name
+from a
+where chengji>=60
+order by desc
+说明：查询a表中chengji大于等于60的所有行，并按降序显示name列；默认为ＡＳＣ升序
+
+4.2``模糊查询
+4.2.1【使用like进行模糊查询】
+注意：like运算副只用于字符串，所以仅与char和varchar数据类型联合使用
+例：select * from a where name like '赵%'
+说明：查询显示表a中，name字段第一个字为赵的记录
+
+4.2.2【使用between在某个范围内进行查询】
+例：select * from a where nianling between 18 and 20
+说明：查询显示表a中nianling在18到20之间的记录
+
+4.2.3【使用in在列举值内进行查询】
+例：select name from a where address in ('北京','上海','唐山')
+说明：查询表a中address值为北京或者上海或者唐山的记录，显示name字段
+
+
+4.3``.分组查询
+4.3.1【使用group by进行分组查询】
+例：select studentID as 学员编号,AVG(score) as 平均成绩 (注释:这里的score是列名)
+from score (注释:这里的score是表名)
+group by studentID
+说明：在表score中查询，按strdentID字段分组，显示strdentID字段和score字段的平均值；select语句中只允许被分组的列和为每个分组返回的一个值的表达式，例如用一个列名作为参数的聚合函数
+
+4.3.2【使用having子句进行分组筛选】
+例：select studentID as 学员编号,AVG(score) as 平均成绩 (注释:这里的score是列名)
+from score (注释:这里的score是表名)
+group by studentID
+having count(score)>1
+说明：接上面例子，显示分组后count(score)>1的行，由于where只能在没有分组时使用，分组后只能使用having来限制条件。
+
+4.4``.多表联接查询
+
+4.4.1内联接
+
+4.4.1.1【在where子句中指定联接条件】
+例：select a.name,b.chengji
+from a,b
+where a.name=b.name
+说明：查询表a和表b中name字段相等的记录，并显示表a中的name字段和表b中的chengji字段
+
+4.4.1.2【在from子句中使用join…on】
+例：select a.name,b.chengji
+from a inner join b
+on (a.name=b.name)
+说明：同上
+
+4.4.2外联接
+
+4.4.2.1【左外联接查询】
+例：select s.name,c.courseID,c.score
+from strdents as s
+left outer join score as c
+on s.scode=c.strdentID
+说明：在strdents表和score表中查询满足on条件的行，条件为score表的strdentID与strdents表中的sconde相同
+
+4.4.2.2【右外联接查询】
+例：select s.name,c.courseID,c.score
+from strdents as s
+right outer join score as c
+on s.scode=c.strdentID
+说明：在strdents表和score表中查询满足on条件的行，条件为strdents表中的sconde与score表的strdentID相同
+
+查询距离当时5小时之内数据:
+select * from rainGaugeHistoricalRecord where deviceID = 1 and acquisitionTime > DATEADD(HOUR,-5,GETDATE())
+
+数据库的表复制及表结构复制:
+
+select * into test from Msg_MessageCenter
+
+insert into  test select * from Msg_MessageCenter 
+
+select cmessigid,csenduser into test  from Msg_MessageCenter
+
+insert test select  cmessigid,csenduser    from Msg_MessageCenter
+
+insert test(csenduser) select   csenduser    from Msg_MessageCenter
+
+select cmessigid,csenduser into test2  from Msg_MessageCenter where 1=2	//只有结构无数据
+
+按时间筛选大于当前时间的，然后按时间排序，从小到大排序，所以排前面的是离现在比较近的时间
+select top n * from table where create_date>getdate() order by create_date ASC
+
+mysql常用语句:
+				show databases；//查看系统内所有数据库
+				show tables; //查询数据库内所有表
+				desc 表名;//显示表结构
+				select * from student limit 10;//查询前10条记录：
+				now()//获取当前时间
+				select password from Info.users where userName='boss'//从数据库定位到某张表
+				select SQL_NO_CACHE * from temp//制不使用缓存查询
+				
+sql server语句:
+				SELECT name, database_id, create_date  FROM sys.databases  ;//查看系统内所有数据库
+				select * from sysobjects where xtype= 'U'  ;//查询数据库内所有表
+				sp_help/sp_columns 表名;//显示表结构
+				select top 10 * from student ;//查询前10条记录：
+				getdate()//获取当前时间
+				select password from Info.dbo.users where userName='boss'//从数据库定位到某张表
+				select password from Info..users where userName='boss'//从数据库定位到某张表
+				sqlserver的四种分页方式:https://www.cnblogs.com/fengxiaojiu/p/7994124.html
+				sqlserver分页查询:https://blog.csdn.net/tswc_byy/article/details/82053091
+
+增加查询效率:
+			1:不使用*来进行查询,应使用具体字段;
+			2:数据上去1万条需对具体字段加索引;
+			3:
+
+查询本周所有的天数:
+					select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 0),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 1),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 2),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 3),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 4),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 5),120)
+					union all select date=convert(varchar(10),dateadd(wk, datediff(wk,0,getdate()), 6),120)
+
+查询本月所有的天数：
+					select convert(varchar(10),dateadd(DAY,t2.number,t1.day),120) day from 
+					(select substring(convert(varchar,GETDATE(),120),1,7)+'-01' day) t1, 
+					(select number from MASTER..spt_values WHERE TYPE='P' AND number>=0 and number<=31) t2 
+					where convert(varchar(10),dateadd(DAY,t2.number,t1.day),120) like substring(convert(varchar,GETDATE(),120),1,7)+'%'
+					
+查询本年所有数据和:
+					select sum(case when  datepart(month,acquisitionTime)=1 then 1 else 0 end) as '1月',
+					sum(case when  datepart(month,acquisitionTime)=2 then 1 else 0 end) as '2月',
+					sum(case when  datepart(month,acquisitionTime)=3 then 1 else 0 end) as '3月',
+					sum(case when  datepart(month,acquisitionTime)=4 then 1 else 0 end) as '4月',
+					sum(case when  datepart(month,acquisitionTime)=5 then 1 else 0 end) as '5月',
+					sum(case when  datepart(month,acquisitionTime)=6 then 1 else 0 end) as '6月',
+					sum(case when  datepart(month,acquisitionTime)=7 then 1 else 0 end) as '7月',
+					sum(case when  datepart(month,acquisitionTime)=8 then 1 else 0 end) as '8月',
+					sum(case when  datepart(month,acquisitionTime)=9 then 1 else 0 end) as '9月',
+					sum(case when  datepart(month,acquisitionTime)=10 then 1 else 0 end) as '10月',
+					sum(case when  datepart(month,acquisitionTime)=11 then 1 else 0 end) as '11月',
+					sum(case when  datepart(month,acquisitionTime)=12 then 1 else 0 end) as '12月'
+				from RainGaugeHistoricalRecord
+				where datepart(year,acquisitionTime)='2019' 
+
+查询本年所有月数:
+				select  date=convert(varchar(10),dateadd(month, 0,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,1,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,2,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,3,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,4,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,5,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,6,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,7,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,8,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,9,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,10,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+				union all select date=convert(varchar(10),dateadd(month,11,convert(varchar(10),DATEADD(year, DATEDIFF(year,0,getdate()), 0),120)),120) 
+							 
+雨量设备列转行:
+				SELECT 设备id,
+
+				 max(CASE 名称 WHEN '真实经度' THEN 值 ELSE null end)真实经度,
+
+				 max(CASE 名称 WHEN '真实纬度' THEN 值 ELSE null end)真实纬度,
+
+				 max(CASE 名称 WHEN '安装时间' THEN 值 ELSE null end)安装时间,
+
+				 max(CASE 名称 WHEN '安装位置' THEN 值 ELSE null end)安装位置,
+
+				 max(CASE 名称 WHEN '手机卡号' THEN 值 ELSE null end)手机卡号,
+
+				 max(CASE 名称 WHEN '百度经度' THEN 值 ELSE null end)百度经度,
+
+				max(CASE 名称 WHEN '百度纬度' THEN 值 ELSE null end)百度纬度
+
+				FROM 设备辅助信息
+
+				GROUP BY 设备id
+					 
+insert [CNIC_ZHSZ].[dbo].rainGaugeInformation (deviceID,realLongitude,realLatitude,installationTime,installationSite,phoneCardNumber,BaiduLongitude,BaiduLatitude) 
+
+SELECT 设备id as deviceID,
+
+				 max(CASE 名称 WHEN '真实经度' THEN 值 ELSE null end)realLongitude,
+
+				 max(CASE 名称 WHEN '真实纬度' THEN 值 ELSE null end)realLatitude,
+
+				 max(CASE 名称 WHEN '安装时间' THEN 值 ELSE null end)installationTime,
+
+				 max(CASE 名称 WHEN '安装位置' THEN 值 ELSE null end)installationSite,
+
+				 max(CASE 名称 WHEN '手机卡号' THEN 值 ELSE null end)phoneCardNumber,
+
+				 max(CASE 名称 WHEN '百度经度' THEN 值 ELSE null end)BaiduLongitude,
+
+				max(CASE 名称 WHEN '百度纬度' THEN 值 ELSE null end)BaiduLatitude
+
+				FROM [sdxwl].[dbo].设备辅助信息
+
+				GROUP BY 设备id					 
+					 
+SET IDENTITY_INSERT
+
+允许将显式值插入表的标识列中。
+
+语法
+SET IDENTITY_INSERT [ database.[ owner.] ] { table } { ON | OFF }
+实例：
+
+set IDENTITY_INSERT products on //设置为允许手动插入值
+INSERT INTO products (id,product) VALUES (2,'screwdriver') // OK
+set IDENTITY_INSERT products off //设置为禁止手动插入值
+
+转载于:https://www.cnblogs.com/hpnet/p/7424336.html					 
+					 
+清理日志:
+
+ALTER DATABASE g3server SET RECOVERY SIMPLE   --简单模式
+
+DBCC SHRINKFILE (N'g3server_Log' , 11, TRUNCATEONLY)
+
+ALTER DATABASE g3server SET RECOVERY FULL  --还原为完全模式	
+
+//查询日志名
+select name from SYS.database_files where type_desc='LOG'
+		 
+				 
+sqlserver判断为空则赋值为0等:
+ (case when isnull(a.fiveminuterainfall, 0)>0 and  isnull(a.fiveminuterainfall, 0)>0  then '毛毛雨' else '未下雨' end) as 状态,
+(case when isnull(a.fiveminuterainfall, 0)>10 and  isnull(a.fiveminuterainfall, 0) <=20  then '小雨' else '未下雨' end) as 状态,
+
+查询24小时内的数据:select * from rainGaugeHistoricalRecord where acquisitionTime > DATEADD(HOUR,-24,GETDATE())
+
+增加查询效率:WITH (NOLOCK),锁表也可以查询,
+select iPassLength,cPassStrongValue,cPassStrongName from Sys_PassStrategy with(nolock) where bEntApply=1
+
+1、导出命令
+bcp 表名 out 路径\表名.txt -c -S服务器名 -U用户名 -P密码 -d数据库名
+bcp Sys_DutyMenu out d:\test\Sys_DutyMenu.txt -c   -SWIN-AUC02TL07G8   -Usa -Pxwl@123 -dCNIC_mwl20190106
+bcp RainGaugeHistoricalRecord out d:\RainGaugeHistoricalRecord.txt -c   -SWIN-DD252QU3PE2\SQLEXPRESS   -Usa -Pxwl@123 -dCNIC_ZHSZ
+
+-c 使用字符数据类型执行大容量复制操作
+服务器名字就是计算机名字，在 sqlserver中用select @@servername查看
+
+批量导入数表数据，将上面语句中的out换成in就可以实现（如果表的字段定义了自增属性，则需要把自增属性去掉，然后再倒入数据）。
+bcp Sys_DutyMenu2 in d:\test\Sys_DutyMenu.txt -c   -SWIN-AUC02TL07G8   -Usa -Pxwl@123
+bcp RainGaugeHistoricalRecord in d:\RainGaugeHistoricalRecord.txt -c   -SWIN-K8QGQ1SOJ01\MSSQLSERVERS   -Usa -Pxwl@123 -dCNIC_ZHSZ
+
+远程连接数据库查询:
+exec sp_addlinkedserver   'ITSV2 ', ' ', 'SQLOLEDB ', '192.168.9.153'   
+ 
+exec sp_addlinkedsrvlogin 'ITSV2', 'false ',null, 'sa ', 'xwl@123'  
+
+https://blog.csdn.net/wsimei/article/details/6781783
+
+将查询结果放到集合里,五列:
+select a.uuid,b.uuid,c.uuid,d.uuid,e.uuid from test1 a
+full OUTER join test2 b on  a.uuid=b.uuid
+full OUTER join test3 c on   a.uuid=c.uuid
+full OUTER join test4 d on   a.uuid=d.uuid
+full OUTER join test5 e on   a.uuid=e.uuid
+
+结果更简化,取出空:
+select a.uuid,b.uuid,c.uuid,d.uuid,e.uuid from test1 a
+full OUTER join test2 b on  a.uuid=b.uuid
+full OUTER join test3 c on   a.uuid=c.uuid or b.uuid=c.uuid  
+full OUTER join test4 d on   a.uuid=d.uuid or b.uuid=d.uuid or c.uuid=d.uuid 
+full OUTER join test5 e on   a.uuid=e.uuid or b.uuid=e.uuid or c.uuid=e.uuid or d.uuid=e.uuid
+
+sqlserver找出所有索引:
+
+SELECT CASE
+           WHEN t.[type] = 'U' THEN
+               '表'
+           WHEN t.[type] = 'V' THEN
+               '视图'
+       END AS '类型',
+       SCHEMA_NAME(t.schema_id) + '.' + t.[name] AS '(表/视图)名称',
+       i.[name] AS 索引名称,
+       SUBSTRING(column_names, 1, LEN(column_names) - 1) AS '列名',
+       CASE
+           WHEN i.[type] = 1 THEN
+               '聚集索引'
+           WHEN i.[type] = 2 THEN
+               '非聚集索引'
+           WHEN i.[type] = 3 THEN
+               'XML索引'
+           WHEN i.[type] = 4 THEN
+               '空间索引'
+           WHEN i.[type] = 5 THEN
+               '聚簇列存储索引'
+           WHEN i.[type] = 6 THEN
+               '非聚集列存储索引'
+           WHEN i.[type] = 7 THEN
+               '非聚集哈希索引'
+       END AS '索引类型',
+       CASE
+           WHEN i.is_unique = 1 THEN
+               '唯一'
+           ELSE
+               '不唯一'
+       END AS '索引是否唯一'
+FROM sys.objects t
+    INNER JOIN sys.indexes i
+        ON t.object_id = i.object_id
+    CROSS APPLY
+(
+    SELECT col.[name] + ', '
+    FROM sys.index_columns ic
+        INNER JOIN sys.columns col
+            ON ic.object_id = col.object_id
+               AND ic.column_id = col.column_id
+    WHERE ic.object_id = t.object_id
+          AND ic.index_id = i.index_id
+    ORDER BY col.column_id
+    FOR XML PATH('')
+) D(column_names)
+WHERE t.is_ms_shipped <> 1
+      AND index_id > 0
+ORDER BY i.[name];
+
+//查询条件参数值为空时不做为查询条件
+SELECT * FROM test333 WHERE 1=1 AND (cc='22' OR '22' IS NULL)
+
+//sqlserver将查询的单列结果集拼成一行字符串用逗号分隔
+select stuff((select ','+[processName] from [NewApprovalProcess] WITH ( NOLOCK )  for xml path('')),1,1,'')
+
+//将经纬度分隔为两个字符串
+left(longitude,charindex(',',longitude)-1) as longitude,
+reverse(left(reverse(longitude),charindex(',',reverse(longitude))-1)) as latitude
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hibernate框架:https://blog.csdn.net/u012926354/article/details/79730088
+			
+Mybatis框架:
+			动态sql:
+					https://www.cnblogs.com/black-spike/p/7767101.html
+			分页查询:
+					https://www.cnblogs.com/aeolian/p/9229149.html
+					
+		mybatis禁用一级缓存:SqlSession session = this.sqlSessionFactory.openSession(false);
+							session.clearCache();
+		mybatis禁用二级缓存:<select id="selectIsUserByUser" parameterType="cn.entity.User" resultMap="BaseResultMap" useCache="false">//加useCache="false"
+		
+		mybatis刷新缓存(就是清空缓存):flushCache="true" 
+		
+		mybatis分页插件PageHelper配置及使用:https://blog.csdn.net/chenyao1994/article/details/80798710
+											https://blog.csdn.net/qq_27317475/article/details/81168241
+		
+		关于mybatis无配置文件:https://blog.csdn.net/qq_35571554/article/details/82260032
+								
+		SpringBoot整合Mybatis+PageHelper分页实现增删查改:https://blog.csdn.net/weixin_36279318/article/details/82776632
+		
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+redis:
+	连接redis:redis-cli
+	查看所有信息:keys *
+	查看key:get 输入key
+	清空数据:flushall
+	使用缓存:private RedisTemplate redisTemplate;
+             redisTemplate.opsForList().rightPush("goodsList", goods1);//把每一个goods对象保存到redis中的List中。
+	使用(包括RedisTemplate公共类):https://www.cnblogs.com/bulrush/p/9318982.html
+	RedisTemplate公共类:https://blog.csdn.net/qq_33329988/article/details/89926895		
+						https://blog.csdn.net/yangaliang/article/details/80258588
+	redis解决高并发问题:https://blog.csdn.net/index_ling/article/details/59483187
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+java笔记:
+					
+		java虚拟机抓包:
+		tasklist | findstr eclipse	找到进程号
+		jmap -dump:format=b,file=elipse.hprof 8052  建立文件
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------					
+		tomcat:
+				调整启动时java内存:
+								eclipse-Window-Java-Installed JREs-选jdk点击Edit-Default VM arguments输入:-Xms8000M -Xmx8000M
+				
+				调整tomcat启动时间:
+								双击打开tomcat的Overview设置界面-右侧Timeouts调整时间
+								
+				tomcat编码更改:双击打开tomcat的Overview设置界面-左侧Open launch configuration-Common-更改编码
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+前端笔记:
+
+	node js 调用sqlserver:
+						let sql = require('mssql')
+						sql.connect('mssql://sa:xwl\@123@192.168.9.215/CNIC_M0729').then(()=>{new sql.Request().query('select * from sys_user').then(item=>{console.log(item)})})
+
+	
+		往div追加内容：
+					$(function () {  
+						var html = '<a href="https://file.leancloud.biz:4445/CNIC_M/uploadFile\Images\60\霍昌晖\20200225/15826001334161.docx">文件下载</a>';
+						$("#uploader_022103_projectAddFile").append(html);
+					});
+		//获取class相同的成为数组,然后给最后一个赋值样式
+		<script type="text/javascript">
+			var oDiv = document.getElementsByClassName('btn');
+			for(var i=0; i<oDiv.length; i++){
+			//oDiv[i].style.border = '3px solid green';
+			//oDiv[i].style.display = "none";
+			oDiv[oDiv.length-1].style.display = "none";
+			}
+		</script>
+		块级元素(button/div)居中:margin: auto;
+		字体居中:text-align:center;
+		圆角哦:border-radius: 60%;
+		获取单选框的值:var a1 = $('input[id="jq1"]').filter(':checked').val();
+		js去除字符串时分秒:
+			方案一：
+			var date = "2018-10-08 00:00:00";
+			 
+			var newDate=/\d{4}-\d{1,2}-\d{1,2}/g.exec(date)
+			 
+			newDate="2018-10-08";
+			 
+			 
+			方案二：
+			var time_str= '2014-9-19 13:19:21';
+			var t = time_str.substr(0,10);
+		
+		获取本月所有的天数:https://blog.csdn.net/newmeet/article/details/71514225
+		获取本周的从周一到周天的日期(获取本周所有的天数),也是按照天数执行拼接每天的开始结束日期,执行存储过程查询每天的降雨量:
+                	var currentTime = new Date();
+                	var currentDate = new Date(currentTime);
+                    var timesStamp = currentDate.getTime();
+                    var currenDay = currentDate.getDay();
+                    var dates = [];
+                    for (var i = 0; i < 7; i++) {
+                        dates.push(new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (currenDay + 6) % 7)).toLocaleDateString().replace(/\//g, '-'));
+                    }
+		获取本年的所有月的开始和结束日期:先获取本年的年,再统一进行月\日\时\分\秒的拼接,比如:2019年,2019+"-1-1 :00:00:00";2019+"-1-31 "23:59:59";
+		
+		//昨天的时间
+		var day1 = new Date();
+		day1.setTime(day1.getTime()-24*60*60*1000);
+		var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate() + " " + day1.getHours() + ":" + day1.getMinutes() + ":" +day1.getSeconds();
+		//今天的时间
+		var day2 = new Date();
+		day2.setTime(day2.getTime());
+		var s2 = day2.getFullYear()+"-" + (day2.getMonth()+1) + "-" + day1.getDate() + " " + day1.getHours() + ":" + day1.getMinutes() + ":" +day1.getSeconds();
+		
+		//检验日期格式是否正确
+		if(isNaN(beginDate)&&!isNaN(Date.parse(beginDate))){}
+        else{alert("日期格式不正确！");return false;}
+					 
+		js跳转:window.location//可以跳转到后端接口地址
+
+1.jsp希望向2.jsp传递当前的用户名字，如何传递这一数据呢？先在1.jsp中调用如下setAttribute()方法：
+
+Html代码  收藏代码
+<%  
+String username=request.getParameter("username");  
+request.setAttribute("username"，username);  
+%>  
+  
+<jsp:forward page="2.jsp" />  
+ 
+
+在2.jsp中通过getAttribute()方法获得用户名字:
+
+Html代码  收藏代码
+<% String username=(String)request.getAttribute("username"); %>  
+
+给html充满屏幕的背景：
+	body {
+	
+		width：100%；
+
+		height: 100%;
+
+		background-image: url(../../Content/images/background-home-one.jpg);
+
+		background-repeat: no-repeat;
+
+		background-size: 100% 100%;
+
+	}
+鼠标悬停和鼠标点击：
+	a {
+	color:red;}
+	a:hover {
+	color:black;}
+	a:active {
+	color:blue;}
+
+div居中：
+	margin: 0 auto;
+把图片变圆：
+	border-radius: 50%;
+给div加阴影：
+	-moz-box-shadow: 2px 2px 10px #909090;
+   	 -webkit-box-shadow: 2px 2px 10px #909090;
+  	  box-shadow:2px 2px 10px #909090;
+div边框设置：
+	border:1px solid #C9CCCD;
+让div横着显示：
+	float: left;
+让div一边圆一边方：
+	-webkit-border-bottom-left-radius: 30px;
+    	-webkit-border-top-left-radius: 30px;
+	-webkit-border-bottom-right-radius: 30px;-webkit-border-top-right-radius: 3px;
+字体变细：
+	font-weight: 100;
+字体水平垂直居中：
+	text-align: center;
+    	line-height: 26px;
+点击更改class值：
+	<div id="test1" class="demo1"></div>
+  
+	<input type="button" onclick="change();"/>
+  
+	<!--以下是js代码-->
+	function change(){
+   	 	$("#test1").attr("id","test2");//改变id
+   		 $("#test1").attr("class","demo2");//改变class
+  	 	$("#test1").attr({"id":"test2","class","demo2"});//改变id和class
+	}
+圆形div：
+	#a4-1-1-1{width:35px;height:35px;border-radius:17.5px;border:solid rgb(100,100,100) 1px;
+		margin-top: 20px;margin-left: 20px;border-color: #66AB95;border-width: initial;
+	}
+一条下划线：
+	<hr width="400px" size="1" color="#F0F0F0">
+
+点击弹出提示框：见xx项目代码，
+html5实现app上下滑动翻页：见xx项目代码，
+
+点击设置几秒后出现弹框：
+	<input value="点击" type="button" id="abc" />
+		<script>
+			var iid = document.getElementById("abc");
+			iid.onclick = function(){
+			iid.value = "请稍等";
+			var timer = setTimeout(function(){
+			alert("成功");
+			iid.value = "点击";
+			},3000)
+			}
+		</script>
+
+点击后出现遮罩层，几秒后遮罩层消失：
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cover{
+            position: fixed;
+            height: 120px;
+            width: 190px;
+            background-color: rgba(0,0,0,0.8);
+            display:none;
+            z-index:1000;
+            -webkit-border-bottom-left-radius: 15px;
+    		-webkit-border-top-left-radius: 15px;
+			-webkit-border-bottom-right-radius: 15px;
+			-webkit-border-top-right-radius: 15px;
+        }
+        #duihao,#duihao2{color: #CFCFCF;text-align: center;font-weight: 100;line-height: 30px;}
+    </style>
+</head>
+<body>
+ 
+    <span id="d1"><button>这是一个按钮</button></span>
+    <div id="cover">
+    	<h1 id="duihao">√</h1>
+    	<h4 id="duihao2">收款方户名复制成功</h4>
+    </div>
+    <script>
+        var btn = document.getElementById('d1');
+        btn.addEventListener('click',function(){
+            var cover=document.getElementById('cover');
+            cover.style.display='block';
+            setTimeout(function(){
+                cover.style.display='none';
+            },20000)
+        })
+ 
+    </script>
+</body>
+</html>
+
+js生成UUID:
+var id = uuid();
+    function uuid() {
+        var withLine = true; //带不带横线
+        var len = 36; //长度为36
+        var radix = 16; //16进制
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+        if (withLine) {
+            var r;
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+            for (i = 0; i < len; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        } else {
+            for (i = 0; i < len; i++) {
+                uuid[i] = chars[0 | Math.random() * radix];
+            }
+        }
+        return uuid.join('');
+    }
+
+关于radio：
+因为radio选中，下一个会失去选中效果，一个组内，name设置成一样的，我们基本上只是改变css的class就可以了。
+
+假如一个组内，所有radio的父级span都有上面写的pay_list_c1 那么js可以这么写
+
+$(".pay_list_c1").on("click",function(){
+  $(this).addClass("on").siblings().removeClass("on");
+})
+关于checkbox：
+因为是可以多选的，所以对其class做toggle就可以了，因为jquery新版本已经废弃了toggle事件，只保留toggle方法。所有我们要自己写toggle写法如下：
+
+注：默认input checkbox的选中状态和外面父级的div的class是一致的。
+
+$(".piaochecked").on("click",function(){
+    $(this).hasClass("on_check")? $(this).removeClass("on_check"):$(this).addClass("on_check");
+   //或者这么写
+  // $(this).toggleClass( "on_check" );
+})
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+linux笔记:
+		检查正在运行进程/jar项目所在目录:top或者ps aux
+		https://help.aliyun.com/knowledge_detail/41227.html?spm=5176.11065259.1996646101.searchclickresult.164a7056IX1H96
+		https://help.aliyun.com/knowledge_detail/41181.html?spm=5176.11065259.1996646101.searchclickresult.7fc36dcd4bQ2Mu
+		
+腾讯云Centos7搭建图形界面详解    https://blog.csdn.net/k_pointPU/article/details/71171841#
+该篇博客所使用的操作系统版本版本为：centos7.2x86_64
+一、首先执行这一句防止系统文件被修改
+chattr +i /etc/resolv.conf
+二、然后安装tigervnc
+yum install -y tigervnc tigervnc-server
+三、根据自己的服务器执行下面命令
+yum grouplist
+四、安装Gnome
+yum groupinstall GNOME Desktop
+这一步安装需要点时间，中间有提示直接输入y 然后回车，直到出现complete
+五、然后启动vnc服务
+vncserver
+启动服务过程中需要输入两次密码，该密码用来连接本地主机桌面，一般设置为你的root用户密码就可以了。
+六、在本地机上安装VNC软件
+
+mysql安装网址：https://dev.mysql.com/downloads/mysql/
+3.下面查看我们安装的sql server版本
+
+//安装桌面环境
+sudo apt-get install kubuntu-desktop
+
+//安装桌面环境中文
+sudo apt-get install language-pack-kde-zh language-pack-kde-zh-base language-pack-zh language-pack-zh-base language-support-zh
+
+https://www.cnblogs.com/ningmengcaokanyu/p/10185457.html
+
+安装应用商店:
+sudo apt-get update
+sudo apt-get install gdebi
+
+Ubuntu上安装和配置vncserver，然后通过客户端进行连接，就能够使用图像界面的方式来运行上面的软件了。
+
+1、使用apt-cache search vncserver命令搜索可以用来安装vncserver的软件包，这里选用vnc4server安装vnc
+
+2、使用apt-get install vnc4server命令安装vncserver,输入y并回车,ubuntu的需要加上sudo apt-get install vnc4server
+
+3、输入vncserver,初次启动的时候需要设置初始密码
+
+4、会在root根目录下面生成配置文件/root/.vnc/xstartup，编辑该配置文件 vi /root/.vnc/xstartup
+
+5、
+替换为如下内容 vim进入后，按“i”进入编辑模式，编辑完成按“ESC”，然后按:wq!  保存后退出
+#!/bin/sh
+export XKL_XMODMAP_DISABLE=1  
+unset SESSION_MANAGER  
+unset DBUS_SESSION_BUS_ADDRESS  
+gnome-panel &  
+gnome-settings-daemon &  
+metacity &  
+nautilus &  
+gnome-terminal &
+
+6、
+安装gnome
+apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal 
+
+7、重启ubuntu操作系统，启动vncserver服务，用ip:5901输入密码就能进行访问了
+desktop:1,在客户端连接的时候
+就填写：ip:5901，依此类推，如果是Desktop 2，在客户端的时候填写：ip:5902..
+rpm -qa | grep mssql
+
+4.查看安装的路径
+find / -name mssql
+
+5.设置开机启动
+systemctl enable mssql-server
+
+6.打开1433端口
+firewall-cmd --zone=public --add-port=1433/tcp --permanent
+firewall-cmd --reload
+
+7.几个命令
+具体配置路劲为/opt/mssql/bin/mssql-conf
+
+20版本因为依赖包问题不能安装向日葵 :
+https://www.jianshu.com/p/289001a00cb1
+
+安装完向日葵后远程已断开解决(貌似是缺少lightdm依赖导致,但是lightdm已经在向日葵打包依赖里写入了,是向日葵软件的问题):
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install lightdm
+
+linux获取文件或者文件夹最高权限,
+sudo chmod -R 777 data/
+
+优化主题:
+https://blog.csdn.net/weixin_40570554/article/details/81953751?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+
+49.235.172.101
+开发工具官网：jetbrains.com
+虚拟机mysql密码：Huo960224@@@
+清屏：clear ctrl+l
+查看：ls ll
+查看IP：ifconfig
+查看目前系统使用端口情况：ss -tanl
+环境变量配置出问题后：export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin
+退出数据库：exit;
+登录数据库：mysql -u root -p
+启动数据库：service mysqld restart
+停止数据库：service mysqld stop
+mysql查看系统变量及其值：show variables like '%character%';
+设置mysql客户端默认字符：character-set-server=utf8	找到mysql安装目录，修改配置文件，我这里是my.ini 
+						linux里是ect/my.cnf，添加到[mysqld]下第一行，
+
+解压：tar  -zxvf apache-tomcat-8.0.50.tar.gz
+tomcat启动：cd usr/local/tomcat/tomcat85/bin/     ./startup.sh
+开放8080端口：iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+开启3306：/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+redis安装如果报“没有那个文件或目录”：make MALLOC=libc
+redis退出：quit
+redis启动：service redisd start
+redis停止：service redisd stop
+
+redis启动：redis-server &
+redis停止：redis-cli shutdown
+redis安全模式关闭：https://blog.csdn.net/dbbbbbbbbb/article/details/88666301
+
+redis连接0号库：redis-cli
+redis开放端口号0.0.0.0：vi /etc/redis/6379.conf   修改bind为0.0.0.0
+redis查看存的session：keys *
+从服务器设置主从关系：change master to master_host='192.168.94.129',master_user='backup',master_password='Huo123456',master_log_file='mysql-bin.000004',master_log_pos=154;
+查看服务器的主从关系：show slave status\G;
+主服务器下执行：/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+从服务器下执行：/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+nginx启动：cd sbin/   ./nginx
+nginx停止：./nginx -s stop
+开放nginx默认端口号80：/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+开启项目：java -jar shareniu.jar &
+			nohup其中nohup 表示后台运行，关闭窗口后也也继续执行，&意思是终端连接的时候后台运行，终端断了进程也会停。
+查看某端口占用的线程的pid：netstat -nlp |grep :9181
+查看jar包进程：
+ps aux|grep getCimiss-surf.jar
+将会看到此jar的进程信息
+data 5796 0.0 0.0 112656 996 pts/1 S+ 09:11 0:00 grep --color=auto getCimiss-surf.jar data 30768 6.3 0.4 35468508 576800 ? Sl 09:09 0:08 java -jar getCimiss-surf.jar
+
+其中30768则为此jar的pid，杀掉命令为
+
+kill -9 30768
+
+执行jar包
+$ nohup java -jar test.jar >test.txt &
+1
+nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行
+test.txt是日志文件
+执行完命令后，会系统会显示当前进程的pid。
+
+查看进程
+使用如下命令查看当前已运行的进程：
+
+ ps -x
+1
+终止进程
+根据pid终止进程
+
+kill pid
+
+cenos的:
+
+命令：
+
+nohup java -jar xx.jar >/dev/null &
+
+ 
+
+Linux 运行jar包命令如下：
+
+方式一：
+
+java -jar shareniu.jar
+特点：当前ssh窗口被锁定，可按CTRL + C打断程序运行，或直接关闭窗口，程序退出
+
+那如何让窗口不锁定？
+
+方式二
+
+java -jar shareniu.jar &
+&代表在后台运行。
+
+特定：当前ssh窗口不被锁定，但是当窗口关闭时，程序中止运行。
+
+继续改进，如何让窗口关闭时，程序仍然运行？
+
+方式三
+
+nohup java -jar shareniu.jar &
+
+nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行
+
+当用 nohup 命令执行作业时，缺省情况下该作业的所有输出被重定向到nohup.out的文件中，除非另外指定了输出文件。
+
+结束后台！！！！！
+
+通过ps aux命令查看进程号PID，然后执行  kill -9 PID
+
+       如果是前台进程的话，直接执行 Ctrl+c 就可以终止了
+
+分享文件代码：https://github.com/mozilla/send	https://send.firefox.com/
+
+连接到数据库:sqlcmd -S localhost -U SA -P '<YourPassword>'
+检查服务:sudo systemctl status mssql-server
+可根据需要使用以下命令停止、启动或重启 SQL Server 服务：
+sudo systemctl stop mssql-server
+sudo systemctl start mssql-server
+sudo systemctl restart mssql-server
+开启和停止服务：sudo systemctl start application.service和sudo systemctl stop application.service
+
+重启服务：sudo systemctl restart application.service
+
+启用和禁用：sudo systemctl enable application.service和sudo systemctl disable application.service
+
+查看服务状态：sudo systemctl status application.service
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+备注项:
+
+https://192.168.9.159/svn/hwc/trunk
+环卫处的源码svn地址
+
+https://192.168.9.159/svn/hwc/branches/CNIC_ZHSZ
+市政的源码svn地址
+liuxien 123456
+http://222.133.41.39:8090/CNIC/app/index.html
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+1. 怎样计算两个时间之间的间隔？
+
+间隔=Date1.getTime()-Date2.getTime();得出来的是毫秒数.
+除1000是秒,再除60是分,再除60是小时..............................
+int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+
+http://b.leancloud.biz/CNIC_M/app/index.html#/Index   xinhongjun	liuhaichao  123456   337069  正式精益云,
+
+图表网站:https://www.echartsjs.com/examples/zh/index.html
+
+system.jdbcUrl=jdbc:jtds:sqlserver://192.168.9.215:1433;DatabaseName=CNIC_ZHSZ;useLOBs=false
+
+市政服务器密码:dzsz.123
+
+审计局:
+http://localhost:8082/AuditProj/
+
+guanliyuan guanliyaun
+
+通:
+外网IP 222.133.41.39
+
+通:
+内网IP 10.1.11.4
+
+POST /CNIC/DataPageBar/getDataPageLoadList
+
+使用Google 可以将本机代理设置为192.168.10.122 端口1080
+
+999 850 702				8111		jK20eQ		程序服务器
+855 512 156				4527		0z362t		数据库服务器
+885 365 504				8951					备份服务器
+
+刚下载项目需要配置：
+1.数据库：DynamicDataSource.xml
+2.
+/CNIC_M/WebRoot/app/components/services/toolsHelper.js
+.value('GATEWAY', { "value": "http://192.168.9.154:8081","bLink2MicroServices":false })//http://192.168.9.217:8082
+/CNIC_M/WebRoot/WEB-INF/redisDrive.properties
+redis.index=0
+/CNIC_M/src/ManagerCore.properties
+bAuth2MicroServices=false
+cGateWayInfo=http://192.168.9.154:8081
+3.tomcat timeout
+4.tomcat 内存 -Xms8000M -Xmx8000M
+5.将tomcat编码改成utf-8
+
+范春蕾，密码fanchunlei12345
+
+git仓库:
+
+远程仓库克隆:
+$ git clone git@github.com:michaelliao/gitskills.git
+
+Git 全局设置
+git config --global user.name "huochanghui"
+git config --global user.email "huochanghui@126.com"
+
+创建一个新仓库
+git clone https://gitlab.lean.com/huochanghui/learngit.git
+cd learngit
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+回滚:$ git reset 6dc66948fd248399b58062cb648cefc4bf8e1f96
+推送现有文件夹
+cd existing_folder
+git init
+git remote add origin https://gitlab.lean.com/huochanghui/learngit.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+推送现有的 Git 仓库
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin https://gitlab.lean.com/huochanghui/learngit.git
+git push -u origin --all
+git push -u origin --tags
+
+$ git init
+
+python学习资料:
+https://github.com/haiiiiiyun/awesome-django-cn
+安装包:https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2019.10-Windows-x86.exe
+
+VDI密码：huo123456
+
+maven打包jar包:
+你先 在cnic_m-common的项中执行 mvn deploy
+在执行这个项目的 打包
+
+mvn package
+cd 到 pom文件的路径 执行上述命令
+
+cacheData=(Map<String,Object>)RedisUtil.get(cacheDataKey);			635行，政企前端登录读取redis缓存，
+
+
+PyCharm 2019.3.3 x64激活:
+https://www.playezu.com/build-tool/21926.html
+
+配置中心:
+apollo  密码admin
+
+1:政企后端正式库运行所需步骤整理,
+
+filco,
+
+政企前端启动:
+npm install -g yarn @angular/cli@8
+powershell
+rm yarn.lock
+yarn
+yarn start
+
+readonly map: unknown;
+
+https://ng-alain.com/docs/getting-started/zh
+https://angular.cn/start
+https://ng.ant.design/docs/introduce/zh#%E5%AE%89%E8%A3%85
+
+
+mysql安装步骤:
+
+https://www.jb51.net/article/178996.htm
+
+https://dev.mysql.com/downloads/mysql/
+
+下载完后校验MD5值: certutil -hashfile mysql-8.0.20-1.el7.x86_64.rpm-bundle.tar MD5
+
+打开地址：https://www.mysql.com
+
+选择DOWNLOADS
+
+选择MySQL Community(GPL)Downloads >> 
+
+选择MySQL Community Server
+
+Select Operating System : Red Hat Enterprise Linux / Oracle Linux
+Select OS Version : Red Hat Enterprise Linux 7 / Oracle Linux 7 (x86,64-bit)
+
+清理工作
+
+1.通过rpm -qa | grep mariadb命令查看mariadb的安装包
+
+2.如果有信息，通过rpm -e --nodeps mariadb-libs-x.x.xx-x.xxx.x86_64命令卸载
+
+3.通过rpm -qa | grep mysql命令查看mysql的安装包
+
+4.如果有信息，通过yum remove mysql-community-***命令依次删除
+
+5.通过find / -name mysql命令查找mysql配置文件
+
+6.如果有信息，通过rm -rf 文件路径命令依次删除
+
+初始化目录
+
+1.进入虚拟机
+
+2.通过命mkdir /usr/local/mysql命令创建mysql文件夹
+
+3.上传上面下载的mysql安装文件到/usr/local/mysql目录
+
+有想法的同学可以放到其他目录
+
+开始安装程序
+
+1.通过tar -xvf mysql-8.0.19-1.el7.x86_64.rpm-bundle.tar命令解压 tar 包。
+
+2.通过rpm -ivh --nodeps --force mysql-community-common-8.0.19-1.el7.x86_64.rpm命令安装 common。
+
+3.通过rpm -ivh --nodeps --force mysql-community-libs-8.0.19-1.el7.x86_64.rpm命令安装 libs。
+
+4.通过rpm -ivh --nodeps --force mysql-community-client-8.0.19-1.el7.x86_64.rpm命令安装 client。
+
+5.通过rpm -ivh --nodeps --force mysql-community-server-8.0.19-1.el7.x86_64.rpm命令安装 server。
+
+6.通过rpm -qa | grep mysql命令查看 mysql 的安装包，如果有上面四个信息表示成功。
+
+7.通过以下命令，完成对mysql数据库的初始化和相关配置：
+
+输入mysqld --initialize命令，回车。
+
+如果安装mysql出现了以上的报错信息.这是却少numactl这个时候如果是Centos就yum -y install numactl就可以解决这个问题了.
+ubuntu的就sudo apt-get install numactl就可以解决这个问题了
+
+输入chown mysql:mysql /var/lib/mysql -R命令，回车。
+
+输入systemctl start mysqld.service命令，回车。
+
+输入systemctl status mysqld.service命令，回车，有绿字代表服务启动成功。
+
+输入systemctl enable mysqld命令，回车。
+
+8.通过cat /var/log/mysqld.log | grep password命令查看数据库的密码，并复制。
+
+9.通过mysql -uroot -p命令，回车，进入数据库登陆界面。
+
+10.粘贴刚刚查到的密码，进行数据库的登陆，mysql的登陆密码也是不显示的。
+
+11.通过alter user 'root' @'localhost' identified with mysql_native_password by 'root';命令来修改密码。
+
+12.通过exit命令退出mysql，然后通过新密码root再次登陆。
+
+13.授予远程访问权限：
+
+输入create user 'root'@'%' identified by 'root';命令，回车。
+
+输入grant all privileges on *.* to 'root'@'%';命令，回车。
+
+输入flush privileges;命令，回车。
+
+14.通过alter user 'root' @'%' identified with mysql_native_password by 'root';命令修改远程授权密码，以便客户端工具连接。
+
+15..通过exit命令退出mysql，通过/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT命令打开防火墙3306端口。
+
+16.到此，就可以使用客户端工具（如：Navicat、SQLyog等）连接mysql啦……
+
+mysql数据库使用笔记:
+
+查询时区分大小写:SELECT * FROM test WHERE BINARY a = 'a'      增加BINARY,
+
+
+JAVA递归实现菜单分级:
+		//菜单结构转换,
+		List<Map<String, Object>> retMenuDataList = this.menuData2RetData(indexMenu);
+		
+		/**
+		 * 将菜单数据列表转换为返回数据结构列表
+		 * @param menuList 菜单数据列表
+		 * @return
+		 */
+		private List<Map<String, Object>> menuData2RetData(List<Map<String, Object>> menuList) {
+			List<Map<String, Object>> retMenuDataList = this.getSubMenuList(menuList, null);
+			return retMenuDataList;
+		}
+
+		/**
+		 * 转换下级菜单列表
+		 * @param menuList	菜单数据
+		 * @param cParentUUID	父级菜单UUID
+		 * @return
+		 */
+		private List<Map<String, Object>> getSubMenuList(List<Map<String, Object>> menuList, String cParentUUID) {
+			List<Map<String, Object>> subList = menuList.stream().filter(item -> StringUtils.isNotBlank(cParentUUID) ? 
+									  (item.get("cParentCode") != null && cParentUUID.equals(item.get("cParentCode").toString())) 
+									  : (item.get("cParentCode") == null || StringUtils.isBlank(item.get("cParentCode").toString())))
+									  .map(item -> this.menuData2RetData(item, menuList)).collect(Collectors.toList());
+			return subList;
+		}
+		
+		/**
+		 * 将单个菜单数据转换为返回数据结构
+		 * @param menu 单个菜单数据
+		 * @param menuList 菜单数据列表
+		 * @return
+		 */
+		private Map<String, Object> menuData2RetData(Map<String, Object> menu, List<Map<String, Object>> menuList) {
+			Map<String, Object> retMenuData = new HashMap<>();
+			retMenuData.put("iMenuID", menu.get("iMenuID"));
+			retMenuData.put("cMenuCode", menu.get("cMenuCode"));
+			retMenuData.put("cParentCode", menu.get("cParentCode"));
+			retMenuData.put("text", menu.get("cMenuName"));
+			retMenuData.put("iLMenuID", menu.get("iLMenuID") == null ? null : menu.get("iLMenuID").toString());
+			retMenuData.put("cMenuUUID", menu.get("cMenuUUID"));
+			retMenuData.put("cParentUUID", menu.get("cParentUUID"));
+			retMenuData.put("cFBIDs", menu.get("cFBIDs"));
+			retMenuData.put("iMenuOrder", menu.get("iMenuOrder"));
+			retMenuData.put("iLevel", menu.get("iLevel"));
+			retMenuData.put("iSystemType", menu.get("iSystemType"));
+			retMenuData.put("link", menu.get("cMenuUrl"));
+			retMenuData.put("bEnd", menu.get("bEnd"));
+			Map<String, Object> icon = new HashMap<>();
+			icon.put("type", "icon");
+			icon.put("value", menu.get("cImageUrl"));
+			icon.put("cImageColor", menu.get("cImageColor"));
+			retMenuData.put("icon", icon);
+	//		System.out.println(retMenuData.toString());
+			if(menu.get("bEnd") == null || !Boolean.valueOf(menu.get("bEnd").toString())) {
+				// 非末级菜单，添加下级菜单列表
+				retMenuData.put("children", this.getSubMenuList(menuList, menu.get("cMenuCode").toString()));
+			}
+			return retMenuData;
+		}
+
+import org.apache.commons.lang.StringUtils;
+
+先从com项目执行:mvn deploy
+maven打包:mvn package
+
+VDI连接地址:
+https://222.133.2.154:4433
+xwl104
+huo123456
+
+
+
+MySql笔记:
+
+	(1)将查询结果导入临时表
+	
+		CREATE TEMPORARY TABLE tmp_table SELECT * FROM table_name
+		
+	(2)将查询结果导入已有表
+	
+		insert into temtable (select a,b,c,d from tablea)
+		
+	(3)创建表类型变量
+	
+		DECLARE @t table(a int,b int,c int)
+		
+	(4)将字符串根据分隔字符分隔导入到临时表(自己写的)
+	
+		CREATE TEMPORARY TABLE tmp_table ( CALL Huo_My_Split ( '2017,2018,2019,2020', ',' ) )
+		
+	(5)创建正常索引
+	
+		ALTER TABLE `CANFINISH_FHS`.`test`
+		
+		ADD INDEX `aa`(`a`) USING BTREE;
+		
+	(6)行转列
+	
+		SELECT id,MAX(CASE a WHEN '数学' THEN b ELSE 0 END) 数学,MAX(CASE a WHEN '语文' THEN b ELSE 0 END) 语文,MAX(CASE a WHEN '英语' THEN b ELSE 0 END) 英语 FROM test GROUP BY id
+	
+		select *
+		from (select * from tbl_Student) 
+		a pivot (max(成绩) for 课程名称 in (语文,数学,英语,政治)) b
+		
+	(7)查看表的结构
+	
+		desc tbl_test
+		
+	(8)查看创建表的SQL语句
+	
+		show create table tbl_order_test01
+		
+	(9)修改表字段的数据类型
+	
+		alter table tbl_test modify name varchar(30)
+		
+	(10)修改表的字段名和类型
+	
+		alter table tbl_test change name name_s varchar(20)
+		
+	(11)在表中添加一个字段
+	
+		alter table tbl_test add age int(10)
+		
+	(12)在表的第一列添加一个字段
+	
+		alter table tbl_test add mail int(20) first
+		
+	(13)在表的指定列后添加一个字段
+	
+		alter table tbl_test01_001 add ipone int(20) after mail
+		
+	(14)删除表中的一个字段
+	
+		alter table tbl_test01_001 drop location
+		
+	(15)修改字段的排列位置
+	
+		alter table tbl_test01_001 modify name_s varchar(20) after ipone
+		
+	(16)删除一张表
+	
+		drop table tbl_test07
+		
+	(17)删除存储过程
+	
+		DROP PROCEDURE test_insert
+		
+	(18)查看所有存储过程
+	
+		show procedure status
+		
+	(19)创建存储过程
+	
+		CREATE PROCEDURE test_insert
+		
+	(20)查看指定名称存储过程1
+	
+		show PROCEDURE status where Name='test'
+		
+	(21)查看指定名称存储过程2
+	
+		show create procedure test
+		
+	(22)删除数据库
+	
+		drop database demon
+		
+	(23)创建数据库
+	
+		create database demon
+		
+	(24)复制表/结构（若仅复制结构使用limit 0 选项）
+	
+		create table tab1 as  select * from table1;
+		
+	(25)创建临时表（临时表只在当前连接可见，当这个连接关闭的时候，会自动drop）
+	
+		create temporary table tab1 (name varchar(25),...);
+		
+	(26)表重命名
+	
+		alter talbe table1 rename as table2
+		
+	(27)创建索引
+	
+		create index index_name on table_name(column_name);
+		
+	(28)删除主键
+	
+		alter table table1 drop primary key;
+		
+	(29)增加主键
+	
+		alter table table1 add primary key PK_depart_pos (department_id,position_id)
+		
+	(30)date和time
+	
+        a.当前datetime：now()：2017-06-07 14:31:52
+		
+        b.返回时间：time():select time(now());  --->14:31:52
+		
+        b1.返回日期：date()：select date(now()); --->2017-06-07
+		
+        c.返回年月日：year()/month()/day()
+		
+        d.返回时分秒：hour()/minute()/second()
+		
+        e.取时间含义：
+					dayname()--星期几；
+					
+					dayofweek()：返回日期对应的星期：1--周日；2--周一；。。
+					
+					dayofyear()：返回日期为该年的第多少天；
+					
+					last_day()：返回某个日期的最后一天；-->select last_day(now());  '2017-06-30'
+					
+		f.日期计算：interval：灵活性加减日期
+		
+					select now()+interval +5 day;
+					
+					select now()+interval -4 minute;
+					
+					datediff(enddate，start_date)，返回天数
+					
+					timestampdiff(interval，begin_date，end_date )：求对应的时间差（天、时、分、秒）
+					
+	(31)字符串函数
+	
+	    a.长度
+			char_length()：字符串长度 我是 --> 2  
+			
+			length()：字符长度，”我是” --> 4  【字母/符号/数字 一个字符】
+			
+	    b.拼接函数
+		
+			concat(str1,str2,...)：
+			
+			concat（seperator,str1,str2,...）：带有分隔符的拼接函数
+			
+	    c.字符查找
+		
+			locate(find_str,str,start)：
+			
+	    d.字符截取
+		
+			substring(str,start[,end])
+			
+	    e.替换
+		
+			replace(str,old_str,new_str)
+			
+	    f.插入
+		
+			insert(str,start,length,repr)：在指定的位置插入字符或字符串
+			
+		示例：select insert('aaabcdefg',3,5,'what')  ---aawhatfg
+		
+			select insert('aaabcdefg',3,1000,'what')  ---aawhat
+			
+	    g.补充：
+		
+		补充：①重复函数repeat(str,count)
+		
+	    ②大小写转化：lower(str)/Lcase(str)、Upper(str)/Ucase(str)
+		
+	    ③反转函数：reverse(str)
+		
+	    ④空格函数：space(N)
+		
+	    ⑤去空格函数：ltrim()、rtrim()、trim()
+		
+	(32)数值函数
+	
+	    a.转换 cast
+			
+	    b.截取
+		
+			round(data,n)：四舍五入，保留小数位数n位
+			
+			truncate(data,n)：截取数据到n位，不四舍五入
+			
+			floor()：数据的最大整数部分
+			
+			ceil()：大于数据的最小整数
+			
+	    c.取最小值 least（arg1,...）:取最小值
+		
+	    d.数据处理
+		
+			rand()：随机小数
+			
+			format(，n)：数据格式化，转化为含千分位数据，四舍五入保留n位小数
+			
+	(33)控制流函数
+	
+	    a.case 
+			case when ....then ...else ... end
+	    b.if
+			if(condition,true_value,false_value)
+	    c.ifnull
+			ifnull(arg1,arg2)：arg1位空时则取值arg2,
+	    d.nullif
+			nullif(arg1,arg2)：arg1=arg2时为空，否则为arg1
+			
+	(34)备份数据库
+	
+		http://blog.chinaunix.net/uid-26805356-id-4138986.html
+		
+	(35)where(条件查询)，常用的运算符:
+	
+		①比较运算符
+		
+			> , < , = , != , >= , <= , in( ) , between val1 and val2
+			
+		②逻辑运算符
+		
+			逻辑非：not / ! , 逻辑或：or / || , 逻辑与：and / &&
+			
+		③模糊查询“like”
+		
+			通配符：% 任意字符，例如：where name like ‘苹果%’
+			
+			_ 匹配单个字符，例如：where name like ‘苹果__’
+			
+	(36)group by(分组)，一般情况下和统计函数(聚合函数)一起使用
+	
+		mysql五种统计函数:
+		
+			①max：求最大值 例如查询每个分类下面最高价格的商品：
+			
+				select cat_id max(price) from goods group_by cat_id
+				
+			②min：求最小值
+			
+			③sum：求总和，例如：select sum(goods_number) from goods
+			
+			④avg：求平均值，例如：求每个分类的商品平均价格
+			
+				select cat_id avg(price) from goods group_by cat_id
+				
+			⑤count：求商品条数，例如：select count(*) from goods
+			
+				可以把每个字段名当成变量来理解，它可以进行运算：
+				
+				例：查询本店每个商品价格比市场价低多少；select goods_id,goods_name,goods_price-market_price from goods;
+				
+				可以用as给字段名起别名，group by前面如果没有使用聚合函数，默认就取每个分组的第一行数据
+				
+	(37)having与where的异同
+
+		having与where类似，可以筛选数据，where后的表达式怎么写，having后的表达式就怎么写
+
+		where针对表中的列发挥作用，查询数据
+
+		having针对查询结果中的列发挥作用，筛选数据
+		
+		同时使用where与having时where在前having在后,
+		
+	(38)order by
+
+		（1） order by price  //默认升序排列
+
+		（2）order by price desc //降序排列
+
+		（3）order by price asc //升序排列，与默认一样
+
+		（4）order by rand() //随机排列，效率不高
+	
+	(39)limit：limit [offset,] N
+
+		offset 偏移量，可选，不写则相当于limit 0,N。N取出条目
+		
+	(40)exists型子查询（把外层查询结果拿到内层，看内层的查询是否成立）
+
+		#查询哪些栏目下有商品，栏目表category,商品表goods
+		
+		select cat_id,cat_name from category where exists(select * from goods where goods.cat_id = category.cat_id);
+		
+		如果商品表中的商品的栏目id等于某个栏目的id那么证明该栏目下面存在商品，所以这些栏目在条件下成立。会被查询出来。
+
+	(41)内连接，左连接，右连接，全连接
+		
+		内连接:
+		
+			如果想把用户信息、积分、等级都列出来，那么一般会这样写：
+
+			普通:select * from T1, T2 where T1.id = T2.id
+
+			内连:select * from T1 inner join T2 on T1.id = T2.id
+
+			后者的效率比前面的效率高多了，建议使用内连
+			
+		左连接:
+		
+			显示左表T1中的所有行，并把右表T2中符合条件加到左表T1中；
+
+			右表T2中不符合条件，就不用加入结果表中，并且NULL表示。
+
+			SQL语句：select * from T1 left join T2 on T1.id = T2.id
+			
+		右连接:
+		
+			显示右表T2中的所有行，并把左表T1中符合条件加到右表T2中；
+
+			左表T1中不符合条件，就不用加入结果表中，并且NULL表示。
+
+			SQL语句：select * from T1 right join T2 on T1.id = T2.id
+			
+		全连接:
+		
+			显示左表T1、右表T2两边中的所有行，即把左联结果表 + 右联结果表组合在一起，然后过滤掉重复的。SQL语句：
+
+			select * from T1 full join T2 on T1.id = T2.id
+		
+	(42)while循环:
+	
+		DECLARE  aa INT DEFAULT 0 ;
+		WHILE aa < 100 DO
+			INSERT INTO `chapter`.`batch` (`id`, `name`, `age`) 
+			VALUES (CONCAT(aa,''),CONCAT('while',aa) , aa);
+			SET aa = aa + 1;
+		END WHILE ;
+		
+	(43)连接
+	
+		# 内联接
+		SELECT * FROM m INNER JOIN n ON m.id = n.id;
+		
+		# 左外联接
+		SELECT * FROM m LEFT JOIN n ON m.id = n.id;
+		
+		# 右外联接
+		SELECT * FROM m RIGHT JOIN n ON m.id = n.id;
+		
+		# 交叉联接
+		SELECT * FROM m CROSS JOIN n;   # 标准写法
+		SELECT * FROM m, n;
+		
+		# 类似全连接full join的联接用法
+		SELECT id,name FROM m
+		UNION
+		SELECT id,name FROM n;
+	(44)函数
+	
+		# 聚合函数
+		SELECT count(id) AS total FROM n;   # 总数
+		SELECT sum(age) AS all_age FROM n;   # 总和
+		SELECT avg(age) AS all_age FROM n;   # 平均值
+		SELECT max(age) AS all_age FROM n;   # 最大值
+		SELECT min(age) AS all_age FROM n;   # 最小值
+		
+		# 数学函数
+		SELECT abs(-5);   # 绝对值
+		SELECT bin(15), oct(15), hex(15);   # 二进制，八进制，十六进制
+		SELECT pi();   # 圆周率3.141593
+		SELECT ceil(5.5);   # 大于x的最小整数值6
+		SELECT floor(5.5);   # 小于x的最大整数值5
+		SELECT greatest(3,1,4,1,5,9,2,6);   # 返回集合中最大的值9
+		SELECT least(3,1,4,1,5,9,2,6);    # 返回集合中最小的值1
+		SELECT mod(5,3);    # 余数2
+		SELECT rand();    # 返回０到１内的随机值，每次不一样
+		SELECT rand(5);   # 提供一个参数(种子)使RAND()随机数生成器生成一个指定的值。
+		SELECT round(1415.1415);   # 四舍五入1415
+		SELECT round(1415.1415, 3);   # 四舍五入三位数1415.142
+		SELECT round(1415.1415, -1);    # 四舍五入整数位数1420
+		SELECT truncate(1415.1415, 3);    # 截短为3位小数1415.141
+		SELECT truncate(1415.1415, -1);   # 截短为-1位小数1410
+		SELECT sign(-5);    # 符号的值负数-1
+		SELECT sign(5);    # 符号的值正数1
+		SELECT sqrt(9);   # 平方根3
+		SELECT sqrt(9);   # 平方根3
+		
+		# 字符串函数
+		SELECT concat('a', 'p', 'p', 'le');   # 连接字符串-apple
+		SELECT concat_ws(',', 'a', 'p', 'p', 'le');   # 连接用','分割字符串-a,p,p,le
+		SELECT insert('chinese', 3, 2, 'IN');    # 将字符串'chinese'从3位置开始的2个字符替换为'IN'-chINese
+		SELECT left('chinese', 4);   # 返回字符串'chinese'左边的4个字符-chin
+		SELECT right('chinese', 3);   # 返回字符串'chinese'右边的3个字符-ese
+		SELECT substring('chinese', 3);   # 返回字符串'chinese'第三个字符之后的子字符串-inese
+		SELECT substring('chinese', -3);   # 返回字符串'chinese'倒数第三个字符之后的子字符串-ese
+		SELECT substring('chinese', 3, 2);   # 返回字符串'chinese'第三个字符之后的两个字符-in
+		SELECT trim(' chinese ');    # 切割字符串' chinese '两边的空字符-'chinese'
+		SELECT ltrim(' chinese ');    # 切割字符串' chinese '两边的空字符-'chinese '
+		SELECT rtrim(' chinese ');    # 切割字符串' chinese '两边的空字符-' chinese'
+		SELECT repeat('boy', 3);    # 重复字符'boy'三次-'boyboyboy'
+		SELECT reverse('chinese');    # 反向排序-'esenihc'
+		SELECT length('chinese');   # 返回字符串的长度-7
+		SELECT upper('chINese'), lower('chINese');    # 大写小写 CHINESE    chinese
+		SELECT ucase('chINese'), lcase('chINese');    # 大写小写 CHINESE    chinese
+		SELECT position('i' IN 'chinese');    # 返回'i'在'chinese'的第一个位置-3
+		SELECT position('e' IN 'chinese');    # 返回'i'在'chinese'的第一个位置-5
+		SELECT strcmp('abc', 'abd');    # 比较字符串，第一个参数小于第二个返回负数- -1
+		SELECT strcmp('abc', 'abb');    # 比较字符串，第一个参数大于第二个返回正数- 1
+		
+		# 时间函数
+		SELECT current_date, current_time, now();    # 2018-01-13   12:33:43    2018-01-13 12:33:43
+		SELECT hour(current_time), minute(current_time), second(current_time);    # 12  31   34
+		SELECT year(current_date), month(current_date), week(current_date);   # 2018    1   1
+		SELECT quarter(current_date);   # 1
+		SELECT monthname(current_date), dayname(current_date);   # January  Saturday
+		SELECT dayofweek(current_date), dayofmonth(current_date), dayofyear(current_date);    # 7   13  13
+		
+		# 控制流函数
+		SELECT if(3>2, 't', 'f'), if(3<2, 't', 'f');    # t f
+		SELECT ifnull(NULL, 't'), ifnull(2, 't');    # t 2
+		SELECT isnull(1), isnull(1/0);    # 0 1 是null返回1，不是null返回0
+		SELECT nullif('a', 'a'), nullif('a', 'b');    # null a 参数相同或成立返回null，不同或不成立则返回第一个参数
+		SELECT CASE 2
+			   WHEN 1 THEN 'first'
+			   WHEN 2 THEN 'second'
+			   WHEN 3 THEN 'third'
+			   ELSE 'other'
+			   END ;     # second
+			   
+		# 系统信息函数
+		SELECT database();    # 当前数据库名-test
+		SELECT connection_id();   # 当前用户id-306
+		SELECT user();    # 当前用户-root@localhost
+		SELECT version();   # 当前mysql版本
+		SELECT found_rows();    # 返回上次查询的检索行数
+		
+	(45)//查询条件参数值为空时不做为查询条件
+	
+		SELECT * FROM test333 WHERE 1=1 AND (cc='22' OR '22' IS NULL)
+		
+		SELECT * from test333 WHERE cc = (CASE WHEN isnull(@billNo,'') <> '' THEN @billNo ELSE cc
+
+	(46)
+		utf8mb4	utf8mb4_unicode_ci
+		
+		utf8	utf8_bin
+	(47动态SQL)
+		CREATE DEFINER=`root`@`%` PROCEDURE `Huo_ExecSQL`( 
+			IN SQL_FOR_SELECT VARCHAR(16383)-- 动态SQL,增删改查都可以,
+		)
+		BEGIN
+		  
+			-- 动态执行查询
+		-- 	DECLARE SQL_FOR_SELECT VARCHAR ( 16383 );
+			-- 定义预处理sql语句
+		-- 	SET SQL_FOR_SELECT = CONCAT( "select * from  user  where user_id = '", USER_ID, "' and user_name = '", USER_NAME, "'" );
+			-- 定义要执行的SQL语句
+			SET @SQL = SQL_FOR_SELECT;
+			-- 预处理动态sql语句
+			PREPARE stmt FROM @SQL;
+			-- 执行sql语句
+			EXECUTE stmt;
+			-- 释放prepare
+			deallocate prepare stmt;
+
+		END
+	(48)将字符串根据分隔字符分隔导入到临时表
+		CREATE DEFINER=`root`@`%` PROCEDURE `Huo_My_Split`( 
+			IN SourceSql VARCHAR(16383),-- 字符串
+			IN StrSeprate VARCHAR(10)-- 分隔字符
+		)
+		BEGIN
+			
+			-- 将字符串根据分隔字符分隔导入到临时表
+			SELECT
+				SUBSTRING_INDEX( SUBSTRING_INDEX( SourceSql, StrSeprate, help_topic_id + 1 ), ',',- 1 ) AS split 
+			FROM
+				mysql.help_topic 
+			WHERE
+				help_topic_id < LENGTH( SourceSql ) - LENGTH( REPLACE ( SourceSql, StrSeprate, '' ) ) +1;
+
+		END
+	(49)查询时间数据:
+		今天
+
+		select * from 表名 where to_days(时间字段名) = to_days(now());
+		昨天
+
+		SELECT * FROM 表名 WHERE TO_DAYS( NOW( ) ) - TO_DAYS( 时间字段名) <= 1
+		近7天
+
+		SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(时间字段名)
+		近30天
+
+		SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(时间字段名)
+		本月
+
+		SELECT * FROM 表名 WHERE DATE_FORMAT( 时间字段名, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+		上一月
+
+		SELECT * FROM 表名 WHERE PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format( 时间字段名, '%Y%m' ) ) =1
+		查询本季度数据
+
+		select * from `ht_invoice_information` where QUARTER(create_date)=QUARTER(now());
+		查询上季度数据
+
+		select * from `ht_invoice_information` where QUARTER(create_date)=QUARTER(DATE_SUB(now(),interval 1 QUARTER));
+		查询本年数据
+
+		select * from `ht_invoice_information` where YEAR(create_date)=YEAR(NOW());
+		查询上年数据
+
+		select * from `ht_invoice_information` where year(create_date)=year(date_sub(now(),interval 1 year));
+		查询当前这周的数据
+
+		SELECT name,submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now());
+		查询上周的数据
+
+		SELECT name,submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now())-1;
+		查询上个月的数据
+
+		复制代码
+		select name,submittime from enterprise where date_format(submittime,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')
+
+		select * from user where DATE_FORMAT(pudate,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m') ; 
+
+		select * from user where WEEKOFYEAR(FROM_UNIXTIME(pudate,'%y-%m-%d')) = WEEKOFYEAR(now()) 
+
+		select * from user where MONTH(FROM_UNIXTIME(pudate,'%y-%m-%d')) = MONTH(now()) 
+
+		select * from user where YEAR(FROM_UNIXTIME(pudate,'%y-%m-%d')) = YEAR(now()) and MONTH(FROM_UNIXTIME(pudate,'%y-%m-%d')) = MONTH(now()) 
+
+		select * from user where pudate between  上月最后一天  and 下月第一天 
+		复制代码
+		查询当前月份的数据 
+
+		select name,submittime from enterprise   where date_format(submittime,'%Y-%m')=date_format(now(),'%Y-%m')
+		查询距离当前现在6个月的数据
+
+		select name,submittime from enterprise where submittime between date_sub(now(),interval 6 month) and now();
+
+
+
+
+
+
+红,绿,蓝,
+背景:47,47,47,
+字体:243,236,96,
+关键字:147,236,33,
+字符串:31,198,163,
+数字:104,151,164,
+注释:128,128,128,
+自动换行:4,
+
+
+
+
+
+自定义抛出异常:
+throw new RuntimeException("远程服务器已关闭");
+
+tomcat热部署:
+<Context docBase="cnic_zhsz" path="/CNIC" reloadable="true" crossContext="true" source="org.eclipse.jst.jee.server:cnic_zhsz"/></Host>
+
+顺序是 第三季 绝望篇 第一季 第二点五季 第二季 第三季希望篇 弹丸论破V3
+
+
+
+

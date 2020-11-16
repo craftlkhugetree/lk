@@ -1,3 +1,8 @@
+http://192.168.16.149/  liken
+ aolian19
+|李肯
+
+
 组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink
 
 添加菜单共三步： 图片见项目

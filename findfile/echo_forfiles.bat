@@ -1,18 +1,18 @@
-::@echo off±íÊ¾Ö´ÐÐÁËÕâÌõÃüÁîºó¹Ø±ÕËùÓÐÃüÁî(°üÀ¨±¾ÉíÕâÌõÃüÁî)µÄ»ØÏÔ¡£¶øecho offÃüÁîÔò±íÊ¾¹Ø±ÕÆäËûËùÓÐÃüÁî(²»°üÀ¨±¾ÉíÕâÌõÃüÁî)µÄ»ØÏÔ£¬@µÄ×÷ÓÃ¾ÍÊÇ¹Ø±Õ½ô¸úÆäºóµÄÒ»ÌõÃüÁîµÄ»ØÏÔ£¬
+::@echo offè¡¨ç¤ºæ‰§è¡Œäº†è¿™æ¡å‘½ä»¤åŽå…³é—­æ‰€æœ‰å‘½ä»¤(åŒ…æ‹¬æœ¬èº«è¿™æ¡å‘½ä»¤)çš„å›žæ˜¾ã€‚è€Œecho offå‘½ä»¤åˆ™è¡¨ç¤ºå…³é—­å…¶ä»–æ‰€æœ‰å‘½ä»¤(ä¸åŒ…æ‹¬æœ¬èº«è¿™æ¡å‘½ä»¤)çš„å›žæ˜¾ï¼Œ@çš„ä½œç”¨å°±æ˜¯å…³é—­ç´§è·Ÿå…¶åŽçš„ä¸€æ¡å‘½ä»¤çš„å›žæ˜¾ï¼Œ
 
 ::forfiles
-::/P    pathname      ±íÊ¾¿ªÊ¼ËÑË÷µÄÂ·¾¶¡£Ä¬ÈÏÎÄ¼þ¼ÐÊÇµ±Ç°¹¤×÷µÄÄ¿Â¼ (.)¡£
-::/M    searchmask    ¸ù¾ÝËÑË÷ÑÚÂëËÑË÷ÎÄ¼þ¡£Ä¬ÈÏËÑË÷ÑÚÂëÊÇ '*'¡£
-::/S                  Ö¸µ¼ forfiles µÝ¹éµ½×ÓÄ¿Â¼¡£Ïñ "DIR /S"¡£
-::/C    command       ±íÊ¾ÎªÃ¿¸öÎÄ¼þÖ´ÐÐµÄÃüÁî¡£ÃüÁî×Ö·û´®Ó¦¸ÃÓÃË«ÒýºÅÀ¨ÆðÀ´¡£
+::/P    pathname      è¡¨ç¤ºå¼€å§‹æœç´¢çš„è·¯å¾„ã€‚é»˜è®¤æ–‡ä»¶å¤¹æ˜¯å½“å‰å·¥ä½œçš„ç›®å½• (.)ã€‚
+::/M    searchmask    æ ¹æ®æœç´¢æŽ©ç æœç´¢æ–‡ä»¶ã€‚é»˜è®¤æœç´¢æŽ©ç æ˜¯ '*'ã€‚
+::/S                  æŒ‡å¯¼ forfiles é€’å½’åˆ°å­ç›®å½•ã€‚åƒ "DIR /S"ã€‚
+::/C    command       è¡¨ç¤ºä¸ºæ¯ä¸ªæ–‡ä»¶æ‰§è¡Œçš„å‘½ä»¤ã€‚å‘½ä»¤å­—ç¬¦ä¸²åº”è¯¥ç”¨åŒå¼•å·æ‹¬èµ·æ¥ã€‚
 
 
 
 @echo off
 
-echo ÕâÊÇ²âÊÔÄÚÈÝµÄµÚ1ÐÐ
-echo ÕâÊÇ²âÊÔÄÚÈÝµÄµÚ2ÐÐ
-echo ÕâÊÇ²âÊÔÄÚÈÝµÄµÚ3ÐÐ
+echo è¿™æ˜¯æµ‹è¯•å†…å®¹çš„ç¬¬1è¡Œ
+echo è¿™æ˜¯æµ‹è¯•å†…å®¹çš„ç¬¬2è¡Œ
+echo è¿™æ˜¯æµ‹è¯•å†…å®¹çš„ç¬¬3è¡Œ
 echo end
 
 pause

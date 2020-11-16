@@ -64,3 +64,39 @@ I: 在当前行第一个非空字符前插入；
 
 按照【】中的内容分类排序		:sort r /【.\+】/
 在每一个字符前面添加\"		:%s/||$/\”/g	实际不需要||$
+
+
+vscode修改setting.json
+
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "r",
+        "r"
+      ],
+      "after": [
+        "<C-r>"
+      ]
+    },
+// "vim.insertModeKeyBindings": [
+    // {
+    //  before: [
+    //     "x",
+    //     "x"
+    //   ],
+    //  after: [
+    //     "<Esc>",
+    //     "$",
+    //     "a",
+    //     ";"
+    //   ]
+    // }
+  ],
+
+IDEA修改~目录下的 _ideavimrc
+" 这是insert模式
+":imap ff <C-v>
+"
+" 这是Normal模式
+nnoremap vv <C-v>
+nnoremap rr <C-r>

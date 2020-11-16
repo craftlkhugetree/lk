@@ -15,7 +15,7 @@ for((i=1;i<=10;i++));
 do
     tmpfile="test$i.log"
     touch $tmpfile
-    # 判断文件是否为空，空则使用echo命令添加，非空则使用sed命令
+    # 判断文件是否为空，空则使用echo命令添加，非空则使用sed命令在最后append $a
     test -s $tmpfile && sed -i "\$a $i$tmpStr" $tmpfile || echo $i$tmpStr >> $tmpfile
     
     echo -e "\n$i$i\n$i$i" >> $tmpfile
@@ -34,3 +34,15 @@ do
     #文件行数
     cat $tmpfile |wc -l
 done
+
+
+# test判断文件
+# -e file 如果bai file存在，则为真
+# -d file 如果 file为目录，则为真
+# -f file 如果 file为常du规文件，zhi则为真
+# -L file 如果 file为符号链接，dao则为真
+# -r file 如果 file可读，则为真
+# -w file 如果 file可写，则为真
+# -x file 如果 file可执行，则为真
+# -s file 如果 file长度不为0，则为真
+# -h file 如果 file是软链接，则为真 

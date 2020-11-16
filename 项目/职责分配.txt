@@ -1,6 +1,8 @@
 职责分配  
 src\app\routes\sys-manage\resbonsibility-management\resbonsibility-management.component.ts
 
+修改angular.json的aot:false;  可以节省编译时间
+
 
 
 

@@ -66,6 +66,8 @@ public class MyTest {
 </dependency>
 ```
 mysql引擎：innodb支持事务可回滚，MyISAM不支持事务但效率高。mysql八代版本只有innodb，但是效率更高。
+Mysql Where条件执行顺序是从左到右;oracle的sql语句，where后面的部分，执行顺序是从右往左。
+遵循原则：排除越多数据的条件放在第一位
 如果要修改mysql版本，只要更改<version>的版本号即可
 
 9. 项目与maven的中间件就是pom.xml
