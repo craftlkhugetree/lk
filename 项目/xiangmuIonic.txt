@@ -3,7 +3,11 @@ http://192.168.16.149/  liken
 |李肯
 
 
-组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink
+15069270296：123456 aolian3  测试154
+
+组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink  730
+aolian3   release/3.0.3-200901
+zw-project	hotfix/release-test
 
 添加菜单共三步： 图片见项目
 http://192.168.9.154:28080/login  17853730736   123或者123456或者手机号
@@ -22,7 +26,9 @@ https://b.leancloud.biz/ops/login	17853730736 123
 	
 1.cnpm i
 2.ionic serve
-3. 156 5070 9373：123456abc	138 7777 7777：t123456	18561167080：Huo123456
+3. 156 5070 9373：123456abc   156507xwl	
+138 7777 7777：t123456	
+18561167080：Huo123456
 奥链测试  public microSeverStr = 'http://192.168.9.154:8081';
 奥链正式  // public microSeverStr = 'https://gateway.leancloud.biz:4443';
 

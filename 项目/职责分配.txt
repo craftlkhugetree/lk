@@ -45,3 +45,61 @@ const arrNew:any = arr.filter(item => {
       };
     });
   }
+
+用户管理src\app\routes\sys-manage\user-management\user-management.component.ts
+复用新增和编辑，依靠传递的1和2：
+editRow(data, 2, index)  注意data才是渲染页面的数据
+
+  validateForm: any = FormGroup;
+下面两句先后顺序不能错，更不能写成 this.validateForm.cPhone = res.....否则点击编辑打开drawer后不能渲染出cPhone。
+  data.cPhone = res.data.cMemberRegisterPhone;
+  this.validateForm.value = data;
+
+密码不存在或者密码发生了变化，就要进行三种强度不同的正则：
+ if (!value.cUserPWD || this.oldPWD !== value.cUserPWD){
+      if (this.cPassStrongValue == '[/[A-Z]+/,/[a-z]+/,/\\d+/,/[^A-Za-z0-9]+/]') {
+        //'字母+数字+特殊字符+大写字母'
+        const a = /[0-9]/;
+        const b = /[a-z]/i;
+        const c = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        if (a.test(value.cUserPWD) === false || b.test(value.cUserPWD) === false || c.test(value.cUserPWD) === false) {
+          this.msg.warning('密码需包含字母+数字+特殊字符+大写字母');
+          return;
+        }
+      } else if (this.cPassStrongValue == '[/[A-Za-z]+/,/\\\\d+/,/[^A-Za-z0-9]+/]') {
+        //'字母+数字+特殊字符'
+        const a = /[0-9]/;
+        const b = /[a-z]/i;
+        const c = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        if (a.test(value.cUserPWD) === false || b.test(value.cUserPWD) === false || c.test(value.cUserPWD) === false) {
+          this.msg.warning('密码需包含字母+数字+特殊字符');
+          return;
+        }
+      } else if (this.cPassStrongValue == '[/[A-Za-z]+/,/\\d+/]') {
+        //'字母+数字'
+        const a = /[0-9]/;
+        const b = /[a-z]/i;
+        if (a.test(value.cUserPWD) === false || b.test(value.cUserPWD) === false) {
+          this.msg.warning('密码需包含字母+数字');
+          return;
+        }
+      }
+    }
+
+
+树形节点nz-tree功能强大，内部 (nzClick)="nzEvent($event)" 这个event能带出很多东西：
+  nzEvent(event: Required<NzFormatEmitEvent>): void { }
+
+声明  validateForm: FormGroup;
+完美表单配合input使用：
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="userName" placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+
+angular.json里的 architect下的  aot:true虽然编译慢，但是当出错时，会产生丰富的报错信息。

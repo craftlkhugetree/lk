@@ -113,17 +113,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TbUserServiceTest.testInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="my-shop-web-admin" />
       <extension name="coverage">
@@ -333,6 +322,7 @@
       <workItem from="1605248545063" duration="9608000" />
       <workItem from="1605258852491" duration="158000" />
       <workItem from="1605311580565" duration="13243000" />
+      <workItem from="1605767580321" duration="116000" />
     </task>
     <servers />
   </component>
@@ -512,10 +502,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="235" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604632940865" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605318800693">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605767685987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605318800693" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605767685987" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
