@@ -81,7 +81,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/my-shop-web-admin/src/main/webapp/static/assets/plugins" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../lean-zwzq/threeAlllink" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RebelAgentSelection">
@@ -323,6 +323,7 @@
       <workItem from="1605258852491" duration="158000" />
       <workItem from="1605311580565" duration="13243000" />
       <workItem from="1605767580321" duration="116000" />
+      <workItem from="1605841896591" duration="27000" />
     </task>
     <servers />
   </component>
@@ -374,6 +375,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="723" y="348" key="#com.intellij.tools.ToolEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604635014393" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1605841922285">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605841922285" />
     <state width="1642" height="325" key="GridCell.Tab.0.bottom" timestamp="1605340634551">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

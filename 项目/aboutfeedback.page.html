@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="back()" style="position: absolute;left: 0">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary" style="position: absolute;right: 0">
+      <ion-button (click)="uploadImg()">
+        提交
+      </ion-button>
+    </ion-buttons>
+    <ion-title>意见反馈</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div style="position: absolute;width: 100%;min-height: 100vh;height:100%">
+    <List>
+      <InputItem [type]="'phone'" [value]="phoneNumber" [content]="'联系电话:'" [editable]="false">
+      </InputItem>
+
+      <!-- data数据源，extra右侧数据，ngmodel活动数据 -->
+      <ListItem Picker 
+      (onPickerChange)="onPickerChange($event)"
+      [extra]="placeholder" [arrow]="'down'" [data]="modularValue" [(ngModel)]="value4"
+        (ngModelChange)="onModular($event)">
+        功能模块:
+      </ListItem>
+
+      <!-- <InputItem [content]="title" [editable]="false">
+    </InputItem> -->
+      <WingBlank>
+        <div class="fontTitle">
+          <span>{{title}}</span>
+        </div>
+      </WingBlank>
+      <WingBlank>
+        <ckeditor [editor]="Editor" [config]="_config" (ready)="onReady($event)" [(ngModel)]="model.editorData">
+        </ckeditor>
+      </WingBlank>
+      <!-- <InputItem [content]="'上传图片:'" [editable]="false"> -->
+      <WingBlank>
+        <div class="fontTitle">
+          <span>上传图片:</span>
+        </div>
+      </WingBlank>
+      <!-- </InputItem> -->
+
+      <!--上传相册-->
+      <!-- <ion-buttons slot="start">
+      <ion-button (click)="back()">
+          <img style="width: 22px" src="/assets/icon/mine/back.svg">
+          <span class="button-text" style="color: #ffffff;">返回</span>
+      </ion-button>
+    </ion-buttons> -->
+      <WingBlank>
+        <div style="overflow: hidden;width: 100%; margin: 10px 0px 10px 0px;position: absolute;">
+          <div [ngStyle]="{'overflow': 'hidden','width': imgWidth,'height': imgWidth,
+              'float':'left','margin-right': '15px','position': 'relative',
+              'border-radius': '5%','border': 'solid rgb(208, 208, 208) 1px'}"
+            *ngFor="let item of image;">
+            <Icon [type]="'cross-circle-o'" [size]="'xxs'" color="rgb(208, 208, 208)" 
+            style="z-index: 10;right:-2px;top:-2px;position: absolute;" (click)="showAlert(item)"></Icon>
+            <img src="{{item.img}}" 
+            [ngStyle]="{'top':0,'left':0,'bottom':0,'right':0,'margin':'auto','position': 'absolute',
+                'width': item.width, 'height': item.height}"
+                 (click)="showBigImg(item.img)" />
+          </div>
+
+          <!-- <div [ngStyle]="{'overflow': 'hidden','width': imgWidth,'height': imgWidth,
+              'float':'left','margin-right': '15px','position': 'relative',
+              'border-radius': '5%','border': 'solid rgb(208, 208, 208) 1px'}">
+            <Icon [type]="'cross-circle-o'" [size]="'xxs'" color="rgb(208, 208, 208)" 
+            style="z-index: 10;right:-2px;top:-2px;position: absolute;" (click)="showAlert(item)"></Icon>
+            <img src="/assets/image/shop/icon-zfb.png" 
+            [ngStyle]="{'top':0,'left':0,'bottom':0,'right':0,'margin':'auto','position': 'absolute',
+                'width': imgWidth, 'height': null}"
+                 (click)="showBigImg(item.img)" />
+          </div>
+
+          <div [ngStyle]="{'overflow': 'hidden','width': imgWidth,'height': imgWidth,
+              'float':'left','margin-right': '15px','position': 'relative',
+              'border-radius': '5%','border': 'solid rgb(208, 208, 208) 1px'}">
+            <Icon [type]="'cross-circle-o'" [size]="'xxs'" color="rgb(208, 208, 208)" 
+            style="z-index: 10;right:-2px;top:-2px;position: absolute;" (click)="showAlert(item)"></Icon>
+            <img src="/assets/image/themeSet/dark.png" 
+            [ngStyle]="{'top':0,'left':0,'bottom':0,'right':0,'margin':'auto','position': 'absolute',
+                'width': null, 'height': imgWidth}"
+                 (click)="showBigImg(item.img)" />
+          </div> -->
+
+          <div  [ngStyle]="{'width': imgWidth,'height':imgWidth,'position': 'relative',
+          'border-radius': '5%','border': 'solid rgb(208, 208, 208) 1px','float':'left'}">
+   
+            <img id="cross" src="/assets/icon/global/027.png" (click)="showMineActionSheet()" 
+              [ngStyle]="{'width': imgWidth,'height':imgWidth,'position': 'relative'}" 
+            />
+          </div>
+        </div>
+      </WingBlank>
+
+    </List>
+
+  </div>
+</ion-content>

@@ -68,9 +68,36 @@
         <div></div>
         <div></div>
         <div></div>
-        <div></div>
+    </div>
+    <br>
+<div id="img1" style="overflow:hidden;border: solid 1px grey;background-color:white;position: relative">
+        <img id="img2" src="./fish.jpg" style="position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;">
     </div>
 
+    <script>
+    
+        let img1 = document.getElementById("img1");
+        let screenWidth = screen.width*0.2;
+        let screenHeight = screen.width*0.2
+        // console.log(img,img.width,img.height,img1.style.width,img1.style.height,screen.width*0.2);
+        img1.style.width = screenWidth + 'px';
+        img1.style.height = screenWidth + 'px';
+        let img2 = document.getElementById("img2");
 
+        let img = new Image();
+        img.src = img2.src;
+        img.onload = () =>{
+            let ih = img.height;
+            let iw = img.width;
+            console.log(ih,iw);
+            if (ih <= iw){
+        img2.style.width = screenWidth + 'px';
+
+            } else {
+        img2.style.height = screenHeight + 'px';
+
+            }
+        }
+    </script>
 </body>
 </html>

@@ -3,3 +3,5 @@
 3.APM		¸¸×Ó×é¼þ
 4.client-server	web-socket		node server/auction_server.js
 5.angulardemo01	À¹½ØÆ÷backend
+6.H5/position.html	Í¼Æ¬ËõÂÔÍ¼¾ÓÖÐ£¬let img = new Image(); img.onload=()=>{ let ih = img.height;
+            let iw = img.width;}

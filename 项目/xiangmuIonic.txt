@@ -3,7 +3,16 @@ http://192.168.16.149/  liken
 |李肯
 
 
-15069270296：123456 aolian3  测试154
+622891 wangzhenhao 123456 正式
+408728/liken/123456  测试
+
+15069270296：123456 aolian3  测试154	17601062903/zq123456
+政企奥链 13888888888：g123456
+
+精益平台http://192.168.16.103:8080/CNIC_M/app/index.html#/Login/
+999888 15650709373奥链账号
+
+svn  http://192.168.16.147/!/#al	账号：liken 密码：al19
 
 组织部小程序，省考指标https://gitlab.lean.com/liuting/zw-alllink  730
 aolian3   release/3.0.3-200901
@@ -112,3 +121,6 @@ ionic注册安卓物理返回键的处理方法：
 $ionicPlatform.registerBackButtonAction(function (e) {
     //阻止默认的处理方法
     e.preventDefault();
+import { Platform } from '@ionic/angular';
+private platform: Platform,
+    this.platform.backButton.subscribe(() => {

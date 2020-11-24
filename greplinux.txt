@@ -2,6 +2,8 @@ du -ch 	查看目录大小
 df -h	查看系统盘
 dd
 
+$ find ./ -type f -name "*.txt" | xargs grep "物理返回键"
+
 find ./ -size +100M
 可以用这个代码找到100m以上的文件
 

@@ -424,3 +424,29 @@ public interface TbUserDao extends BaseDao<TbUser>{}
 93. 自关联，在自己的对象内引用自己，又当子节点又当父节点。
 
 94. BaseTreeDao,BaseTreeService抽象到commons。在admin下新建包abstracts，再新建类AbstractBaseTreeServiceImpl,因为它不是通用的，可能只给admin使用，所以不是放在commons下。深度抽象！只关注业务本身！
+
+95. 事务管理器是 PlatformTransactionManager 接口对象，该接口定义了 3 个事务方法：
+
+    void commit(TransactionStatus status)：事务的提交
+    TransactionStatus getTransaction(TransactionDefinition definition)：获取事务的状态
+    void rollback(TranscationStatus status)：事务的回滚
+
+常用的两个实现类
+
+PlatformTransactionManager 接口有两个常用的实现类：
+
+    DataSourceTransactionManager：使用 JDBC 或 MyBatis 进行持久化数据时使用。
+    HibernateTransactionManager：使用 Hibernate 进行持久化数据时使用。
+Spring事务回滚的默认方式：运行时异常回滚（编译时不报错。。。），所以自己不能try catch，全由Spring处理。
+
+96. 事务定义接口 TransactionDefinition 中定义了事务描述相关的三类常量：事务隔离级别、事务传播行为、事务默认超时时限(自己无法估计设置时间)，及对它们的操作。
+
+事务的四种隔离级别
+
+    DEFAULT：采用 DB 默认的事务隔离级别。MySql 默认为 REPEATABLE_READ；Oracle 默认为：READ_COMMITTED；
+    READ_UNCOMMITTED：读未提交。未解决任何并发问题。
+    READ_COMMITTED：读已提交。解决脏读，存在不可重复读与幻读。
+    REPEATABLE_READ：可重复读。解决脏读、不可重复读。存在幻读。
+    SERIALIZABLE：串行化。不存在并发问题。
+脏读：事务提交前就有修改，还未提交，就报错回滚了。解决办法是，事务提交前不允许别人读到这个修改值。
+不可重复读：

@@ -103,3 +103,15 @@ editRow(data, 2, index)  注意data才是渲染页面的数据
       <nz-form-item>
 
 angular.json里的 architect下的  aot:true虽然编译慢，但是当出错时，会产生丰富的报错信息。
+
+
+意见反馈：aboutfeedback 奥链3
+<ListItem>的 extra是右侧显示，类型placeholder；而ngModel才是真的互动数据，二者不能同变量。
+
+企业排名src\app\gov\benefitpermu\enterpriserequery\enterpriserequery.page.ts
+可以指定激活的tab页，比如传过来时间，就可以用指定自定义picker年份了。[activeTab]="index"
+企业简介最好用textarea：
+<ListItem [extra]="currentDataOBj.cPartnerDesc" [wrap]="true">企业简介</ListItem>
+<TextareaItem [title]="'企业简介'" [editable]="false" [autoHeight]="true" [value]="currentDataOBj.cPartnerDesc"></TextareaItem>
+能点击的企业名字，最好加上a标签，          <a style="text-decoration:underline;">{{item[1]}}</a>
+

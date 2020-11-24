@@ -285,6 +285,28 @@ export class WelcomeComponent implements OnInit {
       this.search();
     }
   }
+
+  // 20201121 删除工业某些字段
+  // tslint:disable-next-line: member-ordering
+  someIndustry = 
+  [
+"平均用工人数",
+
+"流动资产",
+
+"应收账款",
+
+"存货",
+
+"产成品",
+
+"固定资产原价",
+
+"资产总计",
+
+"负债合计",
+
+    ]
   getData3() {
     this.data7 = []
     this.objIndustry.nameOfTheIndustry = null;
@@ -296,10 +318,10 @@ export class WelcomeComponent implements OnInit {
       let tmp: any = this.disDataIF.filter(item => item.id === i)
       this.http
       .post(
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustry",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustry",
         "https://gateway.leancloud.biz:4443/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/IndustrialGroupaction/getIndustrialFinancial",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss",
         this.objIndustry
       )
       // tslint:disable-next-line: max-line-length
@@ -311,8 +333,16 @@ export class WelcomeComponent implements OnInit {
             res.data.getIndustrialFinancial;
             // res.data.getAllFieldAndFixedFieldSettingsInTheIndustryCalss;
           console.log(`一二级指标disData,${tmp[0].nameOfTheIndustry}:`, this.disData);
-          if (i === 9){
-              this.data7 = [...this.disData]
+          if (i === 6){
+              // this.data7 = [...this.disData]
+              this.data7 = [];
+              this.disData.map(item => {
+                this.someIndustry.map(i => {
+                  if (item.nameOfTheIndustry === (i+'（本月）')) {
+                      this.data7.push(item);
+                  }
+                })
+              })
               console.log("哪个行业:", this.disDataIF.filter(item => item.id === i)[0].nameOfTheIndustry, this.data7)
               // this.delData()
           }
@@ -403,7 +433,7 @@ export class WelcomeComponent implements OnInit {
     this.http
       .post(
         " https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getdelClassificationField",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getdelClassificationField",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getdelClassificationField",
         this.data7
       )
       .subscribe((res: any) => {
@@ -420,10 +450,10 @@ export class WelcomeComponent implements OnInit {
     // 先删除，再添加disData0,最后添加disData9
     this.http
       .post(
-        "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
         // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.disData9
       )
       .subscribe((res: any) => {
@@ -461,10 +491,10 @@ export class WelcomeComponent implements OnInit {
   addOther(){
       this.http
       .post(
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
-        // "http://192.168.9.14:18097/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
+        "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.other2
         // 先添加一级指标otherData1，再二级指标otherData2
       )
