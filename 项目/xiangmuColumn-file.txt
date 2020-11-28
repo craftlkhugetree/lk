@@ -1,0 +1,28 @@
+src\app\routes\portal-management\column-file\column-file.component.ts
+
+所属项目： 门户管理前台迁移政务平台
+基础设置-栏目档案
+
+nz-select里的ngModel如果不要保留前值，必须置为null，不能是空字符串，否则会留有前值，而实际上并不是经过(ngModelChange)选中赋值，传回去的还是空。
+  <nz-select  [nzDisabled]="!isEdit" [(ngModel)]="listOfData.cType" name="cType"
+            (ngModelChange)="chooseType($event)">
+              <nz-option *ngFor="let option of cType" [nzValue]="option.cEnumCode" [nzLabel]="option.cEnumName"></nz-option>
+            </nz-select>
+
+
+
+//合并对象
+
+public extend(obj1: object, obj2: object) {
+
+for (var obj in obj2) {
+
+obj1[obj] = obj2[obj];
+
+}
+
+return obj1;
+
+}
+
+ngzorro只导入了部分icon，可以在src\style-icons-auto.ts看到

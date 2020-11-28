@@ -11,6 +11,8 @@ http://192.168.16.149/  liken
 
 精益平台http://192.168.16.103:8080/CNIC_M/app/index.html#/Login/
 999888 15650709373奥链账号
+http://192.168.9.15:8080/CNIC_M/app/index.html#/Login/
+999888 liken/lk@123
 
 svn  http://192.168.16.147/!/#al	账号：liken 密码：al19
 

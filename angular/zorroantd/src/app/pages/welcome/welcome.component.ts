@@ -531,4 +531,13 @@ export class WelcomeComponent implements OnInit {
     // 先添加一级，再添加二级。慎用，会复制二级指标，这样只能用delData()删除了。
     // this.addData1(); 
   }
+  n = 10;
+  abc = '';
+  public cutInputNum(value) {
+    console.log(this.abc,value);
+    if (this.abc.length > this.n) {
+      this.abc = this.abc.slice(0,this.n);
+      return;
+    }
+  }
 }
