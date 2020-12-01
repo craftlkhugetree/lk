@@ -26,3 +26,7 @@ return obj1;
 }
 
 ngzorro只导入了部分icon，可以在src\style-icons-auto.ts看到
+
+nz-upload 需要的缩略图片地址，是用jump传来的id，异步查询接口得到的，所以不能实时渲染upload，要用ngif。 不行的话就得render了：              this._render.setProperty(this.target.nativeElement, 'nzFileList', this.fileList);
+
+刚进页面还没有的对象属性，应该在html里这样引用userInfo?.name

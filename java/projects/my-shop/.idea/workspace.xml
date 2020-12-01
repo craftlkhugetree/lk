@@ -79,9 +79,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../lean-zwzq/threeAlllink" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RebelAgentSelection">
@@ -296,6 +297,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9b435491-b6c9-46a3-ab6e-6fb117157905" name="Default Changelist" comment="" />
@@ -324,6 +328,8 @@
       <workItem from="1605311580565" duration="13243000" />
       <workItem from="1605767580321" duration="116000" />
       <workItem from="1605841896591" duration="27000" />
+      <workItem from="1606808538128" duration="55000" />
+      <workItem from="1606812446356" duration="30000" />
     </task>
     <servers />
   </component>
@@ -335,12 +341,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1226" y="456" key="#Custom_Plugin_Repositories" timestamp="1604987247650">
@@ -487,6 +494,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="681" y="250" width="540" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1604393195252" />
+    <state x="640" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1606812450033">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606812450033" />
     <state x="502" y="248" width="915" height="644" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1604538589913">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -499,6 +510,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604385695990" />
+    <state x="330" y="179" key="new project wizard" timestamp="1606808607202">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="330" y="179" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1606808607202" />
     <state x="655" y="275" key="refactoring.ChangeSignatureDialog" timestamp="1605065603653">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

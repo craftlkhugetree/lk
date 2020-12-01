@@ -7,6 +7,9 @@ y+P
 - gU: go to root directory
  "gi": { "type": "focus.input" },
  ".": { "type": "repeat.last" },
+选择左/右标签 J/K
+搜索剪贴板关键字 在当前/新窗口  p/P
+跳转到当前url上一级/最高级 gu/gU
 
 A	行末插入   I 行首输入
 yw     　　　　//当前光标下面的这个单词
