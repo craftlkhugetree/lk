@@ -1,0 +1,302 @@
+<nz-card style="margin: 8px 0">
+  <button nz-button nzType="default" (click)="edit(1)" *ngIf="!isEdit">
+    <i nz-icon nzType="plus" nzTheme="outline"></i>增加
+  </button>
+  <button nz-button nzType="primary" (click)="edit(2)" *ngIf="!isEdit">
+    <i nz-icon nzType="edit" nzTheme="outline"></i>修改
+  </button>
+  <button nz-button nzType="danger" (click)="delForm()" *ngIf="!isEdit">
+    <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+  </button>
+  <button nz-button nzType="danger" (click)="giveUp()" *ngIf="isEdit">
+    <i nz-icon nzType="close-circle" nzTheme="outline"></i>放弃
+  </button>
+  <button nz-button nzType="default" (click)="submitForm()" *ngIf="isEdit">
+    <i nz-icon nzType="check-circle" nzTheme="outline"></i>发布
+  </button>
+  <button nz-button nzType="default" (click)="cast()" *ngIf="hideBTN">
+    <i nz-icon nzType="reload" nzTheme="outline"></i>召回
+  </button>
+</nz-card>
+
+<nz-card style="margin-left: 8px" nzTitle="信息发布">
+  <nz-spin [nzSpinning]="isSpinning0">
+
+    <form>
+      <div nz-row>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="6">
+              <span style="color: red;">*</span>消息标题
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="12">
+              <input nz-input placeholder="请输入消息标题" type="text" [readOnly]="!isEdit" [disabled]="!isEdit"
+                [(ngModel)]="listOfData._cTitle" name="cTitle" maxlength="{{maxLength}}" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="6">
+              关键词
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="12">
+              <input nz-input placeholder="请输入关键词" [readOnly]="!isEdit" maxlength="{{maxLength}}" [disabled]="!isEdit"
+                [(ngModel)]="listOfData.cKeyWords" name="cKey" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="6">
+              <span style="color: red;">*</span>栏目名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-input-group [nzSuffix]="suffixIcon">
+                <input type="text" name="cName" placeholder="请输入栏目名称" [(ngModel)]="listOfData.cColumnNames"
+                  (keydown)="$event.which === 13 ? comSearch() : 0" maxlength="{{maxLength}}" [readOnly]="!isEdit"
+                  [disabled]="!isEdit" nz-input />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="6">
+              <span style="color: red;">*</span>文章类型
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-radio-group [nzDisabled]="!isEdit" [(ngModel)]="listOfData.iArticleType" name="cRadio"
+                (ngModelChange)="chooseModel($event)">
+                <label nz-radio nzValue="0">{{radioValue['0']}}</label>
+                <label nz-radio nzValue="1">{{radioValue['1']}}</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="6">
+              文章链接
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="12">
+              <input nz-input placeholder="示例:http://www.baidu.com" [readOnly]="!isEdit || isUrl"
+                maxlength="{{maxLength2}}" [disabled]="!isEdit || isUrl" [(ngModel)]="listOfData.cAticleSource"
+                name="cURL" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-label [nzSpan]="6">
+            可选择
+          </nz-form-label>
+          <nz-form-item nzFlex>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-checkbox-group [nzDisabled]="!isEdit" [(ngModel)]="checkOptionsOne" name="ck"
+                (ngModelChange)="updateSingleChecked($event)">
+              </nz-checkbox-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item nzFlex>
+            <!-- <nz-form-label [nzSpan]="6">
+              文章来源
+            </nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <textarea nz-input placeholder="请填入文章来源" [readOnly]="!isEdit" [disabled]="!isEdit"
+                [nzAutosize]="{ minRows: 4 }" maxlength="{{maxLength}}" [(ngModel)]="listOfData.cAticleSource"
+                name="cTextarea"></textarea>
+            </nz-form-control> -->
+            <nz-form-label [nzSpan]="6">
+              <span style="color: red;">*</span><span>{{coverImg}}</span>
+            </nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <div>
+                <nz-upload [nzDisabled]="!isEdit" #target
+                  nzAction="https://file.leancloud.biz:4443/CNIC_FAndMServer/Sys_DocumentLibray_CNICMC/upLoadImageDocumentBase64s"
+                  nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]=" fileList.length < 1"
+                  [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" [nzCustomRequest]="customReq"
+                  (nzChange)="response($event)" [nzSize]="10240" nzFileType="image/png,image/jpeg,image/gif,image/bmp"
+                  nzAccept="image/png,image/jpeg,image/gif,image/bmp">
+                  <i nz-icon nzType="plus" style="font-size: 32px; color: #999;"></i>
+                  <div class="ant-upload-text">点击上传</div>
+                </nz-upload>
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                  (nzOnCancel)="previewVisible = false">
+                  <ng-template #modalContent>
+                    <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                  </ng-template>
+                </nz-modal>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="16">
+          <nz-form-item nzFlex>
+            <nz-form-label [nzSpan]="3">
+              摘要
+            </nz-form-label>
+            <nz-form-control [nzSpan]="21">
+              <textarea nz-input placeholder="请输入摘要" [readOnly]="!isEdit" [disabled]="!isEdit"
+                [nzAutosize]="{ minRows: 4 }" maxlength="{{maxLength2}}" [(ngModel)]="listOfData.cAbstract"
+                name="cBrief"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <!-- nzAction="https://file.leancloud.biz:4443/CNIC_FAndMServer/Sys_DocumentLibray_CNICMC/upLoadShopImageDocument" -->
+      <!-- <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item nzFlex>
+            <nz-form-label [nzSpan]="2">
+              <span style="color: red;">*</span><span>{{coverImg}}</span>
+            </nz-form-label>
+            <nz-form-control [nzSpan]="22">
+              <div>
+                <nz-upload [nzDisabled]="!isEdit"  #target
+                  nzAction="https://file.leancloud.biz:4443/CNIC_FAndMServer/Sys_DocumentLibray_CNICMC/upLoadImageDocumentBase64s"
+                  nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]=" fileList.length < 1"
+                  [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" [nzCustomRequest]="customReq"
+                  (nzChange)="response($event)" [nzSize]="10240"
+                  nzFileType="image/png,image/jpeg,image/gif,image/bmp"
+                  nzAccept="image/png,image/jpeg,image/gif,image/bmp">
+                  <i nz-icon nzType="plus" style="font-size: 32px; color: #999;"></i>
+                  <div class="ant-upload-text">点击上传</div>
+                </nz-upload>
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                  (nzOnCancel)="previewVisible = false">
+                  <ng-template #modalContent>
+                    <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                  </ng-template>
+                </nz-modal>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div> -->
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item nzFlex>
+            <nz-form-label [nzSpan]="2">
+              文本编辑
+            </nz-form-label>
+            <nz-form-control [nzSpan]="22">
+              <tinymce style="margin-top:10px ;" [(ngModel)]="html" [config]="editorConfig" name="editTinymce"
+                [disabled]="!isEdit || isTiny" #targetTiny>
+              </tinymce>
+              <!-- <editor id=editorID [init]="editorConfig" [(ngModel)]="html"></editor> -->
+              <!-- <textarea id="{{tinymce}}"></textarea> -->
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+    <!-- <nz-form-item>
+          <nz-form-label [nzSpan]="2">
+            类型
+          </nz-form-label>
+          <nz-form-control [nzSpan]="6">
+            <nz-select  [nzDisabled]="!isEdit" [(ngModel)]="listOfData.cType" name="cType"
+            (ngModelChange)="chooseType($event)">
+              <nz-option *ngFor="let option of cType" [nzValue]="option.cEnumCode" [nzLabel]="option.cEnumName"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item> -->
+    <!-- </div> -->
+  </nz-spin>
+</nz-card>
+
+<ng-template #suffixIcon>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="link" (click)="comSearch()" [disabled]="isSpinning0">
+    <i nz-icon nzType="search"></i>
+  </button>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="栏目名称" (nzOnCancel)="newAreaCancel()" (nzOnOk)="newAreaOk()" nzWidth="50%">
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <nz-card style="height: 514px;overflow-y:scroll;">
+        <nz-tree [nzData]="nodes" nzAsyncData (nzClick)="nzEvent($event)" [nzShowLine]="false" [nzShowExpand]="true">
+        </nz-tree>
+      </nz-card>
+    </div>
+
+    <div nz-col nzSpan="16">
+      <form>
+        <nz-form-item nzFlex>
+          <!-- <nz-form-label nz-col [nzSpan]="6">
+            检索
+          </nz-form-label> -->
+          <nz-form-control>
+            <nz-input-group [nzSuffix]="suffixIcon">
+              <input type="text" name="ccName" placeholder="检索框" [(ngModel)]="listOfData.cColumnNames"
+                (keydown)="$event.which === 13 ? comSearch() : 0" maxlength="{{maxLength}}" [readOnly]="!isEdit"
+                [disabled]="!isEdit" nz-input />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <nz-table #nzTable [nzData]="referList" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0"
+        [nzBordered]="true" [nzSize]="'small'" [nzScroll]="{x:'400px'}">
+        <thead>
+          <tr>
+            <!-- <th>{{fieldData[0]?.fieldName}}</th> -->
+            <!-- <th>{{fieldData[1]?.fieldName}}</th>
+            <th>{{fieldData[2]?.fieldName}}</th>
+            <th>{{fieldData[3]?.fieldName}}</th> -->
+            <th nzWidth="140px">栏目名称</th>
+            <th nzWidth="70px">选择项</th>
+            <th nzWidth="140px">父级栏目</th>
+            <!-- <th>{{fieldData[4]?.fieldName}}</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of nzTable.data" (dblclick)="dbClick(i)" (click)="chooseTable(i)"
+            [class.strikethrough]="i.cColumnCode === cChoiceName">
+            <!-- <td>{{i.cColumnCode}}</td> -->
+            <td>{{i.cColumnNames}}</td>
+            <td>{{i.cChoice}}</td>
+            <td>{{i.cColumnName}}</td>
+            <!-- <td>{{i.bIsGroupData}}</td> -->
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-modal>
+<!-- /* white-space:nowrap; */ -->
+
+<style>
+  ::ng-deep .ant-table-thead>tr>th {
+    background-color: #378affe1!important;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  }
+
+  .strikethrough {
+    /* text-decoration: line-through; */
+    background-color: #18857c;
+  }
+</style>

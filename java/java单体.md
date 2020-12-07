@@ -436,10 +436,10 @@ public interface TbUserDao extends BaseDao<TbUser>{}
 PlatformTransactionManager 接口有两个常用的实现类：
 
     DataSourceTransactionManager：使用 JDBC 或 MyBatis 进行持久化数据时使用。
-    HibernateTransactionManager：使用 Hibernate 进行持久化数据时使用。
+    HibernateTransactionManager：使用 Hibernate 进行持久化数据时使用。使用方言而不是JDBC
 Spring事务回滚的默认方式：运行时异常回滚（编译时不报错。。。），所以自己不能try catch，全由Spring处理。
 
-96. 事务定义接口 TransactionDefinition 中定义了事务描述相关的三类常量：事务隔离级别、事务传播行为、事务默认超时时限(自己无法估计设置时间)，及对它们的操作。
+96. 事务定义接口 TransactionDefinition 中定义了事务描述相关的三类常量：事务隔离级别、事务传播行为、事务默认超时时限(不同db不同，所以自己无法估计设置时间)，及对它们的操作。
 
 事务的四种隔离级别
 
@@ -448,5 +448,39 @@ Spring事务回滚的默认方式：运行时异常回滚（编译时不报错�
     READ_COMMITTED：读已提交。解决脏读，存在不可重复读与幻读。
     REPEATABLE_READ：可重复读。解决脏读、不可重复读。存在幻读。
     SERIALIZABLE：串行化。不存在并发问题。
-脏读：事务提交前就有修改，还未提交，就报错回滚了。解决办法是，事务提交前不允许别人读到这个修改值。
-不可重复读：
+脏读：A事务提交前，事务B就对同一变量有修改，但还未提交，就报错回滚了，该变量又回到了A的初始值。解决办法是，事务提交前不允许别人读到这个修改值。
+不可重复读：针对的是不同事务调用同一个方法，读取了同一个变量。
+幻读：事务A读取数组长度时，事务B增加了该数组长度。
+
+97. 所有回滚事务由Spring负责，自己不可以Begin try ... catch Rollback Commit
+
+98. 事务的七种传播行为
+
+所谓事务传播行为是指，处于不同事务中的方法在相互调用时，执行期间事务的维护情况。如，A 事务中的方法 a() 调用 B 事务中的方法 b()，在调用执行期间事务的维护情况，就称为事务传播行为。事务传播行为是加在方法上的。
+
+    REQUIRED：指定的方法必须在事务内执行。若当前存在事务，就加入到当前事务中；若当前没有事务，则创建一个新事务。这种传播行为是最常见的选择，也是 Spring 默认的事务传播行为。
+    SUPPORTS：指定的方法支持当前事务，但若当前没有事务，也可以以非事务方式执行。
+    MANDATORY：指定的方法必须在当前事务内执行，若当前没有事务，则直接抛出异常。
+    REQUIRES_NEW：总是新建一个事务，若当前存在事务，就将当前事务挂起，直到新事务执行完毕。
+    NOT_SUPPORTED：指定的方法不能在事务环境中执行，若当前存在事务，就将当前事务挂起。
+    NEVER：指定的方法不能在事务环境下执行，若当前存在事务，就直接抛出异常。
+    NESTED：指定的方法必须在事务内执行。若当前存在事务，则在嵌套事务内执行；若当前没有事务，则创建一个新事务。
+
+99. 配置事务在spring-context.xml的beans里添加
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事务通知。新增了scheme:tx -->
+    <tx:advice id="myAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置顾问和切入点 -->
+    <aop:config>
+        <aop:pointcut id="myPointcut" expression="execution(* com.hello.spring.transaction.aspectsj.aop.service.*.*(..))" />
+        <aop:advisor advice-ref="myAdvice" pointcut-ref="myPointcut" />
+    </aop:config>

@@ -1,0 +1,1 @@
+1. 下拉框的不选变为全选，用or条件修改表格 OR if(len($地区)==0,nofilter,$地区) 或者在数据集sql语句中修改SELECT * FROM 订单 where 1=1 ${if(len(地区) == 0,"","and 地区 = '" + 地区 + "'")}

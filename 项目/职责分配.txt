@@ -55,6 +55,11 @@ editRow(data, 2, index)  注意data才是渲染页面的数据
   data.cPhone = res.data.cMemberRegisterPhone;
   this.validateForm.value = data;
 
+ // 获取表单数据 - 登录密码
+  get PassWord() {
+    return this.formObj.controls.PassWord;
+  }
+
 密码不存在或者密码发生了变化，就要进行三种强度不同的正则：
  if (!value.cUserPWD || this.oldPWD !== value.cUserPWD){
       if (this.cPassStrongValue == '[/[A-Z]+/,/[a-z]+/,/\\d+/,/[^A-Za-z0-9]+/]') {

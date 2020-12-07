@@ -30,7 +30,7 @@ arr.sort();  也会修改原数组，默认按unicode编码，所以11会排到2
     arr.sort(function(a,b){
         return (x=a-b);//升序
     })//浏览器根据x判断顺序，若x<0,则元素位置不变；若x>0，则交换位置；若x=0，则认为a=b.
-[]...new Set(arr)]  去重
+[]...new Set(arr)]  去重,只能针对数字，对于数组元素不行。
 [1,2,3,4].toString();   // "1,2,3,4"
 
 

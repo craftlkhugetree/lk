@@ -1,4 +1,4 @@
-1.zorroantd	testMock.js	welcome组件调用经济运行分析接口修改测试和正式数据。
+1.zorroantd	testMock.js	welcome组件调用经济运行分析接口修改测试和正式数据。	  ngAfterViewChecked表格中，自动focus input。
 2.today		nz 官方demo
 3.APM		父子组件
 4.client-server	web-socket		node server/auction_server.js

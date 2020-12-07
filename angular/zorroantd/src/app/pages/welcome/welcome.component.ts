@@ -541,3 +541,33 @@ export class WelcomeComponent implements OnInit {
     }
   }
 }
+
+/**
+ *   "/CNIC_M/*": {
+    "target": "http://b.leancloud.biz",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/cnic-auth/*": {
+    "target": "https://gateway.leancloud.biz:4443",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+ */
+
+ /**
+  *   "/CNIC_M/*": {
+    "target": "http://192.168.16.103:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/cnic-auth/*": {
+    "target": "http://192.168.9.154:8081",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  */

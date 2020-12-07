@@ -30,3 +30,101 @@ ngzorro只导入了部分icon，可以在src\style-icons-auto.ts看到
 nz-upload 需要的缩略图片地址，是用jump传来的id，异步查询接口得到的，所以不能实时渲染upload，要用ngif。 不行的话就得render了：              this._render.setProperty(this.target.nativeElement, 'nzFileList', this.fileList);
 
 刚进页面还没有的对象属性，应该在html里这样引用userInfo?.name
+
+修改功能，尤其要注意，因为修改的同时可能别的页面已经把该修改条目删了，所以要先拉去修改的文章，拉去成功才能修改。
+
+
+
+在服务中定义广播对象，
+  public orgChooseEventer = new EventEmitter<any>();
+然后在A页面交互处，调用该服务发送广播，然后在B页面实例化该服务
+    private orgServe: OrgChooseService
+再用该服务接收广播，这就可以打通A、B的沟通，同时由于广播是随时的，所以只在B页面的ngOnInit()里调用一次，就可以一直监听。
+  this.orgServe.orgChooseEventer.subscribe((res: any) => {
+      this.current_org =  this.orgServe.getCurrentOrg();
+    })
+
+declare var $: any;	已全局声明了jQuery
+$.isEmptyObject(menuObj)   jQuery检查对象是否为空
+
+构造函数constructor()是tab切换就执行，ngOnInit()是进入tab执行一次，ngOnDestroy是关闭tab执行一次。
+
+以“信息发布列表”点击某篇文章跳转到“文章列表”为例。跳转要带着文章id，比如点击的文章id为3727，那么在跳转过程中调用的服务orgchoose.service.ts内this.routerURL值为"/portal-management/InformationDelivery?autoid=3727"而从this.menuInfo = JSON.parse(window.sessionStorage.getItem('zw_menuInfo'));中得到的菜单对象obj.link为"/portal-management/InformationDelivery"
+this.routerURL与 obj.link不相等，所以右上角的组织组件org.component中，组织UUID被置空。
+
+构造函数先执行，此刻组件内赋值的变量，已经赋值了，能在构造函数中看到。而此刻的current_org从JSON.parse(window.sessionStorage.getItem('zw_currentOrg')中还能取到“信息发布列表”页面的组织，由于上述UUID置空是异步，所以跳转后页面内的赋值还是保留了“信息发布列表”的组织，而不是空，但异步结束后再用JSON.parse(window.sessionStorage.getItem('zw_currentOrg')得到的组织就是空了！！！
+
+每一次组织的调用都要考虑组织已被清理掉了，所以要if判断组织是否存在！！！
+
+
+src\app\layout\default\header\header.component.ts里的ngOnInit执行tabClickEvent();该函数里有 this.menuService.openedByUrl()新打开了tab页/SysManage/SystemSetup   而/main是在路由里设置的，将/根路由转化为/main   
+{ path: '', redirectTo: 'main', pathMatch: 'full' },
+所以一登录就打开了这俩tab。
+
+login.ts
+验证码图片是  private sanitizer: DomSanitizer,
+this.captchaImg = this.sanitizer.bypassSecurityTrustResourceUrl(res.data.imgStr);
+<nz-input-group [nzAddOnAfter]="captchaButton"  >
+<ng-template #captchaButton>
+	<img [src]="captchaImg" (click)="creatCaptcha()" style="height: 30px; cursor: pointer;"/>
+</ng-template
+
+
+点击登录
+ this.eleRef.nativeElement.querySelector('#Captcha').blur();
+ formControlName="Captcha"
+
+
+    // 录入校验 -- 登录密码 nz-form-control
+    this.PassWord.markAsDirty();
+    this.PassWord.updateValueAndValidity();
+    if (this.PassWord.invalid) {
+      return;
+    }
+
+ // 获取表单数据 - 登录密码
+  get PassWord() {
+    return this.formObj.controls.PassWord;
+  }
+// post 参数对象的一个属性cPsd
+ cPsd: this.PassWord.value,
+
+
+ private titleSrv: TitleService,	// 网页浏览器标题
+this.titleSrv.setTitle(this.sysTitle);
+
+
+this.formObj = new FormGroup(
+      {
+        SinID: new FormControl(null, {
+          validators: [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
+        }),
+        UserName: new FormControl(null, {
+          validators: Validators.required,
+        }),
+        PassWord: new FormControl(null, {
+          validators: Validators.required,
+        }),
+        Captcha: new FormControl(null, {
+          validators: [Validators.required, Validators.minLength(4), Validators.maxLength(4)],
+        }),
+      },
+      {
+        updateOn: 'blur',
+      },
+    );
+
+
+// patchValue可以单个的给formObj赋值，而setValue必须是整体都赋值。
+ if (window.sessionStorage.getItem('zw_code')) {
+      this.formObj.patchValue({
+        SinID: window.sessionStorage.getItem('zw_code'),
+      });
+    }
+
+
+  // 创建随机字符串  |0 去除了小数  toString(16)将数字变为十六进制字符串  
+  // subString(1)去掉第一位字符
+  randomStr() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
