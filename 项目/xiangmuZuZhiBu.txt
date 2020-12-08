@@ -1,3 +1,53 @@
   // tslint:disable: prefer-for-of
   // tslint:disable: member-ordering
   // tslint:disable: prefer-conditional-expression
+
+for...of 允许你遍历 Arrays（数组）, Strings（字符串）, Maps（映射）, Sets（集合）等可迭代的数据结构等。对象被看作是一个类数组(array-like)对象。
+生成器是一个函数，它可以退出函数，稍后重新进入函数。
+// generator-example.js
+function* generator(){ 
+  yield 1; 
+  yield 2; 
+  yield 3; 
+}; 
+for (const g of generator()) { 
+  console.log(g); 
+}
+for in循环遍历的是数组的键值(索引)，而for of循环遍历的是数组的值。给数组添加一个自定义属性name，并且赋值"数组"。然后进行遍历输出的，会发现新定义的属性也被for in输出来了，而for of并不会对name进行输出。
+
+for...in 循环将遍历对象的所有可枚举属性。
+
+//for-in-example.js
+Array.prototype.newArr = () => {};
+Array.prototype.anotherNewArr = () => {};
+const array = ['foo', 'bar', 'baz'];
+ 
+for (const value in array) { 
+  console.log(value);
+}
+// Outcome:
+// 0
+// 1
+// 2
+// newArr
+// anotherNewArr
+
+for...in 不仅枚举上面的数组声明，它还从构造函数的原型中查找继承的非枚举属性，在这个例子中，newArr 和 anotherNewArr 也会打印出来。
+注意：任何具有 Symbol.iterator 属性的元素都是可迭代的。
+
+
+// st表格
+data: any[] = Array(10000)
+    .fill({})
+    .map((_item: any, index: number) => {
+      return {
+        id: index + 1,
+        picture: {
+          thumbnail: `https://randomuser.me/api/portraits/thumb/women/${Math.min(index + 1, 30)}.jpg`,
+        },
+        email: `e${index + 1}@qq.com`,
+        phone: `phone - ${index + 1}`,
+        price: Math.ceil(Math.random() * 10000000) + 10000000,
+        registered: new Date(),
+      };
+    });
