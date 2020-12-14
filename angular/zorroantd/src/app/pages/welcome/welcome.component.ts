@@ -120,9 +120,10 @@ export class WelcomeComponent implements OnInit {
     // cOrgDepUUID: "eqrr6af78074513b4e1c81bc2eb7137b4a2e",
     // cOrgUUID: "hs9rd700a59181e648c4b73a1e1b83c69241",
     // 正式组织UUID
-    cAccUniqueID: "l48a2afc9fbc04614cb492055a4a93ee2cc5",
-    cOrgDepUUID: "q0djb881258c1090423c91ae347df0305284",
-    cOrgUUID: "vi59f11f8c5e5ca341d9ac2707653c2bef42",
+    cAccUniqueID: "tu5zb170d8cf8e604e2fa2faecfacdbe5b6a",
+    // cAccUniqueID: "l48a2afc9fbc04614cb492055a4a93ee2cc5",
+    // cOrgDepUUID: "q0djb881258c1090423c91ae347df0305284",
+    // cOrgUUID: "vi59f11f8c5e5ca341d9ac2707653c2bef42",
     ruleType: null,
     whetherTheFieldIsDisplayed: null,
     nameOfTheIndustry: null,
@@ -141,23 +142,23 @@ export class WelcomeComponent implements OnInit {
 
   // 添加其他6个行业，先添加一级指标otherData1，再二级指标otherData2
   otherData1 = [
-    // {first:["商品销售额（本月）","商品销售额（累计）","其它"],id:8},
-    // {first:["营业收入（累计）"],id:11},
-    // {first:["完成投资（本年）","完成投资（本月）","商品房销售面积（本年）","商品房销售面积（本月）","商品房销售额（本年）","商品房销售额（本月）"],id:12},
-    // {first:["本季本年折旧（累计）","本季营业收入（累计）","本季营业成本（累计）","本季营业税金及附加（累计）","本季营业利润（累计）","本季应付职工薪酬（累计）","本季应交增值税（累计）"],id:7},
-    // {first:["本季签订的建筑合同额（累计）","本季建筑业总产值（累计）","本季竣工产值（累计）"],id:10},
+    {first:["商品销售额（本月）","商品销售额（累计）","其它"],id:8},
+    {first:["营业收入（累计）"],id:11},
+    {first:["完成投资（本年）","完成投资（本月）","商品房销售面积（本年）","商品房销售面积（本月）","商品房销售额（本年）","商品房销售额（本月）"],id:12},
+    {first:["本季本年折旧（累计）","本季营业收入（累计）","本季营业成本（累计）","本季营业税金及附加（累计）","本季营业利润（累计）","本季应付职工薪酬（累计）","本季应交增值税（累计）"],id:7},
+    {first:["本季签订的建筑合同额（累计）","本季建筑业总产值（累计）","本季竣工产值（累计）"],id:10},
     {first: ["本季从业人员期末人数（本季）", "本季从业人员工资总额（累计）", "本季从业人员平均工资（累计）", "本季劳务派遣人员平均工资（累计）"], id: 9},
   ]
   otherData2 = [
-    // {second:[["商品销售额","同期商品销售额","商品销售额同比"],["累计商品销售额","同期累计商品销售额","上月累计商品销售额","累计商品销售额同比"],["累计数比对差","累计本季营业收入"]],id:8},
-    // {second:[["累计营业收入","同期累计营业收入","累计营业收入同比"]],id:11},
-    // {second:[["本年完成投资","本年完成投资同比"],["单月完成投资","单月完成投资同比","单月完成投资环比"],["本年商品房销售面积","本年商品房销售面积同比"],
-    //   ["单月商品房销售面积","单月商品房销售面积同比","单月商品房销售面积环比"],["本年商品房销售额","本年商品房销售额同比"],["单月商品房销售额","单月商品房销售额同比","单月商品房销售额环比"]],id:12},
-    // {second:[["累计本季本年折旧","累计本季本年折旧同比"],["累计本季营业收入","累计本季营业收入同比","累计本季销售收入-税务"],["累计本季营业成本","同期累计本季营业成本","累计本季营业成本同比"],
-    //   ["累计本季营业税金及附加","累计本季营业税金及附加同比"],["累计本季营业利润","累计本季营业利润同比"],["累计本季应付职工薪酬","累计本季应付职工薪酬同比"],
-    //   ["累计本季应交增值税","累计本季应交增值税同比","累计本季应交增值税-税务"]],id:7},
-    // {second:[["累计本季签订的建筑合同额","同期累计本季签订的建筑合同额","累计本季签订的建筑合同额同比"],["累计本季建筑业总产值","同期累计本季建筑业总产值","累计本季建筑业总产值同比"],
-    //      ["累计本季竣工产值","同期累计本季竣工产值","累计本季竣工产值同比"]],id:10},
+    {second:[["商品销售额","同期商品销售额","商品销售额同比"],["累计商品销售额","同期累计商品销售额","上月累计商品销售额","累计商品销售额同比"],["累计数比对差","累计本季营业收入"]],id:8},
+    {second:[["累计营业收入","同期累计营业收入","累计营业收入同比"]],id:11},
+    {second:[["本年完成投资","本年完成投资同比"],["单月完成投资","单月完成投资同比","单月完成投资环比"],["本年商品房销售面积","本年商品房销售面积同比"],
+      ["单月商品房销售面积","单月商品房销售面积同比","单月商品房销售面积环比"],["本年商品房销售额","本年商品房销售额同比"],["单月商品房销售额","单月商品房销售额同比","单月商品房销售额环比"]],id:12},
+    {second:[["累计本季本年折旧","累计本季本年折旧同比"],["累计本季营业收入","累计本季营业收入同比","累计本季销售收入-税务"],["累计本季营业成本","同期累计本季营业成本","累计本季营业成本同比"],
+      ["累计本季营业税金及附加","累计本季营业税金及附加同比"],["累计本季营业利润","累计本季营业利润同比"],["累计本季应付职工薪酬","累计本季应付职工薪酬同比"],
+      ["累计本季应交增值税","累计本季应交增值税同比","累计本季应交增值税-税务"]],id:7},
+    {second:[["累计本季签订的建筑合同额","同期累计本季签订的建筑合同额","累计本季签订的建筑合同额同比"],["累计本季建筑业总产值","同期累计本季建筑业总产值","累计本季建筑业总产值同比"],
+         ["累计本季竣工产值","同期累计本季竣工产值","累计本季竣工产值同比"]],id:10},
     {second: [["本季从业人员期末人数", "去年本季从业人员期末人数", "从业人员同/比增减"], ["累计本季从业人员工资总额", "去年累计本季从业人员工资总额", "从业人员同比累计工资增长"], ["累计本季从业人员平均工资", "去年累计本季从业人员平均工资", "从业人员同比平均工资增长"], ["累计本季劳务派遣人员平均工资", "去年累计本季劳务派遣人员平均工资", "劳务派遣同比平均工资增长"]], id: 9},
   ]
   other1 = []
@@ -307,6 +308,7 @@ export class WelcomeComponent implements OnInit {
 "负债合计",
 
     ]
+    someIndustryPlusMonth = [];
   getData3() {
     this.data7 = []
     this.objIndustry.nameOfTheIndustry = null;
@@ -352,6 +354,7 @@ export class WelcomeComponent implements OnInit {
       });
     }
   }
+  
   produceData() {
     // 解析出简略指标
     for (let i = 0; i < this.disData3.length; i++) {
@@ -410,7 +413,19 @@ export class WelcomeComponent implements OnInit {
       this.disData0[i].ruleType = 6;
       this.disData0[i].nameOfTheIndustry = this.disData2[i]
     }
-    console.log("简略指标，总的一级指标，总的二级指标，添加二级指标", this.data, this.disData2, this.disData1, this.disData9);
+    console.log("工业：简略指标，总的一级指标，总的二级指标，添加二级指标", this.data, this.disData2, this.disData1, this.disData9);
+
+    this.someIndustryPlusMonth = [];
+    this.disData9.map(item => {
+      this.someIndustry.map(i => {
+        if(i+'（本月）' === item.nameOfTheIndustry) {
+          let obj:any = {class:item.nameOfTheIndustry, field:item.fieldNames};
+          this.someIndustryPlusMonth.push(obj);
+        }
+      })
+    })
+    console.log("工业删的八条",this.someIndustryPlusMonth);
+
   }
 
   // 测试平台删除工业，正式平台要改组织id
@@ -450,8 +465,8 @@ export class WelcomeComponent implements OnInit {
     // 先删除，再添加disData0,最后添加disData9
     this.http
       .post(
-        "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
         // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
         // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.disData9
@@ -491,8 +506,8 @@ export class WelcomeComponent implements OnInit {
   addOther(){
       this.http
       .post(
-        "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
-        // "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
+        "https://gateway.leancloud.biz:4443/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAddBaseSettings",
         // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdClassificationField",
         // "http://192.168.9.154:8081/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getupdBaseSettings",
         this.other2
@@ -524,11 +539,13 @@ export class WelcomeComponent implements OnInit {
     this.produceData();
     this.produceOther1();
     this.getData3();
+    // 其他六个行业的添加和删除
     // this.addOther();
     // this.delData();
     console.log('删除预警规则：',this.alertData)
+   
 
-    // 先添加一级，再添加二级。慎用，会复制二级指标，这样只能用delData()删除了。
+    // 工业先添加一级，再添加二级。慎用，会复制二级指标，这样只能用delData()删除了。
     // this.addData1(); 
   }
   n = 10;

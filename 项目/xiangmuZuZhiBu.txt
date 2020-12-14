@@ -2,6 +2,22 @@
   // tslint:disable: member-ordering
   // tslint:disable: prefer-conditional-expression
 
+同一个form里的nz-input-group，若紧挨着使用搜索后缀，那么第二个的回车会变成第一个输入框里的，点击搜索按钮才会是第二个的。解决办法就是别把它们放在一个form里。
+
+<br/>可以让省略号文本换行，同时:hover省略号文本 overflow:auto;white-space:normal;就可以鼠标移过动态显示省略的文本。要省略必须先设置width。
+
+float:left;能让块级元素同行，但是后面的inline-block会下沉一点，是因为基线的问题，当一个inline-block元素被设置overflow非visible属性值后，其baseline将被强制修改为元素下外边沿。所以修改vertical-align: bottom即可。
+
+视图加载完毕后，可以修改元素属性：
+    const tableHeight = this._elementRef.nativeElement.querySelector('#idxCardTable');
+
+ const tree = this._elementRef.nativeElement.querySelector('#idxCardTree');
+ this._render.setStyle(tree, 'height' , tableHeight.offsetHeight + 'px');
+
+<nz-select [(ngModel)]="cS" name="cS" (ngModelChange)=cSChange($event) nzPlaceHolder="请选择">
+       <nz-option *ngFor="let option of depList" [nzLabel]="option" [nzValue]="depList.indexOf(option)+''"></nz-option>
+</nz-select>
+
 for...of 允许你遍历 Arrays（数组）, Strings（字符串）, Maps（映射）, Sets（集合）等可迭代的数据结构等。对象被看作是一个类数组(array-like)对象。
 生成器是一个函数，它可以退出函数，稍后重新进入函数。
 // generator-example.js

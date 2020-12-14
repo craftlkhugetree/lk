@@ -533,3 +533,11 @@ let obj1 = eval("("+json+")");
 
 curl -X POST -i 'http://192.168.16.103:8088/cnic-projectmanagement/EconomicAnalysisBaseSettingaction/getAllClassificationFieldIndustryCalss' --data '{"cAccUniqueID":"m8p742eb8cb5d3684004bcdf308890550bd5","cOrgUUID":"hs9rd700a59181e648c4b73a1e1b83c69241","cOrgDepUUID":"eqrr6af78074513b4e1c81bc2eb7137b4a2e","ruleType":6}'
 
+public already = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:#96c1ff;text-align: center;background:#edf4ff;border: 0.3px solid #96c1ff;border-radius: 8px;">审核通过</div>`;
+public notAudit = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #fdc15e;border-radius: 8px;">未审核</div>`;
+public reject = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">驳回</div>`;
+public notUp = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:#444c4c;text-align: center;background:#8ba1a0;border: 0.3px solid #7b8d8c;border-radius: 8px;">未上报</div>`;
+public timeoutNotUp = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #7b8d8c;border-radius: 8px;">已超时未上报</div>`;
+public timeoutUp = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 80px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #7b8d8c;border-radius: 8px;">已超时上报</div>`;
+public up = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:green;text-align: center;background:#94d4cf;border: 0.3px solid #7b8d8c;border-radius: 8px;">已上报</div>`;
+public mark = [this.already, this.notAudit, this.reject, this.notUp, this.timeoutNotUp, this.timeoutUp, this.up];
