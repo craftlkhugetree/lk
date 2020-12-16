@@ -67,3 +67,13 @@ data: any[] = Array(10000)
         registered: new Date(),
       };
     });
+
+
+要使用拖曳，那必须先在module里导入
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+imports: [
+
+DragDropModule
+
+]

@@ -1,0 +1,5 @@
+https://www.bilibili.com/video/BV14k4y117LL?p=2
+
+1.vue2.x  数据更新后生成一个新的虚拟dom树，用diff算法与原虚拟dom树全量比较，这样一些写死的元素内容也要比较，浪费时间。vue3 会根据dom的内容会不会变化，添加静态标记patchflag（枚举类），新diff算法只比较有标记的元素。
+
+2.

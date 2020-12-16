@@ -1,6 +1,31 @@
 更改了经济运行分析的需求，basic-setting.ts
 
+导入文件：
+    <input id="file" type="file" (change)="change($event)" [multiple]="false" style="display: none" />
 
+  //导入数据
+  import() {
+    $('#file').click();
+  }
+
+  change(e: Event) {
+    const node = e.target as HTMLInputElement;
+    this.xlsx.import(node.files![0]).then(res => (this.data = res));
+｝
+
+  //下载模板
+  downLoad() {
+    const data = [this.tableKey.map(i => i)];
+    this.xlsx.export({
+      sheets: [
+        {
+          data: data,
+          name: '第一页',
+        },
+      ],
+      filename: '建筑业产值.xlsx',
+    });
+  }
 
 递归千万别返回值，直接在递归中通过条件判断赋值，不能返回值。
 递归一定要注意循环要加上[i]。
