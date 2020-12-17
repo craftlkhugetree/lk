@@ -45,5 +45,78 @@ Created:组件刚刚被创建，组件的data和methods已经初始化好
 18. toRef(obj,'name');将obj.name变为响应式数据,如果用ref(obj.name)那么原始数据不会改变。而toRef()则是无法更新UI。  ref->复制，UI自动更新；toRef->引用，但UI不自动更新
 19. toRefs(obj);针对obj有多个属性要变为响应式。obj.name.value='zs';obj.age.value='16';
 20. customRef返回一个ref对象,可以显式地控制依赖追踪和触发响应
-21. 
+
+21. <div ref="box">我是div</div> 
+setup()中监听元素
+    let box = ref(null); // reactive({value: null})
+
+    onMounted(()=>{
+      console.log('onMounted',box.value);   // 后执行
+    });
+    console.log('onMounted',box.value);   // 先执行，null
+
+22. let state = readonly(obj); 使state递归只读 
+shallowReadonly() 非递归只读    isReadonly(state)
+const创建的是赋值保护，不能重新赋值；但是对象不变的是指针，但内部数据可变，所以用readonly。
+
+23. v3中响应式数据的本质:   
+let state = new Proxy(obj, {get(obj,key){return obj[key]},
+set(obj,key,value){
+    obj[key] = value;
+    }
+})
+24. 如果上述obj为arr，那么在state.push(数组元素)时，需要set() return true; 告诉数组push成功，长度增加一。
+25. function shallowReactive(obj) {
+    return new Proxy(obj, {
+        get(obj, key){
+            return obj[key];
+        },
+        set(obj, key, val){
+            obj[key] = val;
+            console.log('更新UI界面');
+            return true;
+        }
+    })
+}
+function shallowRef(val) {
+    return shallowReactive({value:val});
+}
+
+26. function ref(val) {
+    return reactive({value:val});
+}
+
+function reactive(obj) {
+    if(typeof obj === 'object') {
+        if(obj instanceof Array) {
+            obj.forEach((item,index) => {
+                if(typeof item === 'object') {
+                    obj[index] = reactive(item);
+                }
+            })
+        } else {
+            for(let key in obj) {
+                let item = obj[key];
+                if(typeof item === 'object') {
+                    obj[key] = reactive(item);
+                }
+            }
+        }
+        return new Proxy(obj, {
+            get(obj, key) {
+                return obj[key];
+            },
+            set(obj, key, val) {
+                obj[key] = val;
+                return true;
+            }
+        })
+    } else {
+        console.warn(`${obj} is not Object.`);
+    }
+}
+
+
+
+
  
