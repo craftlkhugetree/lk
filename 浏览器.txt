@@ -2,6 +2,7 @@
 ctrl+shift+p	for commands
 ctrl+shift+t	for reopen
 ctrl+shift+c	µ÷ÊÔhtml
+Ctrl+Shift+Page Up / Page Down	 ÒÆ¶¯tab  >>   <<
 ctrl+t		for newTab
 alt+rightarrow	tab forward
 ctrl+`		Console

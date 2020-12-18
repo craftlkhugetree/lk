@@ -26,6 +26,7 @@ obj1[obj] = obj2[obj];
 return obj1;
 
 }
+typeof obj/arr  都是"object", 因为arr也是obj。 for(let i in arr)  arr[i],i是“0”“1”“2”...
 
 ngzorro只导入了部分icon，可以在src\style-icons-auto.ts看到
 
@@ -130,3 +131,26 @@ this.formObj = new FormGroup(
   randomStr() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
+
+
+深拷贝，遍历对象中的每一个属性
+function deepClone(obj) {
+    let result;
+    if (typeof obj == 'object') {
+        result = isArray(obj) ? [] : {}
+        for (let i in obj) {
+            //isObject(obj[i]) ? deepClone(obj[i]) : obj[i]
+            //多维数组或对象数组就递归
+            result[i] = (isObject(obj[i])||isArray(obj[i])) ? deepClone(obj[i]) : obj[i]
+        }
+    } else {
+        result = obj
+    }
+    return result
+}
+function isObject(obj) {
+    return Object.prototype.toString.call(obj) == "[object Object]"
+}
+function isArray(obj) {
+    return Object.prototype.toString.call(obj) == "[object Array]"
+}
