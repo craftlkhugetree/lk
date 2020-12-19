@@ -133,7 +133,7 @@ this.formObj = new FormGroup(
   }
 
 
-深拷贝，遍历对象中的每一个属性
+深拷贝，遍历对象中的每一个属性。typeof 'abc'="string";Date是"function";new Date()是对象。字符串没有浅拷贝。
 function deepClone(obj) {
     let result;
     if (typeof obj == 'object') {

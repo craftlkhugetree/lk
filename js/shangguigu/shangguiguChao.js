@@ -33,6 +33,16 @@ arr.sort();  也会修改原数组，默认按unicode编码，所以11会排到2
 []...new Set(arr)]  去重,只能针对数字，对于数组元素不行。
 [1,2,3,4].toString();   // "1,2,3,4"
 
+Object.assign({},obj) // 浅拷贝
+Array.from(obj) // 将对象转为数组.Array.from()会把类似数组的对象转换成真实数组，对象需满足两个条件(伪数组/类数组)：
+// 具有length属性，length的值即为数组的长度
+// 对象key要是数字，并会作为数组的下标
+Array.from()同样会对可遍历的数据结构(如Set)和字符串进行转换
+Array.from('abc') // ["a", "b", "c"]
+let arr = Array.from(new Set(['a','b','c']))
+console.log(arr) // ["a", "b", "c"]
+let arr = Array.from(new Array(100), (item, index) => { return index + 1 })
+console.log(arr) //[1, 2, 3,..., 100]
 
 7.全局作用域的函数定义非常危险，污染了命名空间。用prototype添加方法。
 通过构造函数创建的对象，都会有一个隐式原型指向该构造的原型对象。

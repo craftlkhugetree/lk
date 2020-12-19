@@ -29,7 +29,7 @@ function* generator(){
 for (const g of generator()) { 
   console.log(g); 
 }
-for in循环遍历的是数组的键值(索引)，而for of循环遍历的是数组的值。给数组添加一个自定义属性name，并且赋值"数组"。然后进行遍历输出的，会发现新定义的属性也被for in输出来了，而for of并不会对name进行输出。
+for in循环遍历的是数组的键值(索引)对象的属性，而for of循环遍历的是数组的值。给数组添加一个自定义属性name，并且赋值"数组"。然后进行遍历输出的，会发现新定义的属性也被for in输出来了，而for of并不会对name进行输出。
 
 for...in 循环将遍历对象的所有可枚举属性。
 
@@ -50,7 +50,17 @@ for (const value in array) {
 
 for...in 不仅枚举上面的数组声明，它还从构造函数的原型中查找继承的非枚举属性，在这个例子中，newArr 和 anotherNewArr 也会打印出来。
 注意：任何具有 Symbol.iterator 属性的元素都是可迭代的。
+    Object.keys() --返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和使用for...in循环遍历该对象时返回的顺序一致
 
+Object.keys(obj);
+
+    Object.values() --返回一个给定对象自身的所有可枚举属性值的数组，值的顺序与使用for...in循环的顺序相同(区别在于 for-in 循环枚举原型链中的属性)
+
+Object.values(obj);
+
+    Object.getOwnPropertyNames() --返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组
+
+Object.getOwnPropertyNames(obj);
 
 // st表格
 data: any[] = Array(10000)

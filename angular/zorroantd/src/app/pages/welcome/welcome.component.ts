@@ -120,7 +120,9 @@ export class WelcomeComponent implements OnInit {
     // cOrgDepUUID: "eqrr6af78074513b4e1c81bc2eb7137b4a2e",
     // cOrgUUID: "hs9rd700a59181e648c4b73a1e1b83c69241",
     // 正式组织UUID
-    cAccUniqueID: "tu5zb170d8cf8e604e2fa2faecfacdbe5b6a",
+    cAccUniqueID: "i9v7abde112e80f1473f8b32c4b91d914d71",
+    // cAccUniqueID: "y3msc3eb505c52c04926b1ace043754174b2",
+    // cAccUniqueID: "tu5zb170d8cf8e604e2fa2faecfacdbe5b6a",
     // cAccUniqueID: "l48a2afc9fbc04614cb492055a4a93ee2cc5",
     // cOrgDepUUID: "q0djb881258c1090423c91ae347df0305284",
     // cOrgUUID: "vi59f11f8c5e5ca341d9ac2707653c2bef42",
@@ -548,17 +550,7 @@ export class WelcomeComponent implements OnInit {
     // 工业先添加一级，再添加二级。慎用，会复制二级指标，这样只能用delData()删除了。
     // this.addData1(); 
   }
-  n = 10;
-  abc = '';
-  public cutInputNum(value) {
-    console.log(this.abc,value);
-    if (this.abc.length > this.n) {
-      this.abc = this.abc.slice(0,this.n);
-      return;
-    }
-  }
 }
-
 /**
  *   "/CNIC_M/*": {
     "target": "http://b.leancloud.biz",

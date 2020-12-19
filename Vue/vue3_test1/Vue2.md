@@ -470,4 +470,139 @@ Vue Router用哈希来切换(#/xxx)
         linkActiveClass: "nj-active"
     });
 
-58. 
+58. 只要将Vue Router挂载到了Vue实例对象上, 我们就可以通过vue.$route拿到路由对象
+只要能拿到路由对象, 就可以通过路由对象拿到传递的参数
+
+方式一: 通过URL参数参数(?key=value&key=value), 通过this.$route.query获取
+方式二: 通过占位符:key传递(路由规则中/:key/:key, 路径中/value/value), 通过this.$route.params获取
+ // 1.定义组件
+    const one = {
+        template: "#one",
+        created: function () {  // 声明周期函数
+            console.log(this.$route);
+            console.log(this.$route.query.name);
+            console.log(this.$route.query.age);
+        }
+    };
+
+59. 嵌套路由（子路由）  // 2.定义切换的规则(定义路由规则)
+    const routes = [
+        // 数组中的每一个对象就是一条规则
+        {
+            path: '/one',
+            component: one,
+            children:[
+                {
+                    // 注意点: 如果是嵌套路由(子路由), 那么不用写一级路径的地址, 并且也不用写/
+                    path: "onesub1",
+                    component: onesub1
+                },
+                {
+                    // 注意点: 如果是嵌套路由(子路由), 那么不用写一级路径的地址, 并且也不用写/
+                    path: "onesub2",
+                    component: onesub2
+                }
+            ]
+        },
+        // { path: '/one/onesub1', component: onesub1 },
+        // { path: '/one/onesub2', component: onesub2 },
+        { path: '/two', component: two }
+    ];
+
+60. 命名视图，    <!--和匿名插槽一样, 如果指定了多个router-view, 那么当路由地址被匹配之后, 多个router-view中显示的内容是一样的-->
+    <router-view></router-view>
+    <router-view></router-view>
+    const routes = [
+        // 数组中的每一个对象就是一条规则
+        {
+            path: '/',
+            components: {
+                name1: one,
+                name2: two
+            }
+        },
+    ];
+      <router-view name="name1"></router-view>
+    <router-view name="name2"></router-view>
+    命名视图和前面讲解的具名插槽很像, 都是让不同的出口显示不同的内容
+命名视图就是当路由地址被匹配的时候同时指定多个出口, 并且每个出口中显示的内容不同
+
+61. watch属性，  let vue = new Vue({
+         watch: {
+            // 可以通过watch监听Model中数据的变化, 只要数据发生变化, 就会自动调用对应的回调函数
+          num1: function (newValue, oldValue) {
+              // console.log(this.num1);
+              // console.log(newValue, oldValue);  两个参数可以不写，这是默认存在的。
+              this.res = parseInt(this.num1) + parseInt(this.num2)
+          },
+          num2: function (newValue, oldValue) {
+              this.res = parseInt(this.num1) + parseInt(this.num2)
+          },
+            // 可以通过watch监听路由地址的变化, 只要路由地址发生变化, 就会自动调用对应的回调函数
+          "$route.path": function (newValue, oldValue) {
+              console.log(newValue, oldValue);
+          }
+        },})
+
+62. 生命周期钩子 = 生命周期函数 = 生命周期事件
+2.Vue生命周期方法分类
+2.1创建期间的生命周期方法
+    beforeCreate:
+    created:
+    beforeMount:
+    mounted:
+2.2运行期间的生命周期方法
+    beforeUpdate:
+    updated:
+2.3销毁期间的生命周期方法
+    beforeDestroy:
+    destroyed：
+
+**创建阶段**
+在调用beforeCreate的时候, 仅仅表示Vue实例刚刚被创建出来,此时此刻还没有初始化好Vue实例中的数据和方法, 所以此时此刻还不能访问Vue实例中保存的数据和方法。
+在调用created的时候, 是我们最早能够访问Vue实例中保存的数据和方法的地方
+
+beforeMount:function(){
+            /*
+在调用beforeMount的时候, 表示Vue已经编译好了最终模板, 但是还没有将最终的模板渲染到界面上
+            * */
+            // console.log(document.querySelector("p").innerHTML);
+            // console.log(document.querySelector("p").innerText);
+        },
+在调用mounted的时候, 表示Vue已经完成了模板的渲染, 表示我们已经可以拿到界面上渲染之后的内容了
+
+**运行阶段**
+在调用beforeUpdate的时候, 表示Vue实例中保存的数据被修改了
+            注意点: 只有保存的数据被修改了才会调用beforeUpdate, 否则不会调用
+            注意点: 在调用beforeUpdate的时候, 数据已经更新了, 但是界面还没有更新。
+在调用updated的时候, 表示Vue实例中保存的数据被修改了, 并且界面也同步修改数据了
+            也就是说: 数据和界面都同步更新之后就会调用updated。
+        
+**销毁阶段**
+       在调用beforeDestroy的时候, 表示当前组件即将被销毁了
+            注意点: 只要组件不被销毁, 那么beforeDestroy就不会调用
+                    beforeDestroy函数是我们最后能够访问到组件数据和方法的函数。
+   在调用destroyed的时候, 表示当前组件已经被销毁了
+            注意点: 只要组件不被销毁, 那么destroyed就不会调用
+                    不要在这个生命周期方法中再去操作组件中数据和方法。
+
+63. vue特殊特性：ref
+// 注意点: 如果是通过原生的语法来获取元素, 无论是原生的元素还是自定义的组件, 拿到的都是原生的元素
+                // 注意点: 并且VUE官方并不推荐我们这样获取
+    <p ref="myppp">我是原生的DOM</p>
+console.log(this.$refs.myppp);
+     // 在Vue中如果想获取原生的元素或者获取自定义的组件, 可以通过ref来获取
+                // 注意点: ref如果是添加给原生的元素, 那么拿到的就是原生的元素
+                //         ref如果是添加给自定义的组件, 那么拿到的就是自定义的组件
+
+64. public文件夹: 任何放置在 public 文件夹的静态资源都会被简单的复制，
+              而不经过 webpack。你需要通过绝对路径来引用它们
+              一般用于存储一些永远不会改变的静态资源或者webpack不支持的第三方库。
+src文件夹: 代码文件夹
+ |----assets文件夹: 存储项目中自己的一些静态文件(图片/字体等)
+ |----components文件夹: 存储项目中的自定义组件(小组件,公共组件)
+ |----views文件夹: 存储项目中的自定义组件(大组件,页面级组件,路由级别组件)
+ |----router文件夹: 存储VueRouter相关文件
+ |----store文件夹: 存储Vuex相关文件
+ |----App.vue:根组件
+ |----main.js:入口js文件
