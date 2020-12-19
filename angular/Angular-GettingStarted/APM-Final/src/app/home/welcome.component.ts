@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
 })
 export class WelcomeComponent {
   public pageTitle = 'Welcome';
+  tmpRating = 23;
 }
