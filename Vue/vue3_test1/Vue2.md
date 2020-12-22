@@ -606,3 +606,6 @@ src文件夹: 代码文件夹
  |----store文件夹: 存储Vuex相关文件
  |----App.vue:根组件
  |----main.js:入口js文件
+
+ 65. <!--style用于编写当前组件的样式代码的-->
+<style scoped>
