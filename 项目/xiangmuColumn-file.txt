@@ -13,7 +13,7 @@ nz-select里的ngModel如果不要保留前值，必须置为null，不能是空字符串，否则会留有前
 declare var tinymce: any;
 为什么富文本会在刷新后消失？就是因为这套框架的样式会互相影响，在header.ts里设置的激活tab，会影响刷新后还在的tab(按刷新按钮时在该tab，所以该tab还在，只是页面跳转到激活tab了)，比如激活tab设置了表格内容居中css，那么刷新后还在的tab也表格内容居中了。
 
-
+for in 遍历对象时, 使用 hasOwnProperty 过滤掉原型中的属性。
 //合并对象
 public extend(obj1: object, obj2: object) {
 

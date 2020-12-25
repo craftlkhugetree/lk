@@ -1,0 +1,3 @@
+https://www.bilibili.com/video/BV1zx411R7tb/?spm_id_from=333.788.videocard.10
+
+三个原生的问题开头，死一片，1. var let区别，引导出声明提升2. 箭头函数，引导出this指向3. 网络请求有哪几种请求方式，引导出options，问跨域。原型链，作用域闭包不会问，回答上的太少了

@@ -607,5 +607,129 @@ src文件夹: 代码文件夹
  |----App.vue:根组件
  |----main.js:入口js文件
 
- 65. <!--style用于编写当前组件的样式代码的-->
-<style scoped>
+ 65. <!--加上scoped，让style用于编写当前组件的样式代码，否则style是全局的-->
+<style scoped> </style>
+
+main.js内部：
+el: #app,
+render: c => c(App),  // render函数的渲染会覆盖vue实例区域，也就是将  
+<div id="app">
+   <one></one>
+</div>
+变成了template里的内容  
+<div>
+        <p>我是组件222</p>
+    </div
+
+66. 如何使用Vuex：store目录里建立index.js  导入Vue导入Vuex，然后
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    name: '江哥'
+  }
+})
+
+export default store
+
+67. 路由index.js放在  router目录下面。
+68. vue.config.js修改webpack配置， 这个文件内的属性是对webpack底层属性的封装。也可以用configureWebpack:{},来编写原生的webpack配置。
+69. ElementUI,入口文件导入后  Vue.use(ElementUI);  按需导入/打包：先配置babel，再Vue.use(Button)
+70. MintUI针对移动端，且引用方式为 Vue.component(Button.name, Button);而且即便是按需导入，也必须导入全部样式，这两点和ElementUI不同。
+71. 基于Vue的另一个移动端框架是vant
+72. 组件的三种注册方式：全局组件 Vue.component(Loading.name, Loading);
+    局部组件 components:{Loading},
+    Vue.use(已封装插件)
+73. components目录下的加载指示器：Loading.vue
+<template>
+    <div class="container">
+      <div class="loading"></div>
+      <p class="title">正在加载...</p>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'Loading'
+}
+</script>
+
+<style scoped lang="scss">
+  .container{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    .loading{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      margin: 20px auto;
+      border-right-color: #409eff;
+      animation: loading 2s linear infinite;
+    }
+    .title{
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+    }
+  }
+  @keyframes loading {
+    from{
+      transform: rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+74. 如何封装插件，在plugin目录下，新建Loading目录，内有Loading.vue和index.js暴露一个install方法来注册组件。
+75. 只要调用Vue.use(Loading, {title:'string'}); 就会调用插件的install方法，那么就可以指定插件属性。
+import Loading from './Loading'
+
+export default {
+  // 注意点: 如果要将一个组件封装成一个插件, 那么必须提供一个install方法
+  //         那么必须在install方法中注册当前的这个组件
+  install: function (Vue, Options) {
+    // Vue.component(Loading.name, Loading)
+
+    // 1.根据我们的组件生成一个构造函数
+    let LoadingContructor = Vue.extend(Loading)
+    // 2.根据构造函数创建实例对象
+    let LoadingInstance = new LoadingContructor()
+    // 3.随便创建一个标签(元素)
+    let oDiv = document.createElement('div')
+    // 4.将创建好的标签添加到界面上
+    document.body.appendChild(oDiv)
+    // 5.将创建好的实例对象挂载到创建好的元素上
+    LoadingInstance.$mount(oDiv)
+
+    // console.log(Options)
+    // console.log(LoadingInstance.title)
+    // 添加初始化值
+    if (Options && Options.title !== null && Options.title !== undefined) {
+      LoadingInstance.title = Options.title
+    }
+    // 添加全局方法
+    Vue.showLoading = function () {
+      LoadingInstance.isShow = true
+    }
+    Vue.hiddenLoading = function () {
+      LoadingInstance.isShow = false
+    }
+    // 添加实例方法
+    Vue.prototype.$showLoading = function () {
+      LoadingInstance.isShow = true
+    }
+    Vue.prototype.$hiddenLoading = function () {
+      LoadingInstance.isShow = false
+    }
+  }
+}

@@ -1,3 +1,4 @@
+‘.gitignore’ 与 ‘.git/info/exclude’
 git checkout  -b new_camp 创建并跳转到new_camp新分支名
 git rm -- cached proxy.conf.json会在合并后的分支删除该文件，慎用！
 	每次要git status查看add的内容啊~~~！

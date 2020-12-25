@@ -552,7 +552,8 @@ export class WelcomeComponent implements OnInit {
   }
 }
 /**
- *   "/CNIC_M/*": {
+ *  
+ "/CNIC_M/*": {
     "target": "http://b.leancloud.biz",
     "secure": false,
     "changeOrigin": true,
