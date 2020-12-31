@@ -568,7 +568,8 @@ export class WelcomeComponent implements OnInit {
  */
 
  /**
-  *   "/CNIC_M/*": {
+  * 
+  "/CNIC_M/*": {
     "target": "http://192.168.16.103:8080",
     "secure": false,
     "changeOrigin": true,

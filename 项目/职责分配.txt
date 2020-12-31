@@ -3,7 +3,7 @@ src\app\routes\sys-manage\resbonsibility-management\resbonsibility-management.co
 
 修改angular.json的aot:false;  可以节省编译时间
 
-
+arr.map会返回arr数组长度个元素。
 在遍历过程中，如果涉及到修改数组本身（增删），逆序遍历是个比较保险的遍历方式，而且省变量。
 
 // arr.forEach((item, index) => {

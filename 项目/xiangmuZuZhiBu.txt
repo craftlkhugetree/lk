@@ -1,3 +1,4 @@
+使用extends，就要考虑到变量统一修改，所以html中的属性值尽量用变量名，而不是实际值。
   // tslint:disable: prefer-for-of
   // tslint:disable: member-ordering
   // tslint:disable: prefer-conditional-expression

@@ -551,3 +551,43 @@ public timeoutNotUp = `<div style="font-size:14px;vertical-align: bottom;display
 public timeoutUp = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 80px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #7b8d8c;border-radius: 8px;">已超时上报</div>`;
 public up = `<div style="font-size:14px;vertical-align: bottom;display:inline-block;width: 70px;color:green;text-align: center;background:#94d4cf;border: 0.3px solid #7b8d8c;border-radius: 8px;">已上报</div>`;
 public mark = [this.already, this.notAudit, this.reject, this.notUp, this.timeoutNotUp, this.timeoutUp, this.up];
+
+
+new一个对象的过程是：
+1>创建一个空对象
+
+2>对新对象进行[prototype]绑定（即son._proto_=father.prototype）
+
+3>新对象和函数调用的this会绑定起来
+
+4>执行构造函数中的方法
+
+5>如果函数没有返回值则自动返回这个新对象
+function father(name){
+  this.name=name;
+  this.sayname=function(){
+      console.log(this.name)
+  }
+}
+
+function myNew(ctx, ...args){ // ...args为ES6展开符,也可以使用arguments
+  //先用Object创建一个空的对象
+  let obj=new Object();
+  //新对象会被执行prototype连接
+  obj.__proto__=ctx.prototype;
+  //新对象和函数调用的this绑定起来
+  let res=ctx.call(obj,...args);
+  //判断函数返回值如果是null或者undefined则返回obj,否则就放回res
+  return res instanceof Object?res:obj;
+}
+
+var son=myNew(father,'kimi')
+son.sayname();
+
+或者不带参数的new():
+function myNew() {
+  var constr = Array.prototype.shift.call(arguments);
+  var obj = Object.create(constr.prototype);
+  var result = constr.apply(obj, arguments);
+  return result instanceof Object? result : obj;
+}

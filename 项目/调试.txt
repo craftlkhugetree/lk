@@ -1,0 +1,1 @@
+vscode 安装 debugger for chrome插件后，可以按F5出现调试界面，shift+F5相当于F8.
