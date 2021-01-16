@@ -1,3 +1,19 @@
+顶部搜索按钮：接口获取数据，没有表格，只有树；
+已发布、未发布  无效；
+责任部门，考核对象  数据结构样式。上传文件无效。
+搜索姓名接口加密。
+上报计划，之前的数据没有清空，计划被追加。  新增指标无效。
+年份自动变为2021。。。400与上级指标年份不同。
+要返回修改的依据。
+指标管理，编辑窗口隐藏修改依据。  新增getPlanRadio()。   情况上报saveIdx()
+
+
+赋初值时，是否用null要谨慎，比如radio框的初值必须是null，否则不会清零。但是有些可能要用length或者filter()函数的，如果初值为null，那么就要注意它可能有问题了，或者改为空字符串，或者用||后跟保险值来防止可能出现的无值。
+
+使用  new Date(date);生成日期， date必须是字符串，如果是int型那么得到的是1970年的起始日期。
+
+任何变量一定要赋初值，哪怕是null。否则在html的一些布尔属性，如 [nzShowButton]="flag !== 3" 就会默认不显示，public flag:any;
+
 使用extends，就要考虑到变量统一修改，所以html中的属性值尽量用变量名，而不是实际值。
   // tslint:disable: prefer-for-of
   // tslint:disable: member-ordering
@@ -88,3 +104,24 @@ imports: [
 DragDropModule
 
 ]
+
+时间格式化
+function dateFormat(fmt, date) {
+    let ret;
+    const opt = {
+        "Y+": date.getFullYear().toString(),        // 年
+        "m+": (date.getMonth() + 1).toString(),     // 月
+        "d+": date.getDate().toString(),            // 日
+        "H+": date.getHours().toString(),           // 时
+        "M+": date.getMinutes().toString(),         // 分
+        "S+": date.getSeconds().toString()          // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+    };
+    for (let k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        };
+    };
+    return fmt;
+}
