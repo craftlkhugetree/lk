@@ -1,0 +1,541 @@
+<nz-spin [nzSpinning]="tableLoading">
+
+  <nz-card>
+    <form>
+      <div nz-row>
+        <div nz-col [nzSpan]="4">
+          <nz-form-label [nzSpan]="8">
+            指标年份
+          </nz-form-label>
+          <nz-form-item>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-year-picker [(ngModel)]="idxYear" (ngModelChange)="idxYearChange($event)" nzPlaceHolder="请选择"
+                name="idxYear">
+              </nz-year-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4" style="margin-left:10px;">
+          <nz-form-item nzFlex>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="search()" [disabled]="tableLoading">
+                搜索
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="4">
+      <nz-card id="idxCardTree" style="height: 660px;">
+        <div id="idxTree">
+
+          <nz-tree [nzData]="nodes" nzAsyncData nzExpandAll="true" (nzClick)="nzEvent($event)"
+            (nzExpandChange)="expandBtn()">
+          </nz-tree>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="20">
+      <nz-card id="idxCardTable">
+        <p style="margin-bottom: 0 !important;">
+          {{idxTitle}}
+        </p>
+        <nz-divider style="margin: 14px 0;"></nz-divider>
+        <nz-table #rowSelectionTable [nzData]="idxList" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0"
+          [nzLoading]="tableLoading" nzSize="small" [nzScroll]="{x:'1150px'}" (nzCurrentPageDataChange)="tableChange()"
+          nzShowPagination nzShowSizeChanger [nzPageSizeOptions]="nzPageSizeOptions">
+          <thead>
+            <tr>
+              <th nzWidth="20px" nzLeft="0px">序号</th>
+              <th nzWidth="125px">考核权重</th>
+              <th nzWidth="200px">评分标准</th>
+              <th nzWidth="200px">责任部门</th>
+              <!-- <th nzWidth="160px">状态</th> -->
+              <th nzWidth="125px">指标年份</th>
+              <th nzWidth="115px" nzRight="0px">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of rowSelectionTable.data;index as i" [class.strikethrough]="false">
+              <td nzLeft="0px">{{ i + 1 + (nzPageIndex0 - 1) * nzPageSize0 }}</td>
+              <td>{{item.deScore}}</td>
+              <td>{{item.cEvaluation}}</td>
+              <!-- <td id="dutyDep{{i}}">{{item.age}}</td> -->
+              <td id="flag{{i}}">{{item.flag}}</td>
+              <!-- <td id="tableExam0{{i}}">{{item.address}}</td> -->
+              <!-- <td id="tableExam{{i}}">{{item.address}}</td> -->
+              <td>{{item.dMkdir}}</td>
+              <td nzRight="0px">
+                <button nz-button nzType="link" (click)="check(item)">查看</button>
+                <!-- <nz-divider nzType="vertical"></nz-divider> -->
+                <br />
+
+                <button nz-button nzType="link" (click)="report(item)">审核</button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </div>
+</nz-spin>
+
+ 
+ <nz-modal [(nzVisible)]="isReport" nzTitle="计划落实审核" nzWidth="50%"  (nzOnCancel)="reportCancel()"
+  nzHeight="80%">
+  <form>
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4" style="line-height: 20px;">
+        <span style="font-size: 14px;">指标名称</span>
+      </nz-form-label>
+      <nz-form-item nz-col [nzSpan]="16">
+        <div style="line-height: 20px;">
+          <span style="font-size: 14px;">{{idxReport.cIndexName}}</span>
+        </div>
+      </nz-form-item>
+      <nz-form-item nz-col [nzSpan]="4">
+        <div *ngIf="warnS === '1'"
+          style="float:right;font-size:17px;vertical-align: bottom;display:inline-block;width: 100px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">
+          超期
+        </div>
+        <div *ngIf="warnS === '2'"
+          style="float:right;font-size:17px;vertical-align: bottom;display:inline-block;width: 100px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #fdc15e;border-radius: 8px;">
+          即将超期
+        </div>
+        <div *ngIf="warnS === '3'"
+          style="float:right;font-size:17px;vertical-align: bottom;display:inline-block;width: 100px;color:green;text-align: center;background:#94d4cf;border: 0.3px solid #7b8d8c;border-radius: 8px;">
+          进度正常
+        </div>
+        <div *ngIf="warnS === '4'"
+          style="float:right;font-size:17px;vertical-align: bottom;display:inline-block;width: 100px;color:#96c1ff;text-align: center;background:#edf4ff;border: 0.3px solid #96c1ff;border-radius: 8px;">
+          指标完成
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-row *ngIf="mName.flag === 7">
+      <nz-form-label nz-col [nzSpan]="4" style="line-height: 20px;">
+        <span style="font-size: 14px;">驳回原因</span>
+      </nz-form-label>
+      <nz-form-item nz-col [nzSpan]="16">
+        <div style="line-height: 20px;">
+          <span style="font-size: 14px;">{{upVObj.rejectDes}}</span>
+        </div>
+      </nz-form-item>
+    </div>
+  </form>
+  <form>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          责任部门
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="9">
+          <nz-select [(ngModel)]="selectedValue" (ngModelChange)="chooseExamDep($event)" nzPlaceHolder="请选择责任部门"
+            name="selectExam">
+            <nz-option *ngFor="let option of optionList" [nzValue]="option.key" [nzLabel]="option.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        指标计划
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="16">
+          <input type="text" name="cName21" placeholder="请选择下方指标计划" [(ngModel)]="mName.plan" maxlength="{{planLength}}"
+            nz-input readonly="true" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        警示
+      </nz-form-label>
+      <nz-form-item nz-col [nzSpan]="20">
+        <div nz-row>
+          <div nz-col nzSpan="4">
+            <!-- <nz-input-group > -->
+            <nz-select [(ngModel)]="warnS" name="warnS1" (ngModelChange)=warnSChange($event) [nzDisabled]="hasBeenAudit">
+              <nz-option [nzLabel]="'超期'" [nzValue]="'1'"></nz-option>
+              <nz-option [nzLabel]="'即将超期'" [nzValue]="'2'"></nz-option>
+              <nz-option [nzLabel]="'进度正常'" [nzValue]="'3'"></nz-option>
+              <nz-option [nzLabel]="'指标完成'" [nzValue]="'4'"></nz-option>
+            </nz-select>
+            <!-- </nz-input-group> -->
+          </div>
+          <div nz-col nzSpan="17" style="margin-left: 10px;">
+            <input type="text" name="warnNameDescription" placeholder="请输入警示描述" [(ngModel)]="upVObj.cWholeD" maxlength="100"
+              nz-input [readonly]="hasBeenAudit" />
+          </div>
+        </div>
+      </nz-form-item>
+    </div>
+  </form>
+  <!-- <nz-divider></nz-divider> -->
+  <nz-card [nzBordered]="'false'">
+    <nz-tabset nzSize="default" [(nzSelectedIndex)]="tabIndex" nzType="card">
+      <nz-tab nzTitle="原计划"> </nz-tab>
+      <nz-tab nzTitle="临时填报计划"> </nz-tab>
+    </nz-tabset>
+
+    <div nz-row *ngIf="tabIndex === 0">
+      <nz-table #nzTableIn [nzData]="planList" [(nzPageIndex)]="nzPageIndex1" [(nzPageSize)]="nzPageSize1"
+        nzShowPagination="true" [nzLoading]="isLoading" nzSize="small" [nzScroll]="{x:'400px'}">
+        <thead>
+          <tr>
+            <th nzWidth="230px">时间</th>
+            <!-- <th >选择时间</th> -->
+            <th>计划内容</th>
+            <!-- <th nzWidth="140px">计划内容</th> -->
+            <th nzWidth="30px">状态</th>
+            <th nzWidth="170px" nzRight="0">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of nzTableIn.data;index as i"
+            [class.strikethrough]="item.plan===itemPlanName && item.time===itemPlanTime && item.flag===itemPlanFlag">
+            <td>{{item.time}}</td>
+            <td (click)="pickName(item)">{{item.plan}}</td>
+            <td>
+              <div *ngIf="item.flag === 5"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #fdc15e;border-radius: 8px;">
+              未审核
+            </div>
+            <div *ngIf="item.flag === 6"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#96c1ff;text-align: center;background:#edf4ff;border: 0.3px solid #96c1ff;border-radius: 8px;">
+              审核通过
+            </div>
+            <div *ngIf="item.flag === 7"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">
+              驳回
+            </div>
+            <div *ngIf="item.flag === 1"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#c0c0c0;text-align: center;background:#f8f8f8;border: 0.3px solid #c0c0c0;border-radius: 8px;">
+              未上报
+            </div>
+            <div *ngIf="item.flag === 2"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">
+              已超时未上报
+            </div>
+            <div *ngIf="item.flag === 4"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">
+              已超时上报
+            </div>
+            <div *ngIf="item.flag === 9"
+              style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#f76c74;text-align: center;background:#ffe9ea;border: 0.3px solid #f76c74;border-radius: 8px;">
+              <!-- style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:green;text-align: center;background:#94d4cf;border: 0.3px solid #7b8d8c;border-radius: 8px;"> -->
+              即将超期
+            </div>
+            </td>
+            <td nzRight="0">
+              <button nz-button nzType="link" (click)="clickPlan(item,i + (nzPageIndex1 - 1) * nzPageSize1)">
+                <span>查看</span>
+              </button>
+              <nz-divider nzType="vertical" *ngIf="item.flag===2 || item.flag===9"></nz-divider>
+              <button nz-button nzType="link" *ngIf="item.flag===2 || item.flag===9" nz-popconfirm
+                nzPopconfirmTitle="确定发送催报通知吗?" nzPopconfirmPlacement="top" (nzOnConfirm)="urgeUpload(item)"
+                (nzOnCancel)="cancel()" >
+                <span>催报</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-row *ngIf="tabIndex === 1">
+      <nz-table #nzTable2 [nzData]="tmpPlanList" [(nzPageIndex)]="nzPageIndex2" [(nzPageSize)]="nzPageSize2"
+        [nzLoading]="isLoading2" nzSize="small" [nzScroll]="{x:'400px'}">
+        <thead>
+          <tr>
+            <th nzWidth="230px">时间</th>
+            <th>计划内容</th>
+            <th nzWidth="230px">文件</th>
+            <th nzWidth="170px" nzRight="0">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of nzTable2.data;index as i">
+            <td>{{item.time}}</td>
+            <td  (click)="pickName(item)">{{item.plan}}</td>
+            <td >
+              <nz-upload nzAction="#" [nzFileList]="item.fileList" [nzRemove]="removePlan" nzShowButton="false">
+                <!-- <button nz-button *ngIf="false"><i nz-icon nzType="upload"></i><span>Upload</span></button> -->
+              </nz-upload>
+            </td>
+            <td nzRight="0">
+              <button nz-button nzType="link" (click)="clickPlan(item,i + (nzPageIndex2 - 1) * nzPageSize2)">
+                <span>查看</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-card>
+
+    <form>
+      <div nz-row>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4">
+            评价原因
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="18">
+            <textarea nz-input placeholder="请输入评价" [readOnly]="hasBeenAudit" [nzAutosize]="{ minRows: 2, maxRows:4 }"
+              [(ngModel)]="upVObj.cEvaluate" name="dataIdxStatus"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4">
+            工作建议
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="18">
+            <textarea nz-input placeholder="请输入建议" [readOnly]="hasBeenAudit" [nzAutosize]="{ minRows: 2, maxRows:4 }"
+              [(ngModel)]="upVObj.cWork" name="dataIdxProblem"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-row>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4">
+            选择文件
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="18">
+            <nz-upload [nzShowButton]="'true'" [nzBeforeUpload]="beforeUpload" [(nzFileList)]="fileList" 
+            [nzRemove]="removeReport"  nzMultiple="true" >
+              <button nz-button [disabled]="hasBeenAudit"><i nz-icon nzType="upload"></i>上传</button>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" (click)="reportOk('audit')">审核</button>
+      <button nz-button nzType="danger" (click)="rejectPlan()">驳回</button>
+      <button nz-button nzType="default" (click)="reportCancel()">取消</button>
+    </div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isModal1" [nzTitle]="title" (nzOnCancel)="zeroCancel()" (nzOnOk)="zeroOk()" nzwidth="80%"
+  nzHeight="80%">
+  <form>
+    <div nz-row>
+      <nz-form-label [nzSpan]="6">
+        完成情况
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="18">
+          {{planPicked.cSituation}}
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-label [nzSpan]="6">
+        存在问题
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="18">
+          {{planPicked.cExisting}}
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-label [nzSpan]="6">
+        下一步计划
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="18">
+          {{planPicked.cNextPlan}}
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          上报列表
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <nz-upload nzAction="localhost" [nzFileList]="fileList1" [nzDisabled]="inputDisable" [nzRemove]="remove"
+            [nzShowButton]="'false'">
+            <button nz-button [disabled]="inputDisable"><i nz-icon nzType="upload"></i>上传</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="isReject" [nzTitle]="'计划驳回'" (nzOnCancel)="rejectCancel()" nzHeight="80%">
+  <textarea type="text" name="ccReject" placeholder="请输入驳回原因" [(ngModel)]="rejectReason"
+    (keydown)="$event.which === 13 ? searchmName() : 0" maxlength="{{planLength}}" style="width: 100%;">
+</textarea>
+  <div *nzModalFooter>
+    <button nz-button nzType="danger" (click)="reportOk('reject')">驳回</button>
+    <button nz-button nzType="default" (click)="rejectCancel()">取消</button>
+  </div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isCheck" [nzTitle]="idxName" (nzOnCancel)="checkCancel()" (nzOnOk)="checkOk()" nzHeight="80%"
+  nzWidth="50%">
+  <form>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          指标名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入指标名称" [readOnly]="inputDisable" [(ngModel)]="idxData.cIndexName"
+            name="dataIdxName" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          序号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入序号" [readOnly]="inputDisable" [(ngModel)]="idxData.iOrder" name="dataIdxid" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          末级标识
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <nz-radio-group [nzDisabled]="inputDisable" [(ngModel)]="lastLevel" name="dataIdxFlag"
+            (ngModelChange)="chooseBool($event)">
+            <label nz-radio nzValue="0">{{bool['0']}}</label>
+            <label nz-radio nzValue="1">{{bool['1']}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          指标年份
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="4">
+          <input nz-input placeholder="请输入年份" [readOnly]="inputDisable" [disabled]="inputDisable"
+            [ngModel]="idxData.dMkdir" name="dataIdxYear" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          考核权重
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入考核权重" [readOnly]="inputDisable" [(ngModel)]="idxData.deScore"
+            name="dataIdxWeight" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          考核标准
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea nz-input placeholder="请输入考核标准" [readOnly]="inputDisable" [nzAutosize]="{ minRows: 2, maxRows:4 }"
+            [(ngModel)]="idxData.cEvaluation" name="dataIdxStandard"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          文件列表
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <nz-upload nzAction="localhost" [nzFileList]="fileList" [nzDisabled]="inputDisable" [nzRemove]="remove"
+            [nzShowButton]="'false'">
+            <button nz-button [disabled]="inputDisable"><i nz-icon nzType="upload"></i>上传</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          责任部门
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea nz-input placeholder="请输入责任部门" [readOnly]="inputDisable" [nzAutosize]="{ minRows: 2, maxRows:2 }"
+            [(ngModel)]="dep" name="dataIdxDep"></textarea>
+          <!-- <input nz-input placeholder="请输入责任部门" [readOnly]="inputDisable" 
+            [(ngModel)]="idxData.dep" name="dataIdxDep" /> -->
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </form>
+</nz-modal>
+
+<style>
+  ::ng-deep .ant-table-thead>tr>th {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+    background-color: #378affe1 !important;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td:hover {
+    overflow: auto;
+    white-space: normal;
+  }
+
+  ::ng-deep .ant-card-body {
+    padding: 8 14px 0 14px;
+  }
+
+  ::ng-deep .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  :host ::ng-deep .ant-tree-node-content-wrapper {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* :host ::ng-deep .ant-tree:hover {
+    overflow: auto;
+    white-space: normal;
+  } */
+  /* ::ng-deep .ant-upload.ant-upload-select {
+    display: none;
+  } */
+
+  .strikethrough {
+    /* text-decoration: line-through; */
+    background-color: #18857c;
+  }
+</style>

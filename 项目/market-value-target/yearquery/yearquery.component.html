@@ -1,0 +1,127 @@
+<nz-card style="margin-bottom: 8px;">
+  <div nz-row nzGutter="24">
+    <div nz-col nzSpan="5">
+      指标年份：<nz-year-picker [(ngModel)]="date" nzAllowClear="false" (ngModelChange)="onChange($event)" nzPlaceHolder="请选择年"></nz-year-picker>
+    </div>
+    <div nz-col nzSpan="5">
+      指标名称：<input nz-input type="text" placeholder="请输入指标名称" maxlength="20" style="width: 65%;" />
+    </div>
+    <div nz-col nzSpan="5">
+      责任部门:
+      <nz-select [(ngModel)]="data" nzAllowClear nzPlaceHolder="请选择" style="width: 210px;">
+        <nz-option
+          *ngFor="let i of industrytype"
+          nzValue="{{ i.cCustomClassName }}"
+          nzLabel="{{ i.cCustomClassName }}"
+        ></nz-option>
+      </nz-select> 
+    </div>
+    <div nz-col nzSpan="5">
+      考核对象：
+      <nz-select [(ngModel)]="data1" nzAllowClear nzPlaceHolder="请选择" style="width: 210px;">
+        <nz-option
+          *ngFor="let i of industrytype1"
+          nzValue="{{ i.cOrgUUID }}"
+          nzLabel="{{ i.cOrgName }}"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col nzSpan="4">
+      <button nz-button nzType="primary" nzValue="primary" (click)="search()" >搜索</button>
+    </div>
+  </div>
+</nz-card>
+
+<nz-card nzTitle="分析展示" [nzExtra]="extraTemplate" style="min-height: 1100px;">
+
+  <nz-table #fixedTable [nzData]="list" nzSize="small"
+    nzShowSizeChanger
+    [nzScroll]="{ x:xlength}">
+    <thead>
+      <tr>
+        <th nzLeft="0" nzWidth="100px">考核对象</th>
+        <th nzWidth="100px" *ngFor="let data of listheade">{{data.cOrgName}}</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of fixedTable.data">
+          <td nzBreakWord nzLeft="0">{{ data.cIndexName }}</td>
+          <td *ngFor="let i of listheade">{{ data[i.cOrgName]}}</td>
+          <!-- <td>{{ data.value1 }}</td>
+          <td>{{ data.value2 }}</td>
+          <td>{{ data.value3 }}</td>
+          <td>{{ data.value4 }}</td>
+          <td>{{ data.value5 }}</td>
+          <td>{{ data.value6 }}</td>
+          <td>{{ data.value7 }}</td>
+          <td>{{ data.value8 }}</td>
+          <td>{{ data.value9 }}</td>
+          <td>{{ data.value10 }}</td>
+          <td>{{ data.value11 }}</td>
+          <td>{{ data.value12 }}</td>
+          <td>{{ data.value13 }}</td>
+          <td>{{ data.value14 }}</td>
+          <td>{{ data.value15 }}</td>
+          <td>{{ data.value16 }}</td> -->
+        </tr>
+    </tbody>
+  </nz-table>
+
+
+
+
+
+</nz-card>
+<!-- card 导出按钮 -->
+<ng-template #extraTemplate>
+  <button nz-button nzType="primary" nzValue="primary" (click)="import()"><i nz-icon nzType="import" nzTheme="outline"></i>导出</button>
+</ng-template>
+
+
+<style>
+  ::ng-deep #add .ant-modal{
+    width: 800px !important;
+  }
+  ::ng-deep .ant-table-thead>tr>th {
+      max-width: 260px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+      text-overflow: ellipsis;
+      background-color: #378affe1 !important;
+    }
+  
+    ::ng-deep .ant-table-tbody>tr>td {
+      max-width: 260px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+      text-overflow: ellipsis;
+    }
+  
+    ::ng-deep .ant-table-tbody>tr>td:hover {
+      overflow: auto;
+      white-space: normal;
+    }
+  
+    ::ng-deep .ant-card-body {
+      padding: 8 14px 0 14px;
+    }
+  
+    ::ng-deep .ant-form-item {
+      margin-bottom: 0;
+    }
+  
+    :host ::ng-deep .ant-tree-node-content-wrapper {
+      width: 180px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  
+    .strikethrough {
+      /* text-decoration: line-through; */
+      background-color: #18857c;
+    }
+  </style>
+  

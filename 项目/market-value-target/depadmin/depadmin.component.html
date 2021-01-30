@@ -1,0 +1,93 @@
+<nz-spin [nzSpinning]="isLoading">
+  <nz-card style="margin-bottom: 8px;">
+    <button nz-button nzType="primary" nzValue="primary" (click)="BatchImport()"><i nz-icon nzType="upload"
+        nzTheme="outline"></i>批量导入</button>
+    <button nz-button nzType="primary" nzValue="primary" (click)="increase()"><i nz-icon nzType="plus"
+        nzTheme="outline"></i>新增</button>
+  </nz-card>
+  <nz-card nzTitle="部门管理" [nzExtra]="extraTemplate" style="min-height: 1100px;">
+
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="depList"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="{ y: '550px' }" [nzTotal]="nzTotal">
+      <thead>
+        <tr>
+          <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)" nzWidth="10%"></th>
+          <th nzWidth="10%">编号</th>
+          <th nzWidth="50%">部门名称</th>
+          <th nzWidth="20%">创建日期</th>
+          <th nzWidth="10%">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{ data.cOrgCode }}</td>
+          <td>{{ data.cOrgName }}</td>
+          <td>{{ data.dCreateDate | date: 'medium' }}</td>
+          <td>
+            <a href="javascript:;" (click)="edit(data)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a style="color: red;" href="javascript:;" nz-popconfirm nzPopconfirmTitle="确定要删除【{{data.cOrgName}}】吗？"
+              nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(data)" (nzOnCancel)="cancel()">删除</a>
+          </td>
+
+        </tr>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+<!-- card 删除按钮 -->
+<ng-template #extraTemplate>
+  <button nz-button nzType="danger" nzValue="danger" (click)="delete1()"><i nz-icon nzType="delete"
+      nzTheme="outline"></i>删除</button>
+</ng-template>
+<!-- 批量删除二次确认框 -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="删除数据" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <h3>确定删除下列所选择的部门吗?</h3><br />
+  <div *ngFor="let item of delArr">
+    <span>{{item.cOrgName}}</span><br />
+  </div>
+</nz-modal>
+<!-- 单个增加模态 -->
+<nz-modal [(nzVisible)]="isVisible1" nzTitle="新增数据" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+  <div>编号: <input nz-input type="text" placeholder="请输入编码" [(ngModel)]="creatid" style="width:90%;" maxlength="6" />
+  </div> <br>
+  <div>部门名称: <input nz-input type="text" placeholder="请输入部门名称" [(ngModel)]="creatname" style="width:83%;"
+      maxlength="20" /> </div> <br>
+  <!-- <div>时间: <nz-date-picker [(ngModel)]="creattime" nzDisabled></nz-date-picker> </div> <br> -->
+</nz-modal>
+<!-- 编辑模态 -->
+<nz-modal [(nzVisible)]="isVisible2" nzTitle="编辑数据" (nzOnCancel)="handleCancel2()" (nzOnOk)="handleOk2()">
+  <div>编号: <input readonly="true" [disabled]="'true'" nz-input type="text" placeholder="请输入编码" [(ngModel)]="editid" style="width:90%;" maxlength="6" />
+  </div> <br>
+  <div>部门名称: <input nz-input type="text" placeholder="请输入部门名称" [(ngModel)]="editname" style="width:83%;"
+      maxlength="20" /> </div> <br>
+  <!-- <div>时间: <nz-date-picker [(ngModel)]="edittime" nzDisabled></nz-date-picker> </div> <br> -->
+</nz-modal>
+<!-- 批量导入 -->
+<nz-modal [(nzVisible)]="isVisible3" nzTitle="批量导入" (nzOnCancel)="handleCancel3()" (nzOnOk)="handleOk3()">
+  <div>
+    模版下载：
+    <button nz-button nzType="primary" nzValue="primary" (click)="download()"><i nz-icon nzType="download"
+        nzTheme="outline"></i>下载模版</button>
+  </div> <br>
+  <div style="color:red;font-size: 18px;">*请上传1个excel文件*</div> <br>
+  <div>
+    上传文件:
+    <input type="file" (change)="change($event)" multiple="false" class="ml-sm"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+  </div>
+</nz-modal>
+
+
+</nz-spin>
+
+
+<style>
+  /* :host ::ng-deep .ant-table-thead > tr > th,
+  .ant-table-tbody[_ngcontent-vxb-c7] > tr[_ngcontent-vxb-c7] > td[_ngcontent-vxb-c7] {
+    text-align: left;
+  } */
+</style>

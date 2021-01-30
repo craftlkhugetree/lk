@@ -1,0 +1,221 @@
+<nz-spin [nzSpinning]="tableLoading">
+
+  <nz-card>
+    <form>
+      <div nz-row>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-label [nzSpan]="8">
+            指标年份
+          </nz-form-label>
+          <nz-form-item>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-year-picker [(ngModel)]="idxYear" (ngModelChange)="idxYearChange($event)" nzPlaceHolder="请选择"
+                name="idxYear">
+              </nz-year-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="2" style="margin-left:10px;">
+          <nz-form-item nzFlex>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="getTempPlan(idxYear)" [disabled]="tableLoading">
+                搜索
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4" >
+          <nz-form-item nzFlex>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="edit(null,1)" [disabled]="tableLoading">
+                <i nz-icon nzType="plus" nzTheme="outline"></i>
+                新增
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+
+  <nz-card id="idxCardTable">
+    <nz-table #rowSelectionTable [nzData]="tmpPlanList" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0"
+      [nzLoading]="tableLoading" nzSize="small" [nzScroll]="{x:'1150px'}" (nzCurrentPageDataChange)="tableChange()"
+      nzShowPagination nzShowSizeChanger [nzPageSizeOptions]="nzPageSizeOptions">
+      <thead>
+        <tr>
+          <th nzWidth="20px" nzLeft="0px">序号</th>
+          <th >填报要求</th>
+          <th nzWidth="200px">填报时间</th>
+          <th nzWidth="200px">附件</th>
+          <th nzWidth="160px">状态</th>
+          <th nzWidth="260px" nzRight="0px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of rowSelectionTable.data;index as i" [class.strikethrough]="false">
+          <td nzLeft="0px">{{ i + 1 + (nzPageIndex0 - 1) * nzPageSize0 }}</td>
+          <td>{{item.cPlanContent}}</td>
+          <td>{{item.planOrder}}</td>
+          
+          <td>
+            <nz-upload [nzShowButton]="'false'" nzAction="#" [(nzFileList)]="item.attach" [nzRemove]="removePlan">
+              <!-- <button nz-button *ngIf="false"><i nz-icon nzType="upload"></i><span>Upload</span></button> -->
+            </nz-upload>
+          </td>
+          <td>
+            <div *ngIf="item.iType  === 11"
+            style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#96c1ff;text-align: center;background:#edf4ff;border: 0.3px solid #96c1ff;border-radius: 8px;">
+            已发布
+          </div>
+          <div *ngIf="item.iType === 12"
+          style="font-size:14px;vertical-align: bottom;display:inline-block;width: 90px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #fdc15e;border-radius: 8px;">
+          未发布
+        </div>
+          </td>
+          <td nzRight="0px">
+            <button nz-button nzType="link"  *ngIf="item.iType === 12"
+            nz-popconfirm nzPopconfirmTitle="确定发布吗?"
+            nzPopconfirmPlacement="top" (nzOnConfirm)="cast(item)" 
+            (nzOnCancel)="cancel()" [nzOkType]="'primary'">
+              发布
+            </button>
+            <nz-divider nzType="vertical" *ngIf="item.iType === 12"></nz-divider>
+            <!-- <br /> -->
+            <button nz-button nzType="link" (click)="edit(item,2)" *ngIf="item.iType === 12">编辑</button>
+            <nz-divider nzType="vertical" *ngIf="item.iType === 12"></nz-divider>
+            <button nz-button nzType="link" (click)="edit(item,3)">查看</button>
+            <nz-divider nzType="vertical" *ngIf="item.iType === 11"></nz-divider>
+            <button nz-button nzType="link"  *ngIf="item.iType === 11"
+            nz-popconfirm nzPopconfirmTitle="确定取消吗?"
+            nzPopconfirmPlacement="top" (nzOnConfirm)="cancelCast(item)" 
+            (nzOnCancel)="cancel()" [nzOkType]="'danger'">
+              <span style="color: red;">取消发布</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</nz-spin>
+
+<nz-modal [(nzVisible)]="isEdit" [nzTitle]="title" nzWidth="50%" (nzOnCancel)="editCancel()" (nzOnOk)="editOk()"
+  nzHeight="80%">
+  <form>
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        填报年份
+      </nz-form-label>
+      <nz-form-item>
+        <nz-form-control nz-col [nzSpan]="12">
+          <nz-year-picker [(ngModel)]="idxYear1" (ngModelChange)="idxYearChange1($event)" nzPlaceHolder="请选择"
+            name="idxYear" *ngIf="flag !== 3">
+          </nz-year-picker>
+          <input nz-input [disabled]="true" [(ngModel)]="idxTemp.planOrder" *ngIf="flag === 3" name="switchYear">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          填报时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16">
+          <nz-range-picker *ngIf="flag !==3" [(ngModel)]="dateRange" name="tmpTime" (ngModelChange)="onChange($event)"></nz-range-picker>
+          <span *ngIf="flag === 3">{{begin | date:'yyyy-MM-dd'}} ~ {{end | date:'yyyy-MM-dd'}}</span>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          填报要求
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea nz-input placeholder="请输入" [readOnly]="flag === 3" [nzAutosize]="{ minRows: 2, maxRows:4 }"
+            [(ngModel)]="idxTemp.cPlanContent" name="dataIdxStatus"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        {{fileOP}}
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="16">
+          <nz-upload  [(nzFileList)]="fileList"  [nzRemove]="remove" [nzBeforeUpload]="beforeUpload"
+            [nzShowButton]="flag !== 3" nzMultiple="true">
+            <button nz-button ><i nz-icon nzType="upload"></i>上传</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+  
+<!-- 
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="reportOk()">保存</button>
+    <button nz-button nzType="dashed" (click)="reportOk()">暂存</button>
+    <button nz-button nzType="default" (click)="reportCancel()">取消</button>
+  </div> -->
+</nz-modal>
+
+
+
+
+<style>
+  ::ng-deep .ant-table-thead>tr>th {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+    background-color: #378affe1 !important;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td:hover {
+    overflow: auto;
+    white-space: normal;
+  }
+
+  ::ng-deep .ant-card-body {
+    padding: 8 14px 0 14px;
+  }
+
+  ::ng-deep .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  :host ::ng-deep .ant-tree-node-content-wrapper {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* :host ::ng-deep .ant-tree:hover {
+    overflow: auto;
+    white-space: normal;
+  } */
+  /* ::ng-deep .ant-upload.ant-upload-select {
+    display: none;
+  } */
+
+  .strikethrough {
+    /* text-decoration: line-through; */
+    background-color: #18857c;
+  }
+</style>

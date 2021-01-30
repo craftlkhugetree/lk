@@ -1,0 +1,460 @@
+<nz-spin [nzSpinning]="tableLoading">
+
+  <nz-card>
+    <form>
+      <div nz-row>
+        <div nz-col [nzSpan]="4">
+          <nz-form-label [nzSpan]="8">
+            指标年份
+          </nz-form-label>
+          <nz-form-item>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-year-picker [(ngModel)]="idxYear" (ngModelChange)="idxYearChange($event)" nzPlaceHolder="请选择"
+                name="idxYear">
+              </nz-year-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-label [nzSpan]="8">
+            考核对象
+          </nz-form-label>
+          <nz-form-item>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-select [(ngModel)]="cS" name="cS9" (ngModelChange)=cSChange($event) nzPlaceHolder="请选择"
+                nzAllowClear="true">
+                <nz-option *ngFor="let option of depList" [nzLabel]="option.cOrgName" [nzValue]="option.cOrgName">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-label [nzSpan]="8">
+            计划状态
+          </nz-form-label>
+          <nz-form-item>
+            <nz-form-control nz-col [nzSpan]="12">
+              <nz-select [(ngModel)]="cStatus" name="cSta" (ngModelChange)=cStatusChange($event) nzAllowClear="true"
+                nzPlaceHolder="请选择">
+                <nz-option [nzLabel]="'未审核'" [nzValue]="'5'"></nz-option>
+                <nz-option [nzLabel]="'审核通过'" [nzValue]="'6'"></nz-option>
+                <nz-option [nzLabel]="'驳回'" [nzValue]="'7'"></nz-option>
+                <nz-option [nzLabel]="'未上报'" [nzValue]="'1'"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div nz-col [nzSpan]="4" style="margin-left:10px;">
+          <nz-form-item nzFlex>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="search()" [disabled]="tableLoading">
+                搜索
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="4">
+      <nz-card id="idxCardTree" style="height: 660px;">
+        <div id="idxTree">
+
+          <nz-tree [nzData]="nodes" nzAsyncData nzExpandAll="true" (nzClick)="nzEvent($event)"
+            (nzExpandChange)="expandBtn()">
+          </nz-tree>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="20">
+      <nz-card id="idxCardTable">
+        <p style="margin-bottom: 0 !important;">
+          {{idxTitle}}
+        </p>
+        <nz-divider style="margin: 14px 0;"></nz-divider>
+        <nz-table #fixTable [nzData]="idxList" [(nzPageIndex)]="nzPageIndex0" [(nzPageSize)]="nzPageSize0"
+          [nzLoading]="tableLoading" nzSize="small" [nzScroll]="{x:'1150px'}" [nzPageSizeOptions]="nzPageSizeOptions"
+          (nzCurrentPageDataChange)="tableChange()" nzShowPagination nzShowSizeChanger>
+          <thead>
+            <tr>
+              <th nzWidth="20px" nzLeft="0px">序号</th>
+              <th nzWidth="125px">考核权重</th>
+              <th nzWidth="200px">评分标准</th>
+              <th nzWidth="200px">责任部门</th>
+              <th nzWidth="300px">考核对象</th>
+              <th nzWidth="125px">指标年份</th>
+              <th nzWidth="115px" nzRight="0px">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of fixTable.data;index as i" [class.strikethrough]="false">
+              <td nzLeft="0px">{{ i + 1 + (nzPageIndex0 - 1) * nzPageSize0 }}</td>
+              <td>{{item.deScore}}</td>
+              <td>{{item.cEvaluation}}</td>
+              <td id="dep{{i}}">{{item.zeRen}}</td>
+              <td id="flag{{i}}">{{item.kaoHe}}</td>
+              <!-- <td id="tableExam{{i}}">{{item.address}}</td> -->
+              <td>{{item.dMkdir}}</td>
+              <td nzRight="0px">
+                <button nz-button nzType="link" (click)="check(item)">查看</button>
+                <!-- <nz-divider nzType="vertical"></nz-divider> -->
+                <br />
+
+                <button nz-button nzType="link" (click)="report(item)">计划审核</button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </div>
+</nz-spin>
+
+<nz-modal [(nzVisible)]="isReport" nzTitle="计划审核" nzWidth="50%" (nzOnCancel)="reportCancel()" (nzOnOk)="reportOk()"
+  nzHeight="80%">
+  <form>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          指标名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="20">
+          <span>{{idxReport.cIndexName}}</span>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          考核对象
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="9">
+          <nz-select [(ngModel)]="selectedValue" (ngModelChange)="chooseExamDep($event)" nzPlaceHolder="请选择"
+            name="selectExam">
+            <nz-option *ngFor="let option of optionList" [nzValue]="option.key" [nzLabel]="option.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="4">
+          上报计划时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16">
+          <nz-radio-group [(ngModel)]="cRadio" name="cRadio" (ngModelChange)="chooseRadio($event)" [nzDisabled]="true">
+            <label nz-radio nzValue="0">{{radioValue['0']}}</label>
+            <label nz-radio nzValue="1">{{radioValue['1']}}</label>
+            <label nz-radio nzValue="2">{{radioValue['2']}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row *ngIf="rJ">
+      <nz-form-label nz-col [nzSpan]="4" style="line-height: 20px;">
+        <span style="font-size: 14px;">驳回原因</span>
+      </nz-form-label>
+      <nz-form-item nz-col [nzSpan]="16">
+        <div style="line-height: 20px;">
+          <span style="font-size: 14px;">{{rJText}}</span>
+        </div>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        分管领导
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="16">
+            <input type="text" name="cName1" placeholder="选择分管领导" [(ngModel)]="leader.cPersonName" maxlength="{{maxLength}}"
+              nz-input readonly="true"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+  <form>
+    <div nz-row>
+      <nz-form-label nz-col [nzSpan]="4">
+        具体负责人
+      </nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-control nz-col [nzSpan]="16">
+            <input type="text" name="cName2" placeholder="选择负责人" [(ngModel)]="charger.cPersonName" maxlength="{{maxLength}}"
+              nz-input readonly="true"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+
+  <nz-table #nzTableIn [nzData]="planList" [(nzPageIndex)]="nzPageIndex1" [(nzPageSize)]="nzPageSize1"
+    [nzLoading]="isLoading" nzSize="small" [nzScroll]="{x:'400px'}">
+    <thead>
+      <tr>
+        <th nzWidth="230px">计划类型</th>
+        <th nzWidth="230px">时间</th>
+        <th>计划内容</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let item of nzTableIn.data;index as i">
+        <td>{{planClass}}</td>
+        <td>{{item.time}}</td>
+        <td>{{item.plan}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="audit(6)">审核</button>
+    <button nz-button nzType="danger" (click)="rejectPlan()">驳回</button>
+    <button nz-button nzType="default" (click)="reportCancel()">取消</button>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isReject" [nzTitle]="'驳回原因'" (nzOnCancel)="rejectCancel()" nzHeight="80%">
+  <textarea type="text" name="ccReject" placeholder="请输入驳回原因" [(ngModel)]="rejectReason"
+    (keydown)="$event.which === 13 ? audit(7) : 0" maxlength="{{planLength}}" style="width: 100%;"
+    [nzAutosize]="{ minRows: 3, maxRows:6 }">
+        </textarea>
+  <div *nzModalFooter>
+    <button nz-button nzType="danger" (click)="audit(7)">驳回</button>
+    <button nz-button nzType="default" (click)="rejectCancel()">取消</button>
+  </div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isModal" [nzTitle]="title" (nzOnCancel)="zeroCancel()" (nzOnOk)="zeroOk()" nzHeight="80%">
+  <form>
+    <div nz-row>
+      <div nz-col [nzSpan]="12">
+        <nz-form-label [nzSpan]="8">
+          筛选
+        </nz-form-label>
+        <nz-form-item nzFlex>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input type="text" name="ccName" placeholder="请输入" [(ngModel)]="mName"
+              (keydown)="$event.which === 13 ? searchmName() : 0" maxlength="{{maxLength}}" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item nzFlex>
+          <nz-form-control>
+            <button nz-button nzType="primary" (click)="searchmName()">
+              查询
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <nz-divider></nz-divider>
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <!-- <nz-card>
+        <nz-tree [nzData]="nodes1" nzAsyncData nzExpandAll="true" (nzClick)="nzEvent1($event)" [nzShowExpand]="false">
+        </nz-tree>
+      </nz-card> -->
+      <nz-table #nzTableOut1 [nzData]="depList" [nzLoading]="isDep" nzSize="small" [nzScroll]="{y:'360px'}"
+        [nzHideOnSinglePage]="true" [nzPageSize]="10000">
+        <thead>
+          <tr>
+            <th nzWidth="100px">部门</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of nzTableOut1.data;index as i">
+            <td (click)="clickDep(i)">{{item}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-col nzSpan="12">
+      <!-- <nz-card>
+        <nz-tree [nzData]="nodes2" nzAsyncData nzExpandAll="true" (nzClick)="nzEvent2($event)" [nzShowExpand]="false">
+        </nz-tree>
+      </nz-card> -->
+      <nz-table #nzTableOut2 [nzData]="manList" [nzLoading]="isMan" nzSize="small" [nzScroll]="{y:'360px'}"
+        [nzHideOnSinglePage]="true" [nzPageSize]="10000">
+        <thead>
+          <tr>
+            <th nzWidth="100px">人员</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of nzTableOut2.data;index as i">
+            <td (click)="pickName(item)">{{item}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isCheck" [nzTitle]="idxName" (nzOnCancel)="checkCancel()" (nzOnOk)="checkOk()" nzHeight="80%"
+  nzWidth="50%">
+  <form>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          指标名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入指标名称" [readOnly]="inputDisable" [(ngModel)]="idxData.cIndexName"
+            name="dataIdxName" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          序号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入序号" [readOnly]="inputDisable" [(ngModel)]="idxData.iOrder" name="dataIdxid" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          末级标识
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <nz-radio-group [nzDisabled]="inputDisable" [(ngModel)]="lastLevel" name="dataIdxFlag"
+            (ngModelChange)="chooseBool($event)">
+            <label nz-radio nzValue="0">{{bool['0']}}</label>
+            <label nz-radio nzValue="1">{{bool['1']}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          指标年份
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="4">
+          <input nz-input placeholder="请输入年份" [readOnly]="inputDisable" [disabled]="inputDisable"
+            [ngModel]="idxData.dMkdir" name="dataIdxYear" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          考核权重
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <input nz-input placeholder="请输入考核权重" [readOnly]="inputDisable" [(ngModel)]="idxData.deScore"
+            name="dataIdxWeight" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          考核标准
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea nz-input placeholder="请输入考核标准" [readOnly]="inputDisable" [nzAutosize]="{ minRows: 2, maxRows:4 }"
+            [(ngModel)]="idxData.cEvaluation" name="dataIdxStandard"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          文件列表
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <nz-upload nzAction="localhost" [nzFileList]="fileList" [nzDisabled]="inputDisable" [nzRemove]="remove"
+            [nzShowButton]="'false'">
+            <button nz-button [disabled]="inputDisable"><i nz-icon nzType="upload"></i>上传</button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          责任部门
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea nz-input placeholder="请输入责任部门" [readOnly]="inputDisable" [nzAutosize]="{ minRows: 2, maxRows:2 }"
+            [(ngModel)]="dep" name="dataIdxDep"></textarea>
+          <!-- <input nz-input placeholder="请输入责任部门" [readOnly]="inputDisable" 
+            [(ngModel)]="idxData.dep" name="dataIdxDep" /> -->
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-row>
+      <nz-form-item nzFlex>
+        <nz-form-label nz-col [nzSpan]="6">
+          考核对象
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="18">
+          <textarea type="text" name="cName2" placeholder="请选择考核对象" [(ngModel)]="depExam"
+            [nzAutosize]="{ minRows: 2, maxRows:2 }" nz-input [readOnly]="true"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</nz-modal>
+
+<style>
+  ::ng-deep .ant-table-thead>tr>th {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+    background-color: #378affe1 !important;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td:hover {
+    overflow: auto;
+    white-space: normal;
+  }
+
+  ::ng-deep .ant-card-body {
+    padding: 8 14px 0 14px;
+  }
+
+  ::ng-deep .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  :host ::ng-deep .ant-tree-node-content-wrapper {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* :host ::ng-deep .ant-tree:hover {
+    overflow: auto;
+    white-space: normal;
+  } */
+
+  .strikethrough {
+    /* text-decoration: line-through; */
+    background-color: #18857c;
+  }
+</style>

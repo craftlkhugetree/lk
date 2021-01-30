@@ -1,0 +1,291 @@
+<nz-card style="margin-bottom: 8px;">
+  <div nz-row nzGutter="24">
+    <div nz-col nzSpan="6">
+      指标年份:<nz-year-picker [(ngModel)]="date" nzAllowClear="false" (ngModelChange)="onChange($event)" nzPlaceHolder="请选择年"></nz-year-picker>
+    </div>
+    <div nz-col nzSpan="6">
+      指标名称:<input nz-input type="text" [(ngModel)]="searchObj.cIndexName" placeholder="请输入指标名称" maxlength="20" style="width: 65%;" />
+    </div>
+    <div nz-col nzSpan="4">
+      指标状态:
+      <nz-select [(ngModel)]="searchObj.iRelease" nzAllowClear nzPlaceHolder="请选择" style="width: 150px;">
+        <nz-option
+          *ngFor="let i of industrytype"
+          nzValue="{{ i.value }}"
+          nzLabel="{{ i.name }}"
+        ></nz-option>
+      </nz-select> 
+    </div>
+    <div nz-col nzSpan="8">
+      <button nz-button nzType="primary" nzValue="primary" (click)="search()" >搜索</button>
+    </div>
+  </div>
+</nz-card>
+
+<nz-card style="margin-bottom: 8px;">
+  <!-- <button nz-button nzType="primary" nzValue="primary" (click)="add(1)"><i nz-icon nzType="plus" nzTheme="outline"></i>新增</button> -->
+  <button nz-button nzType="primary" nzValue="primary" 
+  nz-popconfirm
+  nzPopconfirmTitle="确定要发布吗？"
+  nzPopconfirmPlacement="bottom"
+  (nzOnConfirm)="Batchrelease(1)"
+  (nzOnCancel)="cancel()"
+  ><i nz-icon nzType="check-circle" nzTheme="outline"></i>批量发布</button>
+  <button nz-button nzType="danger" nzValue="danger" 
+  nz-popconfirm
+  nzPopconfirmTitle="确定要取消发布吗？"
+  nzPopconfirmPlacement="bottom"
+  (nzOnConfirm)="Batchrelease(2)"
+  (nzOnCancel)="cancel()"
+  ><i nz-icon nzType="close-circle" nzTheme="outline"></i>批量取消</button>
+</nz-card>
+
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-card style="min-height: 1100px;">
+      <nz-table #fixedTable [nzData]="list" 
+      nzSize="small" nzShowSizeChanger
+      [nzScroll]="{ x:'1250px'}"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)"
+      >
+        <thead>
+          <tr>
+            <th
+            nzShowCheckbox
+            [(nzChecked)]="isAllDisplayDataChecked"
+            [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"
+            nzWidth="50px"
+            nzLeft="0"
+          ></th>
+            <th nzLeft="50px" nzWidth="50px">序号</th>
+            <th nzWidth="100px">考核权重</th>
+            <th nzWidth="300px">评分标准</th>
+            <th nzWidth="200px">责任部门</th>
+            <th nzWidth="200px">考核对象</th>
+            <th nzWidth="150px">指标年份</th>
+            <th nzWidth="150px">状态</th>
+            <th nzRight="0" nzWidth="50px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of fixedTable.data let i = index">
+              <td nzLeft="0" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.cIndexUUID]" (nzCheckedChange)="refreshStatus()"></td>
+              <td nzLeft="50px">{{ i+1 }}</td>
+              <td>{{ data.deScore }}</td>
+              <td>{{ data.cEvaluation }}</td>
+              <td>
+                <div *ngFor="let i of data.zeRen">
+                  <div style="display: inline-block;width: 150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{i.cOrgName}}</div>
+                </div>
+              </td>
+              <td>
+                <div *ngFor="let i of data.kaoHe">
+                  <div style="display: inline-block;width: 150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{i.cOrgName}}</div>
+                </div>
+              </td>
+              <td>{{ data.dMkdir }}</td>
+              <td>
+                <div *ngIf="data.iRelease === 1" style="display: inline-block;width: 70px;color:#96c1ff;text-align: center;background:#edf4ff;border: 0.3px solid #96c1ff;border-radius: 8px;">已发布</div>
+                <div *ngIf="data.iRelease === 0" style="display: inline-block;width: 70px;color:#fdc15e;text-align: center;background:#fff7ea;border: 0.3px solid #fdc15e;border-radius: 8px;">未发布</div>
+              </td>
+              <td nzRight="0">
+                <div style="display: grid;line-height: 30px;">
+                  <a *ngIf="data.iRelease === 0" href="javascript:;" 
+                   nz-popconfirm
+                  nzPopconfirmTitle="确定要发布吗？"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="confirm(data.cIndexUUID)"
+                  (nzOnCancel)="cancel()">发布</a>
+                  <a *ngIf="data.iRelease === 1" style="color:red" href="javascript:;" 
+                  nz-popconfirm
+                  nzPopconfirmTitle="确定要取消发布吗？"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="confirm1(data.cIndexUUID)"
+                  (nzOnCancel)="cancel()"
+                  >取消发布</a>
+                  <a href="javascript:;" (click)="add(data)">查看</a>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
+
+
+<!-- 查看模态 -->
+<nz-modal id="add" [(nzVisible)]="isVisible" nzTitle="{{nzTitle}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">指标名称</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <input nz-input type="text" [(ngModel)]="indexname" readonly name="indexname">
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">序号</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <input nz-input type="text" [(ngModel)]="index" readonly name="index">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">末级标识</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <nz-radio-group [(ngModel)]="radioValue" name="radioValue" [nzDisabled]="true">
+          <label nz-radio nzValue="true">是</label>
+          <label nz-radio nzValue="false">否</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">考核权重</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <input nz-input type="text" [(ngModel)]="indexweight" readonly name="indexweight">
+        <!-- <textarea rows="3" nz-input [(ngModel)]="indexweight" name="indexweight"></textarea> -->
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">考核标准</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <textarea rows="3" nz-input [(ngModel)]="indexstan" name="indexstan" readonly ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">文件列表</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <nz-upload [nzBeforeUpload]="beforeUpload" [(nzFileList)]="fileList" [nzDisabled]="inputDisable"
+        [nzRemove]="remove"  nzMultiple="true">
+        <!-- <button nz-button [disabled]="inputDisable"><i nz-icon nzType="upload"></i>上传</button> -->
+      </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">责任部门</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input nz-input type="text" [(ngModel)]="indexdep" readonly name="indexdep"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">考核对象</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <nz-input-group [nzSuffix]="suffixIconSearch1">
+          <input nz-input type="text" [(ngModel)]="indexobj" readonly name="indexobj"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch1>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3">指标年份</nz-form-label>
+      <nz-form-control [nzSpan]="17">
+        <!-- <nz-year-picker [(ngModel)]="date1" (ngModelChange)="onChange($event)" name="date1"></nz-year-picker> -->
+        <input nz-input type="text" [(ngModel)]="indexIyear" readonly name="indexIyear"/>
+      </nz-form-control>
+    </nz-form-item >
+  </form>
+</nz-modal>
+
+<!-- 责任部门参考对象的模态 -->
+<nz-modal id="obj" [(nzVisible)]="isVisible1" nzTitle="{{objTitle}}" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+  <div style="margin: 0 0 10px 0;">
+    筛选:
+    <input style="width: 50%;margin-left: 10px;" type="text" nz-input placeholder="请输入" maxlength="20" />
+    <button nz-button nzType="primary" style="margin-left: 10px;">查询</button>
+  </div>
+  <div nz-row>
+    <div nz-col nzSpan="12" style="margin-right: 10px;">
+      <nz-table #fixedTable1 [nzData]="objdata" nzShowPagination="false" nzBordered="true"
+      [nzScroll]="{ y:'400px'}"
+      >
+        <thead>
+          <tr>
+            <th>责任部门</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of fixedTable1.data">
+            <td>{{ data.name }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-col nzSpan="11">
+      <nz-table #fixedTable2 [nzData]="objdata1" nzShowPagination="false" nzBordered="true"
+      [nzScroll]="{ y:'400px'}"
+      >
+        <thead>
+          <tr>
+            <th>分管领导</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of fixedTable2.data">
+            <td>{{ data.name }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-modal>
+
+
+
+
+<style>
+::ng-deep #add .ant-modal{
+  width: 800px !important;
+}
+::ng-deep #treeCard .ant-card-body{
+  padding:10px 0 0 0;
+  overflow: hidden;
+}
+::ng-deep .ant-table-thead>tr>th {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+    background-color: #378affe1 !important;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td {
+    max-width: 260px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ant-table-tbody>tr>td:hover {
+    overflow: auto;
+    white-space: normal;
+  }
+
+  ::ng-deep .ant-card-body {
+    padding: 8 14px 0 14px;
+  }
+
+  ::ng-deep .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  :host ::ng-deep .ant-tree-node-content-wrapper {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .strikethrough {
+    /* text-decoration: line-through; */
+    background-color: #18857c;
+  }
+</style>
