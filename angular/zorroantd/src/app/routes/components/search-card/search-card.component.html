@@ -1,0 +1,106 @@
+<nz-card class="testCard">
+  <form>
+    <div nz-row>
+      <!-- <div nz-col [nzSpan]="4">
+        <nz-form-label [nzSpan]="8">
+          年度
+        </nz-form-label>
+        <nz-form-item nzFlex>
+          <nz-form-control nz-col [nzSpan]="12">
+            <nz-year-picker [(ngModel)]="dad.idxYear" (ngModelChange)="dad.idxYearChange($event)" [nzPlaceHolder]="dad.plzChoose"
+              name="idxYear" nzAllowClear="false" [nzDisabled]="dad.isLoading">
+            </nz-year-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+    
+      <!-- <div nz-col [nzSpan]="4">
+        <nz-form-label nz-col [nzSpan]="8">
+          区域
+        </nz-form-label>
+        <nz-form-item nzFlex>
+          <nz-form-control nz-col [nzSpan]="16">
+            <nz-select [(ngModel)]="area" name="area" (ngModelChange)=areaChange($event) [nzPlaceHolder]="plzChoose"
+            nzAllowClear="true" [nzDisabled]="tableLoading">
+            <nz-option [nzLabel]="ALL" [nzValue]="isNull"></nz-option>
+            <nz-option *ngFor="let option of areaList" [nzLabel]="option" [nzValue]="option">
+            </nz-option>
+          </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <nz-form-label [nzSpan]="8">
+          行业
+        </nz-form-label>
+        <nz-form-item >
+          <nz-form-control nz-col [nzSpan]="12">
+            <nz-select [(ngModel)]="ind" name="ind" (ngModelChange)=indChange($event) [nzPlaceHolder]="plzChoose"
+              nzAllowClear="true" [nzDisabled]="tableLoading">
+              <nz-option [nzLabel]="ALL" [nzValue]="isNull"></nz-option>
+              <nz-option *ngFor="let option of indList" [nzLabel]="option" [nzValue]="option" [title]="option">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <nz-form-label [nzSpan]="8">
+          企业评级
+        </nz-form-label>
+        <nz-form-item nzFlex>
+          <nz-form-control nz-col [nzSpan]="12">
+            <nz-select [(ngModel)]="entGrade" name="entGrade" (ngModelChange)=entGChange($event) [nzPlaceHolder]="plzChoose"
+              nzAllowClear="true" [nzDisabled]="tableLoading">
+              <nz-option [nzLabel]="ALL" [nzValue]="isNull"></nz-option>
+              <nz-option *ngFor="let option of entGList" [nzLabel]="option" [nzValue]="option">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>-->
+
+      <!-- <div nz-col [nzSpan]="2" style="margin-left:10px;">
+        <nz-form-item nzFlex>
+          <nz-form-control>
+            <button nz-button nzType="primary" (click)="search1()"  nzGhost>
+              <i nz-icon nzType="search" nzTheme="outline"></i>查询
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <!-- <div nz-col [nzSpan]="2" style="margin-left:10px;">
+        <nz-form-item nzFlex>
+          <nz-form-control>
+            <button nz-button nzType="default" (click)="setCol()" [disabled]="tableLoading">
+              <i nz-icon nzType="left" nzTheme="outline"></i>列设置
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="2" style="margin-left:10px;">
+        <nz-form-item nzFlex>
+          <nz-form-control>
+            <button nz-button nzType="default" (click)="exportExcel()" [disabled]="tableLoading">
+              <i nz-icon nzType="arrow-down" nzTheme="outline"></i>导出
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>  -->
+
+
+    </div>
+    Here is child and :::  {{fromDad}}
+  </form>
+</nz-card>
+
+
+<nz-modal [(nzVisible)]="isV" (nzOnCancel)="onCancel()" (nzOnOk)="onOk()">
+  {{da.x}} {{da.y}}
+  <button nz-button (click)="two(); two();">Save</button>
+  <button onclick="two(); two();">222</button>
+</nz-modal>

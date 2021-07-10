@@ -48,7 +48,7 @@ fi
 # ./test.sh: line 2: mm: command not found
 # [dev ~]$
 # # 禁止标准错误到终端，显示了标准输出
-# [dev ~]$ ./test.sh 2> /dev/null
+# [dev ~]$ ./test.sh 2> /dev/null   #注意2后没有空格，否则会被当做test.sh的参数
 # Thu Jul 26 14:53:33 CST 2018
 # [dev ~]$
 # # 禁止标准错误和标准输出都显示在终端,此时无任何输出

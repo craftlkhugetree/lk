@@ -1,4 +1,58 @@
+<app-components-search-card  
+ [da]="trans"
+ [isV]="isVisible"
+ (on1Ok) = "onOk()"
+ (on1Cancel) = "onCancel()"
+ #childRef
+>
+ <!-- [dad] = "this" [tableLoading]="str"
+[id]="idd" [search]="outSearch" -->
+
+</app-components-search-card>
+
+<button nz-button (click)="open()">open1</button>
+<button nz-button (click)="childRef.imChild('from dad!      ')">call the child</button>
+
 <div >
     <input nz-input placeholder="请输入栏目编码" type="number" 
   [(ngModel)]="abc" (ngModelChange)="cutInputNum($event)" value="abc"/>
 </div>
+
+<div id="divFlag">
+  hello
+</div>
+
+<button (click)="onClick()">btn</button>
+
+<nz-table #basicTable [nzData]="dataSet" >
+<!-- <nz-table #basicTable [nzData]="dataSet" (nzCurrentPageDataChange)="formatTableLater()"> -->
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data; index as i">
+      <td>{{i+1}}</td>
+      <td>{{data.name}}</td>
+      <td >{{data.age}}</td>
+      <td id="flag">{{data.address}}</td>
+      <td>
+        <a>Action 一 {{data.name}}</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="formatTableLater()">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<style>
+   ::ng-deep .testCard .ant-card-body {
+    padding: 0;
+  }
+
+</style>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <style type="text/css">
+    .d1 {
+      /* width: 100px;
+      height: 100px;
+      background: black;
+      transform: scale(0.5);
+      transition: transform 1s linear; */
+      background: black;
+      width: 100px;
+      height: 100px;
+      transition: height 1s;
+    }
+    .d1:hover {
+      /* transform: scale(1); */
+      height: 200px;
+    }
+  </style>
+  <body>
+    <div class="d1"></div>
+    <script>
+      function foo() {
+        var myName = "极客时间";
+        let test1 = 1;
+        const test2 = 2;
+        var innerBar = {
+          getName: function () {
+            console.log(test1);
+            return myName;
+          },
+          setName: function (newName) {
+            myName = newName;
+          },
+        };
+        return innerBar;
+      }
+      var bar = foo();
+      bar.setName("极客邦");
+      bar.getName();
+      console.log(bar.getName());
+    </script>
+  </body>
+</html>

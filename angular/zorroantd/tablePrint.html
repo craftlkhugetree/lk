@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<p
+    style="margin: 0px; padding: 0px; color: #666666; font-size: 16px; background-color: #ffffff; font-family: 微软雅黑; text-align: center; line-height: 32px; text-indent: 2em;">
+    <a style="text-decoration-line: none; outline: 0px; color: #0066cc;"
+        href="http://www.dezhou.gov.cn/n1403/n38391604/n59392514/n59392619/c61147054/part/61147061.pdf" target="_blank"
+        rel="noopener">
+        <img style="border: 0px; vertical-align: top; outline: 0px;"
+            src="http://www.dezhou.gov.cn/n1403/n38391604/n59392514/n59392619/c61147054/part/61147060.png" border="0" />
+    </a>
+</p>
+    <!-- <div id = "mountains"></div> -->
+
+    <script>
+        let MOUNTAINS = [
+            { name: "Kilimanjaro", height: 5895, place: "Tanzania" },
+            { name: "Everest", height: 8848, place: "Nepal" },
+            { name: "Mount Fuji", height: 3776, place: "Japan" },
+            { name: "Vaalserberg", height: 323, place: "Netherlands" },
+            { name: "Denali", height: 6168, place: "United States" },
+            { name: "Popocatepetl", height: 5465, place: "Mexico" },
+            { name: "Mont Blanc", height: 4808, place: "Italy/France" }
+        ];
+
+        // 创建表格
+        function buildTable(data) {
+            let table = document.createElement("table");
+            table.setAttribute('id', 'myTable');
+            let tr = document.createElement("tr");
+            // 通过 for in 循环遍历对象,得到对象的属性,为表头添加内容
+            for (let i in data[6]) {
+                let th = document.createElement("th");
+                th.innerText = i;
+                tr.appendChild(th);
+            }
+            table.appendChild(tr);
+            // 通过 forEach 循环遍历对象数组,为表格添加行
+            data.forEach((value, index) => {
+                let tr = document.createElement("tr");
+                // 通过 for in 循环遍历对象,得到对象的属性,给每行添加内容
+                for (let index1 in data[index]) {
+                    let td = document.createElement("td");
+                    td.innerText = data[index][index1];
+                    tr.appendChild(td);
+                }
+
+
+                table.appendChild(tr);
+
+            });
+
+            const text = ['nihao', '', '你好']
+            let trEnd = document.createElement("tr");
+            text.forEach(i => {
+                let tdEnd = document.createElement("td");
+                tdEnd.innerText = i;
+                trEnd.appendChild(tdEnd)
+            })
+            table.appendChild(trEnd);
+            // let tableEnd = document.createElement("table");
+            // let tdEnd1 = document.createElement("td");
+            // tdEnd1.innerText = '你好'
+            // trEnd.appendChild(tdEnd1)
+            // tableEnd.appendChild(trEnd);
+
+            // table.append(tableEnd)
+            //设置表格的对齐属性,和边框属性
+            table.setAttribute("text-align", "right");
+            table.setAttribute("border", "1");
+            // tableEnd.setAttribute("text-align", "right");
+            // tableEnd.setAttribute("border", "1");
+
+            const len = table.rows.length;
+
+            console.log(len, table.rows[len-1]);
+            table.rows[len-1].removeChild(table.rows[len-1].cells[1])
+            table.rows[len-1].cells[0].colSpan = 2;
+            table.rows[len-1].cells[1].colSpan = 1;
+            return table;
+        }
+
+        //  document.querySelector("div").appendChild(buildTable(MOUNTAINS));
+        window.document.body.appendChild(buildTable(MOUNTAINS));
+
+        const tmp = document.body.innerHTML;
+        // setTimeout(() => {
+        //     window.document.body.innerHTML = '';
+        // }, 2000)
+
+        // setTimeout(() => {
+        // document.body.innerHTML = tmp;
+
+        // },5000)
+
+        /**
+ * 列合并单元格(如果结束行传0代表合并所有行)
+ * @param table     表格的ID
+ * @param startRow  起始行
+ * @param endRow    结束行
+ * @param col       合并的列号，对第几列进行合并(从0开始)。第一行从0开始
+ */
+        function mergeCell(table, startRow, endRow, col) {
+            debugger;
+            var tb = document.getElementById(table);
+            if (!tb || !tb.rows || tb.rows.length <= 0) {
+                return;
+            }
+            if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) {
+                return;
+            }
+            if (endRow == 0) {
+                endRow = tb.rows.length - 1;
+            }
+            for (var i = startRow; i < endRow; i++) {
+                //如果相等就合并单元格,合并之后跳过下一行
+                if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[col].innerHTML) {
+                    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[6]);		// 合并第6列
+                    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[5]);		// 合并第5列
+                    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[4]);		// 合并第4列
+                    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[3]);		// 合并第3列
+                    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col]);		// 合并第1列
+                    tb.rows[startRow].cells[6].rowSpan = (tb.rows[startRow].cells[6].rowSpan) + 1;
+                    tb.rows[startRow].cells[5].rowSpan = (tb.rows[startRow].cells[5].rowSpan) + 1;
+                    tb.rows[startRow].cells[4].rowSpan = (tb.rows[startRow].cells[4].rowSpan) + 1;
+                    tb.rows[startRow].cells[3].rowSpan = (tb.rows[startRow].cells[3].rowSpan) + 1;
+                    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1;
+                } else {
+                    mergeCell(table, i + 1, endRow, col);
+                    break;
+                }
+            }
+        }
+
+        // 调用合并单元格方法
+        // mergeCell("myTable", 0, 0, 0);		// 默认合并第一列
+    </script>
+</body>
+
+</html>

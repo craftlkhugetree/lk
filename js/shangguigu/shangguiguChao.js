@@ -577,7 +577,7 @@ function myNew(ctx, ...args){ // ...args为ES6展开符,也可以使用arguments
   obj.__proto__=ctx.prototype;
   //新对象和函数调用的this绑定起来
   let res=ctx.call(obj,...args);
-  //判断函数返回值如果是null或者undefined则返回obj,否则就放回res
+  //判断函数返回值如果是null或者undefined则返回obj,否则就返回res
   return res instanceof Object?res:obj;
 }
 
@@ -591,3 +591,4 @@ function myNew() {
   var result = constr.apply(obj, arguments);
   return result instanceof Object? result : obj;
 }
+

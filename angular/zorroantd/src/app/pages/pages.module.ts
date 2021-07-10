@@ -15,11 +15,13 @@ import { BackendgetComponent } from './backendget/backendget.component'; // <-- 
 import { ExceltxtComponent } from './exceltxt/exceltxt.component';
 import { ExcelComponent } from './excel/excel.component'
 
+import { ComponentsSearchCardComponent } from '../routes/components/search-card/search-card.component'
 
 
 
 @NgModule({
-  declarations: [MonitorComponent,WelcomeComponent, TableSortCombineComponent, WorkplaceComponent, BackendgetComponent, ExceltxtComponent, ExcelComponent ],
+  declarations: [MonitorComponent,WelcomeComponent, TableSortCombineComponent, WorkplaceComponent, BackendgetComponent, ExceltxtComponent, ExcelComponent,
+  ComponentsSearchCardComponent ],
   imports: [
     CommonModule,
     PagesRoutingModule,
