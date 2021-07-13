@@ -287,5 +287,3 @@ var o = {
     height: 800
 }
 FR.showDialog(o.title, o.width, o.height, iframe, o) //弹出对话框
-
-

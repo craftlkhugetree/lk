@@ -83,6 +83,8 @@ ip地址preUrl; console; debugger; environment.prod
 7. fineReport表格使用动图背景，需要上传到服务器上。
 8. 亩产附加分审核修正st表格列宽普遍为200，与html中的style为300的冲突。
 
+1. 亩产综合分析板块下，所有selectYieldPerMuData接口变为2号，同时增加年份参数。
+2. 模拟出政企协同工业互联网平台云图数据。
 
 
 
@@ -235,8 +237,8 @@ aboutfeedback
 
 
 
-2020/06/02  北起楼，本加三，本外漆。
-2021/06/02  康希诺单针
+2020/06/02  北起楼，本加三，本外漆。cmmi3。
+2021/06/02  康希诺单针。攻坚仨月。炎黄低代码。月2、7told increase。
 
 
 

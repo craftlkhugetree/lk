@@ -43,6 +43,41 @@
       bar.setName("极客邦");
       bar.getName();
       console.log(bar.getName());
+
+      /**
+       *
+       */
+      function Base1(name) {
+        this.name = name;
+      }
+      function Base2(type) {
+        this.type = type;
+      }
+      function Child(name, type) {
+        Base1.call(this, name); // 让 this 去调用 Base1，并传入参数 name
+        Base2.call(this, type);
+      }
+
+      /***this:
+Child
+name: "Life"
+type: "book"
+__proto__: Object
+       * **/
+      var c = new Child("Life", "book");
+      console.log(c.name); // "Life"
+      console.log(c instanceof Base1); // false
+      console.log(c instanceof Child); // true
+
+      async function foo1() {
+        console.log(1);
+        let a = await 100;
+        console.log(a);
+        console.log(2);
+      }
+      console.log(0);
+      foo1();
+      console.log(3);
     </script>
   </body>
 </html>
