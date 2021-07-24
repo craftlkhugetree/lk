@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./r.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <input id="testInput" value="abc" />
+    <button onclick="ch()">变！</button>
+    <button onclick="copy()">copy！</button>
+    <script>
+      var abc = "abc";
+      function ch() {
+        abc = "123";
+        $("#testInput").trigger("input");
+        $("#testInput").val(abc);
+      }
+      window.onload = () => {
+        $("#testInput").on("input change", () => {
+          console.log("testInput", abc);
+        });
+        // var httpRequest = new XMLHttpRequest(); //第一步：建立所需的对象
+        const url = "https://i.tianqi.com/?c=code&id=34";
+        // httpRequest.setRequestHeader( 'Access-Control-Allow-Origin', '*');	// DOMException: Failed to execute 'setRequestHeader' on 'XMLHttpRequest': The object's state must be OPENED.
+        // httpRequest.open("GET", url, true); //第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
+        // httpRequest.send(); //第三步：发送请求  将请求参数写在URL中
+        // /**
+        //  * 获取数据后的处理程序
+        //  */
+        // httpRequest.onreadystatechange = function () {
+        //   console.log(httpRequest);
+        //   if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        //     var json = httpRequest.responseText; //获取到json字符串，还需解析
+        //     console.log(json);
+        //   }
+        // };
+        $.getJSON(url + "&callback=?", function (json) {
+          console.log(json, arguments);
+        });
+      };
+
+      // function cpdir(oldDirPath, newDirPath) {
+      //   const fs = require("fs");
+      //   return new Promise(function (resolve, reject) {
+      //     fs.mkdir(newDirPath, (err) => {
+      //       reject(err);
+      //     });
+
+      //     fs.readdir(oldDirPath, (err, list) => {
+      //       if (err) {
+      //         reject(err);
+      //       } else {
+      //         resolve(list);
+      //         list.forEach((item) => {
+      //           console.log(list, item);
+      //           fs.stat(oldDirPath + "/\\" + item, (err, stats) => {
+      //             if (stats.isFile()) {
+      //               fs.copyFile(
+      //                 oldDirPath + "/\\" + item,
+      //                 newDirPath + "/\\" + item,
+      //                 (err) => {
+      //                   console.log("copyError:", err);
+      //                 }
+      //               );
+      //             } else {
+      //               oldDirPath += "/\\" + item;
+      //               newDirPath += "/\\" + item;
+      //               cpdir(oldDirPath, newDirPath);
+      //             }
+      //           });
+      //         });
+      //       }
+      //     });
+      //   });
+      // }
+      // function copy() {
+      //   cpdir("D:\lk\java\javaNote", "d:\QQ");
+      // }
+
+      // $.ajax({
+      //   type: "GET",
+      //   url: url,
+      //   dataType: "jsonp",
+      //   jsonpCallback:"cb",
+      //   success: function (json) {
+      //     console.log(json);
+      //   },
+      // });
+    </script>
+  </body>
+</html>

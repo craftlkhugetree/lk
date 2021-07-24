@@ -1,6 +1,12 @@
-https://www.bilibili.com/video/av29299488
-千锋教育  李卫民
-https://www.funtl.com/zh/supplement1/#jsr-303-%E7%AE%80%E4%BB%8B
+|--javaNote
+||--IDEA_key_map.md
+||--counteredError.md
+
+|--jsNote
+||--单例.md
+
+|--WeappNote
+||--iView_Weapp.md
 
 1. 有道无术，术尚可求。有术无道，止于术。
 批判性思维：对思考的思考。
@@ -110,6 +116,11 @@ ctrl+F2 批量修改
 ctrl+alt+F8 打开断点处变量
 alt+shift+F 格式化代码  ctrl+alt+shift+L
 
+ERROR 13596 --- [ restartedMain] o.s.b.d.LoggingFailureAnalysisReporter         // 服务器配置的端口8000被占用
+netstat -aon|findstr 8000
+tasklist|findstr 8000
+taskkill /f /t /im javaw.exe
+
 16. 重构原则，先写代码，不要过度设计，业务实现之后再重构进行完善。
 17. 接口的幂等性问题，不论调用多少次http get方法，结果都一样。而post不具备幂等性。不能post里调get，或者get里调post。    get效率高，明文传输，参数大小有限；post分为两段，先询问fwq能否提交数据，同意后才提交。
 18. 字符串写在前面，"admin".equals(loginId);防止字符串空指针异常，或者 if("admin"==loginId)。不要用 && 同时判断用户名和密码，这会被注入，要变成两个if嵌套来判断。
@@ -174,7 +185,7 @@ query("from User where user.id=1"); 这句查询有jdbc知识、HQL、SQL等，�
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
 53. ISO-8859-1一个字符集只能存1个字节，存中文可能只存了一半，乱码。UTF-8一个字符集能存3个字节。utf8mb4是扩展，一个字符集能存4个字节，表情包 emoji就是4个字节。
-54. service层就不归myBatis关了，它只管dao。所以dao里只写接口，而不用impl实现。而service里还是要自己实现的。
+54. service层就不归myBatis管了，它只管dao。所以dao里只写接口，而不用impl实现。而service里还是要自己实现的。
 55. DigestUtils.md5DigestAsHex();加密密码
 56. @RequestMapping(value = "list", method = RequestMethod.GET) // value后是地址/list
     public String list(Model model){
@@ -484,3 +495,7 @@ Spring事务回滚的默认方式：运行时异常回滚（编译时不报错�
         <aop:pointcut id="myPointcut" expression="execution(* com.hello.spring.transaction.aspectsj.aop.service.*.*(..))" />
         <aop:advisor advice-ref="myAdvice" pointcut-ref="myPointcut" />
     </aop:config>
+
+https://www.bilibili.com/video/av29299488
+千锋教育  李卫民
+https://www.funtl.com/zh/supplement1/#jsr-303-%E7%AE%80%E4%BB%8B

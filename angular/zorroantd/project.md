@@ -1,11 +1,12 @@
 D:\lk\js\shangguigu\shangguiguChao.js
 D:\lk\html\sggchao.txt
 D:\lk\html\flex布局\flex布局.txt
-D:\lk\java\java单体.md
+D:\lk\java\java单体.md  WeappNote jsNote javaNote
 D:\lk\Vue\vue3_test1\Vue2.md
 D:\lk\Vue\vue3_test1\Vue3.md
 C:\Users\Administrator\WeChatProjects\miniprogram-1\testVueOrigin    vue源码解析
 ip地址preUrl; console; debugger; environment.prod
+云图通用src\app\routes\big-data-landscape\practice-furniture\practice-furniture.component.ts
 
 # 按时间算工时
 2021-05	
@@ -85,9 +86,23 @@ ip地址preUrl; console; debugger; environment.prod
 
 1. 亩产综合分析板块下，所有selectYieldPerMuData接口变为2号，同时增加年份参数。
 2. 模拟出政企协同工业互联网平台云图数据。
+3. 日照市亩产效益。钻取各模块拆分。rizhaomuchan
+4. 政企协调工业互联网云图：增加天气接口为php不安全，寻找其他天气接口；logo图标改为正式https://b.leancloud.biz/不带端口，tomcat下的root更换favicon.ico；统一企业ID、金融机构ID，水球图水位太满，齿轮图数字小一点，仨截图太明显。
+5. 目录齿轮的轮播特效里设置其他组件，会使其他组件出现刷新特效！！	
+6. jquery修改iframe接口返回的html文档样式。getJson跨域用callback解决。
+7. 安装IDEA，http://www.xmpojie.com/5155.html
 
-
-
+1. 日照市东港区亩产云图。
+2. 考试系统小程序：给无数据提示添加条件；更改tab名称；增加已完成图标；多次考一套试卷的记录collapse；超过次数toast。
+3. 工业互联网云图优化：雷达图图例太靠下；钻取企业名称有同一月份的重名；水球图标题上浮，数据更新调慢，用同样数量的目标列；大标题居中;产业链金融数据和饼图契合；云图标题字体过大。
+4. 云图sql方式 存储过程。
+5. 小程序将登陆方式改为获取验证码、验证验证码、默认token登录。
+6. 东港区云图描图，代码菜单。
+7. 四上出库原因，增加判断返回值为null的三元表达式。
+8. 增加接口ifExists，判断该手机号是否存在
+9. 考试系统自由组卷。
+10. 县市云图钻取图表创制。
+11. 考试系统增加部门查询和选择。
 
 # 一、PC端：*************************************************************************************************************************************************
 1. 四上库2020：四上库变更记录、移出正式库原因

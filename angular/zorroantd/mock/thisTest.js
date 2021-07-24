@@ -27,7 +27,7 @@ const fn = {
   */
 
   sayArrow: () => {
-    console.log('id:', this.id, 'id' in window);
+    // console.log('id:', this.id, 'id' in window);
   },
   // fn.sayArrow();
   /*
@@ -195,3 +195,7 @@ new Promise(function (resolve) {
   console.log('promise then')
 })
 console.log('script end')
+
+
+
+ 
