@@ -7,6 +7,7 @@ D:\lk\Vue\vue3_test1\Vue3.md
 C:\Users\Administrator\WeChatProjects\miniprogram-1\testVueOrigin    vue源码解析
 ip地址preUrl; console; debugger; environment.prod
 云图通用src\app\routes\big-data-landscape\practice-furniture\practice-furniture.component.ts
+市政：http://222.133.41.39:8090/CNIC/app/index.html#/Index	liuxien Lxe_19830113
 
 # 按时间算工时
 2021-05	
@@ -87,7 +88,7 @@ ip地址preUrl; console; debugger; environment.prod
 1. 亩产综合分析板块下，所有selectYieldPerMuData接口变为2号，同时增加年份参数。
 2. 模拟出政企协同工业互联网平台云图数据。
 3. 日照市亩产效益。钻取各模块拆分。rizhaomuchan
-4. 政企协调工业互联网云图：增加天气接口为php不安全，寻找其他天气接口；logo图标改为正式https://b.leancloud.biz/不带端口，tomcat下的root更换favicon.ico；统一企业ID、金融机构ID，水球图水位太满，齿轮图数字小一点，仨截图太明显。
+4. 政企协同工业互联网云图：增加天气接口为php不安全，寻找其他天气接口；logo图标改为正式https://b.leancloud.biz/不带端口，tomcat下的root更换favicon.ico；统一企业ID、金融机构ID，水球图水位太满，齿轮图数字小一点，仨截图太明显。
 5. 目录齿轮的轮播特效里设置其他组件，会使其他组件出现刷新特效！！	
 6. jquery修改iframe接口返回的html文档样式。getJson跨域用callback解决。
 7. 安装IDEA，http://www.xmpojie.com/5155.html
@@ -103,6 +104,23 @@ ip地址preUrl; console; debugger; environment.prod
 9. 考试系统自由组卷。
 10. 县市云图钻取图表创制。
 11. 考试系统增加部门查询和选择。
+
+1. 考试系统增加部门管理页面，后端增加查询接口；增加导入导出功能。
+2. 考试系统小程序填空题源代码字段漏写，导致填空题解析看不到答案。
+3. 考试系统部门管理页面后端导入接口。
+4. 亩产综合分析：区域、排名、分类分析调整日期位置，指标可勾选控制，点击指标直接查询。其他四个分析调整位置,点击指标直接查询。
+5. 亩产综合分析：修正源代码 日期选择无效的bug。
+6. 政企logo去掉shadow阴影效果。
+7. 考试系统bug：  
+   exist(str) {
+      return str || str===0 
+    },
+8. 修正popover的表格内使用，点击冲突且冒泡事件。
+9. 考试小程序增加考试时段限制。
+10. 亩产一企一报告：企业查询/BusinessData/BusinessQuery中增加雷达图企业报告、意见库、策略库。
+11. 考试小程序提交按钮节流功能。
+12. 考试小程序正则替换掉emoji。
+  
 
 # 一、PC端：*************************************************************************************************************************************************
 1. 四上库2020：四上库变更记录、移出正式库原因
@@ -253,7 +271,7 @@ aboutfeedback
 
 
 2020/06/02  北起楼，本加三，本外漆。cmmi3。
-2021/06/02  康希诺单针。攻坚仨月。炎黄低代码。月2、7told increase。
+2021/  西搬东。攻坚仨月。06/02康希诺单针。炎黄低代码。月2、7told increaseSalay。党建考试小程序。
 
 
 
