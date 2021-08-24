@@ -1467,7 +1467,7 @@ export class WelcomeComponent implements OnInit {
 /**
   * 
   "/CNIC_M/*": {
-    "target": "http://192.168.16.103:8080",
+    "target": "http://192.168.16.174:8088",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
@@ -1479,8 +1479,9 @@ export class WelcomeComponent implements OnInit {
     "logLevel": "debug"
   },
 
-  http://report.leancloud.biz:37799/webroot/decision/v5/design/report/share/213612fba4a742809094df0e27ce6f2f?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6IjIxMzYxMmZiYTRhNzQyODA5MDk0ZGYwZTI3Y2U2ZjJmIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.yUikit7T_qzusqMrQe8J9tmKJ4DAJ4JI5IL6QIEgAjY
 
   */
 
+
+// C:\ProgramData\Oracle\Java\javapath;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;C:\ProgramData\chocolatey\bin;%ANDROID_HOME%\platform-tools;%ANDROID_HOME%\tools;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Windows;C:\Windows\SysWOW64;C:\Windows\SysWOW64\YYTPRO;D:\Program Files\TortoiseSVN\bin;%MAVEN_HOME%\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;%GRADLE_HOME%\bin;%ANDROID_HOME%\platform-tools;C:\Program Files (x86)\MySQL\MySQL Server 5.1\bin;C:\Program Files\OpenSSH\bin;D:\Git\bin;D:\Program Files\Redis\;D:\Program Files\PostgreSQL\11\bin;C:\Users\Administrator\AppData\Local\Programs\Python\Python37\Scripts;C:\Users\Administrator\AppData\Local\Programs\Python\Python37\;
 

@@ -266,7 +266,7 @@ aboutfeedback
     },
 8. 修正popover的表格内使用，点击冲突且冒泡事件。
 9. 考试小程序增加考试时段限制。
-10. 亩产一企一报告：企业查询/BusinessData/BusinessQuery中增加雷达图企业报告、意见库、策略库。
+10. 亩产一企一报告：src\app\routes\dcas-data-report\data-report\和企业查询/BusinessData/BusinessQuery中增加雷达图企业报告、意见库、策略库。
 11. 考试小程序提交按钮节流功能。
 12. 考试小程序正则替换掉emoji。
 
@@ -278,7 +278,7 @@ aboutfeedback
 5. 综合分析所有含指标的页面，保存指标设置到数据库，同时在下次打开页面时可以再次设置。  修改量很大。
 6. 配置管理的详情中增加一列“单位转换”，且可编辑。   **   这里增加了fromEvent()
 7. 电税分析：同比需要查看所有都没有，而不是第一个元素。  同比坐标轴数字，在乘以100后出现 1.40000000000001%，变成字符串操作。
-8. 亩产一企一报告，增加批量导出功能，将横列转为数列技巧。
+8. 亩产一企一报告，增加批量导出功能，将横列转为竖列技巧。
 9. 配置管理 放开规下企业UUID、单位转换的必填校验。
 10. 炎黄平台增加日程管理库DHTMLX,在today按钮上绑定        scheduler.attachEvent("onBeforeTodayDisplayed", () => {
           scheduler.renderCalendar({
@@ -305,11 +305,27 @@ aboutfeedback
 12. 亩产一企一报告-策略库增加iYear，同时增加选年复制功能。
 13. 新市政事件上报，图片上传预览，导入excel。
 
-1. 
+1. 新市政-我的任务。
+2. 新市政-任务列表：待接收、已完成。
+3. 新市政-任务列表：进行中。
+4. 新市政-事件列表。
+5. 企业查询-详情右上角的日期切换没有关联雷达图。
+6. 运河开发区亩产云图。
+7. 策略库初始化闪现按年复用模态。企业查询表格原有bug：需要手动设置只显示中文表头。
+8. 解决意见库中已删除，但是后端还是在策略库将它返回的问题，判断find是否存在。
+9. 图书管理菜单配置。页面图书档案.
+10. 策略库引用优化，在submit中判断新增就保存返回的main。
+11. 策略库帮助禁用，企业报告禁用。
+
+1. 新市政-图书管理-办理借阅。  神通数据库大写与后端entity冲突，造成空指针异常。逗号分隔字符串在myBatis中要用<foreach>
+2. 新市政-图书管理-节约列表和还书。
+3. 还书接口传递的是CBOOKBORROWUUID，改为CBOOKUUID.   myBatis中的  in '${_parameter}'  改为  CHARINDEX(cBookUUID, '${_parameter}') != 0   。
+4. 日照市亩产效益驾驶舱、日照市经济运行驾驶舱去掉日照市。
+5. 策略库向下移动引用、删除和条件一。
 
 2020/06/02  新冠疫情。北起楼，本加三，本外漆。cmmi3。
 2021/  西搬东。攻坚仨月。06/02康希诺单针。炎黄低代码。月2、7told increaseSalay。	党建考试小程序D:\xiangmu\sofware\考试系统\uexam-master。 	新市政D:\xiangmu\newMunicipal。
- 	  旧雨量app位置D:\lean-zwzq\yuliangApp
+ 	  旧雨量app位置D:\lean-zwzq\yuliangApp   测试103=>174
 
 
 
