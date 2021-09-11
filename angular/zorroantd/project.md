@@ -1,3 +1,8 @@
+2020/06/02  新冠疫情。北起楼，本加三，本外漆。cmmi3。
+2021/  西搬东。攻坚仨月。06/02康希诺单针。炎黄低代码。月2、7told increaseSalay。	党建考试小程序D:\xiangmu\sofware\考试系统\uexam-master。 	新市政D:\xiangmu\newMunicipal。
+ 	  旧雨量app位置D:\lean-zwzq\yuliangApp   测试103=>174
+
+
 D:\lk\js\shangguigu\shangguiguChao.js
 D:\lk\html\sggchao.txt
 D:\lk\html\flex布局\flex布局.txt
@@ -11,6 +16,8 @@ ip地址preUrl; console; debugger; environment.prod
 
 psql postgres 123456
 mysql root 123456xwl
+49.232.82.110    Beifen@***9871230             Aolianrp: rp@al123
+党建小程序     baseAPI: "http://221.214.62.247:8000",	 https://djks.aolianyun.com
 
 
 # 一、PC端：*************************************************************************************************************************************************
@@ -322,11 +329,40 @@ aboutfeedback
 3. 还书接口传递的是CBOOKBORROWUUID，改为CBOOKUUID.   myBatis中的  in '${_parameter}'  改为  CHARINDEX(cBookUUID, '${_parameter}') != 0   。
 4. 日照市亩产效益驾驶舱、日照市经济运行驾驶舱去掉日照市。
 5. 策略库向下移动引用、删除和条件一。
+6. 策略库缺了一套</nz-form-item>导致模态框闪现。tinymce或者G2的图形，必须要有ng-if = 大环境存在的isVisible
+7. 新市政-人员定位：map浮动底层，鼠标穿透，人员轨迹绘制。
+8. map circle-marker 点击变色，点击map图层恢复颜色并关闭popover。dragend和mapmove事件。
+9. 新市政移动端：uni-app选型
+10. 雷达图需要定时器和try catch。
+11. 意见库参照增加filter：businessObj.listFilter = this.toolsService.encrypt('bEffective = 1 and isnull (bBc，0)=0');
+12. 新市政事件驳回申请。
+13. 新市政img元素样式污染，给样式加上scoped。
+14. 新市政修改各必填项校验，按钮防抖必须唯一闭包。
 
-2020/06/02  新冠疫情。北起楼，本加三，本外漆。cmmi3。
-2021/  西搬东。攻坚仨月。06/02康希诺单针。炎黄低代码。月2、7told increaseSalay。	党建考试小程序D:\xiangmu\sofware\考试系统\uexam-master。 	新市政D:\xiangmu\newMunicipal。
- 	  旧雨量app位置D:\lean-zwzq\yuliangApp   测试103=>174
+2021-09
+1. 亩产企业查询创造性的次数循环表格，防止过多数据的加塞。
+2. 新市政app框架和登录，保存token。
+3. 禹城2020亩产云图，增加独立数据库sql利润率。
+4. 解决市政app白屏问题。
+5. 市政app路由跳转、个人信息、登出。
+6. 市政app尝试真机调试：真机usb连接vdi失败；设备管理器看不到真机驱动；借用手机助手的wifi方式真机能连接vdi但还是无法调试；借用各种模拟器发现vdi显卡不支持opengl2.0；adb device -l 能看到127.0.0.1：5037是usb连接的真机，可以connect上去，但是无法调试；使用android sdk打开一个模拟机，长期黑屏。
+7. 非vdi电脑利用chrome的  chrome://inspect. 勾选"discovery usb device"调试发现一个404错误，可能是sockjs.js.map视图文件缺失导致白屏。
+8. 改用vue  vant  cordova框架。
+9. vant组件\node_modules\_vant@1.6.28@vant\lib\style\var.less中一行@toast-background-color: rgba(@text-color, .88);  报错Error evaluating function `rgba`: color functions take numbers as parameters，  将rgba改为fade。
+10. 环境.env及url前缀，拦截器及toast，接口调试正常。路由守卫在登录不过期时跳过登录页。全局loading
+11. cookies存token和用户密码，只要token没过期，就解密密码并校验通过后直接跳转首页，否则转到登录页。
 
-
-
-
+1. 在gitlab上建立新市政app仓库及master，release分支，各开发人员分支并分配权限。
+2. 合并禹城2020亩产云图的地图市中和高新。
+3. 终于打包成功，不能再vdi和加密环境下。linux、mac系统需要root权限。
+4. 解决白屏问题，用hash和./。。。无线与本地局域网是能ping通的。所以登录报错解决。
+5. app是没有跨域问题的。
+6. 苏州展示云图统一背景图片颜色。
+7. 测试帆软日期截止反色显示，表格滚动成功。
+8. 考试小程序正式地址测试正常。
+9. Hbuilder打包apk运行正常，cordova打包登录失败，request拦截还是android 9不支持http？
+10. 将每一个可能报错的地方添加alert，android机调试发现 axios response拦截器报错 network error，多方搜找，确定了修改AndroidManifest.xml的允许http权限； 再chrome://tracing 调试netlog，发现接口地址正确，最后在网上找到可能还是跨域问题，于是后端控制器添加了@CrossOrigin，这时/login接口成功。但是其他/getInfo 和 /logout接口还是失败，原因是/login接口没有添加header Authorization来校验登录态。 
+11. 大屏展示月度计划。
+12. 市政地图改为2d normal模式。
+13. 考试小程序审核未通过，原因是个人信息页面有搜集隐私的嫌疑，所以整改该页面。 又被驳回，原因是首页没有运营内容，但是真机调试是有的，截图作为证据上传再次审核。
+14. 微信小程序测试没问题，正式版报request:fail url not in domain list ，原因是没有配置https的request域名。
